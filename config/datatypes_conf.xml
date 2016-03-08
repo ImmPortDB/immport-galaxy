@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<datatypes>
+  <registration converters_path="lib/galaxy/datatypes/converters" display_path="display_applications">
+
+    <!-- Flow Cytometry Datatypes -->
+    <datatype extension="fcs" type="galaxy.datatypes.flow:FCS" mimetype="application/octet-stream" display_in_upload="true" description="A FCS binary sequence file with a '.fcs' file extension.  You must manually select this 'File Format' when uploading the file."/>
+
+    <datatype extension="flowtext" type="galaxy.datatypes.flow:FlowText" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow text file with a '.flowtext' file extension.  You must manually select this 'File Format' when uploading the file."/>
+
+    <datatype extension="flowclr" type="galaxy.datatypes.flow:FlowClustered" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow text file containing population information with a '.flowclr' file extension.  You must manually select this 'File Format' when uploading the file."/>
+
+    <datatype extension="flowmfi" type="galaxy.datatypes.flow:FlowMFI" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow MFI file with a '.flowmfi' file extension.  You must manually select this 'File Format' when uploading the file."/>
+
+    <!-- MSI added Datatypes -->
+    <datatype extension="csv" type="galaxy.datatypes.tabular:CSV" display_in_upload="true" />
+    <!-- End MSI added Datatypes -->
+
+    <datatype extension="data" type="galaxy.datatypes.data:Data" mimetype="application/octet-stream" max_optional_metadata_filesize="1048576" />
+    <datatype extension="html" type="galaxy.datatypes.text:Html" mimetype="text/html"/>
+    <datatype extension="jpg" type="galaxy.datatypes.images:Jpg" mimetype="image/jpeg"/>
+    <datatype extension="zip" type="galaxy.datatypes.binary:CompressedZipArchive" display_in_upload="True"/>
+    <datatype extension="pdf" type="galaxy.datatypes.images:Pdf" mimetype="application/pdf" display_in_upload="true"/>
+    <datatype extension="png" type="galaxy.datatypes.images:Png" mimetype="image/png"/>
+    <datatype extension="tabular" type="galaxy.datatypes.tabular:Tabular" display_in_upload="true" description="Any data in tab delimited format (tabular)." description_url="https://wiki.galaxyproject.org/Learn/Datatypes#Tabular_.28tab_delimited.29"/>
+    <datatype extension="txt" type="galaxy.datatypes.data:Text" display_in_upload="true" description="Any text file." description_url="https://wiki.galaxyproject.org/Learn/Datatypes#Plain_text"/>
+    <datatype extension="xml" type="galaxy.datatypes.xml:GenericXml" mimetype="application/xml" display_in_upload="true"/>
+  </registration>
+
+  <sniffers>
+    <!--
+    The order in which Galaxy attempts to determine data types is
+    important because some formats are much more loosely defined
+    than others.  The following list should be the most rigidly
+    defined format first, followed by next-most rigidly defined,
+    and so on.
+    -->
+    <sniffer type="galaxy.datatypes.images:Html"/>
+    <sniffer type="galaxy.datatypes.images:Pdf"/>
+    <sniffer type="galaxy.datatypes.tabular:CSV"/>
+    <sniffer type="galaxy.datatypes.images:Jpg"/>
+    <sniffer type="galaxy.datatypes.images:Png"/>
+  </sniffers>
+  <build_sites>
+      <!--
+      Build sites define the builds (dbkeys) available at sites used by display
+      applications and the URL to those sites.
+
+      The `display` attributes on the `ucsc` and `gbrowse` sites replace the
+      `ucsc_display_sites` and `gbrowse_display_sites` options in galaxy.ini.
+      Because these are used by "old-style" display applications, their types
+      cannot change if you want the old-style display links for these sites to
+      work.
+      -->
+      <site type="ucsc" file="tool-data/shared/ucsc/ucsc_build_sites.txt" display="main,test,archaea,ucla"/>
+      <site type="gbrowse" file="tool-data/shared/gbrowse/gbrowse_build_sites.txt" display="modencode,sgd_yeast,tair,wormbase,wormbase_ws120,wormbase_ws140,wormbase_ws170,wormbase_ws180,wormbase_ws190,wormbase_ws200,wormbase_ws204,wormbase_ws210,wormbase_ws220,wormbase_ws225"/>
+      <site type="ensembl" file="tool-data/shared/ensembl/ensembl_sites.txt"/>
+      <site type="ensembl_data_url" file="tool-data/shared/ensembl/ensembl_sites_data_URL.txt"/>
+      <site type="igv" file="tool-data/shared/igv/igv_build_sites.txt"/>
+      <site type="rviewer" file="tool-data/shared/rviewer/rviewer_build_sites.txt"/>
+  </build_sites>
+</datatypes>
