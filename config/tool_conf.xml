@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<toolbox>
+  <section id="flowfileupload" name="Upload Flow Files">
+    <tool file="data_source/upload.xml" />
+  </section>
+  <section id="flowfiletools" name="Flow File Tools">
+    <tool file="flowtools/transformFCSTrans.xml" />
+    <tool file="flowtools/convertFCSToText.xml" />
+    <tool file="flowtools/extractKeywords.xml" />
+    <tool file="flowtools/removeColumns.xml" />
+    <tool file="flowtools/mergeFCS.xml" />
+  </section>
+  <section id="flowanalysistools" name="Flow Analysis Tools">
+    <tool file="flowtools/runFlock.xml" />
+    <tool file="flowtools/runFCSTransAndFlock.xml" />
+    <tool file="flowtools/generateMFI.xml" />
+    <tool file="flowtools/runCrossSample.xml" />
+  </section>
+  <section id="flowvisualizationtools" name="Flow Visualization Tools">
+    <tool file="flowtools/genFlowOverview.xml" />
+  </section>
+</toolbox>
