@@ -1,0 +1,14 @@
+<tool id="extractKeywords" name="Extract Keywords from FCS File" version="1.0">
+  <description>Extract the Keywords from the FCS File</description>
+  <command interpreter="/home/galaxy/anaconda/bin/python">extractKeywords.py -i $input -k $keyword_file -t $__tool_directory__</command>
+  <inputs>
+    <param format="fcs" name="input" type="data" label="FCS file"/>
+  </inputs>
+  <outputs>
+    <data format="tabular" name="keyword_file" label="Extract Keywords on ${input.name}"/>
+  </outputs>
+
+ <help>
+   This tool extracts the Keywords from a FCS file.
+ </help>
+</tool>

@@ -1,0 +1,14 @@
+<tool id="generateMFI" name="Generate the MFI from a Flow Result File" version="1.0">
+  <description>Generate the MFI from a Flow Result File</description>
+  <command interpreter="/home/galaxy/anaconda/bin/python">generateMFI.py -i $input -o $output</command>
+  <inputs>
+    <param format="flowclr" name="input" type="data" label="Flow Text file"/>
+  </inputs>
+  <outputs>
+    <data format="flowmfi" name="output" label="MFI from ${input.name}"/>
+  </outputs>
+
+ <help>
+   This tool generates the MFI from a Flow result file.
+ </help>
+</tool>

@@ -1,0 +1,30 @@
+<tool id="runFlock" name="Run Flock" version="1.0">
+  <description>Run Flock using a FCS file that was converted/transformed to a text file</description>
+  <command interpreter="/home/galaxy/anaconda/bin/python">
+    runFlock.py -i $input -o $output -m $method -t $__tool_directory__
+    #if $bins
+      -b $bins
+    #end if
+    #if $density
+      -d $density
+    #end if
+  </command>
+
+  <inputs>
+    <param format="flowtext" name="input" type="data" label="Source file"/>
+    <param name="method" type="select" label="Method">
+        <option value="flock1" selected="true">Flock Version 1</option>
+        <option value="flock2">Flock Version 2</option>
+    </param>
+    <param name="bins" type="integer" min="6" max="30" optional="true" value="" label="bins (6-30)"/>
+    <param name="density" type="integer" min="2" max="100" optional="true" value="" label="density (2-100)"/>
+  </inputs>
+
+  <outputs>
+    <data format="flowclr" name="output" label="Flock on ${input.name}"/>
+  </outputs>
+   
+ <help>
+   This tool runs Flock using a FCS file that was converted to a text file
+ </help>
+</tool>

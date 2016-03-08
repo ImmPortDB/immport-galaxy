@@ -1,0 +1,20 @@
+<tool id="runCrossSample" name="Run Cross Sample" version="1.0">
+  <description>Run CrossSample using a Flow file that was run using Flock</description>
+  <command interpreter="/home/galaxy/anaconda/bin/python">
+    runCrossSample.py -m $mfi -i $input -o $output -t $__tool_directory__
+  </command>
+
+  <inputs>
+    <param format="flowmfi" name="mfi" type="data" label="MFI"/>
+    <param format="flowtext" name="input" type="data" label="Flow Text File"/>
+  </inputs>
+
+  <outputs>
+    <data format="flowclr" name="output" label="CrossSample on ${input.name} using ${mfi.name}"/>
+  </outputs>
+
+ <help>
+   This tool runs CrossSample using a MFI file and FCS File that was converted to a text file.
+ </help>
+</tool>
+

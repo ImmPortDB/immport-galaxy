@@ -1,0 +1,18 @@
+<tool id="testCollections" name="Test Collections" version="1.0">
+  <description>Test Collections</description>
+  <command interpreter="/home/galaxy/anaconda/bin/python">testCollections.py -o $collection_list -t $__tool_directory__
+ #for $f in $input#
+    -i $f
+ #end for#
+  </command>
+  <inputs>
+    <param format="fcs" name="input" type="data_collection" collection_type="list" label="Test Collection"/>
+  </inputs>
+  <outputs>
+    <data format="tabular" name="collection_list" label="CollectionList ${input.name}"/>
+  </outputs>
+
+ <help>
+   This tool test dataset collections.
+ </help>
+</tool>

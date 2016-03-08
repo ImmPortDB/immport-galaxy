@@ -1,0 +1,22 @@
+<tool id="mergeFCS" name="Merge FCS" version="1.0">
+  <description>Merge Multiple FCS files into one FCS file</description>
+  <command interpreter="/home/galaxy/anaconda/bin/python">mergeFCS.py -o $output_file -t $__tool_directory__
+ #if $sample_rate
+   -s $sample_rate
+ #end if
+ #for $f in $input#
+    -i $f
+ #end for#
+  </command>
+  <inputs>
+    <param format="fcs" name="input" type="data_collection" collection_type="list" label="Test Collection"/>
+    <param name="sample_rate" type="integer" min="1" max="100" optional="true" value="" label="Sampling Rate (1-100)"/>
+  </inputs>
+  <outputs>
+    <data format="fcs" name="output_file" label="Merge FCS on ${input.name}"/>
+  </outputs>
+
+ <help>
+   This tool merges multipe FCS files into one FCS file.
+ </help>
+</tool>
