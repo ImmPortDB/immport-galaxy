@@ -1,6 +1,6 @@
 <tool id="runFlock" name="Run Flock" version="1.0">
   <description>Run Flock using a FCS file that was converted/transformed to a text file</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">
+  <command interpreter="python">
     runFlock.py -i $input -o $output -m $method -t $__tool_directory__
     #if $bins
       -b $bins

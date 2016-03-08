@@ -1,6 +1,6 @@
 <tool id="genFlowOverview" name="Generate Overview Information" version="1.0">
   <description>Show Flow Result overview of flow analysis</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">genFlowOverview.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
+  <command interpreter="python">genFlowOverview.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Result File"/>
   </inputs>

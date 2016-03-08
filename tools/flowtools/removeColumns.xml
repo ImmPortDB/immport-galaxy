@@ -1,6 +1,6 @@
 <tool id="removeColumns" name="Remove Columns from Flow Text File" version="1.0">
   <description>Remove Columns from a Flow Text File</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">removeColumns.py -i $input -o $output1 -c "${columnList}"</command>
+  <command interpreter="python">removeColumns.py -i $input -o $output1 -c "${columnList}"</command>
   <inputs>
     <param format="txt" name="input" type="data" label="Flow text file"/>
     <param name="columnList" type="text" value="1,2" label="Remove Columns"/>

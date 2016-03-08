@@ -1,6 +1,6 @@
 <tool id="mergeFCS" name="Merge FCS" version="1.0">
   <description>Merge Multiple FCS files into one FCS file</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">mergeFCS.py -o $output_file -t $__tool_directory__
+  <command interpreter="python">mergeFCS.py -o $output_file -t $__tool_directory__
  #if $sample_rate
    -s $sample_rate
  #end if

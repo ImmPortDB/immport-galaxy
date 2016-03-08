@@ -1,6 +1,6 @@
 <tool id="testCollections" name="Test Collections" version="1.0">
   <description>Test Collections</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">testCollections.py -o $collection_list -t $__tool_directory__
+  <command interpreter="python">testCollections.py -o $collection_list -t $__tool_directory__
  #for $f in $input#
     -i $f
  #end for#

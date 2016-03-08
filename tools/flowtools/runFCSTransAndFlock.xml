@@ -1,6 +1,6 @@
 <tool id="runFCSTransAndFlock" name="Run FCSTrans and Flock" version="1.0">
   <description>Transform the FCS file using FCSTrans then run Flock</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">
+  <command interpreter="python">
     runFCSTransAndFlock.py -i $input -c $compensate -f "$output_1" -o "$output_2" -m $method -t $__tool_directory__
     #if $bins
       -b $bins

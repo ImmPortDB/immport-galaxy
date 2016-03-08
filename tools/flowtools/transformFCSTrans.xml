@@ -1,6 +1,6 @@
 <tool id="transformFCSTrans" name="Transform using FCSTrans" version="1.0">
   <description>Transform the FCS file to a text file using the FCSTrans tranformation</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">transformFCSTrans.py -i "${input_file}" -c $compensate -o "$output_file" -t $__tool_directory__</command>
+  <command interpreter="python">transformFCSTrans.py -i "${input_file}" -c $compensate -o "$output_file" -t $__tool_directory__</command>
   <inputs>
     <param format="fcs" name="input_file" type="data" label="FCS file"/>
     <param name="compensate" type="select" label="Compensate">

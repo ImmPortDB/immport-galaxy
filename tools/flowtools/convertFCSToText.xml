@@ -1,6 +1,6 @@
 <tool id="convertFCSToText" name="Convert FCS to Text" version="1.0">
   <description>Convert FCS file to text format with no tranformation</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">convertFCSToText.py -i $input -c $compensate -o $output_file -t $__tool_directory__</command>
+  <command interpreter="python">convertFCSToText.py -i $input -c $compensate -o $output_file -t $__tool_directory__</command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS File"/>
     <param name="compensate" type="select" label="Compensate">

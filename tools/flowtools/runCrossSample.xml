@@ -1,6 +1,6 @@
 <tool id="runCrossSample" name="Run Cross Sample" version="1.0">
   <description>Run CrossSample using a Flow file that was run using Flock</description>
-  <command interpreter="/home/galaxy/anaconda/bin/python">
+  <command interpreter="python">
     runCrossSample.py -m $mfi -i $input -o $output -t $__tool_directory__
   </command>
 
