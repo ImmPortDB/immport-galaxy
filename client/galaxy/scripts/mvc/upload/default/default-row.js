@@ -317,9 +317,9 @@ return Backbone.View.extend({
                         '<div id="extension" class="upload-extension" style="float: left;"/>&nbsp;&nbsp' +
                         '<div id="extension-info" class="upload-icon-button fa fa-search"/>' +
                     '</td>' +
-                    '<td>' +
-                        '<div id="genome" class="upload-genome"/>' +
-                    '</td>' +
+                    //'<td>' +
+                    //    '<div id="genome" class="upload-genome"/>' +
+                    //'</td>' +
                     '<td><div id="settings" class="upload-settings upload-icon-button fa fa-gear"/></td>' +
                     '<td>' +
                         '<div id="info" class="upload-info">' +

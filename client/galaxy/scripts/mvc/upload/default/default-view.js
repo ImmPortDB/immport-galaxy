@@ -102,7 +102,12 @@ return Backbone.View.extend({
         this.select_extension = new Select.View({
             css         : 'footer-selection',
             container   : this.$('#footer-extension'),
-            data        : _.filter(this.list_extensions, function(ext) { return !ext.composite_files }),
+            data        : [ { 'id': 'fcs', 'text': 'fcs','description': "FCS" },
+                            { 'id': 'flowtext', 'text': 'flowtext','description': 'Flow Text FIle' },
+                            { 'id': 'flowclr', 'text': 'flowclr','description': 'Flow CLR FIle' },
+                            { 'id': 'flowmfi', 'text': 'flowmfi','description': 'Flow MFI FIle' }
+                          ],
+            //data        : _.filter(this.list_extensions, function(ext) { return !ext.composite_files }),
             value       : this.options.default_extension,
             onchange    : function(extension) {
                 self.updateExtension(extension);
@@ -543,7 +548,7 @@ return Backbone.View.extend({
                                     '<th>Name</th>' +
                                     '<th>Size</th>' +
                                     '<th>Type</th>' +
-                                    '<th>Genome</th>' +
+                                    //'<th>Genome</th>' +
                                     '<th>Settings</th>' +
                                     '<th>Status</th>' +
                                     '<th/>' +
@@ -556,8 +561,8 @@ return Backbone.View.extend({
                         '<span class="footer-title">Type (set all):</span>' +
                         '<span id="footer-extension"/>' +
                         '<span id="footer-extension-info" class="upload-icon-button fa fa-search"/> ' +
-                        '<span class="footer-title">Genome (set all):</span>' +
-                        '<span id="footer-genome"/>' +
+                        //'<span class="footer-title">Genome (set all):</span>' +
+                        //'<span id="footer-genome"/>' +
                     '</div>' +
                     '<div id="upload-buttons" class="upload-buttons"/>' +
                 '</div>';

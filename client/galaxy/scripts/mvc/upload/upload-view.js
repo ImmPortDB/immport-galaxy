@@ -143,16 +143,16 @@ return Backbone.View.extend({
                 title   : 'Regular',
                 $el     : this.default_view.$el
             });
-            this.composite_view = new UploadViewComposite( this );
-            this.tabs.add({
-                id      : 'composite',
-                title   : 'Composite',
-                $el     : this.composite_view.$el
-            });
+            //this.composite_view = new UploadViewComposite( this );
+            //this.tabs.add({
+            //    id      : 'composite',
+            //    title   : 'Composite',
+            //    $el     : this.composite_view.$el
+            //});
 
             // make modal
             this.modal = new Modal.View({
-                title           : 'Download from web or upload from disk',
+                title           : 'Upload Flow Files',
                 body            : this.tabs.$el,
                 height          : this.options.height,
                 width           : this.options.width,
