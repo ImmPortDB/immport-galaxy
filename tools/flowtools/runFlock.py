@@ -4,6 +4,8 @@ import sys
 import os
 from argparse import ArgumentParser
 
+
+
 def runFlock(input_file,method,bins,density,output_file,tool_directory):
     run_command = tool_directory + "/bin/"  + method + " " + input_file
     if bins:
