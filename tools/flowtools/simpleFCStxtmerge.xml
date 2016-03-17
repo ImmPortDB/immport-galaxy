@@ -1,0 +1,96 @@
+<tool id="simpleFCStxtmerge" name="Simple merge" version="1.0">
+  <description>of txt-converted FCS files into one text file</description>
+  <command interpreter="python">simpleFCStxtmerge.py -o $output_file -c $headings
+ #for $f in $input#
+    -i $f
+ #end for#
+  </command>
+  <inputs>
+    <param format="txt,flowtext,tabular" name="input" type="data_collection" collection_type="list" label="Test Collection"/>
+    <param name="headings" type="boolean" checked="false" truevalue="True" falsevalue="False" label="Check headings?">
+    </param>
+  </inputs>
+  <outputs>
+    <data format="flowtext" name="output_file" label="Simple flowtext merge on ${input.name}"/>
+  </outputs>
+  <stdio>
+    <exit_code range="2" level="fatal" description="Discrepancy in number of columns. See stderr for more details." />
+    <exit_code range="3" level="fatal" description="Headings are inconsistent between files. See stderr for more details." />
+    <exit_code range="4" level="fatal" description="Non-numeric data. See stderr for more details." />
+    <exit_code range="5" level="fatal" description="Inconsistencies in column numbers and files' 'headings. See stderr for more details." />
+    <exit_code range="6" level="fatal" description="Non-numeric data and discrepancy in number of columns. See stderr for more details." />
+    <exit_code range="7" level="fatal" description="Non-numeric data and inconsistencies between files' headings'. See stderr for more details." />
+    <exit_code range="9" level="fatal" description="Non-numeric data and inconsistencies in number of columns and headings. See stderr for more details." />
+  </stdio>
+ <help>
+   This tool merges multipe txt-converted FCS files into one text file.
+
+-----
+
+**Input files**
+
+This tool can take collections of txt, flowtext or tabular files as input.
+
+**Output file**
+
+The output flowtext file contains the concatenated input files provided that:
+
+ 1. All input files have the same number of columns.
+ 2. All lines after the header line contain only numbers.
+ 3. If check headings is selected, the headers must be the same in all files.
+
+.. class:: warningmark
+
+Potential errors are logged to stderr. If the number of errors reaches 10, the run is aborted.
+
+-----
+
+**Example 1**
+
+.. class:: infomark
+
+This run will work if the option "check headings?" is not selected:
+
+*File1*::
+
+   Marker1 Marker2 Marker3
+   34      45      12
+   33      65      10
+   
+*File2*::
+
+   Marker4 Marker5 Marker3
+   19      62      98
+   12      36      58
+
+*Output*::
+
+   Marker1 Marker2 Marker3
+   34      45      12
+   33      65      10
+   19      62      98
+   12      36      58
+
+**Example 2**
+
+*File1*::
+
+   Marker1 Marker2 Marker3
+   34      45      12
+   33      65      10
+   
+*File2*::
+
+   Marker1 Marker2 Marker3
+   19      62      98
+   12      36      58
+
+*Output*::
+
+   Marker1 Marker2 Marker3
+   34      45      12
+   33      65      10
+   19      62      98
+   12      36      58
+ </help>
+</tool>
