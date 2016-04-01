@@ -1,16 +1,61 @@
 <tool id="genFlowOverview" name="Generate Overview Information" version="1.0">
-  <description>Show Flow Result overview of flow analysis</description>
+  <description>of flow analysis</description>
   <command interpreter="python">genFlowOverview.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Result File"/>
   </inputs>
   <outputs>
-    <data format="html" name="html_file" label="Overview on ${input.name}">
+    <data format="html" name="html_file" label="Overview of ${input.name}">
     </data>
   </outputs>
 
  <help>
-   This tool generates an overview of the flow analysis result html file.
+   This tool generates an overview of the flow analysis results.
+   
+-----
+
+**Input**
+
+This tool can read in the output of FLOCK or of CrossSample (a tab-separated file containing the markers fluorescence intensities for each event, as well as the population or cell type they were attributed to)
+
+**Output**
+
+The output is a page with multiple tabs that allows visualization of the data. 
+
+-----
+
+**Example**
+
+*Input*::
+
+   Marker1 Marker2 Marker3 Population
+   33      47      11      1
+   31      64      11      6
+   21      62      99      2
+   14      34      60      7
+
+*Output*
+
+Summary of the data:
+
+.. image:: ../../static/images/flowtools/summary.png
+
+Scatterplots overview:
+
+.. image:: ../../static/images/flowtools/overview.png
+
+2D Scatterplot - the user can choose which populations and markers to display.
+
+.. image:: ../../static/images/flowtools/scatter2D.png
+
+3D Scatterplot - the user can choose which populations and markers to display.
+
+.. image:: ../../static/images/flowtools/scatter3D.png
+
+3D Scatterplot of the populations MFI - the user can choose which populations and markers to display.
+
+.. image:: ../../static/images/flowtools/mfi3D.png
+
  </help>
 </tool>
 

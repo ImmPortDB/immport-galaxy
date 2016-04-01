@@ -1,8 +1,8 @@
-<tool id="removeColumns" name="Remove Columns from Flow Text File" version="1.0">
-  <description>Remove Columns from a Flow Text File</description>
+<tool id="removeColumns" name="Remove columns" version="1.0">
+  <description>from a Flow text file.</description>
   <command interpreter="python">removeColumns.py -i $input -o $output1 -c "${columnList}"</command>
   <inputs>
-    <param format="txt" name="input" type="data" label="Flow text file"/>
+    <param format="txt, flowtext, tabular" name="input" type="data" label="Flow text file"/>
     <param name="columnList" type="text" value="1,2" label="Remove Columns"/>
   </inputs>
   <outputs>
@@ -11,5 +11,41 @@
 
  <help>
    This tool removes columns from a Flow text file.
+
+-----
+
+**Input files**
+
+This tool can take txt, flowtext or tabular files as input.
+
+**Output file**
+
+The output is a tabular file, copy of the input file without the selected columns. 
+
+.. class:: infomark
+
+Tip: If you need to change the file type of the output, you can do so by clicking on the pencil to edit attribute. Go to the Datatypes tab and change the type of your dataset.
+
+-----
+
+**Example**
+
+*Input*::
+
+   Marker1 Marker2 Marker3 Marker4
+   34      45      12      35
+   33      65      10      54
+   19      62      98      65
+   12      36      58      23
+
+Selected columns: 2,4
+
+*Output*::
+
+   Marker1 Marker4
+   34      35
+   33      54
+   19      65
+   12      23
  </help>
 </tool>

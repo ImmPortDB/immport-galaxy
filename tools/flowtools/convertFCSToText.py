@@ -14,7 +14,7 @@ def convertFCSToText(input_file,compensate,output_file,
     command ='source("' + r_source + '")'
     R(command)
     command = 'transformFCS("' + input_file + '","' + output_file \
-                         + '","' + keyword_file + '",' + compensate \
+                         + '","' + compensate + '",' + keyword_file \
                          + ',FALSE)'
     R(command)
     return

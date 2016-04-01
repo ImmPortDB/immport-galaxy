@@ -1,13 +1,16 @@
 #
-# ImmPort FCSConvert
+# ImmPort FCSKeywords
 #
 # Converts the FCS file to text without transformaton
 # To run in R
 # 1) library(flowCore)
-# 2) source("FCSConvert.R")
+# 2) source("FCSKeyword.R")
 # 3) transformFCS("filename")
 #
-# Version 1.4
+# Version 1.4.1
+# March 2016 -- added lines to run directly from command line
+#
+
 library(flowCore)
 
 #
@@ -61,6 +64,10 @@ transformFCS <- function(input_file, keyword_file="", debug=FALSE) {
     if (isValid) {
         extractKeywords(input_file, keyword_file, debug)
     } else {
-        print (paste(input_file, "is does not meet FCS standard"))
+        print (paste(input_file, "does not meet FCS standard"))
     }
 }
+
+args <- commandArgs(TRUE)
+transformFCS(args[2], args[3])
+

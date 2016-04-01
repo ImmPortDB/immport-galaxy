@@ -1,6 +1,8 @@
-<tool id="extractKeywords" name="Extract Keywords from FCS File" version="1.0">
-  <description>Extract the Keywords from the FCS File</description>
-  <command interpreter="python">extractKeywords.py -i $input -k $keyword_file -t $__tool_directory__</command>
+<tool id="extractKeywords" name="Extract Keywords" version="1.0">
+  <description>from FCS files.</description>
+  <command>
+    Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSKeyword.R --args $input $keyword_file
+  </command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS file"/>
   </inputs>
@@ -10,5 +12,33 @@
 
  <help>
    This tool extracts the Keywords from a FCS file.
+   
+-----
+
+**Input files**
+
+This tool takes FCS files as input. It can only process one file at a time.
+
+**Output file**
+
+The output is a list of the headers in the provided FCS file.
+
+-----
+
+**Example**
+
+FCSversion=2
+$BYTEORD=4,3,2,1
+$DATATYPE=I
+$NEXTDATA=0
+$SYS=Macintosh System Software 9.2.2
+CREATOR=CELLQuest<aa> 3.3
+$TOT=20000
+$MODE=L
+$PAR=6
+$P1N=FSC-H
+.
+..
+...
  </help>
 </tool>

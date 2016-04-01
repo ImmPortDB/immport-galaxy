@@ -1,5 +1,5 @@
 <tool id="simpleFCStxtmerge" name="Simple merge" version="1.0">
-  <description>of txt-converted FCS files into one text file</description>
+  <description>of txt-converted FCS files into one text file.</description>
   <command interpreter="python">simpleFCStxtmerge.py -o $output_file -c $headings
  #for $f in $input#
     -i $f
@@ -15,7 +15,7 @@
   </outputs>
   <stdio>
     <exit_code range="2" level="fatal" description="Discrepancy in number of columns. See stderr for more details." />
-    <exit_code range="3" level="fatal" description="Headings are inconsistent between files. See stderr for more details." />
+    <exit_code range="3" level="warning" description="Headings are inconsistent between files. See stderr for more details." />
     <exit_code range="4" level="fatal" description="Non-numeric data. See stderr for more details." />
     <exit_code range="5" level="fatal" description="Inconsistencies in column numbers and files' 'headings. See stderr for more details." />
     <exit_code range="6" level="fatal" description="Non-numeric data and discrepancy in number of columns. See stderr for more details." />

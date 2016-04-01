@@ -1,11 +1,11 @@
-<tool id="transformFCSTrans" name="Transform using FCSTrans" version="1.0">
-  <description>Transform the FCS file to a text file using the FCSTrans tranformation</description>
-  <command interpreter="python">transformFCSTrans.py -i "${input_file}" -c $compensate -o "$output_file" -t $__tool_directory__</command>
+<tool id="transformFCSTrans" name="Convert FCS to Text" version="1.0">
+  <description>using the FCSTrans tranformation.</description>
+  <command>
+    Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSTrans.R --args $input_file $output_file $compensate
+  </command>
   <inputs>
     <param format="fcs" name="input_file" type="data" label="FCS file"/>
-    <param name="compensate" type="select" label="Compensate">
-      <option value="FALSE" selected="true">FALSE</option>
-      <option value="TRUE">TRUE</option>
+    <param name="compensate" type="boolean" checked="false" truevalue="TRUE" falsevalue="FALSE" label="Compensate?">
     </param>
   </inputs>
   <outputs>
@@ -13,7 +13,34 @@
   </outputs>
 
  <help>
-   This tool transform the FCS file to a text file using the FCSTrans transformation
+   This tool converts FCS files to text using the FCSTrans transformation.
+   
+-----
+
+**Input files**
+
+This tool takes valid FCS files as input. It can only process one file at a time.
+The user can choose to compensate the data.
+
+**Output file**
+
+The output is a tab-separated text, containing the transformed fluorescence intensity values for each marker.
+
+-----
+
+**Example**::
+
+   Forward Scatter Side Scatter Marker1 Marker2 Marker3 Marker4
+   449             157          551     129     169     292
+   894             1023	        199     277     320     227
+   262             73           437     69      0       146
+   340             115          509     268     0       74
+
+-----
+
+**Reference**
+
+FCSTrans: An open source software system for FCS file conversion and data transformation Qian Y, Liu Y, Campbell J, Thomson E, Kong YM, Scheuermann RH. 2012 Cytometry Part A. 81A(5) doi.org/10.1002/cyto.a.22037
  </help>
 </tool>
 

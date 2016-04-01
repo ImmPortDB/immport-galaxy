@@ -1,11 +1,11 @@
 <tool id="convertFCSToText" name="Convert FCS to Text" version="1.0">
-  <description>Convert FCS file to text format with no tranformation</description>
-  <command interpreter="python">convertFCSToText.py -i $input -c $compensate -o $output_file -t $__tool_directory__</command>
+  <description>with no tranformation.</description>
+  <command>
+        Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSConvert.R --args $input $output_file $compensate 
+  </command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS File"/>
-    <param name="compensate" type="select" label="Compensate">
-      <option value="FALSE" selected="true">FALSE</option>
-      <option value="TRUE">TRUE</option>
+    <param name="compensate" type="boolean" checked="false" truevalue="TRUE" falsevalue="FALSE" label="Compensate?">
     </param>
   </inputs>
   <outputs>
@@ -13,6 +13,27 @@
   </outputs>
 
  <help>
-   This tool converts FCS file to text format with no tranformation
+   This tool converts FCS files to text format with no tranformation.
+   
+-----
+
+**Input files**
+
+This tool takes valid FCS files as input. It can only process one file at a time.
+The user can choose to compensate the data.
+
+**Output file**
+
+The output is a tab-separated text, containing the fluorescence intensity values for each marker.
+
+-----
+
+**Example**::
+
+   Forward Scatter Side Scatter Marker1 Marker2 Marker3 Marker4
+   449             157          551     129     169     292
+   894             1023	        199     277     320     227
+   262             73           437     69      0       146
+   340             115          509     268     0       74
  </help>
 </tool>

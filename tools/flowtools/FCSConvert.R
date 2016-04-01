@@ -7,11 +7,13 @@
 # 2) source("FCSConvert.R")
 # 3) transformFCS("filename")
 #
-# Version 1.4
+# Version 1.4.1
+# March 2016 -- added lines to run directly from command line
+# 
+
 library(flowCore)
 
-#
-#
+
 convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
     # Check file type and FCS version
     if (class(fcs)[1] != "flowFrame") {
@@ -127,7 +129,7 @@ processFCSFile <- function(input_file, output_file="",
 # @param compensate     Flag indicating whether to apply compensation
 #                       matrix if it exists.
 transformFCS <- function(input_file, output_file="",
-                         keyword_file="", compensate=FALSE, debug=FALSE) {
+                         compensate=FALSE, keyword_file="", debug=FALSE) {
 
     isValid = F
     # Check file beginning matches FCS standard
@@ -140,6 +142,9 @@ transformFCS <- function(input_file, output_file="",
     if (isValid) {
         processFCSFile(input_file, output_file, keyword_file, compensate, debug)
     } else {
-        print (paste(input_file, "is does not meet FCS standard"))
+        print (paste(input_file, "does not meet FCS standard"))
     }
 }
+
+args <- commandArgs(trailingOnly = TRUE)
+transformFCS(args[2], args[3], args[4])

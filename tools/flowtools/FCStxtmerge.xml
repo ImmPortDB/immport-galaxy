@@ -1,5 +1,5 @@
 <tool id="FCStxtmerge" name="Merge txt-converted FCS files" version="1.0">
-  <description>into one text file based on headers</description>
+  <description>into one text file based on headers.</description>
   <command interpreter="python">FCStxtmerge.py -o $output_file
  #if $columns 
    -c $columns

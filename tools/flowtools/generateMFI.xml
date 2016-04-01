@@ -1,5 +1,5 @@
-<tool id="generateMFI" name="Generate the MFI from a Flow Result File" version="1.0">
-  <description>Generate the MFI from a Flow Result File</description>
+<tool id="generateMFI" name="Generate the MFI" version="1.0">
+  <description>from a flow result file</description>
   <command interpreter="python">generateMFI.py -i $input -o $output</command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Text file"/>
@@ -9,6 +9,36 @@
   </outputs>
 
  <help>
-   This tool generates the MFI from a Flow result file.
+   This tool generates the MFI from a flow result file.
+   
+-----
+
+**Input file**
+
+This tool reads in a FLOCK output file.
+
+**Output file**
+
+The output is a table containing the mean fluorescent intensity values of each marker within each population defined by FLOCK.
+
+-----
+
+**Example**
+
+*Input*::
+
+   Marker1 Marker2 Marker3 Population
+   34      45      12      1
+   13      65      10      5
+   19      62      98      2
+   32      46      10      1
+
+*Output*::
+
+   Population Marker1 Marker2 Marker3
+   1          38      49      10
+   2          21      63      100
+   3          31      52      45
+   4          11      78      25
  </help>
 </tool>

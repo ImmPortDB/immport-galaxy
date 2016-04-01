@@ -9,7 +9,7 @@
     <param format="txt,flowtext,tabular" name="input" type="data_collection" collection_type="list" label="Test Collection"/>
   </inputs>
   <outputs>
-    <data format="txt" name="output_file" label="Headers of files in ${input.name}"/>
+    <data format="tabular" name="output_file" label="Headers of files in ${input.name}"/>
   </outputs>
  <help>
    This tool returns a table of the headers of a set of text files.

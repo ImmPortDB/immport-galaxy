@@ -18,7 +18,7 @@ def runFCSTransAndFlock(input_file,compensate,
     command ='source("' + r_source + '")'
     R(command)
     command = 'transformFCS("' + input_file + '","' + output_text_file \
-                         + '","' + keyword_file + '",' + compensate \
+                         + '","' + compensate + '",' + keyword_file \
                          + ',FALSE)'
     R(command)
 
