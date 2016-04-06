@@ -21,5 +21,6 @@
   </section>
   <section id="flowvisualizationtools" name="Flow Visualization Tools">
     <tool file="flowtools/genFlowOverview.xml" />
+    <tool file="flowtools/crossSampleOverview.xml" />
   </section>
 </toolbox>

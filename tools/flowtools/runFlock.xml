@@ -42,7 +42,7 @@ FLOCK (FLOw Clustering without K) is a computational approach to flow cytometry 
 
 **Input**
 
-FLOCK takes a text file, generated from a FCS file, as input.
+FLOCK requires a text file, generated from a FCS file, as input.
 In order to define the populations in a given dataset collection for a given set of markers, run FLOCK on a super-set of FCS file. You can use one of the merge tools to concatenate and/or downsample datasets, and remove, edit or rearrange markers before running FLOCK on your favorite set of markers.
 
 **Output** 

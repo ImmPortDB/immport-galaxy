@@ -6,7 +6,7 @@
  #end for#
   </command>
   <inputs>
-    <param format="txt,flowtext,tabular" name="input" type="data_collection" collection_type="list" label="Test Collection"/>
+    <param format="txt,flowtext,tabular" name="input" type="data_collection" collection_type="list" label="Text files Collection"/>
     <param name="headings" type="boolean" checked="false" truevalue="True" falsevalue="False" label="Check headings?">
     </param>
   </inputs>
@@ -29,7 +29,7 @@
 
 **Input files**
 
-This tool can take collections of txt, flowtext or tabular files as input.
+This tool requires collections of txt, flowtext or tabular files as input.
 
 **Output file**
 

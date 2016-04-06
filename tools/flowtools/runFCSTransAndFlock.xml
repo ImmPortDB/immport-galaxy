@@ -29,6 +29,7 @@
    
  <help>
    This tool runs FCSTrans followed by FLOCK.
+   
 -----
 
 FLOCK (FLOw Clustering without K) is a computational approach to flow cytometry analysis which:

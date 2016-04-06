@@ -11,6 +11,8 @@
 
     <datatype extension="flowmfi" type="galaxy.datatypes.flow:FlowMFI" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow MFI file with a '.flowmfi' file extension.  You must manually select this 'File Format' when uploading the file."/>
 
+    <datatype extension="flowstat" type="galaxy.datatypes.flow:FlowStats" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat' file extension. You must manually select this 'File Format' when uploading the file."/>
+
     <!-- MSI added Datatypes -->
     <datatype extension="csv" type="galaxy.datatypes.tabular:CSV" display_in_upload="true" />
     <!-- End MSI added Datatypes -->
@@ -24,6 +26,9 @@
     <datatype extension="tabular" type="galaxy.datatypes.tabular:Tabular" display_in_upload="true" description="Any data in tab delimited format (tabular)." description_url="https://wiki.galaxyproject.org/Learn/Datatypes#Tabular_.28tab_delimited.29"/>
     <datatype extension="txt" type="galaxy.datatypes.data:Text" display_in_upload="true" description="Any text file." description_url="https://wiki.galaxyproject.org/Learn/Datatypes#Plain_text"/>
     <datatype extension="xml" type="galaxy.datatypes.xml:GenericXml" mimetype="application/xml" display_in_upload="true"/>
+
+    <datatype extension="ipynb" type="galaxy.datatypes.text:Ipynb" display_in_upload="True" />
+
   </registration>
 
   <sniffers>

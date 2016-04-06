@@ -97,3 +97,24 @@ class FlowMFI( Tabular ):
             return "MFI Flow file (%s)" % ( data.nice_size( dataset.get_size() ) )
 
 #Binary.register_unsniffable_binary_ext("flowmfi")
+
+class FlowStats( Tabular ):
+    """Class describing a Flow Stats file"""
+    file_ext = "flowstat"
+
+    def set_peek( self, dataset, is_multi_byte=False ):
+        if not dataset.dataset.purged:
+            dataset.peek = "Flow Stats file"
+            dataset.blurb = data.nice_size( dataset.get_size() )
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+
+    def display_peek( self, dataset ):
+        try:
+            return dataset.peek
+        except:
+            return "Flow Stats file (%s)" % ( data.nice_size( dataset.get_size() ) )
+
+#Binary.register_unsniffable_binary_ext("flowstat")
+

@@ -1,0 +1,53 @@
+<tool id="csOverview" name="Generate overview information" version="1.0">
+  <description>of the CrossSample analysis</description>
+  <command interpreter="python">crossSampleOverview.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
+  <inputs>
+    <param format="flowstat" name="input" type="data" label="CrossSample Summary Table"/>
+  </inputs>
+  <outputs>
+    <data format="html" name="html_file" label="Overview of ${input.name}">
+    </data>
+  </outputs>
+
+ <help>
+   This tool generates an overview of the flow analysis results.
+   
+-----
+
+**Input**
+
+This tool can read in the summary table from a CrossSample run (a tab-separated file containing the counts of events in each population in each file that was run through CrossSample)
+
+**Output**
+
+The output is a page that allows visualization of the data. 
+
+-----
+
+**Example**
+
+*Input*::
+
+   Filename Placeholder_sampleName Pop1 Pop2 Pop3 ...
+   File1    Biosample1             255  147  18   ...
+   File2    Biosample2             27   61   965  ...
+   File3    Biosample3             201  546  221  ...
+   File4    Biosample4             11   77   327  ...
+
+*Output*
+
+Stacked Area Plot:
+
+.. image:: ../../static/images/flowtools/summary.png
+
+Stacked Bar Plot:
+
+.. image:: ../../static/images/flowtools/overview.png
+
+Parallel Coordinate:
+
+.. image:: ../../static/images/flowtools/scatter2D.png
+
+ </help>
+</tool>
+

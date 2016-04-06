@@ -1,5 +1,5 @@
 <tool id="convertFCSToText" name="Convert FCS to Text" version="1.0">
-  <description>with no tranformation.</description>
+  <description>with no transformation.</description>
   <command>
         Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSConvert.R --args $input $output_file $compensate 
   </command>
@@ -19,8 +19,7 @@
 
 **Input files**
 
-This tool takes valid FCS files as input. It can only process one file at a time.
-The user can choose to compensate the data.
+This tool requires valid FCS files as input. Files are processed serially. Applying compensation is an option where FCS files include a compensation matrix.
 
 **Output file**
 
