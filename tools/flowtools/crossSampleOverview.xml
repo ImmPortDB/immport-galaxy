@@ -36,17 +36,21 @@ The output is a page that allows visualization of the data.
 
 *Output*
 
+Population Distribution
+
+.. image:: ../../static/images/flowtools/popdistrib.png
+
 Stacked Area Plot:
 
-.. image:: ../../static/images/flowtools/summary.png
+.. image:: ../../static/images/flowtools/stackedA.png
 
 Stacked Bar Plot:
 
-.. image:: ../../static/images/flowtools/overview.png
+.. image:: ../../static/images/flowtools/stackedB.png
 
 Parallel Coordinate:
 
-.. image:: ../../static/images/flowtools/scatter2D.png
+no image for now 
 
  </help>
 </tool>
