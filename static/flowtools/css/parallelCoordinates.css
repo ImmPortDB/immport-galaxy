@@ -1,0 +1,91 @@
+.chartDiv {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #ffffff;
+    //border-style: groove;
+    //border-color: #FCF8E3;
+    //border-width: 1px;
+}
+
+.popTable {
+    margin-top: 5px;
+    border: 1px solid gray;
+    width: 100%;
+}
+
+.popTable th, td {
+    padding: 2px;
+    border-bottom: 1px solid gray;
+}
+
+svg {
+  font: 10px sans-serif;
+}
+
+/*
+ * This section for coordinates plot
+*/
+.background path {
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
+}
+
+.foreground path {
+  fill: none;
+}
+
+.brush .extent {
+  fill-opacity: .3;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+/*
+ * This section for table grid
+*/
+#tableDiv {
+  height: 198px;
+  cursor:pointer;
+}
+
+.gridRow, .gridHeader {
+  clear: left;
+  font-size: 12px;
+  line-height: 18px;
+  height: 18px;
+}
+
+.gridRow:nth-child(odd) {
+   background: rgba(0,0,0,0.05);
+}
+
+.gridHeader {
+  font-weight: bold;
+}
+
+.gridCell {
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  height: 18px;
+}
+
+.gridCol-0 {
+  width: 180px;
+}

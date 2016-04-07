@@ -3,6 +3,7 @@
 <title>Flow Overview</title>
 <link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css"/>
 <link rel="stylesheet" href="/static/flowtools/select2/select2.min.css"/>
+<link rel="stylesheet" href="/static/flowtools/css/parallelCoordinates.css"/>
 <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 <script src="/static/flowtools/select2/select2.full.min.js" type="text/javascript"></script>
@@ -14,6 +15,8 @@
 <script src="/static/flowtools/js/scatter3D.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatterMFI.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatter3DMFI.js" type="text/javascript"></script>
+<script src="/static/flowtools/js/divgrid.js" type="text/javascript"></script>
+<script src="/static/flowtools/js/parallelCoordinates.js" type="text/javascript"></script>
 
 
 
@@ -48,6 +51,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <li class="homeTab" data-value="scatter2D"><a href="#scatter2D" data-toggle="tab">Scatter 2D</a></li>
                 <li class="homeTab" data-value="scatter3D"><a href="#scatter3D" data-toggle="tab">Scatter 3D</a></li>
                 <li class="homeTab" data-value="scatter3DMFI"><a href="#scatter3DMFI" data-toggle="tab">Scatter 3D MFI</a></li>
+                <li class="homeTab" data-value="parallelCoordinates"><a href="#parallelCoordinates" data-toggle="tab">Parallel Coordinates</a></li>
             </ul>
 
             <div class="tab-content">
@@ -142,6 +146,33 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     </div>
                     </div>
                 </div>
+                <div class="tab-pane" id="parallelCoordinates" style="min-height:500px;">
+                  <div id="chartDiv">
+                    <div class="row">
+                    <div id="plotDiv" class="col-md-10" style="margin-top:5px;"></div>
+                    <div id="popDiv" class="col-md-2" style="margin-top:5px;">
+                        Select All: <input type="checkbox" checked id="popSelectAll"/>
+                        &nbsp;&nbsp;<button id="resetPCoordDisplay">Reset Display</button>
+                        <table id="popTable" class="popTable">
+                          <thead>
+                          <tr>
+                            <th></th>
+                            <th>#</th>
+                            <th>Color</th>
+                            <th>Perc.</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-1"></div>
+                    <div id="tableDiv" class="col-md-10"></div>
+                    <div class="col-md-1"></div>
+                  </div>
+                </div>
             </div>
         </div>
     </div>
@@ -155,6 +186,7 @@ var overviewPlotLoaded = false;
 var scatter2DLoaded = false;
 var scatter3DLoaded = false;
 var scatter3DMFILoaded = false;
+var parallelCoordinatesLoaded = false;
 
 $().ready(function() {
     $(document).on('shown.bs.tab','a[data-toggle="tab"]', function(e) {
@@ -200,6 +232,13 @@ $().ready(function() {
         }
         scatter3DMFILoaded = true;
         displayScatter3DMFI();
+      }
+      if (tab == '#parallelCoordinates') {
+        if (parallelCoordinatesLoaded) {
+            return true;
+        }
+        parallelCoordinatesLoaded = true;
+        displayParallelCoordinates();
       }
     });
 
