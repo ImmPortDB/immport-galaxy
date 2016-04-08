@@ -1,0 +1,134 @@
+<tool id="FCStxtmergedownsample" name="Downsample and merge" version="1.0">
+  <description>txt-converted FCS files into one text file based on headers.</description>
+  <command interpreter="python">FCStxtMergeDownsample.py -o $output_file -d $factorDS
+ #if $columns 
+   -c $columns
+ #end if
+ #for $f in $input#
+    -i $f
+ #end for#
+  </command>
+  <inputs>
+    <param format="txt,tabular,flowtext" name="input" type="data_collection" collection_type="list" label="Text files Collection"/>
+    <param name="factorDS" type="text" label="Downsample by:" value="i.e.:0.1" optional="true" help="1 by default (no downsampling)."/>
+    <param name="columns" type="text" label="Merge columns:" value="i.e.:1,2,5" optional="true" help="By default, will merge on the columns in common to all files.">
+	</param>
+  </inputs>
+  <outputs>
+    <data format="flowtext" name="output_file" label="Merge flowtext on ${input.name}"/>
+  </outputs>
+  <stdio>
+    <exit_code range="2" level="warning" description="Non-numeric data. See stderr for more details." />
+    <exit_code range="3" level="warning" description="Selected columns do not exist in all files" />
+    <exit_code range="4" level="fatal" description="Run aborted - too many errors" />
+    <exit_code range="5" level="warning" description="Selected columns do not exist in all files, non-numeric data detected." />
+    <exit_code range="6" level="fatal" description="Please provide integers for columns you want to merge on." />
+    <exit_code range="7" level="fatal" description="Please provide a comma separated list of integers for columns you want to merge on." />
+    <exit_code range="8" level="fatal" description="Please provide a numeric value [0,1] for the downsampling factor." />
+  </stdio>
+ <help>
+   This tool downsamples and merges multipe txt-converted FCS files into one text file.
+
+-----
+
+**Input files**
+
+This tool requires collections of txt, flowtext or tabular files as input.
+
+**Downsampling**
+
+By default, the files are not downsampled. If a number is provided, each file in the input dataset collection will be downsampled randomly without replacement as follows:
+
+If n is between 0 and 1, the size of the output will be n times that of the input files.
+If n is between 1 and 100, the size of the output will be n% that of the input files.
+
+.. class:: warningmark
+
+At this time, upsampling is not supported. If the number provided is greater than 100, the tool will exit.
+
+**Output file**
+
+The output flowtext file contains the concatenated input files provided that all lines after the header line contain only numbers.
+By default, only the columns that exist in all input files (as assessed by the header) are concatenated. The user can specify the columns to merge, bypassing the headers check.
+If a downsampling factor is provided, the corresponding proportion of each input file ONLY will be read in (and checked for errors).
+
+.. class:: warningmark
+
+Potential errors are logged to stderr. If the number of errors reaches 10, the run is aborted.
+
+-----
+
+**Example**
+
+*File1*::
+
+   Marker1 Marker2 Marker3
+   34      45      12
+   33      65      10
+   87      26      76
+   24      56      32
+   95      83      53
+   74      15      87
+   
+*File2*::
+
+   Marker4 Marker5 Marker3
+   19      62      98
+   12      36      58
+   41      42      68
+   76      74      53
+   62      34      45
+   93      21      76
+
+*Output*
+
+.. class:: infomark
+
+If run without specifying the columns::
+
+   Marker3 
+   12 
+   10 
+   76
+   32
+   53
+   87
+   98 
+   58 
+   68
+   53
+   45
+   76
+
+.. class:: infomark
+
+If run specifying columns 1,2,3::
+
+   Marker1 Marker2 Marker3
+   34      45      12
+   33      65      10
+   87      26      76
+   24      56      32
+   95      83      53
+   74      15      87
+   19      62      98
+   12      36      58
+   41      42      68
+   76      74      53
+   62      34      45
+   93      21      76
+   
+.. class:: infomark
+
+If run specifying columns 1,2,3 and with a downsampling factor of 0.5::
+
+   Marker1 Marker2 Marker3
+   34      45      12
+   24      56      32
+   95      83      53
+   19      62      98
+   12      36      58
+   62      34      45
+
+ </help>
+</tool>
