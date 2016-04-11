@@ -33,9 +33,11 @@ def compareheaders(files):
  
     hdgs_in_common = []
     flag = {}
+    hdgs_in_common_index = {}
 
     for refhdgs in headers[files[0]]:
         flag[refhdgs] = 1
+        
         for ij in range(1, len(files)):
             if refhdgs in headers[files[ij]]:
                 flag[refhdgs] += 1
@@ -60,7 +62,6 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
     If a downsampling factor is given, returns the indicated fraction of random lines.
     """
 
-    hdgs_nb = 0
     nb_errors = 0
     errors = {
         "numbers" : 0,
@@ -69,19 +70,24 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
     count_lines = {}
     max_error = 10
 
+    ## get list of headers in common to all files
     list_hdgs = compareheaders(in_files)
-
+    
+    ff_order = {}
     with open(out_file, "w") as outf:
+        # If downsampling:
         wcfirstfile = wc(in_files[0])
         lines_to_keepff =[ln + 1 for ln in np.random.choice(wcfirstfile, int(wcfirstfile * factords), replace=False)]
 
         with open(in_files[0], "r") as firstfile:
             headingsff = firstfile.readline().strip()
             headings = headingsff.split("\t")
-            hdgs_nb = len(headings)
             count_lines[in_files[0]] = 1
 
+            # Get index of headers in common:
             hdrs_idx = getheadersindex(list_hdgs, headings)
+
+            # If column to merge on were provided:
             if col_names:
                 for ix in col_names:
                     if not ix in hdrs_idx:
@@ -91,34 +97,57 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
                         errors["index"] += 1
                 hdrs_idx = col_names
 
-            outf.write("\t".join([headings[y] for y in hdrs_idx]) + "\n")
+            # Print out to output file:
+            headings_to_write = []
+            col_order = []
+            cta = 0
+            for cti in range(0, len(headings)):
+                if cti in hdrs_idx:
+                    headings_to_write.append(headings[cti])
+                    ff_order[cta] = headings[cti].lower()
+                    col_order.append(cti)
+                    cta +=1
+            outf.write("\t".join(headings_to_write) + "\n")
 
-
+            # Go through file to print data to output file:
             for fileline in firstfile:
                 if nb_errors < max_error:
                     fileline = fileline.strip()
                     count_lines[in_files[0]] += 1
                     if count_lines[in_files[0]] in lines_to_keepff:
                         filestuff = fileline.split("\t")
-                        outf.write("\t".join(filestuff[z] for z in hdrs_idx) + "\n")
+                        
+                        # Check that data to write is a number:
+                        to_check = [filestuff[z] for z in hdrs_idx]
 
-                        for item in filestuff:
+                        for item in to_check:
                             if not is_number(item): 
                                 nb_errors += 1
                                 sys.stderr.write(" ".join(["WARNING: line", str(count_lines[in_files[0]]),
                                                            "in", in_files[0] ,"contains non-numeric results"]) + "\n")
                                 errors["numbers"] += 1
  
+                        # Print out:
+                        if nb_errors < max_error:
+                            outf.write("\t".join([filestuff[z] for z in col_order]) + "\n")
+                        
+        ## Go through other files:
         for i in range(1, len(in_files)):
             if nb_errors < max_error:
+            
+                # If downsampling:
                 linenb = wc(in_files[i])
                 lines_to_keep = [lin + 1 for lin in np.random.choice(linenb, int(linenb * factords), replace=False)]
+                
                 with open(in_files[i], "r") as inf:
-                    headingsinf = inf.readline().strip()
+                    headingsinf = inf.readline().strip().lower()
                     hdgs = headingsinf.split("\t")
                     count_lines[in_files[i]] = 1
                         
-                    hdgs_idx = getheadersindex(list_hdgs, hdgs)
+                    # Get the index of columns to keep:
+                    hdgs_idx = []
+                    for ctc in ff_order:
+                        hdgs_idx.append(int(hdgs.index(ff_order[ctc])))
                     if col_names:
                         for iy in col_names:
                             if not iy in hdgs_idx:
@@ -128,20 +157,23 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
                                 errors["index"] += 1
                         hdgs_idx = col_names
 
+                    # Read through file and print out to output:
                     for otherlines in inf:
                         if nb_errors < max_error:
                             count_lines[in_files[i]] += 1
                             if count_lines[in_files[i]] in lines_to_keep:
                                 otherlines = otherlines.strip()
                                 otherstuff = otherlines.split("\t")
-                                outf.write("\t".join([otherstuff[xy] for xy in hdgs_idx]) + "\n")
+                                stftowrite = [otherstuff[xy] for xy in hdgs_idx]
                                 
-                                for item in otherstuff:
+                                for item in stftowrite:
                                     if not is_number(item):
                                         nb_errors += 1
                                         sys.stderr.write(" ".join(["WARNING: line", str(count_lines[in_files[i]]),
                                                                    "in", in_files[i] ,"contains non-numeric results"]) + "\n")
-
+                                if nb_errors < max_error:
+                                    outf.write("\t".join(stftowrite) + "\n")
+ 
     if nb_errors > 0:
         exit_code = 0
         if errors["numbers"] > 0:
@@ -187,6 +219,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
+    # Get columns to merge on if any:
     defaultvaluecol = ["i.e.:1,2,5", "default", "Default"]
     columns = []
     if args.columns:
@@ -205,6 +238,8 @@ if __name__ == "__main__":
                         sys.exit(6)
                     else:
                         columns.append(int(tmpcol[c].strip()) - 1)
+
+    # Get down sampling factor if any:
     defaultvalueds = ["i.e.:0.1", "default", "Default"]
     dsfactor = 1
     if args.downsampling_factor:
