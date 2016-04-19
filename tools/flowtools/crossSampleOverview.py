@@ -7,7 +7,7 @@ from argparse import ArgumentParser
 from jinja2 import Environment, FileSystemLoader
 from shutil import copyfile
 
-def csOverview(inputfile, outputfile, outputdir, toolsdir):
+def csOverview(inputfile, inputmfi, outputfile, outputdir, toolsdir):
     os.mkdir(outputdir)
 
     env = Environment(loader=FileSystemLoader(toolsdir + "/templates"))
@@ -22,6 +22,9 @@ def csOverview(inputfile, outputfile, outputdir, toolsdir):
     csoverview_file = outputdir + "/csOverview.tsv"
     copyfile(inputfile, csoverview_file)
 
+    csoverview_mfis = outputdir + "/csAllMFIs.tsv"
+    copyfile(inputmfi, csoverview_mfis)
+
 if __name__ == "__main__":
     parser = ArgumentParser(
              prog="csOverview",
@@ -32,6 +35,12 @@ if __name__ == "__main__":
             dest="input_file",
             required=True,
             help="File location for the summary statistics from CrossSample.")
+
+    parser.add_argument(
+            '-I',
+            dest="input_mfi",
+            required=True,
+            help="File location for the MFI summary statistics from CrossSample.")
 
     parser.add_argument(
             '-o',
@@ -54,6 +63,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    csOverview(args.input_file, args.output_file, args.output_directory, args.tool_directory)
+    csOverview(args.input_file, args.input_mfi, args.output_file, args.output_directory, args.tool_directory)
     sys.exit(0)
 

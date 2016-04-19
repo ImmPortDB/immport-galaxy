@@ -21,26 +21,25 @@ def genFlowOverview(flow_stats,args):
     real_directory = args.output_directory.replace("/job_working_directory","")
     context = { 'outputDirectory': real_directory }
     overview = template.render(**context)
-    f = open(args.output_file,"w")
-    f.write(overview)
-    f.close()
+    with open(args.output_file,"w") as f:
+        f.write(overview)
 
     flow_sample_file_name = args.output_directory + "/flow.sample"
-    flow_sample_file = open(flow_sample_file_name,"w")
-    flow_stats['sample'].to_csv(flow_sample_file,sep="\t",index=False,float_format='%.0f')
-
+    with open(flow_sample_file_name,"w") as flow_sample_file:
+        flow_stats['sample'].to_csv(flow_sample_file,sep="\t",index=False,float_format='%.0f')
+    
     flow_mfi_file_name = args.output_directory + "/flow.mfi"
-    flow_mif_file = open(flow_mfi_file_name,"w")
-    flow_stats['mfi'].to_csv(flow_mif_file,sep="\t",float_format='%.0f')
+    with open(flow_mfi_file_name,"w") as flow_mfi_file:
+        flow_stats['mfi'].to_csv(flow_mfi_file,sep="\t",float_format='%.0f')
 
     #flow_pop_file_name = args.output_directory + "/flow.pop"
     #flow_pop_file = open(flow_pop_file_name,"w")
     #flow_stats['population_all'].to_csv(flow_pop_file,sep="\t",float_format='%.0f')
 
     flow_mfi_pop_file_name = args.output_directory + "/flow.mfi_pop"
-    flow_mif_pop_file = open(flow_mfi_pop_file_name,"w")
-    flow_stats['mfi_pop'].to_csv(flow_mif_pop_file,sep="\t",index=False, float_format="%.2f")
-
+    with open(flow_mfi_pop_file_name,"w") as flow_mfi_pop_file:
+        flow_stats['mfi_pop'].to_csv(flow_mfi_pop_file,sep="\t",index=False, float_format="%.2f")
+    
     # Generate the Images
     fcm = flow_stats['sample_data'].values
     colors = []
@@ -79,25 +78,23 @@ def genFlowOverview(flow_stats,args):
             #plt.clf()
 
     flow_overview_file_name = args.output_directory + "/flow.overview"
-    flow_overview_file = open(flow_overview_file_name,"w")
+    with open(flow_overview_file_name,"w") as flow_overview_file:
+        flow_overview_file.write("<table>\n")
+        flow_overview_file.write("<tr><td>&nbsp;</td>\n")
+        for i in range(flow_stats['columns']):
+            flow_overview_file.write("<td>" + flow_stats['markers'][i] + "</td>\n")
 
-    flow_overview_file.write("<table>\n")
-    flow_overview_file.write("<tr><td>&nbsp;</td>\n")
-    for i in range(flow_stats['columns']):
-        flow_overview_file.write("<td>" + flow_stats['markers'][i] + "</td>\n")
+        for i in range(flow_stats['columns']):
+            flow_overview_file.write("<tr>\n")
+            flow_overview_file.write("<td>" + flow_stats['markers'][i] + "</td>\n")
+            for j in range(flow_stats['columns']):
+                file_name = "m" + str(j) + "_m" + str(i)
+                image_file = file_name + "_90X90.png"
+                flow_overview_file.write('<td><img src="' + image_file + '"/></td>')
 
-    for i in range(flow_stats['columns']):
-        flow_overview_file.write("<tr>\n")
-        flow_overview_file.write("<td>" + flow_stats['markers'][i] + "</td>\n")
-        for j in range(flow_stats['columns']):
-            file_name = "m" + str(j) + "_m" + str(i)
-            image_file = file_name + "_90X90.png"
-            flow_overview_file.write('<td><img src="' + image_file + '"/></td>')
+            flow_overview_file.write("</tr>\n")
 
-        flow_overview_file.write("</tr>\n")
-
-    flow_overview_file.write("</table>\n</body>\n<html>\n")
-    flow_overview_file.close()
+        flow_overview_file.write("</table>\n</body>\n<html>\n")
 
 if __name__ == "__main__":
     parser = ArgumentParser(

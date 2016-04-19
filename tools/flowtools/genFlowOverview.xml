@@ -1,4 +1,4 @@
-<tool id="genFlowOverview" name="Generate overview information" version="1.0">
+<tool id="genFlowOverview" name="Generate Overview Information" version="1.0">
   <description>of flow analysis</description>
   <command interpreter="python">genFlowOverview.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>

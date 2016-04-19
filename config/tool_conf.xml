@@ -7,8 +7,7 @@
     <tool file="flowtools/transformFCSTrans.xml" />
     <tool file="flowtools/convertFCSToText.xml" />
     <tool file="flowtools/extractKeywords.xml" />
-    <tool file="flowtools/removeColumns.xml" />
-    <tool file="flowtools/mergeFCS.xml" />
+    <tool file="flowtools/editColumnHeadings.xml" />
     <tool file="flowtools/simpleFCStxtmerge.xml" />
     <tool file="flowtools/getHeaders.xml" />
     <tool file="flowtools/FCStxtMergeDownsample.xml" />

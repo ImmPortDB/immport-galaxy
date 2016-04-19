@@ -1,8 +1,9 @@
 <tool id="csOverview" name="Generate overview information" version="1.0">
   <description>of the CrossSample analysis</description>
-  <command interpreter="python">crossSampleOverview.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
+  <command interpreter="python">crossSampleOverview.py -i $input -I $inputmfi -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>
     <param format="flowstat" name="input" type="data" label="CrossSample Summary Table"/>
+    <param format="flowstat" name="inputmfi" type="data" label="CrossSample MFI Summary Table"/>
   </inputs>
   <outputs>
     <data format="html" name="html_file" label="Overview of ${input.name}">
@@ -16,7 +17,7 @@
 
 **Input**
 
-This tool can read in the summary table from a CrossSample run (a tab-separated file containing the counts of events in each population in each file that was run through CrossSample)
+This tool reads in summary tables from a CrossSample run (tab-separated file containing the counts of events in each population in each file that was run through CrossSample and tab-separated file containing the MFI for each marker in each population in each file.)
 
 **Output**
 
@@ -28,15 +29,27 @@ The output is a page that allows visualization of the data.
 
 *Input*::
 
+Summary table::
+
    Filename Placeholder_sampleName Pop1 Pop2 Pop3 ...
    File1    Biosample1             255  147  18   ...
    File2    Biosample2             27   61   965  ...
    File3    Biosample3             201  546  221  ...
    File4    Biosample4             11   77   327  ...
 
+MFI Summary table::
+
+   Marker1 Marker2 Marker3 ... Population Percentage SampleName
+   154     885     24      ... 1          0.2        Biosample1
+   458     74      574     ... 2          0.3        Biosample1
+   3       210     86      ... 3          0.05       Biosample1
+   140     921     19      ... 1          0.1        Biosample2
+   428     79      508     ... 2          0.25       Biosample2
+   9       225     90      ... 3          0.3        Biosample2
+
 *Output*
 
-Population Distribution
+Population Distribution Summary:
 
 .. image:: ../../static/images/flowtools/popdistrib.png
 
@@ -46,11 +59,11 @@ Stacked Area Plot:
 
 Stacked Bar Plot:
 
-.. image:: ../../static/images/flowtools/stackedB.png
+.. image:: ../../static/images/flowtools/stackedb.png
 
 Parallel Coordinate:
 
-no image for now 
+.. image::
 
  </help>
 </tool>

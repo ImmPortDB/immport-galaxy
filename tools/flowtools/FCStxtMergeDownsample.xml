@@ -39,22 +39,26 @@ This tool requires collections of txt, flowtext or tabular files as input.
 
 By default, the files are not downsampled. If a number is provided, each file in the input dataset collection will be downsampled randomly without replacement as follows:
 
-If n is between 0 and 1, the size of the output will be n times that of the input files.
-If n is between 1 and 100, the size of the output will be n% that of the input files.
+- If n is between 0 and 1, the size of the output will be n times that of the input files.  
+- If n is between 1 and 100, the size of the output will be n% that of the input files.  
 
 .. class:: warningmark
 
-At this time, upsampling is not supported. If the number provided is greater than 100, the tool will exit.
+At this time, up-sampling is not supported. If the number provided is greater than 100, the tool will exit.
 
 **Output file**
 
-The output flowtext file contains the concatenated input files provided that all lines after the header line contain only numbers.
-By default, only the columns that exist in all input files (as assessed by the header) are concatenated. The user can specify the columns to merge, bypassing the headers check.
+The output flowtext file contains the concatenated input files provided that all lines after the header line contain only numbers.  
+By default, only the columns that exist in all input files (as assessed by the header) are concatenated. The user can specify the columns to merge, bypassing the headers check.  
 If a downsampling factor is provided, the corresponding proportion of each input file ONLY will be read in (and checked for errors).
 
 .. class:: warningmark
 
 Potential errors are logged to stderr. If the number of errors reaches 10, the run is aborted.
+
+.. class:: infomark
+
+Tip: There is a tool in the Flow File Tools section that allows rearranging, deleting and/or renaming columns.
 
 -----
 

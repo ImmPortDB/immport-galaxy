@@ -3,6 +3,7 @@
   <command interpreter="python">getHeaders.py -o $output_file
  #for $f in $input#
     -i $f
+    -n "$f.name"
  #end for#
   </command>
   <inputs>

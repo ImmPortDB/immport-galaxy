@@ -231,10 +231,10 @@ if __name__ == "__main__":
                 elif not is_integer(tmpcol[0].strip()):
                     sys.exit(7)
                 else:
-                    columns.append(int(tmpcol[0]) - 1)
+                    columns.append(int(tmpcol[0].strip()) - 1)
             else:
                 for c in range(0, len(tmpcol)):
-                    if not is_integer(tmpcol[c]):
+                    if not is_integer(tmpcol[c].strip()):
                         sys.exit(6)
                     else:
                         columns.append(int(tmpcol[c].strip()) - 1)
