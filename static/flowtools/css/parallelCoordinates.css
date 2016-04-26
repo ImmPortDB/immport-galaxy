@@ -1,3 +1,10 @@
+.dataTable th, td {
+    text-align: center;
+}
+
+.dataTable  tr:nth-child(even) {
+    background: rgba(0,0,0,0.05);
+}
 .chartDiv {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -25,6 +32,21 @@ svg {
 }
 
 /*
+* Opacity
+*/
+
+.widget {
+  margin-top: 4px;
+  padding: 4px 4px 8px 4px;
+  margin-bottom: 10px
+  height: 36px;
+  line-height: 12px;
+  font-size: 12px;
+  text-align: center;
+ // float: right;
+}
+
+/*
  * This section for coordinates plot
 */
 .background path {
@@ -35,6 +57,7 @@ svg {
 
 .foreground path {
   fill: none;
+  stroke-opacity: .8;
 }
 
 .brush .extent {
@@ -58,7 +81,7 @@ svg {
 /*
  * This section for table grid
 */
-#tableDiv {
+.tableDiv {
   height: 198px;
   cursor:pointer;
 }
@@ -82,10 +105,12 @@ svg {
   float: left;
   overflow: hidden;
   white-space: nowrap;
-  width: 100px;
+  width: 80px;
   height: 18px;
+  text-align: center;
 }
 
 .gridCol-0 {
   width: 180px;
 }
+

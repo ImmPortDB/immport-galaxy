@@ -3,7 +3,7 @@
   <command interpreter="python">crossSampleOverview.py -i $input -I $inputmfi -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>
     <param format="flowstat" name="input" type="data" label="CrossSample Summary Table"/>
-    <param format="flowstat" name="inputmfi" type="data" label="CrossSample MFI Summary Table"/>
+    <param format="flowstat" name="inputmfi" type="data" label="Centroids Summary Table"/>
   </inputs>
   <outputs>
     <data format="html" name="html_file" label="Overview of ${input.name}">
@@ -31,11 +31,11 @@ The output is a page that allows visualization of the data.
 
 Summary table::
 
-   Filename Placeholder_sampleName Pop1 Pop2 Pop3 ...
-   File1    Biosample1             255  147  18   ...
-   File2    Biosample2             27   61   965  ...
-   File3    Biosample3             201  546  221  ...
-   File4    Biosample4             11   77   327  ...
+   Filename SampleName Pop1 Pop2 Pop3 ...
+   File1    Biosample1 255  147  18   ...
+   File2    Biosample2 27   61   965  ...
+   File3    Biosample3 201  546  221  ...
+   File4    Biosample4 11   77   327  ...
 
 MFI Summary table::
 
@@ -49,21 +49,25 @@ MFI Summary table::
 
 *Output*
 
-Population Distribution Summary:
+Summary of the population distribution.
 
 .. image:: ../../static/images/flowtools/popdistrib.png
 
-Stacked Area Plot:
+Stacked area plot of the population distribution in each sample - the user can choose which populations to display.
 
 .. image:: ../../static/images/flowtools/stackedA.png
 
-Stacked Bar Plot:
+Stacked bar plot of the population distribution in each sample - the user can choose which populations to display.
 
-.. image:: ../../static/images/flowtools/stackedb.png
+.. image:: ../../static/images/flowtools/stackedB.png
 
-Parallel Coordinate:
+Parallel coordinates representation of populations - the user can choose which samples to display and reorder the populations.
 
-.. image::
+.. image:: ../../static/images/flowtools/pcpop.png
+
+Parallel coordinates representation of the data - the user can choose which samples and/or populations to display and reorder the markers.
+
+.. image:: ../../static/images/flowtools/pcmfi.png
 
  </help>
 </tool>

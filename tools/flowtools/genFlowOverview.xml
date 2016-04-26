@@ -1,5 +1,5 @@
 <tool id="genFlowOverview" name="Generate Overview Information" version="1.0">
-  <description>of flow analysis</description>
+  <description>of FLOCK flow analysis</description>
   <command interpreter="python">genFlowOverview.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Result File"/>
@@ -52,9 +52,13 @@ Scatterplots overview:
 
 .. image:: ../../static/images/flowtools/scatter3D.png
 
-3D Scatterplot of the populations MFI - the user can choose which populations and markers to display.
+3D Scatterplot of the population centroids - the user can choose which populations and markers to display.
 
 .. image:: ../../static/images/flowtools/mfi3D.png
+
+Parallel Coordinates - the user can choose which populations to display and reorder the markers.
+
+.. image:: ../../static/images/flowtools/pcflock.png
 
  </help>
 </tool>

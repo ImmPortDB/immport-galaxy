@@ -7,16 +7,18 @@
 <!-- Plotly.js -->
 <link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css"/>
 <link rel="stylesheet" href="/static/flowtools/select2/select2.min.css"/>
+<link rel="stylesheet" href="/static/flowtools/css/parallelCoordinates.css"/>
 <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 <script src="/static/flowtools/select2/select2.full.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/d3/d3.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/plotly-latest.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/csOverview.js" type="text/javascript"></script>
-<script src="/static/flowtools/js/crossSampleStackedArea.js" type="text/javascript"></script>
-<script src="/static/flowtools/js/crossSampleStacked.js" type="text/javascript"></script>
+<script src="/static/flowtools/js/crossSamplePlots.js" type="text/javascript"></script>
+<script src="/static/flowtools/js/pCoordMFIstats.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/pCoordCSstats.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/color_palette.js" type="text/javascript"></script>
+<script src="/static/flowtools/js/divgrid.js" type="text/javascript"></script>
 
 <style>
 #input{font-family:Calibri,Arial}
@@ -24,18 +26,6 @@
 table{width:100%;border:0px solid;border-collapse:collapse;text-align:center;}
 th{background-color:#3e6db0;color:#fff;padding:5px}
 
-.chartDiv {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: #ffffff;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
 </style>
 </head>
 
@@ -47,70 +37,133 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <li class="homeTab active" data-value="prop"><a href="#prop" data-toggle="tab">Population Distribution</a></li>
                 <li class="homeTab" data-value="stackedA"><a href="#stackedA" data-toggle="tab">Stacked Area Plot</a></li>
                 <li class="homeTab" data-value="stackedB"><a href="#stackedB" data-toggle="tab">Stacked Bar Plot</a></li>
-                <li class="homeTab" data-value="pcoord"><a href="#pcoord" data-toggle="tab">Parallel Coordinates</a></li>
+                <li class="homeTab" data-value="pcoord"><a href="#pcoord" data-toggle="tab">Parallel Coordinates Population Summary</a></li>
+                <li class="homeTab" data-value="pcoordMFI"><a href="#pcoordMFI" data-toggle="tab">Parallel Coordinates Centroids Summary</a></li>
             </ul>
 
             <div class="tab-content">
                 <div class="tab-pane active" id="prop" style="min-height:500px;">
-                    <div id="propDiv">Population Distribution</div>
+                    <div id="propDiv" class="dataTable">Population Distribution</div>
                 </div>
 
                 <div class="tab-pane" id="stackedA" style="min-height:500px;">
-                    <div id="toolbarADiv" class="col-md-12 chartDiv">
-                    <button id="updateDisplayA">Update Display</button>
-                    </div>
-                
-                    <div class="col-md-12 charDiv">
+                    <div class="col-md-12 chartDiv">
                         <div id="plotDivA" class="col-md-10"></div>
                         
                         <div id="popDivA" class="col-md-2">
-                            <table id="popTableA" border="0" width="100%">
-                                <tr>
-                                  <th align="center"><input type="checkbox" checked id="popSelectAllA"/></th>
-                                  <th>#</th>
-                                  <th>Color</th>
-                                </tr>
+                            Select All: <input type="checkbox" checked id="popSelectAllA"/>
+                            &nbsp;&nbsp;<button id="updateDisplayA">Update Display</button>
+                            <table id="popTableA" class="popTable">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th>Color</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
                             </table>
                         </div>
                     </div>>
                 </div>
 
                 <div class="tab-pane" id="stackedB" style="min-height:500px;">
-                    <div id="toolbarBDiv" class="col-md-12 chartDiv">
-                    <button id="updateDisplayB">Update Display</button>
-                    </div>
-                
-                    <div class="col-md-12 charDiv">
+                    <div class="col-md-12 chartDiv">
                         <div id="plotDivB" class="col-md-10"></div>
                         
                         <div id="popDivB" class="col-md-2">
-                            <table id="popTableB" border="0" width="100%">
-                                <tr>
-                                  <th align="center"><input type="checkbox" checked id="popSelectAllB"/></th>
-                                  <th>#</th>
-                                  <th>Color</th>
-                                </tr>
+                            Select All: <input type="checkbox" checked id="popSelectAllB"/>
+                            &nbsp;&nbsp;<button id="updateDisplayB">Update Display</button>
+                            <table id="popTableB" class="popTable">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th>Color</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
                             </table>
                         </div>
                     </div>>
                 </div>
                     
                 <div class="tab-pane" id="pcoord" style="min-height:500px;">
-                    <div id="toolbarPCDiv" class="col-md-12 chartDiv">
-                    <button id="updateDisplayPC">Update Display</button>
+                    <div id="chartDivPC">
+                        <div class="row">
+                            <div id="plotDivPC" class="col-md-10" style="margin-top:5px;"></div>
+                            <div id="popDivPC" class="col-md-2" style="margin-top:5px;">
+                                <div class="widget">
+	                                  <input type="range" min="0" max="1" value="0.8" step="0.01" id="PCline_opacity" >
+	                                  </input>
+                                      Opacity: <span id="pc_opacity">80%</span>
+	                            </div>
+                                Select All: <input type="checkbox" checked id="popSelectAllPC"/>
+                                &nbsp;&nbsp;<button id="resetPCDisplay">Reset Display</button>
+                                <table id="popTablePC" class="popTable">
+                                    <thead>
+                                        <tr>
+                                          <th></th>
+                                          <th>Sample Name</th>
+                                          <th>Color</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="tableDivPC" class="col-md-12 tableDiv"></div>
+                        </div>
                     </div>
-                
-                    <div class="col-md-12 charDiv">
-                        <div id="plotDivPC" class="col-md-10"></div>
-                        
-                        <div id="popDivPC" class="col-md-2">
-                            <table id="popTablePC" border="0" width="100%">
-                                <tr>
-                                  <th align="center"><input type="checkbox" checked id="popSelectAllPC"/></th>
-                                  <th>#</th>
-                                  <th>Color</th>
-                                 </tr>
-                            </table>
+                </div>
+
+                <div class="tab-pane" id="pcoordMFI" style="min-height:500px;">
+                    <div id="chartDivPCm">
+                        <div class="row">
+                            <div id="smpDivPCm" class="col-md-1" style="margin-top:5px;">
+                                Select All: <input type="checkbox" checked id="smpSelectAllPCm"/>
+                                 <table id="smpTablePCm" class="popTable">
+                                    <thead>
+                                        <tr>
+                                          <th>Sample Name</th>
+                                          <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="plotDivPCm" class="col-md-9" style="margin-top:5px;"></div>
+                            <div id="popDivPCm" class="col-md-2" style="margin-top:5px;">
+                                <div class="widget">
+	                                  <input type="range" min="0" max="1" value="0.8" step="0.01" id="PCmline_opacity" >
+	                                  </input>
+                                      Opacity: <span id="pcm_opacity">80%</span>
+	                            </div>
+                                Select All: <input type="checkbox" checked id="popSelectAllPCm"/>
+                                &nbsp;&nbsp;<button id="resetDisplayMFIpop">Reset Display</button>
+                                <table id="popTablePCm" class="popTable">
+                                    <thead>
+                                        <tr>
+                                          <th></th>
+                                          <th>Population</th>
+                                          <th>Color</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="tableDivPCm" class="col-md-10 tableDiv"></div>
+                            <div class="col-md-2"></div>
                         </div>
                     </div>
                 </div>
@@ -131,6 +184,7 @@ var poppropLoaded = false;
 var stackedALoaded = false;
 var stackedBLoaded = false;
 var pCoordLoaded = false;
+var pCoordMFILoaded = false;
 
 $().ready(function() {
     $(document).on('shown.bs.tab','a[data-toggle="tab"]', function(e) {
@@ -147,21 +201,28 @@ $().ready(function() {
             return true;
         }
         stackedALoaded = true;
-        displaystackedA();
+        displayStackedAreaPlot();
       }
       if (tab == '#stackedB') {
         if (stackedBLoaded) {
             return true;
         }
         stackedBLoaded = true;
-        displaystackedB();
+        displayStackedBarplot();
       }
       if (tab == '#pcoord') {
         if (pCoordLoaded) {
             return true;
         }
         pCoordLoaded = true;
-        displaypCoord();
+        displayParallelCoordinates();
+      }
+      if (tab == '#pcoordMFI') {
+        if (pCoordMFILoaded) {
+            return true;
+        }
+        pCoordMFILoaded = true;
+        displayParallelCoordinatesMFI();
       }
     });
 

@@ -1,4 +1,4 @@
-//var url = "csOverview.tsv";
+//var url = "./data/csOverview.tsv";
 var url = "./csOverview.tsv";
 
 var waitForFinalEvent = (function () {
@@ -14,7 +14,6 @@ var waitForFinalEvent = (function () {
   };
 })();
 
-/*
 var preprocess = function(text){
     var crossSampleData = d3.tsv.parseRows(text).map(function(row) {
         return row.map(function(value) {
@@ -25,9 +24,7 @@ var preprocess = function(text){
         })
     })
     return crossSampleData;
-}
-*/
-
+};
 
 var updatePopPropDisplay = function(data) {
     $('#propDiv').empty();
@@ -35,13 +32,42 @@ var updatePopPropDisplay = function(data) {
     $.each(data, function(rowIndex,r) {
         var row = $("<tr/>");
         $.each(r,function(colIndex,c) {
-            row.append($("<t"+(rowIndex ==0 ? "h" : "d")+" align='right'/>").text(c));
-        });
+			if (colIndex >= 1){
+				row.append($("<t"+(rowIndex ==0 ? "h" : "d")+" align='right'/>").text(c));
+			}
+		});
         table.append(row);
 
     });
     $('#propDiv').html(table);
-}
+};
+
+var displayPopulationLegend = function(plotconfig) {
+    plotconfig.allPopulations.map(function(value,index) {
+        $(plotconfig.table)
+			.last()
+ 			.after('<tr><td align="center"><input type="checkbox" checked class=' + plotconfig.popSelect + 
+				   ' value=' + value + '/></td><td>' + value + '</td><td><span style="background-color:' +
+				   color_palette[value] + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
+    });
+
+    $(plotconfig.popSelectAll).click(function() {
+        var checkAll = $(plotconfig.popSelectAll).prop('checked');
+        if (checkAll) {
+            $(plotconfig.popSelectj).prop("checked", true);
+        } else {
+            $(plotconfig.popSelectj).prop("checked", false);
+        }
+    });
+
+    $(plotconfig.popSelectj).click(function() {
+        if ($(plotconfig.popSelectj).length == $(plotconfig.popSelectCheck).length) {
+            $(plotconfig.popSelectAll).prop("checked",true);
+        } else {
+            $(plotconfig.popSelectAll).prop("checked",false);
+        }
+    });
+};
 
 var displayProp = function() {
     $.ajax({
@@ -56,41 +82,54 @@ var displayProp = function() {
             updatePopPropDisplay(data);
         }
     });
-}
+};
 
-var displaystackedA = function() {
-    $.ajax({
-        url: url,
-        dataType: "text",
-        success: function(textA) {
-//           objA = preprocess(text);
-            preprocessA(textA)
-            displaytoolbarA();
-        }
-    })
-}
-
-var displaystackedB = function() {
-    $.ajax({
-        url: url,
-        dataType: "text",
-        success: function(textB) {
-//           objB = preprocess(text);
-            preprocessB(textB)
-            displaytoolbarB();
-        }
-    })
-}
-var displaypCoord = function() {
+var displayStackedAreaPlot = function() {
     $.ajax({
         url: url,
         dataType: "text",
         success: function(text) {
-//           objPC = preprocess(text);
-            preprocessPC(text)
-            displaytoolbarPC();
+			var configAreaplot = {
+				displaybutton : '#updateDisplayA',
+				popSelectj : '.popSelectA',
+				plotdivj : '#plotDivA',
+				csdata : preprocess(text),
+				plotdiv : 'plotDivA',
+				type : "areaplot",
+				table : '#popTableA tr',
+				popSelect : "popSelectA",
+				allPopulations : [],
+				selectedPopulations : [],
+				popSelectAll : '#popSelectAllA',
+				popSelectCheck : '.popSelectA:checked',
+			}
+            displayToolbar(configAreaplot);
         }
     })
-}
+};
 
+var displayStackedBarplot = function() {
+    $.ajax({
+        url: url,
+        dataType: "text",
+        success: function(text) {
+			var configBarplot = {
+				displaybutton : "#updateDisplayB",
+				popSelectj : '.popSelectB',
+				plotdivj : "#plotDivB",
+				csdata : preprocess(text),
+				plotdiv : 'plotDivB',
+				type : "barplot",
+				table : '#popTableB tr',
+				popSelect : "popSelectB",
+				allPopulations : [],
+				selectedPopulations : [],
+				popSelectAll : '#popSelectAllB',
+				popSelectCheck: ".popSelectB:checked",
+				checkAll : ""
+			}
+            displayToolbar(configBarplot);
+        }
+    })
+};
 

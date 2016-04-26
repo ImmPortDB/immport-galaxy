@@ -62,7 +62,7 @@ def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names):
     with open(summary_stat, "w") as outf:
         itpop = [str(x) for x in range(1, nbpop)]
         cols = "\t".join(itpop)
-        outf.write("fileID\tsampleName\t" + cols + "\n")
+        outf.write("FileID\tSampleName\t" + cols + "\n")
         for eachfile in popcount:
             tmp = []
             for num in range(1, nbpop):

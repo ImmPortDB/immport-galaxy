@@ -25,21 +25,9 @@
 #div{padding:5px;width:150px;height:100px;text-align:center}
 table{width:100%;border:0px solid;border-collapse:collapse;text-align:center;}
 th{background-color:#3e6db0;color:#fff;padding:5px}
-
-.chartDiv {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: #D3D3D3;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
 </style>
 </head>
+
 <body>
 
 <div class="container-fluid">
@@ -56,7 +44,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
 
             <div class="tab-content">
                 <div class="tab-pane active" id="mfi" style="min-height:500px;">
-                    <div id="mfiDiv">MFI</div>
+                    <div id="mfiDiv" class = "dataTable">MFI</div>
                 </div>
 
                 <div class="tab-pane" id="overviewPlot" style="min-height:500px;">
@@ -77,7 +65,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     <button id="updateDisplay2D">Update Display</button>
                     </div>
                 
-                    <div class="col-md-12 charDiv">
+                    <div class="col-md-12 chartDiv">
                     <div id="scatterPlotDiv2D" class="col-md-10"></div>
                     <div id="populationDiv2D" class="col-md-2">
                     <table id="populationTable2D" border="0" width="100%">
@@ -107,7 +95,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     <button id="updateDisplay3D">Update Display</button>
                     </div>
                 
-                    <div class="col-md-12 charDiv">
+                    <div class="col-md-12 chartDiv">
                     <div id="scatterPlotDiv3D" class="col-md-10"></div>
                     <div id="populationDiv3D" class="col-md-2">
                     <table id="populationTable3D" border="0" width="100%">
@@ -132,7 +120,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     <button id="updateDisplay3DMFI">Update Display</button>
                     </div>
                 
-                    <div class="col-md-12 charDiv">
+                    <div class="col-md-12 chartDiv">
                     <div id="scatterPlotDiv3DMFI" class="col-md-10"></div>
                     <div id="populationDiv3DMFI" class="col-md-2">
                     <table id="populationTable3DMFI" border="0" width="100%">
@@ -151,6 +139,11 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     <div class="row">
                     <div id="plotDiv" class="col-md-10" style="margin-top:5px;"></div>
                     <div id="popDiv" class="col-md-2" style="margin-top:5px;">
+                        <div class="widget">
+                              <input type="range" min="0" max="1" value="0.8" step="0.01" id="pcline_opacity" >
+                              </input>
+                              Opacity: <span id="pcopacity">80%</span>
+                        </div>
                         Select All: <input type="checkbox" checked id="popSelectAll"/>
                         &nbsp;&nbsp;<button id="resetPCoordDisplay">Reset Display</button>
                         <table id="popTable" class="popTable">
@@ -169,7 +162,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     </div>
                     <div class="row">
                     <div class="col-md-1"></div>
-                    <div id="tableDiv" class="col-md-10"></div>
+                    <div id="tableDiv" class="col-md-10 tableDiv"></div>
                     <div class="col-md-1"></div>
                   </div>
                 </div>
