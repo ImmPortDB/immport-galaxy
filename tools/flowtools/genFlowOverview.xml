@@ -3,7 +3,7 @@
   <command interpreter="python">genFlowOverview.py -i $input -o $html_file -M $mfi -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Result File"/>
-    <param name="mfi" type="select" label="Centroids: calculate using">
+    <param name="mfi" type="select" label="Calculate centroids using:">
         <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
         <option value="mdfi">Median Fluorescence Intensity</option>
         <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
