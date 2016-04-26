@@ -7,9 +7,9 @@ from argparse import ArgumentParser
 from flowstatlib import gen_overview_stats
 
 
-def generateMFI(flow_stats, output_file_name):
+def generateMFI(flow_stats, output_file_name, mfi_calc):
     with open(output_file_name,"w") as outf:
-		flow_stats['mfi'].to_csv(outf, sep="\t", float_format='%.0f')
+		flow_stats[mfi_calc].to_csv(outf, sep="\t", float_format='%.0f')
     return
 
 def runFlock(input_file, method, bins, density, output_file, tool_directory):
@@ -41,6 +41,12 @@ if __name__ == "__main__":
             dest="method",
             required=True,
             help="Run flock1 or flock2.")
+
+    parser.add_argument(
+            '-M',
+            dest="mfi_calc",
+            required=True,
+            help="what to calculate for centroids.")
 
     parser.add_argument(
             '-b',
@@ -77,6 +83,6 @@ if __name__ == "__main__":
              args.density, args.output_file, args.tool_directory)
 
     flow_stats = gen_overview_stats(args.output_file)
-    generateMFI(flow_stats, args.centroids)
+    generateMFI(flow_stats, args.centroids, args.mfi_calc)
 
     sys.exit(0)

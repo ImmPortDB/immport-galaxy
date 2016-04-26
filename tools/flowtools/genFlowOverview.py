@@ -30,15 +30,15 @@ def genFlowOverview(flow_stats,args):
     
     flow_mfi_file_name = args.output_directory + "/flow.mfi"
     with open(flow_mfi_file_name,"w") as flow_mfi_file:
-        flow_stats['mfi'].to_csv(flow_mfi_file,sep="\t",float_format='%.0f')
+        flow_stats[args.mfi_calc].to_csv(flow_mfi_file,sep="\t",float_format='%.0f')
 
     #flow_pop_file_name = args.output_directory + "/flow.pop"
     #flow_pop_file = open(flow_pop_file_name,"w")
     #flow_stats['population_all'].to_csv(flow_pop_file,sep="\t",float_format='%.0f')
-
+    mpop = "_".join([args.mfi_calc, "pop"])
     flow_mfi_pop_file_name = args.output_directory + "/flow.mfi_pop"
     with open(flow_mfi_pop_file_name,"w") as flow_mfi_pop_file:
-        flow_stats['mfi_pop'].to_csv(flow_mfi_pop_file,sep="\t",index=False, float_format="%.2f")
+        flow_stats[mpop].to_csv(flow_mfi_pop_file,sep="\t",index=False, float_format="%.2f")
     
     # Generate the Images
     fcm = flow_stats['sample_data'].values
@@ -118,6 +118,12 @@ if __name__ == "__main__":
             dest="output_directory",
             required=True,
             help="Directory location for the Flow Plot.")
+
+    parser.add_argument(
+            '-M',
+            dest="mfi_calc",
+            required=True,
+            help="what to calculate for centroids.")
 
     parser.add_argument(
             '-t',

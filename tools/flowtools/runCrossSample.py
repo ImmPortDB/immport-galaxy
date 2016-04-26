@@ -2,6 +2,7 @@
 from __future__ import print_function
 import sys
 import os
+from scipy.stats import gmean
 from argparse import ArgumentParser
 from collections import defaultdict
 import pandas as pd
@@ -28,8 +29,13 @@ def compareMFIs(inputfiles, fnames, mfi_file):
     if flag_error == True:
         sys.exit(2)
     
-def statsMFIs(csdf, ctr):
-    MFIs = csdf.groupby('Population').mean().round(decimals=2)
+def statsMFIs(csdf, ctr, mfi_calc):
+    if mfi_calc == "mfi":
+        MFIs = csdf.groupby('Population').mean().round(decimals=2)
+    elif mfi_calc == "gmfi":
+        MFIs = csdf.groupby('Population').agg(lambda x: gmean(list(x))).round(decimals = 2)
+    else:
+        MFIs = csdf.groupby('Population').median().round(decimals=2)
     popfreq = (csdf.Population.value_counts(normalize=True) * 100).round(decimals=2)
     sortedpopfreq = popfreq.sort_index()
     MFIs['Percentage'] = sortedpopfreq
@@ -37,7 +43,7 @@ def statsMFIs(csdf, ctr):
     MFIs['SampleName'] = "".join(["Sample", str(ctr).zfill(2)])
     return MFIs
     
-def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names):
+def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names, mfi_calc):
     popcount = defaultdict(dict)
     mrk = marker_names.strip().split("\t")
     markers = "\t".join([mrk[m] for m in range(1, len(mrk))])
@@ -55,7 +61,7 @@ def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names):
                     popcount[files][pops] = 1
             nbpop = len(popcount[files])
             ctr_mfi += 1
-            cs_stats = statsMFIs(cs, ctr_mfi)
+            cs_stats = statsMFIs(cs, ctr_mfi, mfi_calc)
             cs_stats.to_csv(mfis, sep="\t", header = False, index = False)
     
     ctr = 0            
@@ -74,7 +80,7 @@ def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names):
             ph = "".join(["SamplePlaceHolder", str(ctr).zfill(2)])
             outf.write("\t".join([inputfiles[eachfile], ph, props]) + "\n")
 
-def runCrossSample(inputfiles, fnames, mfi_file, output_dir, summary_stat, mfi_stats, tool_directory):
+def runCrossSample(inputfiles, fnames, mfi_file, output_dir, summary_stat, mfi_stats, tool_directory, mfi_calc):
 
     markers = ""
     # Strip off Header Line
@@ -108,7 +114,7 @@ def runCrossSample(inputfiles, fnames, mfi_file, output_dir, summary_stat, mfi_s
                 pop_line = pop_line.rstrip()
                 line = line + "\t" + pop_line + "\n"
                 outf.write(line)
-    getPopProp(outputs, summary_stat, mfi_stats, markers)
+    getPopProp(outputs, summary_stat, mfi_stats, markers, mfi_calc)
 
     return
 
@@ -133,39 +139,45 @@ if __name__ == "__main__":
 
     parser.add_argument(
             '-m',
-            dest="mfi_file",
+            dest="mfi",
             required=True,
             help="File location for the MFI text file.")
 
     parser.add_argument(
             '-o',
-            dest="output_path",
+            dest="out_path",
             required=True,
             help="Path to the directory for the output files.")
 
     parser.add_argument(
+            '-M',
+            dest="mfi_calc",
+            required=True,
+            help="what to calculate for centroids.")
+
+    parser.add_argument(
             '-s',
-            dest="summary_stat",
+            dest="sstat",
             required=True,
             help="File location for the summary statistics.")
 
     parser.add_argument(
             '-S',
-            dest="MFIsummary_stat",
+            dest="mfi_stat",
             required=True,
             help="File location for the MFI summary statistics.")
 
     parser.add_argument(
             '-t',
-            dest="tool_directory",
+            dest="tool_dir",
             required=True,
-            help="File location for the output file.")
+            help="File location for cent_adjust.")
 
     args = parser.parse_args()
 
     input_files = [f for f in args.input_files]
     input_names = [n for n in args.filenames]
-    compareMFIs(input_files, input_names, args.mfi_file)
-    runCrossSample(input_files, input_names, args.mfi_file, args.output_path, args.summary_stat, args.MFIsummary_stat, args.tool_directory)    
+    compareMFIs(input_files, input_names, args.mfi)
+    runCrossSample(input_files, input_names, args.mfi, args.out_path, args.sstat, args.mfi_stat, args.tool_dir, args.mfi_calc)    
     
     sys.exit(0)

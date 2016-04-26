@@ -1,5 +1,6 @@
 from __future__ import print_function
 import numpy as np
+from scipy.stats import gmean
 import pandas as pd
 
 def gen_overview_stats(file_name):
@@ -24,6 +25,12 @@ def gen_overview_stats(file_name):
     flow_stats['mfi'] = fcs.groupby('Population').mean().round(decimals=2)
     flow_stats['mfi_pop'] = pd.merge(flow_stats['mfi'],flow_stats['population_all'],left_index=True,right_index=True)
     flow_stats['mfi_pop']['Population'] = flow_stats['mfi_pop'].index
+    flow_stats['gmfi'] = fcs.groupby('Population').agg(lambda x: gmean(list(x))).round(decimals = 2)
+    flow_stats['gmfi_pop'] = pd.merge(flow_stats['gmfi'],flow_stats['population_all'],left_index=True,right_index=True)
+    flow_stats['gmfi_pop']['Population'] = flow_stats['gmfi_pop'].index
+    flow_stats['mdfi'] = fcs.groupby('Population').median().round(decimals=2)
+    flow_stats['mdfi_pop'] = pd.merge(flow_stats['mdfi'],flow_stats['population_all'],left_index=True,right_index=True)
+    flow_stats['mdfi_pop']['Population'] = flow_stats['mdfi_pop'].index
 
     #
     # If the number of events is less than 20000, then return the complete data set,

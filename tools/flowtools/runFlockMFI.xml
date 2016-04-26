@@ -1,7 +1,7 @@
 <tool id="runFlock" name="Run FLOCK" version="1.1">
   <description>using a FCS file that was converted/transformed to a text file.</description>
   <command interpreter="python">
-    runFlockMFI.py -i $input -o $output -m $method -c $centroid -t $__tool_directory__
+    runFlockMFI.py -i $input -o $output -m $method -c $centroid -M $mfi -t $__tool_directory__
     #if $bins
       -b $bins
     #end if
@@ -18,11 +18,16 @@
     </param>
     <param name="bins" type="integer" min="6" max="30" optional="true" value="" label="bins (6-30)"/>
     <param name="density" type="integer" min="2" max="100" optional="true" value="" label="density (2-100)"/>
+    <param name="mfi" type="select" label="Calculate centroids using:">
+        <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
+        <option value="mdfi">Median Fluorescence Intensity</option>
+        <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
+    </param>
   </inputs>
 
   <outputs>
-    <data format="flowclr" name="output" label="${method} on ${input.name}"/>
-    <data format="flowmfi" name="centroid" label="Centroids from ${method} on ${input.name}"/>
+    <data format="flowclr" name="output" label="${method} with ${mfi} on ${input.name}"/>
+    <data format="flowmfi" name="centroid" label="${mfi} Centroids from ${method} on ${input.name}"/>
   </outputs>
    
  <help>
@@ -54,13 +59,13 @@ FLOCK attributes each event to a population and generates a text file.
 
 *Centroid file*
 
-The centroid file is a table containing the mean fluorescent intensity values of each marker within each population defined by FLOCK.
+The centroid file is a table containing the mean, median or geometric mean fluorescent intensity values of each marker within each population defined by FLOCK, as determined by the user.
 
 -----
 
 **Example**
 
-*Input*::
+*Input* - fluorescence intensities per marker per event::
 
    Marker1 Marker2 Marker3
    34      45      12
@@ -68,7 +73,7 @@ The centroid file is a table containing the mean fluorescent intensity values of
    19      62      98
    12      36      58
 
-*FLOCK Output*::
+*FLOCK Output* - fluorescence intensities per marker and population ID per event::
 
    Marker1 Marker2 Marker3 Population
    34      45      12      1
@@ -76,7 +81,7 @@ The centroid file is a table containing the mean fluorescent intensity values of
    19      62      98      2
    12      36      58      1
 
-*Centroid file*::
+*Centroid file* - mean, geometric mean or median fluorescence intensity per marker per population::
 
    Population Marker1 Marker2 Marker3
    1          38      49      10

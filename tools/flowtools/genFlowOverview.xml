@@ -1,8 +1,13 @@
 <tool id="genFlowOverview" name="Generate Overview Information" version="1.0">
   <description>of FLOCK flow analysis</description>
-  <command interpreter="python">genFlowOverview.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
+  <command interpreter="python">genFlowOverview.py -i $input -o $html_file -M $mfi -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Result File"/>
+    <param name="mfi" type="select" label="Centroids: calculate using">
+        <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
+        <option value="mdfi">Median Fluorescence Intensity</option>
+        <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
+    </param>
   </inputs>
   <outputs>
     <data format="html" name="html_file" label="Overview of ${input.name}">
@@ -26,7 +31,7 @@ The output is a page with multiple tabs that allows visualization of the data.
 
 **Example**
 
-*Input*::
+*Input* - fluorescence intensities per marker and population ID per event::
 
    Marker1 Marker2 Marker3 Population
    33      47      11      1

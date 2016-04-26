@@ -2,8 +2,8 @@
   <description>of the CrossSample analysis</description>
   <command interpreter="python">crossSampleOverview.py -i $input -I $inputmfi -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
   <inputs>
-    <param format="flowstat" name="input" type="data" label="CrossSample Summary Table"/>
-    <param format="flowstat" name="inputmfi" type="data" label="Centroids Summary Table"/>
+    <param format="flowstat" name="input" type="data" label="CrossSample Population Summary Table"/>
+    <param format="flowstat" name="inputmfi" type="data" label="Centroids MFI Summary Table"/>
   </inputs>
   <outputs>
     <data format="html" name="html_file" label="Overview of ${input.name}">
@@ -29,7 +29,7 @@ The output is a page that allows visualization of the data.
 
 *Input*::
 
-Summary table::
+Population distribution table::
 
    Filename SampleName Pop1 Pop2 Pop3 ...
    File1    Biosample1 255  147  18   ...
@@ -37,7 +37,7 @@ Summary table::
    File3    Biosample3 201  546  221  ...
    File4    Biosample4 11   77   327  ...
 
-MFI Summary table::
+Centroids MFI Summary table::
 
    Marker1 Marker2 Marker3 ... Population Percentage SampleName
    154     885     24      ... 1          0.2        Biosample1

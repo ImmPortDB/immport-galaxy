@@ -1,7 +1,7 @@
 <tool id="runCrossSample" name="Run Cross Sample" version="1.0">
   <description>using a Flow file that was run using FLOCK</description>
   <command interpreter="python">
-    runCrossSample.py -m $mfi -s $stats -S $mfistats -t $__tool_directory__ -o crossSampleOutputs
+    runCrossSample.py -m $centroid -s $stats -S $mfistats -M $mfi -t $__tool_directory__ -o crossSampleOutputs
  #for $f in $input#
     -i $f
     -n "$f.name"
@@ -10,15 +10,20 @@
 
   <inputs>
     <param format="flowtext" name="input" type="data_collection" collection_type="list" label="Flow text files Collection"/>
-    <param format="flowmfi" name="mfi" type="data" label="MFI"/>
+    <param format="flowmfi" name="centroid" type="data" label="Centroid file"/>
+    <param name="mfi" type="select" label="Calculate centroids using:">
+        <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
+        <option value="mdfi">Median Fluorescence Intensity</option>
+        <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
+    </param>
   </inputs>
 
   <outputs>
     <collection type="list" label="CrossSample on ${input.name}" name="output">
         <discover_datasets pattern="(?P&lt;name&gt;.*)" directory="crossSampleOutputs" />
     </collection>
-    <data format="flowstat" name="stats" label="Summary statistics of CrossSample on ${input.name} using ${mfi.name}"/>
-    <data format="flowstat" name="mfistats" label="Centroids of CrossSample on ${input.name} using ${mfi.name}"/>
+    <data format="flowstat" name="stats" label="Population distribution after CrossSample on ${input.name} using ${mfi.name}"/>
+    <data format="flowstat" name="mfistats" label="${mfi} Centroids of CrossSample on ${input.name} using ${mfi.name}"/>
   </outputs>
 
   <stdio>
@@ -36,18 +41,22 @@ This tool compares text-converted FCS files from a data collection to the MFI ge
 
 .. class:: infomark
 
-Tip: If the headers in each of the text-converted FCS files do not match those in the centroid file, the program will not run. In case that happens, you can edit the input file with the tool to cut, rearrange or rename columns in the Flow File Tools section.
+The option chosen for the centroids (mean, median or geometric mean) should be the same than what was used to run FLOCK.
 
 **Output**
 
 Each event is attributed to a given population depending on its intensity profile, for each file of the dataset collection independantly.
 A table of the population composition of each file is also generated.
 
+.. class:: infomark
+
+Tip: If the headers in each of the text-converted FCS files do not match those in the centroid file, the program will not run. In case that happens, you can edit the input file with the tool to cut, rearrange or rename columns in the Flow File Tools section.
+
 -----
 
 **Example**
 
-*Input text files*::
+*Input* - fluorescence intensities per marker per event::
 
    Marker1 Marker2 Marker3
    33      47      11
@@ -55,7 +64,7 @@ A table of the population composition of each file is also generated.
    21      62      99
    14      34      60
 
-*Input MFI*::
+*Centroid file* - mean, geometric mean or median fluorescence intensity per marker per population::
 
    Population Marker1 Marker2 Marker3
    1          38      49      10
@@ -63,7 +72,7 @@ A table of the population composition of each file is also generated.
    3          31      52      45
    4          11      78      25
 
-*Output for each text file*::
+*Output* for each text file - fluorescence intensities per marker and population ID per event::
 
    Marker1 Marker2 Marker3 Population
    33      47      11      1
@@ -71,7 +80,7 @@ A table of the population composition of each file is also generated.
    21      62      99      2
    14      34      60      7
 
-*Summary table*::
+*Summary table* - counts of events in each population in each file::
 
    Filename SampleName Pop1 Pop2 Pop3 ...
    File1    Biosample1 255  147  18   ...
@@ -79,7 +88,7 @@ A table of the population composition of each file is also generated.
    File3    Biosample3 201  546  221  ...
    File4    Biosample4 11   77   327  ...
 
-*MFI Summary table*::
+*Centroid MFI Summary table* - for each file, mean, median or geometric mean fluorescence intensities per marker per population::
 
    Marker1 Marker2 Marker3 ... Population Percentage SampleName
    154     885     24      ... 1          0.2        Biosample1
