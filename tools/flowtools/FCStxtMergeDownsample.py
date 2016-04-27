@@ -240,17 +240,22 @@ if __name__ == "__main__":
                         columns.append(int(tmpcol[c].strip()) - 1)
 
     # Get down sampling factor if any:
-    defaultvalueds = ["i.e.:0.1", "default", "Default"]
+    defaultvalueds = ["i.e.:0.1 or 10X", "default", "Default"]
     dsfactor = 1
     if args.downsampling_factor:
         if not args.downsampling_factor in defaultvalueds:
-            if is_number(args.downsampling_factor):
-                dsfactor = float(args.downsampling_factor)
+            args.downsampling_factor = args.downsampling_factor.strip()
+            downsampling_factor = args.downsampling_factor.rstrip("X")
+            if is_number(downsampling_factor):
+                dsfactor = float(downsampling_factor)
                 if dsfactor > 1:
-                    dsfactor = float(args.downsampling_factor) / 100
+                    dsfactor = float(downsampling_factor) / 100
                 if dsfactor > 100:
+                    sys.stderr.write(downsampling_factor)
+                    sys.stderr.write("ohno")
                     sys.exit(8)
             else:
+                sys.stderr.write(downsampling_factor)
                 sys.exit(8)
     
     input_files = [f for f in args.input_files]

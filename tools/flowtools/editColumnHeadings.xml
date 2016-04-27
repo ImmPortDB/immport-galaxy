@@ -1,5 +1,5 @@
-<tool id="editColumns" name="Remove, rearrange and/or rename" version="1.0">
-  <description>columns in txt-converted FCS files.</description>
+<tool id="editColumns" name="Remove, rearrange and/or rename columns" version="1.0">
+  <description>in txt-converted FCS files.</description>
   <command interpreter="python">editColumnHeadings.py -o $output_file -i "${input}"
  #if $columns 
    -c $columns
