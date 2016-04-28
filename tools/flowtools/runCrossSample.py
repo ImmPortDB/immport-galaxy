@@ -77,11 +77,10 @@ def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names, mfi_calc):
                 tmp.append(str(popcount[eachfile][num]))
             props = "\t".join(tmp)
             ctr += 1
-            ph = "".join(["SamplePlaceHolder", str(ctr).zfill(2)])
+            ph = "".join(["Sample", str(ctr).zfill(2)])
             outf.write("\t".join([inputfiles[eachfile], ph, props]) + "\n")
 
 def runCrossSample(inputfiles, fnames, mfi_file, output_dir, summary_stat, mfi_stats, tool_directory, mfi_calc):
-
     markers = ""
     # Strip off Header Line
     with open(mfi_file,"r") as mfi_in, open("mfi.txt", "w") as mfi_out:
@@ -115,9 +114,30 @@ def runCrossSample(inputfiles, fnames, mfi_file, output_dir, summary_stat, mfi_s
                 line = line + "\t" + pop_line + "\n"
                 outf.write(line)
     getPopProp(outputs, summary_stat, mfi_stats, markers, mfi_calc)
-
     return
 
+def generateCSstats(mfi_stats, allstats):
+    df = pd.read_table(mfi_stats)
+    means = df.groupby('Population').mean().round(decimals = 2)
+    medians = df.groupby('Population').median().round(decimals = 2)
+    stdev = df.groupby('Population').std().round(decimals = 2)
+    allmarkers = []
+    with open(mfi_stats, "r") as ms:
+        msfl = ms.readline().strip()
+        allmarkers = msfl.split("\t")[0:-2]
+
+    with open(allstats, "w") as mstats:
+        hdgs = ["\t".join(["_".join([mrs, "mean"]),"_".join([mrs, "median"]),"_".join([mrs, "stdev"])]) for mrs in allmarkers]
+        mstats.write("Population\t")
+        mstats.write("\t".join(hdgs) + "\n")
+        for pops in set(df.Population):
+            tmpline = []
+            for mar in allmarkers:
+                tmpline.append("\t".join([str(means.loc[pops,mar]), str(medians.loc[pops,mar]), str(stdev.loc[pops,mar])]))
+            mstats.write(str(pops) + "\t")
+            mstats.write("\t".join(tmpline) + "\n")
+            
+                
 if __name__ == "__main__":
     parser = ArgumentParser(
              prog="runCrossSample",
@@ -173,11 +193,18 @@ if __name__ == "__main__":
             required=True,
             help="File location for cent_adjust.")
 
+    parser.add_argument(
+            '-a',
+            dest="allstats",
+            required=True,
+            help="File location for stats on all markers.")
+
     args = parser.parse_args()
 
     input_files = [f for f in args.input_files]
     input_names = [n for n in args.filenames]
     compareMFIs(input_files, input_names, args.mfi)
     runCrossSample(input_files, input_names, args.mfi, args.out_path, args.sstat, args.mfi_stat, args.tool_dir, args.mfi_calc)    
+    generateCSstats(args.mfi_stat, args.allstats)
     
     sys.exit(0)
