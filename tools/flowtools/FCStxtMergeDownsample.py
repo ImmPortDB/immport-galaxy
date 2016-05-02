@@ -5,7 +5,7 @@ import sys
 import os
 from subprocess import check_output
 import numpy as np
-
+import pandas as pd
 from argparse import ArgumentParser
 
 def is_number(s):
@@ -21,9 +21,6 @@ def is_integer(s):
         return True
     except ValueError:
         return False
-
-def wc(filename):
-    return int(check_output(["wc", "-l", filename]).split()[0]) - 1
 
 def compareheaders(files):
     headers = {}
@@ -63,27 +60,18 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
     """
 
     nb_errors = 0
-    errors = {
-        "numbers" : 0,
-        "index" : 0        
-    }
-    count_lines = {}
     max_error = 10
 
     ## get list of headers in common to all files
     list_hdgs = compareheaders(in_files)
-    
-    ff_order = {}
-    with open(out_file, "w") as outf:
-        # If downsampling:
-        wcfirstfile = wc(in_files[0])
-        lines_to_keepff =[ln + 1 for ln in np.random.choice(wcfirstfile, int(wcfirstfile * factords), replace=False)]
 
+    with open(out_file, "w") as outf:
+
+        ff_order = []
+        ## HEADERS:
         with open(in_files[0], "r") as firstfile:
             headingsff = firstfile.readline().strip()
             headings = headingsff.split("\t")
-            count_lines[in_files[0]] = 1
-
             # Get index of headers in common:
             hdrs_idx = getheadersindex(list_hdgs, headings)
 
@@ -93,99 +81,64 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
                     if not ix in hdrs_idx:
                         nb_errors += 1
                         sys.stderr.write(" ".join(["WARNING: column", str(ix), "in", in_files[0] ,
-                                                   "does not exist in all files or has a different header."]) + "\n")
-                        errors["index"] += 1
+                                                   "does not exist in all files or has a different header.\n"]))
                 hdrs_idx = col_names
 
             # Print out to output file:
             headings_to_write = []
-            col_order = []
-            cta = 0
             for cti in range(0, len(headings)):
                 if cti in hdrs_idx:
                     headings_to_write.append(headings[cti])
-                    ff_order[cta] = headings[cti].lower()
-                    col_order.append(cti)
-                    cta +=1
+                    ff_order.append(headings[cti])
             outf.write("\t".join(headings_to_write) + "\n")
 
-            # Go through file to print data to output file:
-            for fileline in firstfile:
-                if nb_errors < max_error:
-                    fileline = fileline.strip()
-                    count_lines[in_files[0]] += 1
-                    if count_lines[in_files[0]] in lines_to_keepff:
-                        filestuff = fileline.split("\t")
-                        
-                        # Check that data to write is a number:
-                        to_check = [filestuff[z] for z in hdrs_idx]
-
-                        for item in to_check:
-                            if not is_number(item): 
-                                nb_errors += 1
-                                sys.stderr.write(" ".join(["WARNING: line", str(count_lines[in_files[0]]),
-                                                           "in", in_files[0] ,"contains non-numeric results"]) + "\n")
-                                errors["numbers"] += 1
- 
-                        # Print out:
-                        if nb_errors < max_error:
-                            outf.write("\t".join([filestuff[z] for z in col_order]) + "\n")
-                        
-        ## Go through other files:
-        for i in range(1, len(in_files)):
-            if nb_errors < max_error:
+        # DATA
+        for infile in in_files:
+            with open(infile, "r") as inf:
+                headingsinf = inf.readline().strip()
+                hdgs = headingsinf.split("\t")
+                # Get the index of columns to keep:
+                hdgs_idx = []
+                for ctc in ff_order:
+                    hdgs_idx.append(int(hdgs.index(ctc)))
+                if col_names:
+                    for iy in col_names:
+                        if not iy in hdgs_idx:
+                            nb_errors += 1
+                            sys.stderr.write(" ".join(["WARNING: column", str(iy), "in", in_files[i],
+                                                       "does not exist in all files or has a different header.\n"]))
+                    hdgs_idx = col_names
             
-                # If downsampling:
-                linenb = wc(in_files[i])
-                lines_to_keep = [lin + 1 for lin in np.random.choice(linenb, int(linenb * factords), replace=False)]
-                
-                with open(in_files[i], "r") as inf:
-                    headingsinf = inf.readline().strip().lower()
-                    hdgs = headingsinf.split("\t")
-                    count_lines[in_files[i]] = 1
-                        
-                    # Get the index of columns to keep:
-                    hdgs_idx = []
-                    for ctc in ff_order:
-                        hdgs_idx.append(int(hdgs.index(ff_order[ctc])))
-                    if col_names:
-                        for iy in col_names:
-                            if not iy in hdgs_idx:
-                                nb_errors += 1
-                                sys.stderr.write(" ".join(["WARNING: column", str(iy), "in", in_files[i],
-                                                           "does not exist in all files or has a different header."]) + "\n")
-                                errors["index"] += 1
-                        hdgs_idx = col_names
+            df = pd.read_table(infile, usecols = hdrs_idx)
+            wcfile = len(df.index) - 1
+            df_ds = df.sample(int(wcfile * factords), replace = False)
 
-                    # Read through file and print out to output:
-                    for otherlines in inf:
-                        if nb_errors < max_error:
-                            count_lines[in_files[i]] += 1
-                            if count_lines[in_files[i]] in lines_to_keep:
-                                otherlines = otherlines.strip()
-                                otherstuff = otherlines.split("\t")
-                                stftowrite = [otherstuff[xy] for xy in hdgs_idx]
-                                
-                                for item in stftowrite:
-                                    if not is_number(item):
-                                        nb_errors += 1
-                                        sys.stderr.write(" ".join(["WARNING: line", str(count_lines[in_files[i]]),
-                                                                   "in", in_files[i] ,"contains non-numeric results"]) + "\n")
-                                if nb_errors < max_error:
-                                    outf.write("\t".join(stftowrite) + "\n")
+            for cols in df_ds.columns.values:
+                if df_ds[cols].count() != len(df_ds[cols]):
+                    sys.stderr.write(in_file + "contains non-numeric data\n")
+                    
+                    with open(infile, "r") as checkfile:
+                        fl = checkfile.readline()
+                        count_lines = 1
+                        for checklines in checkfile:
+                            to_check = checklines.strip().split("\t")
+                            count_lines += 1
+                            for item in to_check:
+                                if not is_number(item): 
+                                    sys.stderr.write(" ".join(["WARNING: line", str(count_lines),
+                                                               "in", infile ,"contains non-numeric results\n"]))
+                    sys.exit(2)
+
+            df_ds = df_ds.ix[:,ff_order]
+            df_ds.to_csv(outf, sep="\t", header = False, index = False, )
  
     if nb_errors > 0:
-        exit_code = 0
-        if errors["numbers"] > 0:
-            exit_code += 2
-        if errors["index"] > 0:
-            exit_code += 3
+        exit_code = 3
         if nb_errors == max_error:
             exit_code = 4
             sys.stderr.write("Run aborted - too many errors.")
             os.remove(out_file)
         sys.exit(exit_code)
-
     return
 
 if __name__ == "__main__":
@@ -251,11 +204,8 @@ if __name__ == "__main__":
                 if dsfactor > 1:
                     dsfactor = float(downsampling_factor) / 100
                 if dsfactor > 100:
-                    sys.stderr.write(downsampling_factor)
-                    sys.stderr.write("ohno")
                     sys.exit(8)
             else:
-                sys.stderr.write(downsampling_factor)
                 sys.exit(8)
     
     input_files = [f for f in args.input_files]

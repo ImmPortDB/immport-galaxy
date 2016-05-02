@@ -18,10 +18,9 @@
     <data format="flowtext" name="output_file" label="Merge flowtext on ${input.name}"/>
   </outputs>
   <stdio>
-    <exit_code range="2" level="warning" description="Non-numeric data. See stderr for more details." />
+    <exit_code range="2" level="fatal" description="Non-numeric data. See stderr for more details." />
     <exit_code range="3" level="warning" description="Selected columns do not exist in all files" />
     <exit_code range="4" level="fatal" description="Run aborted - too many errors" />
-    <exit_code range="5" level="warning" description="Selected columns do not exist in all files, non-numeric data detected." />
     <exit_code range="6" level="fatal" description="Please provide integers for columns you want to merge on." />
     <exit_code range="7" level="fatal" description="Please provide a comma separated list of integers for columns you want to merge on." />
     <exit_code range="8" level="fatal" description="Please provide a numeric value [0,1] for the downsampling factor." />
@@ -54,7 +53,7 @@ If a downsampling factor is provided, the corresponding proportion of each input
 
 .. class:: warningmark
 
-Potential errors are logged to stderr. If the number of errors reaches 10, the run is aborted.
+Potential errors are logged to stderr. If the number of errors reaches 10, the run is aborted. If a file contains non-numeric data, the run will be aborted.
 
 .. class:: infomark
 
