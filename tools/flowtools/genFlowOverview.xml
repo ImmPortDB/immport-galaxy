@@ -27,6 +27,10 @@ This tool can read in the output of FLOCK or of CrossSample (a tab-separated fil
 
 The output is a page with multiple tabs that allows visualization of the data. 
 
+.. class: warningmark
+
+The FLOCK output is proportionally downsampled to 20K events for the visualization.
+
 -----
 
 **Example**

@@ -4,12 +4,19 @@ from __future__ import print_function
 import sys 
 import os
 from argparse import ArgumentParser
-from flowstatlib import gen_overview_stats
+import pandas as pd
 
+def generateMFI(input_file_name, output_file_name, mfi_calc):
+    flockdf = pd.read_table(input_file_name)
+    if mfi_calc == "mfi":
+        MFIs = flockdf.groupby('Population').mean().round(decimals=2)
+    elif mfi_calc == "gmfi":
+        MFIs = flockdf.groupby('Population').agg(lambda x: gmean(list(x))).round(decimals = 2)
+    else:
+        MFIs = flockdf.groupby('Population').median().round(decimals=2)
 
-def generateMFI(flow_stats, output_file_name, mfi_calc):
     with open(output_file_name,"w") as outf:
-		flow_stats[mfi_calc].to_csv(outf, sep="\t", float_format='%.0f')
+		MFIs.to_csv(outf, sep="\t", float_format='%.0f')
     return
 
 def runFlock(input_file, method, bins, density, output_file, tool_directory):
@@ -82,7 +89,6 @@ if __name__ == "__main__":
     runFlock(args.input_file,args.method,args.bins,
              args.density, args.output_file, args.tool_directory)
 
-    flow_stats = gen_overview_stats(args.output_file)
-    generateMFI(flow_stats, args.centroids, args.mfi_calc)
+    generateMFI(args.output_file, args.centroids, args.mfi_calc)
 
     sys.exit(0)
