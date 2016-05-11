@@ -521,6 +521,7 @@ var displayParallelCoordinatesMFI = function() {
                 pcAppMFI.samples.push(d.SampleName);
             }
         })
+        pcAppMFI.populations = pcAppMFI.populations.sort(function(a, b){return a-b});
 		pcAppMFI.allLines = pcAppMFI.origData.length;
 
 		var allPops = pcAppMFI.populations.length;

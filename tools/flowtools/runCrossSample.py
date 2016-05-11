@@ -60,7 +60,8 @@ def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names, mfi_calc):
                     popcount[files][pops] += 1
                 else:
                     popcount[files][pops] = 1
-            nbpop = len(popcount[files])
+            if (len(popcount[files])> nbpop):
+                nbpop = len(popcount[files])
             ctr_mfi += 1
             cs_stats = statsMFIs(cs, ctr_mfi, mfi_calc)
             cs_stats.to_csv(mfis, sep="\t", header = False, index = False)
