@@ -7,6 +7,7 @@ pcApp.allSamples = [];
 pcApp.selectedSamples = [];
 pcApp.origData;
 pcApp.flowData;
+pcApp.updatedData;
 pcApp.headers = [];
 pcApp.foreground;
 pcApp.background;
@@ -25,7 +26,8 @@ var displaySmpTable = function() {
             .append('<tr><td align="center">'
                    + '<input type="checkbox" id="' + d.SampleName + '" '
                    + 'checked class="popSelectPC" value='
-                   + d.SampleNumber + '/></td><td>' + d.SampleName
+                   + d.SampleNumber + '/></td><td title="' + newSmpNames[d.SampleName] 
+                   + '">' + newSmpNames[d.SampleName]
                    + '</td><td><span style="background-color:'
                    + color_palette[d.SampleNumber]
                    + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
@@ -85,34 +87,94 @@ var updateSmpTable = function() {
 
 var displayTableGrid = function() {
     $("#tableDivPC").empty();
-    var displayData = pcApp.origData.filter(function(d) {
-        var smp = parseInt(d.SampleNumber);
-        if ($.inArray(smp,pcApp.selectedSamples) > -1) {
+    pcApp.updatedData = $.extend(true,[],tableContent);
+    pcApp.updatedData.forEach(function(d, idx){
+        d.SampleName = idx + 1;
+        delete(d.FileID);
+    });
+    var updatedHeaders = Object.keys(pcApp.updatedData[0]);
+    var displayData = pcApp.updatedData.filter(function(d,i) {
+        if ($.inArray(i,pcApp.selectedSamples) > -1) {
           return d;
         }
     });
-    var grid = d3.divgrid();
-    grid.columns(pcApp.headers);
-    d3.select("#tableDivPC")
-        .datum(displayData)
-        .call(grid)
-        .selectAll(".gridRow")
-        .on({
-          "mouseover": function(d) {
-             var smp = parseInt(d.SampleNumber);
-             pcApp.selectedSamples = [ smp ];
-             updateParallelForeground();
+
+    var colTable = [];
+    var colNames = [];
+    var pctargets = [];
+    var targetCol = updatedHeaders.length - 2;
+    updatedHeaders.forEach(function(d,i){
+        colTable.push("<th>" + d + "</th>");
+        colNames.push({"data":d});
+        if (i < targetCol){
+            pctargets.push(i);
+        }        
+    });
+
+    var tableHTML = [
+        '<table id="pcTable" class="pctable display compact nowrap" cellspacing="0" width="100%">',
+        '<thead>',
+        '<tr>',
+        colTable.join("\n"),
+        '</tr>',
+        '</thead>',
+        '</table>',
+    ];
+    
+    $('#tableDivPC').html(tableHTML.join("\n"));
+    var pcTable = $('#pcTable').DataTable({
+        columns: colNames,
+        data: displayData,
+        order: [[ targetCol, "asc" ]],
+        pageLength: 10, 
+        //paging: false,
+        scrollY: 250,
+        scrollCollapse: true,
+        scrollX: true,
+        dom: '<"top"B>t<"bottom"lip><"clear">',
+        columnDefs: [
+          { 
+            targets: pctargets,
+            className: "dt-body-right",
+            render: function(data,type,row){
+                return parseFloat(data).toFixed(2) + '%';
+            }
           },
-          "mouseout": function() {
-              pcApp.selectedSamples = [];
-              $('.popSelectPC').each(function() {
-                  if (this.checked) {
-                     pcApp.selectedSamples.push(parseInt(this.value));
-                  }
-              })
-              updateParallelForeground();
+          {
+            targets: [targetCol, targetCol+1],
+            className: "dt-body-center"
+          },
+          {
+            targets:[targetCol],
+            render: function(data, type, row){
+                return 'Sample' + parseInt(data);
+            }
           }
-        });
+        ],
+        buttons: [
+            'copy', 'pdfHtml5','csvHtml5', 'colvis'
+        ],
+        colReorder: true,
+        select: true
+    });
+
+    $('#pcTable').on('mouseover', 'tr', function() {
+        var data = pcTable.row(this).data();
+        if (data != undefined) {
+            var smp = parseInt(data.SampleName) - 1;
+            pcApp.selectedSamples = [ smp ];
+            updateParallelForeground();
+        }
+    });
+    $('#pcTable').on('mouseleave', 'tr', function() {
+        pcApp.selectedSamples = [];
+        $('.popSelectPC').each(function() {
+            if (this.checked) {
+                pcApp.selectedSamples.push(parseInt(this.value));
+            }
+            updateParallelForeground();
+        })
+    });
 };
 
 
@@ -138,13 +200,33 @@ var displayParallelPlot = function() {
     var y = {};
 	var dragging = {};
     var line = d3.svg.line();
-    var axis = d3.svg.axis().orient("left");
+    var axis = d3.svg.axis()
+                     .orient("left")
+                     .tickFormat(d3.format("d"))
+                     .ticks(5);
+    
+    var ymax = 0;
+    for (var m = 0, n = pcApp.flowData.length; m < n; m++){
+        for (var p in pcApp.flowData[m]){
+            if (+pcApp.flowData[m][p] > ymax){
+                ymax = +pcApp.flowData[m][p];
+            }
+        }
+    }
 
+    // Y axis label
+    svg.append("text")
+        .attr("class", "ylabel")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Fraction of population in sample");
+    
     var dimensions = d3.keys(pcApp.flowData[0]).filter(function(d) {
         return (y[d] = d3.scale.linear()
-            .domain(d3.extent(pcApp.flowData,function(p) {
-                return +p[d]; }
-            ))
+            .domain([0,parseInt(ymax)+1])
             .range([height, 0]));
     });
     x.domain(dimensions);
@@ -245,7 +327,9 @@ var displayParallelPlot = function() {
     // Add an axis and title.
     g.append("g")
         .attr("class", "axis")
-        .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
+        .each(function(d) { d3.select(this).call(axis.scale(y[d])); });
+    g.append("g")
+        .attr("class", "xlabel")
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
@@ -282,37 +366,36 @@ var updateParallelForeground = function() {
  * Retrieve the data, then call display functions
 */
 var displayParallelCoordinates = function() {
-    var inputFile = "./csOverview.tsv";
+/*    var inputFile = "./csOverview.tsv";
     d3.tsv(inputFile, function(error, data) {
          if (error) {
             alert("Problem Retrieving Data");
             return;
         }
-   
-        pcApp.origData = $.extend(true,[],data);
+  */ 
+        pcApp.origData = $.extend(true,[],tableContent);
         pcApp.headers = Object.keys(pcApp.origData[0]);
         pcApp.headers.splice(pcApp.headers.indexOf("FileID"), 1);
         
         pcApp.origData.forEach(function(d,idx){
             d.SampleNumber = idx;
-			delete d.FileID;
+	//		delete d.FileID;
         })
 		
         /* 
-         * For the plot use only the MFI information
-         * for each populations. Store in flowData
+         * For the plot use only the proportion of each
+         * population per sample. Store in flowData
         */
-        pcApp.flowData = $.extend(true,[],data);
-        pcApp.flowData.forEach(function(d, index) {
-            delete d['FileID'];
-            delete d['SampleName']; 
-        } )
-        
+        pcApp.flowData = $.extend(true,[],tableContent);
+        pcApp.flowData.forEach(function(d,idx){
+            delete d.SampleName;
+			delete d.FileID;
+			delete d.Comment;
+        })
         for (var i = 0; i < pcApp.flowData.length; i++) {
             pcApp.allSamples.push(i);
             pcApp.selectedSamples.push(i);
         }
-
         displaySmpTable();
         displayTableGrid();
         displayParallelPlot();
@@ -340,5 +423,5 @@ var displayParallelCoordinates = function() {
                 displayAll();
             },500,"resizePC");
         });
-    });
+//    });
 }

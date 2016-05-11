@@ -132,10 +132,15 @@ var displayScatterToolbar2D = function() {
 };
 
 var displayScatterPopulation2D = function() {
+    $('#populationTable2D tbody').empty();
     scatterData2D['populations'].map(function(value,index) {
-        $('#populationTable2D tr')
-            .last()
-            .after('<tr><td align="center"><input type="checkbox" checked class="pop2D" value=' + value + '/></td><td>' + value + '<td><span style="background-color:' + color_palette[value] + '">&nbsp;&nbsp;&nbsp</span></td></td><td>' + scatterData2D['percent'][value - 1] + '<td></tr>');
+        $('#populationTable2D tbody')
+            .append('<tr><td align="center">' 
+            + '<input type="checkbox" checked class="pop2D" value=' + value + '/></td>'
+            + '<td title="' + newNames[value] + '">' + newNames[value] + '</td>'
+            + '<td><span style="background-color:' 
+            + color_palette[value] + '">&nbsp;&nbsp;&nbsp</span></td>'
+            + '<td>' + scatterData2D['percent'][value - 1] + '</td></tr>');
     });
 
     $('#selectall2D').click(function() {

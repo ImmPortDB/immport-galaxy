@@ -1,5 +1,9 @@
-//var url = "./data/csOverview.tsv";
 var url = "./csOverview.tsv";
+var tableContent;
+var newSmpNames= {};
+var newPopNames = {};
+var configBarplot = {};
+var configAreaplot = {};
 
 var waitForFinalEvent = (function () {
   var timers = {};
@@ -26,29 +30,15 @@ var preprocess = function(text){
     return crossSampleData;
 };
 
-var updatePopPropDisplay = function(data) {
-    $('#propDiv').empty();
-    var table = $("<table/>");
-    $.each(data, function(rowIndex,r) {
-        var row = $("<tr/>");
-        $.each(r,function(colIndex,c) {
-			if (colIndex >= 1){
-				row.append($("<t"+(rowIndex ==0 ? "h" : "d")+" align='right'/>").text(c));
-			}
-		});
-        table.append(row);
-
-    });
-    $('#propDiv').html(table);
-};
-
 var displayPopulationLegend = function(plotconfig) {
+    $(plotconfig.table).empty();
     plotconfig.allPopulations.map(function(value,index) {
         $(plotconfig.table)
-			.last()
- 			.after('<tr><td align="center"><input type="checkbox" checked class=' + plotconfig.popSelect + 
-				   ' value=' + value + '/></td><td>' + value + '</td><td><span style="background-color:' +
-				   color_palette[value] + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
+			.append('<tr><td align="center">' 
+			+ '<input type="checkbox" checked class=' + plotconfig.popSelect 
+			+ ' value=' + value + '/></td><td title="' + newPopNames[value] + '">' 
+			+ newPopNames[value] + '</td><td><span style="background-color:' 
+			+ color_palette[value] + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
     });
 
     $(plotconfig.popSelectAll).click(function() {
@@ -70,17 +60,128 @@ var displayPopulationLegend = function(plotconfig) {
 };
 
 var displayProp = function() {
-    $.ajax({
-        url: url,
-        dataType: "text",
-        success: function(text) {
-            data = d3.tsv.parseRows(text).map(function(row) {
-                return row.map(function(value) {
-                    return value;
-                });
-            });
-            updatePopPropDisplay(data);
+    d3.tsv(url, function(error, data){
+        if (error){
+            alert("Problem retrieving data");
+            return;
         }
+
+        function propHandle(method, url, d, successCallBack, errorCallBack) {
+            var output = {data : propTableData};
+            successCallBack(output);   
+        };
+
+        function popHandle(method, url, d, successCallBack, errorCallBack) {
+            var output = {data : popTableData};
+            successCallBack(output);   
+        };
+
+        var popTableData = [];
+        var propTableData = $.extend(true,[],data);
+        propTableData.forEach(function(d){
+            d.Comment = d.SampleName;
+            newSmpNames[d.SampleName] = d.Comment;
+          //  delete(d.FileID);
+        })
+        var propHeadings = Object.keys(propTableData[0]);
+        var propTableHeadings = [];
+        var propTargets = [];
+        var popTableHeadings = [];
+        var propEditorData = [];
+        var popEditorData = [];
+        propHeadings.forEach(function(d){
+            propTableHeadings.push({"data":d, "title":d});
+            propEditorData.push({"label":d,"name":d});
+            if (d != 'Comment' && d != 'SampleName' && d != "FileID"){
+                newPopNames[d] = d.toString();
+                popTableHeadings.push({"data":d, "title":d});
+                popEditorData.push({"label":d,"name":d});
+            }
+        });        
+        popTableData.push(newPopNames);
+        tableContent = $.extend(true,[],propTableData);
+        var smpcol = propHeadings.length - 2;
+        for (var i=0; i<smpcol - 1 ;i++){
+            propTargets.push(i);
+        }
+        
+
+        $('#propDiv').empty();
+        var propHTML = '<table id="proptable" class="dtable display compact nowrap" cellspacing="0" width="100%"/>';
+        $('#propDiv').html(propHTML);
+        var smpEditor = new $.fn.dataTable.Editor( {
+            ajax: propHandle,
+            table: '#proptable',
+            fields: propEditorData,
+            idSrc: 'SampleName'
+        });
+        
+        $('#proptable').on( 'click', 'tbody td:last-child', function (e) {
+            smpEditor.bubble( this );
+        });
+        var propTable = $('#proptable').DataTable({
+            columns: propTableHeadings,
+            data: propTableData,
+            order: [[ smpcol, "asc" ]],
+            pageLength: 10, 
+            scrollX: true,
+            scrollCollapse: true,
+            dom: '<"top"Bi>t<"bottom"lp><"clear">',
+            columnDefs: [{ 
+                targets: propTargets,
+                className: "dt-body-right",
+                render: function(data, type, row){
+                        return parseFloat(data).toFixed(2) + '%';
+                }
+            }],
+            buttons: [
+                'copy', 'pdfHtml5','csvHtml5', 'colvis'
+            ],
+            colReorder: true,
+            select: true
+        });
+        
+        // Add a table below to rename pops
+        // Might want to change that some other time?
+        var popHTML = '<table id="popnamestable" class="popt dtable display nowrap compact" cellspacing="0" width="100%"/>';
+        $('#popnamesDiv').html(popHTML);
+        var popEditor = new $.fn.dataTable.Editor( {
+            ajax: popHandle,
+            table: '#popnamestable',
+            fields: popEditorData,
+            idSrc: '1'
+        });
+        
+        $('#popnamestable').on( 'click', 'tbody td', function (e) {
+            popEditor.bubble( this );
+        });
+        var popTable = $('#popnamestable').DataTable({
+            columns: popTableHeadings,
+            dom: 't',
+            select: true,
+            data: popTableData
+        });
+              
+        smpEditor.on( 'preSubmit', function(e, object, action){
+            var data = object.data;
+            var key = Object.keys(data)[0];
+            var count = object.data[key]['Comment'];
+            
+            propTableData.forEach(function(d){
+                if (d.SampleName === key) {
+                    d.Comment = count;
+                    newSmpNames[d.SampleName] = count;
+                }
+            });
+            tableContent = $.extend(true, [], propTableData);
+        });
+        popEditor.on( 'preSubmit', function(e, object, action){
+            var data = object.data;
+            var key = Object.keys(data['1'])[0];
+            var count = object.data['1'][key];
+            popTableData[0][key] = count;
+            newPopNames[key] = count;
+        });
     });
 };
 
@@ -89,14 +190,14 @@ var displayStackedAreaPlot = function() {
         url: url,
         dataType: "text",
         success: function(text) {
-			var configAreaplot = {
+			configAreaplot = {
 				displaybutton : '#updateDisplayA',
 				popSelectj : '.popSelectA',
 				plotdivj : '#plotDivA',
 				csdata : preprocess(text),
 				plotdiv : 'plotDivA',
 				type : "areaplot",
-				table : '#popTableA tr',
+				table : '#popTableA tbody',
 				popSelect : "popSelectA",
 				allPopulations : [],
 				selectedPopulations : [],
@@ -113,14 +214,14 @@ var displayStackedBarplot = function() {
         url: url,
         dataType: "text",
         success: function(text) {
-			var configBarplot = {
+			configBarplot = {
 				displaybutton : "#updateDisplayB",
 				popSelectj : '.popSelectB',
 				plotdivj : "#plotDivB",
 				csdata : preprocess(text),
 				plotdiv : 'plotDivB',
 				type : "barplot",
-				table : '#popTableB tr',
+				table : '#popTableB tbody',
 				popSelect : "popSelectB",
 				allPopulations : [],
 				selectedPopulations : [],

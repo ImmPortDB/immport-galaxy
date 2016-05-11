@@ -31,7 +31,8 @@ var displayPopTablem = function() {
                    + '<input type="checkbox" '
                    + 'id="'+ d + '" '
                    + 'checked class="popSelectPCm" value='
-                   + index + '/></td><td>' + d
+                   + index + '/></td><td title="' + newPopNames[d] 
+                   + '">' + newPopNames[d]
                    + '</td><td><span style="background-color:'
                    + color_palette[index]
                    + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
@@ -121,7 +122,8 @@ var displaySmpTablem = function(){
     $('#smpTablePCm tbody').empty();
     pcAppMFI.samples.map(function(d, index) {
         $('#smpTablePCm tbody')
-            .append('<tr><td>' + d 
+            .append('<tr><td title="' + newSmpNames[d] 
+                   + '">' + newSmpNames[d] 
                    + '</td><td align="center">'
                    + '<input type="checkbox" '
                    + 'id="' + d + '" '
@@ -212,33 +214,93 @@ var updateSmpTableidx = function() {
 
 var displayTableGridm = function() {
 	$("#tableDivPCm").empty();
-    var displayData = pcAppMFI.origData.filter(function(d, index) {
-        if ($.inArray(index,pcAppMFI.selectedLines) > -1){
-            return d;
+    var displayData = pcAppMFI.origData.filter(function(d,i) {
+        if ($.inArray(i,pcAppMFI.selectedLines) > -1) {
+          return d;
         }
     });
 
-    var grid = d3.divgrid();
-    grid.columns(pcAppMFI.headers);
-    d3.select("#tableDivPCm")
-      .datum(displayData)
-      .call(grid)
-      .selectAll(".gridRow")
-      .on({
-          "mouseover": function(d) {
-             var line = parseInt(d.idx);
+    displayData.forEach(function(d){
+        d.EditedPopName = newPopNames[d.Population];
+        d.SampleName = newSmpNames[d.SampleName];
+    });
 
-             pcAppMFI.selectedLines = [line];
-             updateParallelForegroundidx();
+    var colTable = [];
+    var colNames = [];
+    var pctargets = [];
+    var targetCol = pcAppMFI.headers.length - 3;
+    
+    pcAppMFI.headers.forEach(function(d,i){
+        colTable.push("<th>" + d + "</th>");
+        colNames.push({"data":d});
+        if (i < targetCol - 1){
+            pctargets.push(i);
+        }        
+    });
+
+    var tableHTML = [
+        '<table id="pcTableMFI" class="pctable display compact nowrap" cellspacing="0" width="100%">',
+        '<thead>',
+        '<tr>',
+        colTable.join("\n"),
+        '</tr>',
+        '</thead>',
+        '</table>',
+    ];
+    
+    $('#tableDivPCm').html(tableHTML.join("\n"));
+    var pcTable = $('#pcTableMFI').DataTable({
+        columns: colNames,
+        data: displayData,
+        order: [[ targetCol, "asc" ]],
+        pageLength: 10, 
+        //paging: false,
+        scrollY: 250,
+        scrollCollapse: true,
+        scrollX: true,
+        dom: '<"top"B>t<"bottom"lip><"clear">',
+        columnDefs: [
+          { 
+            targets: pctargets,
+            className: "dt-body-right",
+            render: function(data,type,row){
+                return parseFloat(data).toFixed(2);
+            }
           },
-          "mouseout": function() {
-			  pcAppMFI.selectedLines = [];
-			  for (var i = 0, j = pcAppMFI.lines.length; i < j; i++){
-	              pcAppMFI.selectedLines.push(pcAppMFI.lines[i]);
-			  }
-              updateParallelForegroundidx();
+          {
+            targets: [targetCol - 1],
+            className: "dt-body-right",
+            render: function(data,type,row){
+                return parseFloat(data).toFixed(2) + '%';
+            }
+         },
+          {
+            targets: [targetCol, targetCol+1, targetCol+2],
+            className: "dt-body-center"
           }
-      });
+        ],
+        buttons: [
+            'copy', 'pdfHtml5','csvHtml5', 'colvis'
+        ],
+        colReorder: true,
+        select: true
+    });
+
+    $('#pcTableMFI').on('mouseover', 'tr', function() {
+        var data = pcTable.row(this).data();
+        if (data != undefined) {
+            var line = parseInt(data.idx);
+            pcAppMFI.selectedLines = [line];
+            updateParallelForegroundidx();
+        }
+    });
+    $('#pcTableMFI').on('mouseleave', 'tr', function() {
+        pcAppMFI.selectedLines = [];
+        for (var i = 0, j = pcAppMFI.lines.length; i < j; i++){
+          pcAppMFI.selectedLines.push(pcAppMFI.lines[i]);
+        }
+        updateParallelForegroundidx();
+    });
 };    
 
 /*
@@ -274,11 +336,25 @@ var displayParallelPlotm = function() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+    // Y axis label
+    svg.append("text")
+        .attr("class", "ylabel")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("MFI");
+
     var x = d3.scale.ordinal().rangePoints([0, width], 1);
     var y = {};
     var line = d3.svg.line();
-    var axis = d3.svg.axis().orient("left");
+    var axis = d3.svg.axis().orient("left").ticks(8)
     var dragging = {};
+
+    // Use this to scale line width to percentage population
+    var pd = d3.extent(pcAppMFI.origData, function(p) { return +p['Percentage'];});
+    var popScale = d3.scale.linear().range([1,5]).domain(pd);
     
     var dimensions = d3.keys(pcAppMFI.flowData[0]).filter(function(d) {
         return (y[d] = d3.scale.linear()
@@ -350,7 +426,15 @@ var displayParallelPlotm = function() {
         .attr("stroke",function(d){
 			  var pop = pcAppMFI.populations.indexOf(d.Population);
               return color_palette[pop];})
-        .attr("stroke-width", 1);
+      //.attr("stroke-width", 1);
+        // Use this if you want to scale the lines based on
+        // population percentage
+        .attr("stroke-width", function(d) {
+               var pop = pcAppMFI.populations.indexOf(d.Population);
+               var w = popScale(pcAppMFI.origData[pop]['Percentage']);
+               w = parseInt(w);
+               return w;
+             });
 
     // Add a group element for each dimension.
     var g = svg.selectAll(".dimension")
@@ -386,7 +470,9 @@ var displayParallelPlotm = function() {
     // Add an axis and title.
     g.append("g")
         .attr("class", "axis")
-        .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
+        .each(function(d) { d3.select(this).call(axis.scale(y[d])); });
+    g.append("g")
+        .attr("class", "xlabel")
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
@@ -422,8 +508,10 @@ var displayParallelCoordinatesMFI = function() {
    
         pcAppMFI.origData = $.extend(true,[],data);
         pcAppMFI.headers = Object.keys(pcAppMFI.origData[0]);
+        pcAppMFI.headers.push("EditedPopName");
         pcAppMFI.origData.forEach(function(d,idx) {
             d.idx = idx;
+            d.EditedPopName = d.Population;
 			pcAppMFI.selectedLines.push(idx);
 			pcAppMFI.lines.push(idx);
             if (!pcAppMFI.populations.includes(d.Population)){

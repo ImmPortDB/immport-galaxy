@@ -26,11 +26,10 @@ var displayPopTable = function() {
     $('#popTable tbody').empty();
     pCoordApp.origData.map(function(d,index) {
         $('#popTable tbody')
-            .append('<tr><td align="center">'
-                   + '<input type="checkbox" '
+            .append('<tr><td align="center"><input type="checkbox" '
                    + 'id="pop' + d.Population + '" '
-                   + 'checked class="popSelect" value='
-                   + index + '/></td><td>' + d.Population
+                   + 'checked class="popSelect" value=' + index + '/></td>'
+                   + '<td title="' + newNames[d.Population] + '">' + newNames[d.Population]
                    + '</td><td><span style="background-color:'
                    + color_palette[index]
                    + '">&nbsp;&nbsp;&nbsp;</span></td>'
@@ -115,33 +114,79 @@ var updatePopTable = function() {
 */
 var displayTableGrid = function() {
     $("#tableDiv").empty();
-    var displayData = pCoordApp.origData.filter(function(d, index) {
+    var updatedData = $.extend(true,[],tableContent);
+    updatedData.forEach(function(d, idx){d.idx = idx});
+    var displayData = updatedData.filter(function(d, index) {
         if ($.inArray(index,pCoordApp.selectedLines) > -1) {
           return d;
         }
     });
-    var grid = d3.divgrid();
-    grid.columns(pCoordApp.headers);
-    d3.select("#tableDiv")
-        .datum(displayData)
-        .call(grid)
-        .selectAll(".gridRow")
-        .on({
-          "mouseover": function(d) {
-             var line = parseInt(d.idx);
-             pCoordApp.selectedLines = [line];
-             updateParallelForeground();
+    
+    var colTable = [];
+    var colNames = [];
+    var pctargets = [];
+    var targetCol = pCoordApp.headers.length - 2;
+    pCoordApp.headers.forEach(function(d,i){
+        colTable.push("<th>" + d + "</th>");
+        colNames.push({"data":d});
+        if (i < targetCol){
+            pctargets.push(i);
+        }        
+    });
+    
+    var tableHTML = [
+        '<table id="pcTable" class="pctable display compact" cellspacing="0" width="100%">',
+        '<thead>',
+        '<tr>',
+        colTable.join("\n"),
+        '</tr>',
+        '</thead>',
+        '</table>',
+    ];
+    
+    $('#tableDiv').html(tableHTML.join("\n"));
+    var pcTable = $('#pcTable').DataTable({
+        columns: colNames,
+        data: displayData,
+        order: [[ targetCol, "asc" ]],
+        pageLength: 10, 
+        //paging: false,
+        scrollY: 250,
+        scrollCollapse: true,
+        scrollX: true,
+        dom: '<"top"B>t<"bottom"lip><"clear">',
+        columnDefs: [
+          { 
+            targets: pctargets,
+            className: "dt-body-right",
           },
-          "mouseout": function() {
-			  pCoordApp.selectedLines = [];
-			  for (var i = 0, j = pCoordApp.lines.length; i < j; i++){
-	              pCoordApp.selectedLines.push(pCoordApp.lines[i]);
-			  }
-              updateParallelForeground();
-          }
-        });
-};
+          {
+            targets: [targetCol, targetCol+1],
+            className: "dt-body-center"
+        }],
+        buttons: [
+            'copy', 'pdfHtml5','csvHtml5', 'colvis'
+        ],
+        colReorder: true,
+        select: true
+    });
 
+    $('#pcTable').on('mouseover', 'tr', function() {
+        var data = pcTable.row(this).data();
+        if (data != undefined) {
+            var line = data.idx;
+            pCoordApp.selectedLines = [ line ];
+            updateParallelForeground();
+        }
+    });
+    $('#pcTable').on('mouseleave', 'tr', function() {
+        pCoordApp.selectedLines = [];
+        for (var i = 0, j = pCoordApp.lines.length; i < j; i++){
+            pCoordApp.selectedLines.push(pCoordApp.lines[i]);
+        }
+        updateParallelForeground();
+    });
+};
 
 /*
  * Display The Main Plot
@@ -161,6 +206,16 @@ var displayParallelPlot = function() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+    // Y axis label
+    svg.append("text")
+        .attr("class", "ylabel")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("MFI");
+
     var x = d3.scale.ordinal().rangePoints([0, width], 1);
     var dragging = {};
     
@@ -170,7 +225,7 @@ var displayParallelPlot = function() {
 
     var y = {};
     var line = d3.svg.line();
-    var axis = d3.svg.axis().orient("left");
+    var axis = d3.svg.axis().orient("left").ticks(8);
 
     var dimensions = d3.keys(pCoordApp.flowData[0]).filter(function(d) {
         return (y[d] = d3.scale.linear()
@@ -286,7 +341,9 @@ var displayParallelPlot = function() {
     // Add an axis and title.
     g.append("g")
         .attr("class", "axis")
-        .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
+        .each(function(d) { d3.select(this).call(axis.scale(y[d])); });
+    g.append("g")
+        .attr("class", "xlabel")
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
@@ -324,65 +381,57 @@ var updateParallelForeground = function() {
  * Retrieve the data, then call display functions
 */
 var displayParallelCoordinates = function() {
-    var inputFile = "flow.mfi_pop";
-    d3.tsv(inputFile, function(error, data) {
-        if (error) {
-            alert("Problem Retrieving Data");
-            return;
+    pCoordApp.origData = $.extend(true,[],tableContent);
+    pCoordApp.headers = Object.keys(pCoordApp.origData[0]);
+    pCoordApp.origData.forEach(function(d,idx) {
+        d.idx = idx;
+		pCoordApp.selectedLines.push(idx);
+		pCoordApp.lines.push(idx);
+        if (!pCoordApp.populations.includes(d.Population)){
+            pCoordApp.populations.push(d.Population);
         }
-   
-        pCoordApp.origData = $.extend(true,[],data);
-        pCoordApp.headers = Object.keys(pCoordApp.origData[0]);
-        pCoordApp.origData.forEach(function(d,idx) {
-            d.idx = idx;
-			pCoordApp.selectedLines.push(idx);
-			pCoordApp.lines.push(idx);
-            if (!pCoordApp.populations.includes(d.Population)){
-                pCoordApp.populations.push(d.Population);
-            }
-        })
-        /* 
-         * For the plot use only the MFI information
-         * for each populations. Store in flowData
-        */
-        pCoordApp.flowData = $.extend(true,[],data);
-        pCoordApp.flowData.forEach(function(d, idx) {
-            delete d['Population'];delete d['Count']; delete d['Percentage']
-            pCoordApp.allPopulations.push(idx);
-            pCoordApp.selectedPopulations.push(idx);
-            pCoordApp.selectedLines.push(idx);
-            pCoordApp.lines.push(idx);
-        });
+    })
+    /* 
+     * For the plot use only the MFI information
+     * for each populations. Store in flowData
+    */
+    pCoordApp.flowData = $.extend(true,[],tableContent);
+    pCoordApp.flowData.forEach(function(d, idx) {
+        delete d['Population'];delete d['Count']; delete d['Percentage']; delete d.Comment;
+        pCoordApp.allPopulations.push(idx);
+        pCoordApp.selectedPopulations.push(idx);
+        pCoordApp.selectedLines.push(idx);
+        pCoordApp.lines.push(idx);
+    });
 
-        pCoordApp.allLines = pCoordApp.flowData.length;
+    pCoordApp.allLines = pCoordApp.flowData.length;
+    displayPopTable();
+    displayTableGrid();
+    displayParallelPlot();
+
+    $("#resetPCoordDisplay").on("click",function() {
+        for (var i = 0; i < pCoordApp.allLines; i++) {
+            pCoordApp.allPopulations.push(i);
+            pCoordApp.selectedPopulations.push(i);
+            pCoordApp.selectedLines.push(i);
+            pCoordApp.lines.push(i);
+        }
+        $("#popSelectAll").prop('checked',true);
+        $(".popSelect").prop("checked",true);
+
+        var opcty = ".8";
+        $('#plotDiv .foreground path').css('stroke-opacity', opcty);
+        $('#pcopacity').html("80%");
+        $('#pcline_opacity').val(0.8);
+
         displayPopTable();
         displayTableGrid();
         displayParallelPlot();
-    
-        $("#resetPCoordDisplay").on("click",function() {
-            for (var i = 0; i < pCoordApp.allLines; i++) {
-                pCoordApp.allPopulations.push(i);
-                pCoordApp.selectedPopulations.push(i);
-                pCoordApp.selectedLines.push(i);
-                pCoordApp.lines.push(i);
-            }
-            $("#popSelectAll").prop('checked',true);
-            $(".popSelect").prop("checked",true);
+    });
 
-            var opcty = ".8";
-            $('#plotDiv .foreground path').css('stroke-opacity', opcty);
-            $('#pcopacity').html("80%");
-            $('#pcline_opacity').val(0.8);
-
-            displayPopTable();
-            displayTableGrid();
-            displayParallelPlot();
-        });
-
-        $(window).on('resize',function() {
-            waitForFinalEvent(function() {
-                displayAll();
-            },500,"resizeParallelCoordinates");
-        });
+    $(window).on('resize',function() {
+        waitForFinalEvent(function() {
+            displayAll();
+        },500,"resizeParallelCoordinates");
     });
 }

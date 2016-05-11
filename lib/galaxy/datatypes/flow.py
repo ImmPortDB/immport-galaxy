@@ -98,13 +98,13 @@ class FlowMFI( Tabular ):
 
 #Binary.register_unsniffable_binary_ext("flowmfi")
 
-class FlowStats( Tabular ):
+class FlowStats1( Tabular ):
     """Class describing a Flow Stats file"""
-    file_ext = "flowstat"
+    file_ext = "flowstat1"
 
     def set_peek( self, dataset, is_multi_byte=False ):
         if not dataset.dataset.purged:
-            dataset.peek = "Flow Stats file"
+            dataset.peek = "Flow Stats1 file"
             dataset.blurb = data.nice_size( dataset.get_size() )
         else:
             dataset.peek = 'file does not exist'
@@ -114,7 +114,48 @@ class FlowStats( Tabular ):
         try:
             return dataset.peek
         except:
-            return "Flow Stats file (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "Flow Stats1 file (%s)" % ( data.nice_size( dataset.get_size() ) )
 
-#Binary.register_unsniffable_binary_ext("flowstat")
+#Binary.register_unsniffable_binary_ext("flowstat1")
+
+class FlowStats2( Tabular ):
+    """Class describing a Flow Stats file"""
+    file_ext = "flowstat2"
+
+    def set_peek( self, dataset, is_multi_byte=False ):
+        if not dataset.dataset.purged:
+            dataset.peek = "Flow Stats2 file"
+            dataset.blurb = data.nice_size( dataset.get_size() )
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+
+    def display_peek( self, dataset ):
+        try:
+            return dataset.peek
+        except:
+            return "Flow Stats2 file (%s)" % ( data.nice_size( dataset.get_size() ) )
+
+#Binary.register_unsniffable_binary_ext("flowstat2")
+
+class FlowStats3( Tabular ):
+    """Class describing a Flow Stats file"""
+    file_ext = "flowstat3"
+
+    def set_peek( self, dataset, is_multi_byte=False ):
+        if not dataset.dataset.purged:
+            dataset.peek = "Flow Stats3 file"
+            dataset.blurb = data.nice_size( dataset.get_size() )
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+
+    def display_peek( self, dataset ):
+        try:
+            return dataset.peek
+        except:
+            return "Flow Stats3 file (%s)" % ( data.nice_size( dataset.get_size() ) )
+
+#Binary.register_unsniffable_binary_ext("flowstat3")
+
 

@@ -6,7 +6,6 @@ from scipy.stats import gmean
 from argparse import ArgumentParser
 from collections import defaultdict
 import pandas as pd
-from flowstatlib import gen_overview_stats
 
 #
 # version 1.1 -- April 2016 -- C. Thomas
@@ -50,10 +49,12 @@ def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names, mfi_calc):
     
     ctr_mfi = 0
     nbpop = 0
+    tot = {}
     with open(mfi_stats, "a") as mfis:
         mfis.write("\t".join([markers, "Percentage", "Population", "SampleName"]) + "\n")
         for files in inputfiles:
             cs = pd.read_table(files)
+            tot[files] = len(cs.index)
             for pops in cs.Population:
                 if pops in popcount[files]:
                     popcount[files][pops] += 1
@@ -66,15 +67,15 @@ def getPopProp(inputfiles, summary_stat, mfi_stats, marker_names, mfi_calc):
     
     ctr = 0            
     with open(summary_stat, "w") as outf:
-        itpop = [str(x) for x in range(1, nbpop)]
+        itpop = [str(x) for x in range(1, nbpop + 1)]
         cols = "\t".join(itpop)
         outf.write("FileID\tSampleName\t" + cols + "\n")
         for eachfile in popcount:
             tmp = []
-            for num in range(1, nbpop):
+            for num in range(1, nbpop + 1):
                 if not num in popcount[eachfile]:
                     popcount[eachfile][num] = 0
-                tmp.append(str(popcount[eachfile][num]))
+                tmp.append(str((popcount[eachfile][num] / float(tot[eachfile])) * 100 ) )
             props = "\t".join(tmp)
             ctr += 1
             ph = "".join(["Sample", str(ctr).zfill(2)])

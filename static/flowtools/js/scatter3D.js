@@ -151,10 +151,15 @@ var displayScatterToolbar3D = function() {
 };
 
 var displayScatterPopulation3D = function() {
-    scatterData3D['populations'].map(function(value,index) {
-        $('#populationTable3D tr')
-            .last()
-            .after('<tr><td align="center"><input type="checkbox" checked class="pop3D" value=' + value + '/></td><td>' + value + '<td><span style="background-color:' + color_palette[value] + '">&nbsp;&nbsp;&nbsp</span></td></td><td>' + scatterData3D['percent'][value - 1] + '<td></tr>');
+    $("#populationTable3D tbody").empty();
+    scatterData3D['populations'].map(function(value) {
+        $('#populationTable3D tbody')
+            .append('<tr><td align="center">'
+                    + '<input type="checkbox" checked class="pop3D" value=' + value + '/></td>'
+                    + '<td title="'+ newNames[value] +'">'+ newNames[value] + '</td>' 
+                    + '<td><span style="background-color:' 
+                    + color_palette[value] + '">&nbsp;&nbsp;&nbsp</span></td>'
+                    + '<td>' + scatterData3D['percent'][value - 1] + '</td></tr>');
     });
 
     $('#selectall3D').click(function() {
@@ -172,7 +177,15 @@ var displayScatterPopulation3D = function() {
             $('#selectall3D').prop("checked",false);
         }
     });
+};
 
+var updateSP3D = function(newNames){
+    $("#populationTable3D tbody").empty();
+    scatterData3D['populations'].map(function(value,index) {
+        $('#populationTable3D tr')
+            .last()
+            .after('<tr><td align="center"><input type="checkbox" checked class="pop3D" value=' + value + '/></td><td>' + newNames[value] + '<td><span style="background-color:' + color_palette[value] + '">&nbsp;&nbsp;&nbsp</span></td></td><td>' + scatterData3D['percent'][value - 1] + '</td></tr>');
+    });
 };
 
 var displayScatterPlot3D = function() {

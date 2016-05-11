@@ -11,7 +11,12 @@
 
     <datatype extension="flowmfi" type="galaxy.datatypes.flow:FlowMFI" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow MFI file with a '.flowmfi' file extension.  You must manually select this 'File Format' when uploading the file."/>
 
-    <datatype extension="flowstat" type="galaxy.datatypes.flow:FlowStats" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat' file extension. You must manually select this 'File Format' when uploading the file."/>
+    <datatype extension="flowstat1" type="galaxy.datatypes.flow:FlowStats1" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat1' file extension. You must manually select this 'File Format' when uploading the file."/>
+
+    <datatype extension="flowstat2" type="galaxy.datatypes.flow:FlowStats2" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat2' file extension. You must manually select this 'File Format' when uploading the file."/>
+
+    <datatype extension="flowstat3" type="galaxy.datatypes.flow:FlowStats3" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat3' file extension. You must manually select this 'File Format' when uploading the file."/>
+
 
     <!-- MSI added Datatypes -->
     <datatype extension="csv" type="galaxy.datatypes.tabular:CSV" display_in_upload="true" />

@@ -39,15 +39,15 @@ var updatePlot = function(plotconfig) {
     var traces = [];
 	var tmptraces = [];
 	var x_values = [];
-	for (var i = 1; i < plotconfig.csdata.length; i++) {
-		x_values.push(String(plotconfig.csdata[i][1]));
+	for (var i = 1, j = plotconfig.csdata.length; i < j; i++) {
+		x_values.push(newSmpNames[plotconfig.csdata[i][1]]);
 	}
 
-    var totals = []
-    for (var k = 1; k < plotconfig.csdata.length; k++){
+    var totals = [];
+    for (var k = 1, i = plotconfig.csdata.length; k < i; k++){
         totals[k] = 0;
-        for (var m = 2; m < plotconfig.csdata[0].length; m++){
-            for (var n = 0; n < plotconfig.selectedPopulations.length; n++){
+        for (var m = 2, o = plotconfig.csdata[0].length; m < o; m++){
+            for (var n = 0, p = plotconfig.selectedPopulations.length; n < p; n++){
                 if (plotconfig.csdata[0][m] === plotconfig.selectedPopulations[n]) {
                     totals[k] += plotconfig.csdata[k][m];
                 }
@@ -65,13 +65,13 @@ var updatePlot = function(plotconfig) {
  			y_values.push(newvalue)
 		}
 
-		var obj
+		var obj;
 		 
 		if (plotconfig.type === "areaplot"){
 			obj = { 
 				x: x_values,
 				y: y_values,
-		        hoverinfo: "none",
+		        hoverinfo: "x",
 		        name: popName,
 		        type: 'area',
 				fill: 'tonexty', 
@@ -82,7 +82,7 @@ var updatePlot = function(plotconfig) {
 			obj = { 
 				x: x_values,
 				y: y_values,
-		        hoverinfo: "none",
+		        hoverinfo: "x",
 		        name: popName,
 		        type: 'bar',
 		        marker: { color: color_palette[pop]}
@@ -94,9 +94,21 @@ var updatePlot = function(plotconfig) {
     var layout;
 	if (plotconfig.type === "barplot"){
 		layout = {
+		    hovermode:'closest',
 	       	title: '',
 			barmode: 'stack',
-	       	showlegend: false
+	       	showlegend: false,
+            yaxis: {
+	          mirror: 'all',
+	       	  tickmode: 'array',
+	       	  ticktext: ["","20%", "40%", "60%", "80%", "100%"],
+	       	  tickvals: [0,20,40,60,80,100],
+              title: 'Populations proportions in selected set',
+              titlefont: {
+                size: 16,
+                color: 'grey'
+              }
+            }
 	    };
 		traces = tmptraces;
 	}
@@ -109,13 +121,28 @@ var updatePlot = function(plotconfig) {
 		    }
 		    return trcs;
 		}
-
+        
 		layout = {
 	       	title: '',
-	       	showlegend: false
+	       	showlegend: false,
+            yaxis: {
+	          mirror: 'all',
+	       	  tickmode: 'array',
+	       	  ticktext: ["","20%", "40%", "60%", "80%", "100%"],
+	       	  tickvals: [0,20,40,60,80,100],
+              title: 'Populations proportions in selected set',
+              titlefont: {
+                size: 16,
+                color: 'grey'
+              }
+            },
+            xaxis: {
+              autorange: false,
+              range: [-0.2, x_values.length - 0.8]
+            }
 	    };
 		traces = stacked(tmptraces);
 	}
-    Plotly.newPlot(plotconfig.plotdiv,traces,layout,{displayModeBar: false});	
+    Plotly.newPlot(plotconfig.plotdiv,traces,layout);	
 	
 };

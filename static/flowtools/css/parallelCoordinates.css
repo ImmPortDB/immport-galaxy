@@ -1,10 +1,6 @@
-.dataTable th, td {
-    text-align: center;
-}
-
-.dataTable  tr:nth-child(even) {
-    background: rgba(0,0,0,0.05);
-}
+/*
+** Chart
+*/
 .chartDiv {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -16,25 +12,53 @@
     //border-width: 1px;
 }
 
-.popTable {
-    margin-top: 5px;
-    border: 1px solid gray;
-    width: 100%;
+/*
+** DataTables config
+*/
+div.dt-buttons {
+    float: right;
 }
 
-.popTable th, td {
-    padding: 2px;
-    border-bottom: 1px solid gray;
+th {
+    font-size:16px;
+    text-align: center;
 }
 
-svg {
-  font: 10px sans-serif;
+body td {
+    max-width: 50px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.pctable td {
+    max-width: 100px;
+}
+
+.dtable td {
+    max-width: 50px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.popt thead {
+    display:none;
+}
+
+.popt td {
+    max-width: 40px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+div.dataTables_wrapper {
+    width: 95%;
+    margin: 0 auto;
 }
 
 /*
-* Opacity
+** Opacity
 */
-
 .widget {
   margin-top: 4px;
   padding: 4px 4px 8px 4px;
@@ -49,6 +73,19 @@ svg {
 /*
  * This section for coordinates plot
 */
+.table th {
+    text-align: center;
+    padding: 10px;
+}
+
+.table {
+    font-size: 14px;
+}
+
+svg {
+  font: 10px sans-serif;
+}
+
 .background path {
   fill: none;
   stroke: #ddd;
@@ -76,6 +113,16 @@ svg {
 
 .axis text {
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+.xlabel {
+  font-size: 14px;
+  fill: #808080;
+}
+
+.ylabel {
+  font-size: 16px;
+  fill: #808080;
 }
 
 /*

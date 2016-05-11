@@ -1,9 +1,12 @@
 <tool id="csOverview" name="Generate overview information" version="1.0">
   <description>of the CrossSample analysis</description>
-  <command interpreter="python">crossSampleOverview.py -i $input -I $inputmfi -o $html_file -d $html_file.files_path -t $__tool_directory__</command>
+  <command interpreter="python">
+    crossSampleOverview.py -i $input -I $inputmfi -s $mfistats -o $html_file -d $html_file.files_path -t $__tool_directory__
+  </command>
   <inputs>
-    <param format="flowstat" name="input" type="data" label="CrossSample Population Summary Table"/>
-    <param format="flowstat" name="inputmfi" type="data" label="Centroids MFI Summary Table"/>
+    <param format="flowstat1" name="input" type="data" label="CrossSample Population Summary Table"/>
+    <param format="flowstat2" name="inputmfi" type="data" label="Centroids MFI Summary Table"/>
+    <param format="flowstat3" name="mfistats" type="data" label="MFI Descriptive Statistics"/>
   </inputs>
   <outputs>
     <data format="html" name="html_file" label="Overview of ${input.name}">
@@ -27,7 +30,7 @@ The output is a page that allows visualization of the data.
 
 **Example**
 
-*Input*::
+*Input*
 
 Population distribution table::
 
@@ -46,6 +49,15 @@ Centroids MFI Summary table::
    140     921     19      ... 1          0.1        Biosample2
    428     79      508     ... 2          0.25       Biosample2
    9       225     90      ... 3          0.3        Biosample2
+   
+MFI Descriptive Stats table::
+
+   Population Marker1_mean Marker1_median Marker1_stdev ... Percentage_mean Percentage_median Percentage_stdev
+   1          94.65        90.86          25.8          ... 1.84            0.55              2.48
+   2          132.18       131.58         5.02          ... 9.89            9.76              0.33
+   3          71.8         69.68          10.53         ... 3.02            1.49              3.45
+   4          84.85        84.85          nan           ... 8.52            8.52              nan
+   5          161.82       132.77         61.29         ... 0.95            0.37              1.06
 
 *Output*
 

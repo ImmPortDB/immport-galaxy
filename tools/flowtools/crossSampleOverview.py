@@ -43,6 +43,12 @@ if __name__ == "__main__":
             help="File location for the MFI summary statistics from CrossSample.")
 
     parser.add_argument(
+            '-s',
+            dest="stats]",
+            required=True,
+            help="File location for the MFI descriptive statistics from CrossSample.")
+
+    parser.add_argument(
             '-o',
             dest="output_file",
             required=True,

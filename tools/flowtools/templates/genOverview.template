@@ -4,32 +4,37 @@
 <link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css"/>
 <link rel="stylesheet" href="/static/flowtools/select2/select2.min.css"/>
 <link rel="stylesheet" href="/static/flowtools/css/parallelCoordinates.css"/>
+<link rel="stylesheet" href="/static/flowtools/datatables/datatables.min.css"/>
+<link rel="stylesheet" href="/static/flowtools/datatables/Buttons-1.1.2/css/buttons.dataTables.min.css"/>
+<link rel="stylesheet" href="/static/flowtools/datatables/Select-1.1.2/css/select.dataTables.min.css"/>
+<link rel="stylesheet" href="/static/flowtools/datatables/Editor-1.5.5/css/editor.dataTables.min.css"/>
 <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 <script src="/static/flowtools/select2/select2.full.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/d3/d3.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/plotly-latest.min.js" type="text/javascript"></script>
+<script src="/static/flowtools/datatables/datatables.min.js" type="text/javascript"></script>
+<script src="/static/flowtools/datatables/Editor-1.5.5/js/dataTables.editor.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/color_palette.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/overview.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatter2D.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatter3D.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatterMFI.js" type="text/javascript"></script>
-<script src="/static/flowtools/js/scatter3DMFI.js" type="text/javascript"></script>
-<script src="/static/flowtools/js/divgrid.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/parallelCoordinates.js" type="text/javascript"></script>
-
-
 
 <style>
 #input{font-family:Calibri,Arial}
+table.dataTable tbody td.dt-body-right {
+    text-align: right;
+}
 #div{padding:5px;width:150px;height:100px;text-align:center}
 table{width:100%;border:0px solid;border-collapse:collapse;text-align:center;}
 th{background-color:#3e6db0;color:#fff;padding:5px}
+
 </style>
 </head>
 
 <body>
-
 <div class="container-fluid">
 <div class="row" style="padding-bottom:10px;min-height:500px;">
     <div  class="col-md-12">
@@ -38,13 +43,12 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <li class="homeTab" data-value="overviewPlot"><a href="#overviewPlot" data-toggle="tab">Overview Plot</a></li>
                 <li class="homeTab" data-value="scatter2D"><a href="#scatter2D" data-toggle="tab">Scatter 2D</a></li>
                 <li class="homeTab" data-value="scatter3D"><a href="#scatter3D" data-toggle="tab">Scatter 3D</a></li>
-                <li class="homeTab" data-value="scatter3DMFI"><a href="#scatter3DMFI" data-toggle="tab">Scatter 3D MFI</a></li>
                 <li class="homeTab" data-value="parallelCoordinates"><a href="#parallelCoordinates" data-toggle="tab">Parallel Coordinates</a></li>
             </ul>
 
             <div class="tab-content">
                 <div class="tab-pane active" id="mfi" style="min-height:500px;">
-                    <div id="mfiDiv" class = "dataTable">MFI</div>
+                    <div id="mfiDiv"></div>
                 </div>
 
                 <div class="tab-pane" id="overviewPlot" style="min-height:500px;">
@@ -58,27 +62,31 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     Y Axis: <select id="yAxisMarker2D" style="width:150px;">
                             </select>
                     View: <select id="view2D" style="width:150px;">
-                            <option value="1">Points + MFI</option>
+                            <option value="1">Points + Centroids</option>
                             <option value="2">Points</option>
-                            <option value="3">MFI</option>
+                            <option value="3">Centroids</option>
                             </select>
                     <button id="updateDisplay2D">Update Display</button>
                     </div>
-                
                     <div class="col-md-12 chartDiv">
-                    <div id="scatterPlotDiv2D" class="col-md-10"></div>
-                    <div id="populationDiv2D" class="col-md-2">
-                    <table id="populationTable2D" border="0" width="100%">
-                    <tr>
-                      <th align="center"><input type="checkbox" checked id="selectall2D"/></th>
-                      <th>#</th>
-                      <th>Color</th>
-                      <th>%</th>
-                    </tr>
+                    <div id="scatterPlotDiv2D" class="col-md-10" style="height:100%;"></div>
+                    <div id="populationDiv2D" class="col-md-2" style="height:100%;">
+                    <table id="populationTable2D" class="table table-condensed table-bordered" border="0" width="100%">
+                        <thead>
+                            <tr>
+                              <th align="center"><input type="checkbox" checked id="selectall2D"/></th>
+                              <th>Pop. Name</th>
+                              <th>Color</th>
+                              <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
                     </table>
                     </div>
                     </div>
                 </div>
+                
                 <div class="tab-pane" id="scatter3D" style="min-height:500px;">
                     <div id="toolbarDiv3D" class="col-md-12 chartDiv">
                     X Axis: <select id="xAxisMarker3D" style="width:150px;">
@@ -88,82 +96,60 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     Z Axis: <select id="zAxisMarker3D" style="width:150px;">
                             </select>
                     View: <select id="view3D" style="width:150px;">
-                            <option value="1">Points + MFI</option>
+                            <option value="1">Points + Centroids</option>
                             <option value="2">Points</option>
-                            <option value="3">MFI</option>
+                            <option value="3">Centroids</option>
                             </select>
                     <button id="updateDisplay3D">Update Display</button>
                     </div>
                 
                     <div class="col-md-12 chartDiv">
-                    <div id="scatterPlotDiv3D" class="col-md-10"></div>
-                    <div id="populationDiv3D" class="col-md-2">
-                    <table id="populationTable3D" border="0" width="100%">
-                    <tr>
-                      <th align="center"><input type="checkbox" checked id="selectall3D"/></th>
-                      <th>#</th>
-                      <th>Color</th>
-                      <th>%</th>
-                    </tr>
-                    </table>
-                    </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="scatter3DMFI" style="min-height:500px;">
-                    <div id="toolbarDiv3DMFI" class="col-md-12 chartDiv">
-                    X Axis: <select id="xAxisMarker3DMFI" style="width:200px;">
-                            </select>
-                    Y Axis: <select id="yAxisMarker3DMFI" style="width:200px;">
-                            </select>
-                    Z Axis: <select id="zAxisMarker3DMFI" style="width:200px;">
-                            </select>
-                    <button id="updateDisplay3DMFI">Update Display</button>
-                    </div>
-                
-                    <div class="col-md-12 chartDiv">
-                    <div id="scatterPlotDiv3DMFI" class="col-md-10"></div>
-                    <div id="populationDiv3DMFI" class="col-md-2">
-                    <table id="populationTable3DMFI" border="0" width="100%">
-                    <tr>
-                      <th align="center"><input type="checkbox" checked id="selectall3DMFI"/></th>
-                      <th>#</th>
-                      <th>Color</th>
-                      <th>%</th>
-                    </tr>
+                    <div id="scatterPlotDiv3D" class="col-md-10" style="height:100%;"></div>
+                    <div id="populationDiv3D" class="col-md-2" style="height:100%;">
+                    <table id="populationTable3D" class="table table-condensed table-bordered" border="0" width="100%">
+                        <thead>
+                            <tr>
+                              <th align="center"><input type="checkbox" checked id="selectall3D"/></th>
+                              <th>Pop. Name</th>
+                              <th>Color</th>
+                              <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
                     </table>
                     </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="parallelCoordinates" style="min-height:500px;">
-                  <div id="chartDiv">
-                    <div class="row">
-                    <div id="plotDiv" class="col-md-10" style="margin-top:5px;"></div>
-                    <div id="popDiv" class="col-md-2" style="margin-top:5px;">
-                        <div class="widget">
-                              <input type="range" min="0" max="1" value="0.8" step="0.01" id="pcline_opacity" >
-                              </input>
-                              Opacity: <span id="pcopacity">80%</span>
+                    <div id="chartDiv">
+                        <div class="row">
+                            <div class="col-md-10" style="height:100%;">
+                                <div id="plotDiv" style="height:50%"></div>
+                                <div id="tableDiv" style="height:50%"></div>
+                            </div>
+                            <div id="popDiv" class="col-md-2" style="height:100%;">
+                            <div class="widget">
+                                  <input type="range" min="0" max="1" value="0.8" step="0.01" id="pcline_opacity" >
+                                  </input>
+                                  Opacity: <span id="pcopacity">80%</span>
+                            </div>
+                            Select All: <input type="checkbox" checked id="popSelectAll"/>
+                            &nbsp;&nbsp;<button id="resetPCoordDisplay">Reset Display</button>
+                            <table id="popTable" class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Pop. Name</th>
+                                        <th>Color</th>
+                                        <th>%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
-                        Select All: <input type="checkbox" checked id="popSelectAll"/>
-                        &nbsp;&nbsp;<button id="resetPCoordDisplay">Reset Display</button>
-                        <table id="popTable" class="popTable">
-                          <thead>
-                          <tr>
-                            <th></th>
-                            <th>#</th>
-                            <th>Color</th>
-                            <th>Perc.</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                        </table>
                     </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-1"></div>
-                    <div id="tableDiv" class="col-md-10 tableDiv"></div>
-                    <div class="col-md-1"></div>
                   </div>
                 </div>
             </div>
@@ -178,7 +164,6 @@ var populationLoaded = false;
 var overviewPlotLoaded = false;
 var scatter2DLoaded = false;
 var scatter3DLoaded = false;
-var scatter3DMFILoaded = false;
 var parallelCoordinatesLoaded = false;
 
 $().ready(function() {
@@ -191,13 +176,6 @@ $().ready(function() {
         mfiLoaded = true;
         displayMFI();
       }
-      //if (tab == '#population') {
-      //  if (populationLoaded) {
-      //      return true;
-      //  }
-      //  populationLoaded = true;
-      //  displayPopulation();
-      // }
       if (tab == '#overviewPlot') {
         if (overviewPlotLoaded) {
             return true;
@@ -207,6 +185,7 @@ $().ready(function() {
       }
       if (tab == '#scatter2D') {
         if (scatter2DLoaded) {
+            displayScatterPopulation2D();
             return true;
         }
         scatter2DLoaded = true;
@@ -214,20 +193,16 @@ $().ready(function() {
       }
       if (tab == '#scatter3D') {
         if (scatter3DLoaded) {
+            displayScatterPopulation3D();
             return true;
         }
         scatter3DLoaded = true;
         displayScatter3D();
       }
-      if (tab == '#scatter3DMFI') {
-        if (scatter3DMFILoaded) {
-            return true;
-        }
-        scatter3DMFILoaded = true;
-        displayScatter3DMFI();
-      }
       if (tab == '#parallelCoordinates') {
         if (parallelCoordinatesLoaded) {
+            displayPopTable();
+            displayTableGrid();
             return true;
         }
         parallelCoordinatesLoaded = true;
