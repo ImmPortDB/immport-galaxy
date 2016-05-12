@@ -60,12 +60,14 @@ var displayPopulationLegend = function(plotconfig) {
 };
 
 var displayProp = function() {
-    d3.tsv(url, function(error, data){
+    d3.text(url, function(error, data){
         if (error){
             alert("Problem retrieving data");
             return;
         }
-
+        var propHeadings = data.split("\n")[0].split("\t");
+        propHeadings.unshift("Comment");
+        data = d3.tsv.parse(data);
         function propHandle(method, url, d, successCallBack, errorCallBack) {
             var output = {data : propTableData};
             successCallBack(output);   
@@ -76,19 +78,25 @@ var displayProp = function() {
             successCallBack(output);   
         };
 
+        var fileID = [];
+        var sampleNames = [];
         var popTableData = [];
         var propTableData = $.extend(true,[],data);
         propTableData.forEach(function(d){
             d.Comment = d.SampleName;
             newSmpNames[d.SampleName] = d.Comment;
-          //  delete(d.FileID);
+            fileID.push(d.FileID);
+            sampleNames.push(d.SampleName);
         })
-        var propHeadings = Object.keys(propTableData[0]);
         var propTableHeadings = [];
         var propTargets = [];
         var popTableHeadings = [];
         var propEditorData = [];
         var popEditorData = [];
+        var smpcol = 2;
+        for (var i = 3, j = propHeadings.length; i < j; i++){
+            propTargets.push(i);
+        }
         propHeadings.forEach(function(d){
             propTableHeadings.push({"data":d, "title":d});
             propEditorData.push({"label":d,"name":d});
@@ -100,11 +108,6 @@ var displayProp = function() {
         });        
         popTableData.push(newPopNames);
         tableContent = $.extend(true,[],propTableData);
-        var smpcol = propHeadings.length - 2;
-        for (var i=0; i<smpcol - 1 ;i++){
-            propTargets.push(i);
-        }
-        
 
         $('#propDiv').empty();
         var propHTML = '<table id="proptable" class="dtable display compact nowrap" cellspacing="0" width="100%"/>';
@@ -116,7 +119,7 @@ var displayProp = function() {
             idSrc: 'SampleName'
         });
         
-        $('#proptable').on( 'click', 'tbody td:last-child', function (e) {
+        $('#proptable').on( 'click', 'tbody td:first-child', function (e) {
             smpEditor.bubble( this );
         });
         var propTable = $('#proptable').DataTable({
@@ -133,13 +136,36 @@ var displayProp = function() {
                 render: function(data, type, row){
                         return parseFloat(data).toFixed(2) + '%';
                 }
-            }],
+              },
+              {
+                targets: [smpcol - 1, smpcol, smpcol + 1],
+                className: "dt-body-left",
+              }
+            ],
             buttons: [
                 'copy', 'pdfHtml5','csvHtml5', 'colvis'
             ],
-            colReorder: true,
+            colReorder: {
+                fixedColumnsLeft:1
+            },
             select: true
         });
+        
+        // Add titles to File ID and Sample Name
+        $('#proptable tr').each(function(i,d){
+            if (i > 0) {
+                $(this).find('td').each(function(j,e){
+                    if (j == 1 ) {
+                        console.log(j);
+                        $(this).prop('title', fileID[i - 1] );
+                    }
+                    if (j == 2) {
+                        $(this).prop('title', sampleNames[i - 1]);
+                    }
+                });
+            }
+        });
+        
         
         // Add a table below to rename pops
         // Might want to change that some other time?

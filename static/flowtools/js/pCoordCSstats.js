@@ -92,13 +92,13 @@ var displayTableGrid = function() {
         d.SampleName = idx + 1;
         delete(d.FileID);
     });
+    
     var updatedHeaders = Object.keys(pcApp.updatedData[0]);
     var displayData = pcApp.updatedData.filter(function(d,i) {
         if ($.inArray(i,pcApp.selectedSamples) > -1) {
           return d;
         }
     });
-
     var colTable = [];
     var colNames = [];
     var pctargets = [];
@@ -110,6 +110,8 @@ var displayTableGrid = function() {
             pctargets.push(i);
         }        
     });
+    var textCol = [targetCol, targetCol + 1]; 
+    var colOrder = textCol.concat(pctargets);
 
     var tableHTML = [
         '<table id="pcTable" class="pctable display compact nowrap" cellspacing="0" width="100%">',
@@ -154,7 +156,7 @@ var displayTableGrid = function() {
         buttons: [
             'copy', 'pdfHtml5','csvHtml5', 'colvis'
         ],
-        colReorder: true,
+        colReorder: {order:colOrder},
         select: true
     });
 

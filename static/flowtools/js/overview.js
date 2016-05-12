@@ -25,11 +25,16 @@ var updateOverviewPlotDisplay = function(data) {
 
 var displayMFI = function() {
     var url = "flow.mfi_pop";
-    d3.tsv(url, function(error, data){
+    d3.text(url, function(error, data){
         if (error){
             alert("Problem retrieving data");
             return;
         }
+        var mfiHdgs = data.split("\n")[0].split("\t");
+        var pp = mfiHdgs.pop();
+        mfiHdgs.unshift(pp);
+        mfiHdgs.unshift("Comment");
+        data = d3.tsv.parse(data);        
         function handleSubmit(method, url, d, successCallBack, errorCallBack) {
             var output = {data : mfiTableData};
             successCallBack(output);   
@@ -41,7 +46,6 @@ var displayMFI = function() {
             d.Comment = d.Population;
             newNames[parseInt(d.Population)] = d.Comment;
         })
-        var mfiHdgs = Object.keys(mfiTableData[0]);
         //var mfiData = mfiTableData.filter(function(d){return d});
         tableContent = $.extend(true, [], mfiTableData);
         var mfiTableHeadings = [];
@@ -54,10 +58,11 @@ var displayMFI = function() {
         
         var mfiTableHTML = '<table id="mfitable" class="dtable display compact" cellspacing="0" width="100%"/>';
 
-        var popcol = mfiHdgs.length - 2;
-        for (var i=0; i<popcol;i++){
+        var popcol = 1;
+        for (var i = 2, j = mfiHdgs.length - 2; i<j; i++){
             mfiTargets.push(i);
         }
+
         $('#mfiDiv').html(mfiTableHTML);
         var editor = new $.fn.dataTable.Editor( {
             ajax: handleSubmit,
@@ -66,7 +71,7 @@ var displayMFI = function() {
             idSrc: 'Population'
         });
         
-        $('#mfitable').on( 'click', 'tbody td:last-child', function (e) {
+        $('#mfitable').on( 'click', 'tbody td:first-child', function (e) {
             editor.bubble( this );
         });
         var mfiTable = $('#mfitable').DataTable({
@@ -77,12 +82,27 @@ var displayMFI = function() {
             dom: '<"top"Bi>t<"bottom"lp><"clear">',
             columnDefs: [{ 
                 targets: mfiTargets,
+                className: "dt-body-right",
+                render: function(data, type, row){
+                        return parseFloat(data).toFixed(2);
+                }
+              },
+              {
+                targets: [mfiHdgs.length - 2],
                 className: "dt-body-right"
-            }],
+              },
+              {
+                targets: [mfiHdgs.length-1],
+                className: "dt-body-right",
+                render: function(data, type, row){
+                        return parseFloat(data).toFixed(2) + '%';
+                }
+              },
+            ],
             buttons: [
                 'copy', 'pdfHtml5','csvHtml5', 'colvis'
             ],
-            colReorder: true,
+            colReorder: {fixedColumnsLeft:1},
             select: true
         });
         editor.on( 'preSubmit', function(e, object, action){

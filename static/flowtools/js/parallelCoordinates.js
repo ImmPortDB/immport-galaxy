@@ -133,7 +133,9 @@ var displayTableGrid = function() {
             pctargets.push(i);
         }        
     });
-    
+    var textCol = [targetCol, targetCol + 1]; 
+    var colOrder = textCol.concat(pctargets);
+
     var tableHTML = [
         '<table id="pcTable" class="pctable display compact" cellspacing="0" width="100%">',
         '<thead>',
@@ -167,7 +169,7 @@ var displayTableGrid = function() {
         buttons: [
             'copy', 'pdfHtml5','csvHtml5', 'colvis'
         ],
-        colReorder: true,
+        colReorder: {order:colOrder},
         select: true
     });
 
