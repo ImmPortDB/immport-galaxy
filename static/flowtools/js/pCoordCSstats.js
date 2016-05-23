@@ -87,7 +87,7 @@ var updateSmpTable = function() {
 
 var displayTableGrid = function() {
     $("#tableDivPC").empty();
-    pcApp.updatedData = $.extend(true,[],tableContent);
+    pcApp.updatedData = $.extend(true,[],pctablecontent);
     pcApp.updatedData.forEach(function(d, idx){
         d.SampleName = idx + 1;
         delete(d.FileID);
@@ -375,7 +375,7 @@ var displayParallelCoordinates = function() {
             return;
         }
   */ 
-        pcApp.origData = $.extend(true,[],tableContent);
+        pcApp.origData = $.extend(true,[],pctablecontent);
         pcApp.headers = Object.keys(pcApp.origData[0]);
         pcApp.headers.splice(pcApp.headers.indexOf("FileID"), 1);
         
@@ -388,7 +388,7 @@ var displayParallelCoordinates = function() {
          * For the plot use only the proportion of each
          * population per sample. Store in flowData
         */
-        pcApp.flowData = $.extend(true,[],tableContent);
+        pcApp.flowData = $.extend(true,[],pctablecontent);
         pcApp.flowData.forEach(function(d,idx){
             delete d.SampleName;
 			delete d.FileID;

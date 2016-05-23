@@ -1,7 +1,7 @@
 <tool id="runFlock" name="Run FLOCK" version="1.1">
   <description>using a FCS file that was converted/transformed to a text file.</description>
   <command interpreter="python">
-    runFlockMFI.py -i $input -o $output -m $method -c $centroid -M $mfi -t $__tool_directory__
+    runFlockMFI.py -i $input -o $output -m $method -c $centroid -M $mfi -p $profile -t $__tool_directory__
     #if $bins
       -b $bins
     #end if
@@ -28,6 +28,7 @@
   <outputs>
     <data format="flowclr" name="output" label="${method} with ${mfi} on ${input.name}"/>
     <data format="flowmfi" name="centroid" label="${mfi} centroids from ${method} on ${input.name}"/>
+    <data format="tabular" name="profile" label="Population profiles from ${method} on ${input.name}"/>
   </outputs>
    
  <help>

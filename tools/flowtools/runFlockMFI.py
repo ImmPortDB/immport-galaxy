@@ -19,7 +19,7 @@ def generateMFI(input_file_name, output_file_name, mfi_calc):
 		MFIs.to_csv(outf, sep="\t", float_format='%.0f')
     return
 
-def runFlock(input_file, method, bins, density, output_file, tool_directory):
+def runFlock(input_file, method, bins, density, output_file, profile, tool_directory):
     run_command = tool_directory + "/bin/"  + method + " " + input_file
     if bins:
         run_command += " " + bins
@@ -30,6 +30,9 @@ def runFlock(input_file, method, bins, density, output_file, tool_directory):
 
     move_command = "mv flock_results.txt " + output_file
     os.system(move_command)
+
+    get_profile = "mv profile.txt " + profile
+    os.system(get_profile)
     return
 
 if __name__ == "__main__":
@@ -85,9 +88,15 @@ if __name__ == "__main__":
             required=True,
             help="File location for the output centroid file.")
 
+    parser.add_argument(
+            '-p',
+            dest="profile",
+            required=True,
+            help="File location for the output profile file.")
+
     args = parser.parse_args()
     runFlock(args.input_file,args.method,args.bins,
-             args.density, args.output_file, args.tool_directory)
+             args.density, args.output_file, args.profile, args.tool_directory)
 
     generateMFI(args.output_file, args.centroids, args.mfi_calc)
 

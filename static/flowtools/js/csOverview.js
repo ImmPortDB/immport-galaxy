@@ -1,5 +1,5 @@
 var url = "./csOverview.tsv";
-var tableContent;
+var pctablecontent;
 var newSmpNames= {};
 var newPopNames = {};
 var configBarplot = {};
@@ -107,7 +107,7 @@ var displayProp = function() {
             }
         });        
         popTableData.push(newPopNames);
-        tableContent = $.extend(true,[],propTableData);
+        pctablecontent = $.extend(true,[],propTableData);
 
         $('#propDiv').empty();
         var propHTML = '<table id="proptable" class="dtable display compact nowrap" cellspacing="0" width="100%"/>';
@@ -156,7 +156,6 @@ var displayProp = function() {
             if (i > 0) {
                 $(this).find('td').each(function(j,e){
                     if (j == 1 ) {
-                        console.log(j);
                         $(this).prop('title', fileID[i - 1] );
                     }
                     if (j == 2) {
@@ -199,7 +198,7 @@ var displayProp = function() {
                     newSmpNames[d.SampleName] = count;
                 }
             });
-            tableContent = $.extend(true, [], propTableData);
+            pctablecontent = $.extend(true, [], propTableData);
         });
         popEditor.on( 'preSubmit', function(e, object, action){
             var data = object.data;

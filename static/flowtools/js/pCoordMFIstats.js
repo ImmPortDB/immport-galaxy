@@ -214,47 +214,47 @@ var updateSmpTableidx = function() {
 
 var displayTableGridm = function() {
 	$("#tableDivPCm").empty();
-    var displayData = pcAppMFI.origData.filter(function(d,i) {
+    var displayDatamfi = pcAppMFI.origData.filter(function(d,i) {
         if ($.inArray(i,pcAppMFI.selectedLines) > -1) {
           return d;
         }
     });
 
-    displayData.forEach(function(d){
+    displayDatamfi.forEach(function(d){
         d.EditedPopName = newPopNames[d.Population];
         d.SampleName = newSmpNames[d.SampleName];
     });
 
-    var colTable = [];
-    var colNames = [];
-    var pctargets = [];
-    var targetCol = pcAppMFI.headers.length - 3;
+    var colTablem = [];
+    var colNamesm = [];
+    var pctargetsm = [];
+    var targetColm = pcAppMFI.headers.length - 3;
     
     pcAppMFI.headers.forEach(function(d,i){
-        colTable.push("<th>" + d + "</th>");
-        colNames.push({"data":d});
-        if (i < targetCol - 1){
-            pctargets.push(i);
+        colTablem.push("<th>" + d + "</th>");
+        colNamesm.push({"data":d});
+        if (i < targetColm - 1){
+            pctargetsm.push(i);
         }        
     });
-    var textCol = [targetCol, targetCol + 1, targetCol + 2]; 
-    var colOrder = textCol.concat(pctargets);
-
-    var tableHTML = [
+    var textColm = [targetColm, targetColm + 1, targetColm + 2]; 
+    var colOrderm = textColm.concat(pctargetsm);
+    colOrderm.push(targetColm - 1);
+    var tableHTMLm = [
         '<table id="pcTableMFI" class="pctable display compact nowrap" cellspacing="0" width="100%">',
         '<thead>',
         '<tr>',
-        colTable.join("\n"),
+        colTablem.join("\n"),
         '</tr>',
         '</thead>',
         '</table>',
     ];
     
-    $('#tableDivPCm').html(tableHTML.join("\n"));
-    var pcTable = $('#pcTableMFI').DataTable({
-        columns: colNames,
-        data: displayData,
-        order: [[ targetCol, "asc" ]],
+    $('#tableDivPCm').html(tableHTMLm.join("\n"));
+    var pcTablem = $('#pcTableMFI').DataTable({
+        columns: colNamesm,
+        data: displayDatamfi,
+        order: [[ targetColm, "asc" ]],
         pageLength: 10, 
         //paging: false,
         scrollY: 250,
@@ -263,33 +263,33 @@ var displayTableGridm = function() {
         dom: '<"top"B>t<"bottom"lip><"clear">',
         columnDefs: [
           { 
-            targets: pctargets,
+            targets: pctargetsm,
             className: "dt-body-right",
             render: function(data,type,row){
                 return parseFloat(data).toFixed(2);
             }
           },
           {
-            targets: [targetCol - 1],
+            targets: [targetColm - 1],
             className: "dt-body-right",
             render: function(data,type,row){
                 return parseFloat(data).toFixed(2) + '%';
             }
          },
           {
-            targets: [targetCol, targetCol+1, targetCol+2],
+            targets: [targetColm, targetColm+1, targetColm+2],
             className: "dt-body-center"
           }
         ],
         buttons: [
             'copy', 'pdfHtml5','csvHtml5', 'colvis'
         ],
-        colReorder: {order:colOrder},
+        colReorder: {order:colOrderm},
         select: true
     });
 
     $('#pcTableMFI').on('mouseover', 'tr', function() {
-        var data = pcTable.row(this).data();
+        var data = pcTablem.row(this).data();
         if (data != undefined) {
             var line = parseInt(data.idx);
             pcAppMFI.selectedLines = [line];

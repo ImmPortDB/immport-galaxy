@@ -1,0 +1,66 @@
+<tool id="FCSGateTrans" name="Automated gating, Transformation and Conversion of FCS to Text" version="1.0">
+  <description>using FlowDensity and the FCSTrans tranformation.</description>
+  <command>
+      Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSGateTrans.R --args $input $output $comp $fcsout $graph $report
+  </command>
+  <inputs>
+    <param format="fcs" name="input" type="data" label="FCS file"/>
+    <param name="comp" type="boolean" checked="false" truevalue="TRUE" falsevalue="FALSE" label="Compensate?"/>
+    <param name="gate" type="select" label="Automatically gate lymphocytes?">
+      <option value="FALSE">No thank you</option>
+      <option value="TRUE">Yes, please</option>
+    </param>
+    <param name="format" type="select" label="Output FCS3.0?">
+      <option value="FALSE">No, thank you</option>
+      <option value="TRUE">Yes, please</option>
+    </param>
+  </inputs>
+  <outputs>
+    <data format="flowtext" name="output" label="FCSGateTrans on ${input.name}"/>
+    <data format="fcs" name="fcsout" label="FCSGateTrans in FCS3.0 format on ${input.name}">
+      <filter>format=="TRUE"</filter>
+    </data>
+    <data format="pdf" name="graph" label="Graphs of automated gating on ${input.name}">
+      <filter>gate=="TRUE"</filter>
+    </data>
+    <data format="txt" name="report" label="Report of automated gating on ${input.name}">
+      <filter>gate=="TRUE"</filter>
+    </data>
+  </outputs>
+
+ <help>
+   This tool allows automated gating of lymphocytes and conversion of FCS files to text using the FCSTrans transformation.
+   
+-----
+
+**Input files**
+
+This tool takes valid FCS files as input. It can only process one file at a time.
+The user can choose to automatically gate lymphocytes and/or to compensate the data.
+
+Automated gating is implemented with FlowDensity. Briefly, gates cutoffs are determined based on forward and side scatter densities. EXPLAIN BETTER ....
+
+**Output file**
+
+The output is a tab-separated text, containing the transformed fluorescence intensity values for each marker.
+
+-----
+
+**Example**::
+
+   Forward Scatter Side Scatter Marker1 Marker2 Marker3 Marker4
+   449             157          551     129     169     292
+   894             1023	        199     277     320     227
+   262             73           437     69      0       146
+   340             115          509     268     0       74
+
+-----
+
+**Reference**
+
+## ADD FLOWDENSITY REF
+
+FCSTrans: An open source software system for FCS file conversion and data transformation Qian Y, Liu Y, Campbell J, Thomson E, Kong YM, Scheuermann RH. 2012 Cytometry Part A. 81A(5) doi.org/10.1002/cyto.a.22037
+ </help>
+</tool>
+
