@@ -6,8 +6,8 @@
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS file"/>
     <param name="comp" type="boolean" checked="false" truevalue="TRUE" falsevalue="FALSE" label="Compensate?"/>
-    <param name="gate" type="select" label="Automatically gate lymphocytes?">
-      <option value="FALSE">No thank you</option>
+    <param name="gate" type="select" label="Automatically gate debris?">
+      <option value="FALSE">No, thank you</option>
       <option value="TRUE">Yes, please</option>
     </param>
     <param name="format" type="select" label="Output FCS3.0?">
@@ -27,7 +27,9 @@
       <filter>gate=="TRUE"</filter>
     </data>
   </outputs>
-
+  <stdio>
+    <exit_code range="2:" level="fatal" description="See stderr for more details." />
+  </stdio>
  <help>
    This tool allows automated gating of lymphocytes and conversion of FCS files to text using the FCSTrans transformation.
    
