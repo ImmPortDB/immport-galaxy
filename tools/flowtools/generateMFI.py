@@ -4,11 +4,19 @@ import sys
 from argparse import ArgumentParser
 from flowstatlib import gen_overview_stats
 
-def generateMFI(flow_stats, output_file_name):
-    output_file = open(output_file_name,"w")
-    flow_stats['mfi'].to_csv(output_file,sep="\t",float_format='%.0f')
-    output_file.close()
+def generateMFI(input_file_name, output_file_name, mfi_calc):
+    flockdf = pd.read_table(input_file_name)
+    if mfi_calc == "mfi":
+        MFIs = flockdf.groupby('Population').mean().round(decimals=2)
+    elif mfi_calc == "gmfi":
+        MFIs = flockdf.groupby('Population').agg(lambda x: gmean(list(x))).round(decimals = 2)
+    else:
+        MFIs = flockdf.groupby('Population').median().round(decimals=2)
+
+    with open(output_file_name,"w") as outf:
+		MFIs.to_csv(outf, sep="\t", float_format='%.0f')
     return
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -22,6 +30,12 @@ if __name__ == "__main__":
             help="File location for the Flow Result file.")
 
     parser.add_argument(
+            '-M',
+            dest="mfi_calc",
+            required=True,
+            help="what to calculate for centroids.")
+
+    parser.add_argument(
             '-o',
             dest="output_file",
             required=True,
@@ -29,7 +43,6 @@ if __name__ == "__main__":
 
 
     args = parser.parse_args()
-    flow_stats = gen_overview_stats(args.input_file)
-    generateMFI(flow_stats, args.output_file)
+    generateMFI(args.input_file, args.output_file, args.mfi_calc)
     sys.exit(0)
 

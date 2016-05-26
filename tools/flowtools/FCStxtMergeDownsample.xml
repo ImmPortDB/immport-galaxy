@@ -53,11 +53,15 @@ If a downsampling factor is provided, the corresponding proportion of each input
 
 .. class:: warningmark
 
-Potential errors are logged to stderr. If the number of errors reaches 10, the run is aborted. If a file contains non-numeric data, the run will be aborted.
+Potential errors are logged to stderr. If the number of errors reaches 10, the run will be aborted. If a file contains non-numeric data, the run will be aborted.
 
 .. class:: infomark
 
-Tip: There is a tool in the Flow File Tools section that allows rearranging, deleting and/or renaming columns.
+Tip: Three tools in the Flow File Tools section can help prepare files for merging and/or downsampling: 
+
+- Check headers of any set of text files gives the headers of all files in a collection of text, flowtext or tabular files.
+- Remove, rearrange and/or rename columns in txt-converted FCS files allows manipulation of the columns of a file or a set of files.
+- Check data in txt-converted FCS files identifies the lines in a file containing non-numeric data.
 
 -----
 

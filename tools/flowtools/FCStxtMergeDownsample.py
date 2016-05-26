@@ -130,7 +130,7 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
                     sys.exit(2)
 
             df_ds = df_ds.ix[:,ff_order]
-            df_ds.to_csv(outf, sep="\t", header = False, index = False, )
+            df_ds.to_csv(outf, sep="\t", header = False, index = False)
  
     if nb_errors > 0:
         exit_code = 3

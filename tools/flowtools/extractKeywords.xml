@@ -28,17 +28,30 @@ The output is a list of the headers in the provided FCS file.
 **Example**
 
 FCSversion=2
+
 $BYTEORD=4,3,2,1
+
 $DATATYPE=I
+
 $NEXTDATA=0
+
 $SYS=Macintosh System Software 9.2.2
-CREATOR=CELLQuest<aa> 3.3
+
+CREATOR=CELLQuest 3.3
+
 $TOT=20000
+
 $MODE=L
+
 $PAR=6
+
 $P1N=FSC-H
+
 .
+
 ..
+
 ...
+
  </help>
 </tool>

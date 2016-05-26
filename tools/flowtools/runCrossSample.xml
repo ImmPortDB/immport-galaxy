@@ -108,5 +108,8 @@ Tip: If the headers in each of the text-converted FCS files do not match those i
    4          84.85        84.85          nan           ... 8.52            8.52              nan
    5          161.82       132.77         61.29         ... 0.95            0.37              1.06
  </help>
+ <citations>
+   <citation type="doi">10.1002/cyto.b.20554</citation>
+ </citations>
 </tool>
 

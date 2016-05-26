@@ -31,24 +31,38 @@
     <exit_code range="2:" level="fatal" description="See stderr for more details." />
   </stdio>
  <help>
-   This tool allows automated gating of lymphocytes and conversion of FCS files to text using the FCSTrans transformation.
+   This tool allows automated gating of debris using flowDensity and conversion of FCS files to text using the FCSTrans transformation.
    
 -----
 
 **Input files**
 
-This tool takes valid FCS files as input. It can only process one file at a time.
-The user can choose to automatically gate lymphocytes and/or to compensate the data.
+This tool takes valid FCS files as input. It can only process one file at a time. The user can choose to automatically gate cellular debris, and/or compensate the data. 
 
-Automated gating is implemented with FlowDensity. Briefly, gates cutoffs are determined based on forward and side scatter densities. EXPLAIN BETTER ....
-
-**Output file**
+**Output files**
 
 The output is a tab-separated text, containing the transformed fluorescence intensity values for each marker.
+If the option is selected, a FCS file (format FCS3.0) is generated.
+
+**Gating output**
+
+If the option to automatically gate the debris is selected, a summary of the data before and after gating is generated, as well as density scatter plots of each couple of markers before and after gating.
 
 -----
 
-**Example**::
+**Automated Gating**
+
+Automated gating is implemented with flowDensity. The coordinates of the gate are calculated based on the density of the forward scatter channel only, to remove cellular debris only. The gate is vertical and located at the largest value of either the 0.1 quantile of the FSC density or the lowest density between the first and second density peaks. Cells smaller than the threshold are removed.
+
+.. class:: warningmark
+
+It is up to the user to verify whether or not the data benefit from being gated. To this end, the user is invited to check the number of events before and after gating, as well as the scatter plots showing the data before and after gating.
+
+-----
+
+**Example**
+
+*Output text file*::
 
    Forward Scatter Side Scatter Marker1 Marker2 Marker3 Marker4
    449             157          551     129     169     292
@@ -56,13 +70,43 @@ The output is a tab-separated text, containing the transformed fluorescence inte
    262             73           437     69      0       146
    340             115          509     268     0       74
 
------
+*Gating summary*::
 
-**Reference**
+   =========================
+   ==    BEFORE GATING    ==
+   =========================
+       events parameters 
+       203584         13 
+           FSC-A FSC-H SSC-A  SSC-H APC-A APC-H7-A FITC-A PerCP-Cy5-5-A V450-A V500-A   PE-A PE-Cy7-A  Time
+   Min.        0    78     0    0.0     0      0.0      0             0      0      0    0.0        0     0
+   1st Qu.   869   769   544  514.0   940      0.0   1023           826    978   1104  358.8      913  4182
+   Median   1234  1081   754  704.0  1750     31.0   1247          1614   1971   1505 1612.0     1791  8392
+   Mean     1304  1108  1002  863.6  1629    812.8   1329          1597   1694   1765 1376.0     1813  8536
+   3rd Qu.  1675  1474  1240 1087.0  2326   1573.0   1629          2565   2326   2640 2261.0     2782 12760
+   Max.     4095  4061  4095 4012.0  4096   4086.0   4094          4022   4091   4096 4093.0     4096 17740
 
-## ADD FLOWDENSITY REF
+   =========================
+   ==    AFTER  GATING    ==
+   =========================
+       events parameters 
+       171547         13 
+           FSC-A FSC-H  SSC-A  SSC-H APC-A APC-H7-A FITC-A PerCP-Cy5-5-A V450-A V500-A PE-A PE-Cy7-A  Time
+   Min.      403   219    1.0    4.0     0      0.0      0             0      0      0    0        0     0
+   1st Qu.   949   849  599.0  565.0   979      0.0   1063           943   1203   1119  444     1060  4182 
+   Median   1348  1170  782.0  730.0  1809      0.0   1258          1717   2082   1493 1785     1883  8358
+   Mean     1353  1177  989.2  885.9  1642    779.4   1330          1678   1778   1753 1458     1873  8504
+   3rd Qu.  1670  1475 1204.0 1076.0  2322   1559.0   1591          2623   2345   2630 2289     2808 12700
+   Max.     2953  2406 4055.0 3329.0  4069   4080.0   3498          3868   3612   4076 4093     3764 17730
 
-FCSTrans: An open source software system for FCS file conversion and data transformation Qian Y, Liu Y, Campbell J, Thomson E, Kong YM, Scheuermann RH. 2012 Cytometry Part A. 81A(5) doi.org/10.1002/cyto.a.22037
+*Gating plots*:
+
+.. image:: ../../static/images/flowtools/flowdensity.png
+
  </help>
+ <citations>
+   <citation type="doi">10.1002/cyto.a.22037</citation>
+   <citation type="doi">10.1093/bioinformatics/btu677</citation>
+   <citation type="doi">10.1186/1471-2105-10-106</citation>
+ </citations>
 </tool>
 

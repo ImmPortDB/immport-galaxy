@@ -1,11 +1,16 @@
-<tool id="generateMFI" name="Generate the MFI" version="1.0">
+<tool id="generateMFI" name="Generate the centroids" version="1.0">
   <description>from a flow result file</description>
-  <command interpreter="python">generateMFI.py -i $input -o $output</command>
+  <command interpreter="python">generateMFI.py -i $input -o $output -M $mfi</command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Text file"/>
+    <param name="mfi" type="select" label="Calculate centroids using:">
+        <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
+        <option value="mdfi">Median Fluorescence Intensity</option>
+        <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
+    </param>
   </inputs>
   <outputs>
-    <data format="flowmfi" name="output" label="MFI from ${input.name}"/>
+    <data format="flowmfi" name="output" label="${mfi} centroids from ${input.name}"/>
   </outputs>
 
  <help>
@@ -19,7 +24,7 @@ This tool reads in a FLOCK output file.
 
 **Output file**
 
-The output is a table containing the mean fluorescent intensity values of each marker within each population defined by FLOCK.
+The output is a table containing the mean, median or geometric mean fluorescent intensity values of each marker within each population defined by FLOCK.
 
 -----
 

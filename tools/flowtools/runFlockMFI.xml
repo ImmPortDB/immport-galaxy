@@ -36,6 +36,8 @@
    
 -----
 
+.. image::  ../../static/images/flowtools/flock_logo.png
+
 FLOCK (FLOw Clustering without K) is a computational approach to flow cytometry analysis which:
 
   1. Computationally determines the number of unique populations in high dimensional flow data using a rapid binning approach
@@ -44,6 +46,10 @@ FLOCK (FLOw Clustering without K) is a computational approach to flow cytometry 
   4. Calculates many useful summary statistics
   5. Finds the most informative parameters
   6. Reduces subjective factors in manual gating
+
+.. class:: warningmark
+
+This tool is not intended to analyze CyTOF data as is.
 
 -----
 
@@ -58,9 +64,18 @@ In order to define the populations in a given dataset collection for a given set
 
 FLOCK attributes each event to a population and generates a text file.
 
-*Centroid file*
+*Centroids*
 
 The centroid file is a table containing the mean, median or geometric mean fluorescent intensity values of each marker within each population defined by FLOCK, as determined by the user.
+
+*Population scores*
+
+This output is a table containing marker scores for each population. The score value is a number indicating the degree to which this population expresses each marker, as follows:
+
+- 1 implies negative expression
+- 2 implies low expression
+- 3 implies positive expression
+- 4 implies highly positive expression
 
 -----
 
@@ -90,10 +105,15 @@ The centroid file is a table containing the mean, median or geometric mean fluor
    3          31      52      45
    4          11      78      25
 
------
+*Population profile file*::
 
-**Reference**
-
-Elucidation of seventeen human peripheral blood B-cell subsets and quantification of the tetanus response using a density-based method for the automated identification of cell populations in multidimensional flow cytometry data Qian Y, Wei C, Eun-Hyung Lee F, Campbell J, Halliley J, Lee JA, Cai J, Kong YM, Sadat E, Thomson E, Dunn P, Seegmiller AC, Karandikar NJ, Tipton CM, Mosmann T, Sanz I, Scheuermann RH. Cytometry B Clin Cytom. 2010;78 Suppl 1:S69-82.
+   Population Marker1 Marker2 Marker3
+   1          1      3      2
+   2          1      3      4
+   3          2      2      3
+   4          1      3      2
  </help>
+ <citations>
+   <citation type="doi">10.1002/cyto.b.20554</citation>
+ </citations>
 </tool>

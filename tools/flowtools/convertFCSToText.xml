@@ -19,7 +19,7 @@
 
 **Input files**
 
-This tool requires valid FCS files as input. Files are processed serially. Applying compensation is an option where FCS files include a compensation matrix.
+This tool requires valid FCS files as input. Files are processed serially. Applying compensation is an option for FCS files including a compensation matrix.
 
 **Output file**
 

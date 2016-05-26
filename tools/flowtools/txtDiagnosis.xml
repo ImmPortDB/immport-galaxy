@@ -19,10 +19,34 @@
 
 **Input**
 
-This diagnosis tools reads in text files, and checks that the data is all numbers.
+This diagnosis tools reads in text files, and checks that the data is all numeric.
 
 **Output** 
 
 The output is a report with the errors and corresponding line numbers.
+
+-----
+
+**Example**
+
+*Input*::
+
+   Marker1 Marker2 Marker3
+   34      45      12
+   NaN     65      10
+   34      45      12
+   33      NaN     10
+   34      45      12
+   33      65      10
+   34      45      12
+   33      65      NaN
+   34      45      12
+   33      65      10
+
+*Output*::
+
+   WARNING: line 2 in example_file.txt contains non-numeric results
+   WARNING: line 4 in example_file.txt contains non-numeric results
+   WARNING: line 8 in example_file.txt contains non-numeric results
  </help>
 </tool>
