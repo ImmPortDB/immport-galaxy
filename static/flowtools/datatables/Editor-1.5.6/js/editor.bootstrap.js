@@ -103,30 +103,36 @@ DataTable.Editor.display.bootstrap = $.extend( true, {}, DataTable.Editor.models
 	 * API methods
 	 */
 	"init": function ( dte ) {
-		self._dom.content = $(
-			'<div class="modal fade">'+
-				'<div class="modal-dialog">'+
-					'<div class="modal-content"/>'+
-				'</div>'+
-			'</div>'
-		);
-		self._dom.close = $('<button class="close">&times;</div>');
+		// init can be called multiple times (one for each Editor instance), but
+		// we only support a single construct here (shared between all Editor
+		// instances)
+		if ( ! self._dom.content ) {
+			self._dom.content = $(
+				'<div class="modal fade">'+
+					'<div class="modal-dialog">'+
+						'<div class="modal-content"/>'+
+					'</div>'+
+				'</div>'
+			);
 
-		self._dom.close.click( function () {
-			self._dte.close('icon');
-		} );
+			self._dom.close = $('<button class="close">&times;</div>');
 
-		$(document).on('click', 'div.modal', function (e) {
-			if ( $(e.target).hasClass('modal') && self._shown ) {
-				self._dte.background();
-			}
-		} );
+			self._dom.close.click( function () {
+				self._dte.close('icon');
+			} );
 
-		dte.on( 'open.dtebs', function ( e, type ) {
-			if ( type === 'inline' || type === 'bubble' ) {
-				$('div.DTE input[type=text], div.DTE select, div.DTE textarea').addClass( 'form-control' );
-			}
-		} );
+			$(document).on('click', 'div.modal', function (e) {
+				if ( $(e.target).hasClass('modal') && self._shown ) {
+					self._dte.background();
+				}
+			} );
+
+			dte.on( 'open.dtebs', function ( e, type ) {
+				if ( type === 'inline' || type === 'bubble' ) {
+					$('div.DTE input[type=text], div.DTE select, div.DTE textarea').addClass( 'form-control' );
+				}
+			} );
+		}
 
 		return self;
 	},

@@ -1,23 +1,125 @@
-div.DTE_Field div.multi-value,
-div.DTE_Field div.multi-restore {
+div.DTE_Field input,
+div.DTE_Field textarea {
+  box-sizing: border-box;
+  background-color: white;
+  -webkit-transition: background-color ease-in-out .15s;
+  transition: background-color ease-in-out .15s;
+}
+div.DTE_Field input:focus,
+div.DTE_Field textarea:focus {
+  background-color: #ffffee;
+}
+div.DTE_Field input[type="color"],
+div.DTE_Field input[type="date"],
+div.DTE_Field input[type="datetime"],
+div.DTE_Field input[type="datetime-local"],
+div.DTE_Field input[type="email"],
+div.DTE_Field input[type="month"],
+div.DTE_Field input[type="number"],
+div.DTE_Field input[type="password"],
+div.DTE_Field input[type="search"],
+div.DTE_Field input[type="tel"],
+div.DTE_Field input[type="text"],
+div.DTE_Field input[type="time"],
+div.DTE_Field input[type="url"],
+div.DTE_Field input[type="week"] {
+  padding: 6px 4px;
+  width: 100%;
+}
+div.DTE_Field div.DTE_Field_Info,
+div.DTE_Field div.DTE_Field_Message {
+  font-size: 11px;
+  line-height: 1em;
+}
+div.DTE_Field div.DTE_Field_Error {
+  font-size: 11px;
+  line-height: 1em;
   display: none;
+  color: red;
+  margin-top: 5px;
+}
+div.DTE_Field div.multi-value {
+  display: none;
+  border: 1px dotted #666;
+  border-radius: 3px;
+  padding: 5px;
+  background-color: #fafafa;
   cursor: pointer;
 }
-div.DTE_Field div.multi-value span,
-div.DTE_Field div.multi-restore span {
+div.DTE_Field div.multi-value span {
+  font-size: 0.8em;
+  line-height: 1.25em;
   display: block;
   color: #666;
 }
-div.DTE_Field div.multi-value:hover,
-div.DTE_Field div.multi-restore:hover {
+div.DTE_Field div.multi-value:hover {
   background-color: #f1f1f1;
 }
 div.DTE_Field div.multi-restore {
+  display: none;
   margin-top: 0.5em;
   font-size: 0.8em;
   line-height: 1.25em;
+  color: #3879d9;
 }
-div.DTE_Field:after {
+div.DTE_Field div.multi-restore:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+div.DTE_Field_Type_textarea textarea {
+  padding: 3px;
+  width: 100%;
+  height: 80px;
+}
+
+div.DTE_Field.DTE_Field_Type_date img {
+  vertical-align: middle;
+  cursor: pointer;
+  *cursor: hand;
+}
+div.DTE_Field.DTE_Field_Type_date input.jqueryui {
+  width: 87%;
+  margin-right: 6px;
+}
+
+div.DTE_Field_Type_checkbox div.DTE_Field_Input > div > div,
+div.DTE_Field_Type_radio div.DTE_Field_Input > div > div {
+  margin-bottom: 0.25em;
+}
+div.DTE_Field_Type_checkbox div.DTE_Field_Input > div > div:last-child,
+div.DTE_Field_Type_radio div.DTE_Field_Input > div > div:last-child {
+  margin-bottom: 0;
+}
+div.DTE_Field_Type_checkbox div.DTE_Field_Input > div > div label,
+div.DTE_Field_Type_radio div.DTE_Field_Input > div > div label {
+  margin-left: 0.75em;
+  vertical-align: middle;
+}
+
+div.DTE_Field_Type_select div.DTE_Field_Input {
+  padding-top: 4px;
+}
+
+div.DTE_Body {
+  padding: 50px 0;
+}
+div.DTE_Body div.DTE_Body_Content {
+  position: relative;
+  overflow: auto;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Form_Info {
+  padding: 1em 1em 0 1em;
+  margin: 0;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Field {
+  position: relative;
+  zoom: 1;
+  clear: both;
+  padding: 5px 20%;
+  border: 1px solid transparent;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Field:after {
   display: block;
   content: ".";
   height: 0;
@@ -25,37 +127,103 @@ div.DTE_Field:after {
   clear: both;
   visibility: hidden;
 }
-
-div.DTE_Inline div.DTE_Field {
+div.DTE_Body div.DTE_Body_Content div.DTE_Field:hover {
+  background-color: #f9f9f9;
+  border: 1px solid #f3f3f3;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Field > label {
+  float: left;
+  width: 40%;
+  padding-top: 6px;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Field > div.DTE_Field_Input {
+  float: right;
+  width: 60%;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Field.full {
+  padding: 5px 0 5px 20%;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Field.full > label {
+  width: 30%;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Field.full > div.DTE_Field_Input {
+  width: 70%;
+}
+div.DTE_Body div.DTE_Body_Content div.DTE_Field.block > div.DTE_Field_Input {
+  float: none;
+  clear: both;
   width: 100%;
 }
-div.DTE_Inline div.DTE_Field > div {
-  width: 100%;
-  padding: 0;
+
+html[dir="rtl"] div.DTE_Body div.DTE_Body_Content div.DTE_Field > label {
+  float: right;
 }
-div.DTE_Inline div.DTE_Field label {
-  display: none;
+html[dir="rtl"] div.DTE_Body div.DTE_Body_Content div.DTE_Field > div.DTE_Field_Input {
+  float: left;
 }
-div.DTE_Inline div.DTE_Field input {
-  width: 100%;
-  color: black;
-}
-div.DTE_Inline div.DTE_Field div.help-block {
-  display: none;
+html[dir="rtl"] div.DTE div.DTE_Form_Buttons button {
+  float: left;
 }
 
-div.DTE_Field_Type_checkbox div.controls,
-div.DTE_Field_Type_radio div.controls {
-  margin-top: 0.4em;
+@media only screen and (max-width: 768px) {
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field {
+    padding: 5px 10%;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full {
+    padding: 5px 0 5px 10%;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full > label {
+    width: 35.5%;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full > div.DTE_Field_Input {
+    width: 64.5%;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.block > div.DTE_Field_Input {
+    width: 100%;
+  }
 }
-div.DTE_Field_Type_checkbox div.controls label,
-div.DTE_Field_Type_radio div.controls label {
-  margin-left: 0.75em;
-  margin-bottom: 0;
-  vertical-align: middle;
-  font-weight: normal;
+@media only screen and (max-width: 640px) {
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field {
+    padding: 5px 0;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full {
+    padding: 5px 0%;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full > label {
+    width: 40%;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full > div.DTE_Field_Input {
+    width: 60%;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.block > div.DTE_Field_Input {
+    width: 100%;
+  }
 }
-
+@media only screen and (max-width: 580px) {
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field {
+    position: relative;
+    zoom: 1;
+    clear: both;
+    padding: 5px 0;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field > label {
+    float: none;
+    width: auto;
+    padding-top: 0;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field > div.DTE_Field_Input {
+    float: none;
+    width: auto;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full, div.DTE_Body div.DTE_Body_Content div.DTE_Field.block {
+    padding: 5px 0;
+  }
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full > label,
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.full > div.DTE_Field_Input, div.DTE_Body div.DTE_Body_Content div.DTE_Field.block > label,
+  div.DTE_Body div.DTE_Body_Content div.DTE_Field.block > div.DTE_Field_Input {
+    width: 100%;
+  }
+}
 div.DTE_Bubble {
   position: absolute;
   z-index: 11;
@@ -215,44 +383,132 @@ div.DTE_Bubble_Background > div:not([dummy]) {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
 }
 
-div.DTE_Bubble div.DTE_Bubble_Liner {
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  padding: 0 0 0.5em 0;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-div.DTE_Bubble div.DTE_Bubble_Liner div.DTE_Bubble_Table > form div.DTE_Form_Content div.DTE_Field label,
-div.DTE_Bubble div.DTE_Bubble_Liner div.DTE_Bubble_Table > form div.DTE_Form_Content div.DTE_Field > div {
-  width: 100%;
-  float: none;
-  clear: both;
-  text-align: left;
-}
-div.DTE_Bubble div.DTE_Bubble_Liner div.DTE_Bubble_Table > form div.DTE_Form_Content div.DTE_Field label {
-  padding-bottom: 4px;
-}
-div.DTE_Bubble div.DTE_Bubble_Liner div.DTE_Header {
-  background-color: #f7f7f7;
-  border-bottom: 1px solid #ebebeb;
-  font-size: 14px;
+div.DTE_Inline {
+  position: relative;
+  display: table;
   width: 100%;
 }
-div.DTE_Bubble div.DTE_Bubble_Liner div.DTE_Bubble_Close:after {
-  margin-top: -2px;
+div.DTE_Inline div.DTE_Inline_Field,
+div.DTE_Inline div.DTE_Inline_Buttons {
+  display: table-cell;
+  vertical-align: middle;
+}
+div.DTE_Inline div.DTE_Inline_Field div.DTE_Field,
+div.DTE_Inline div.DTE_Inline_Buttons div.DTE_Field {
+  padding: 0;
+}
+div.DTE_Inline div.DTE_Inline_Field div.DTE_Field > label,
+div.DTE_Inline div.DTE_Inline_Buttons div.DTE_Field > label {
+  display: none;
+}
+div.DTE_Inline div.DTE_Inline_Field div.DTE_Field input,
+div.DTE_Inline div.DTE_Inline_Buttons div.DTE_Field input {
+  width: 100%;
+}
+div.DTE_Inline div.DTE_Inline_Field div.DTE_Form_Buttons button,
+div.DTE_Inline div.DTE_Inline_Buttons div.DTE_Form_Buttons button {
+  margin: -6px 0 -6px 4px;
+  padding: 5px;
+}
+div.DTE_Inline div.DTE_Field input[type="color"],
+div.DTE_Inline div.DTE_Field input[type="date"],
+div.DTE_Inline div.DTE_Field input[type="datetime"],
+div.DTE_Inline div.DTE_Field input[type="datetime-local"],
+div.DTE_Inline div.DTE_Field input[type="email"],
+div.DTE_Inline div.DTE_Field input[type="month"],
+div.DTE_Inline div.DTE_Field input[type="number"],
+div.DTE_Inline div.DTE_Field input[type="password"],
+div.DTE_Inline div.DTE_Field input[type="search"],
+div.DTE_Inline div.DTE_Field input[type="tel"],
+div.DTE_Inline div.DTE_Field input[type="text"],
+div.DTE_Inline div.DTE_Field input[type="time"],
+div.DTE_Inline div.DTE_Field input[type="url"],
+div.DTE_Inline div.DTE_Field input[type="week"] {
+  margin: -6px 0;
+}
+div.DTE_Inline.DTE_Processing:after {
+  position: absolute;
+  content: ' ';
   display: block;
-}
-div.DTE_Bubble div.DTE_Bubble_Triangle {
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  top: 4px;
+  right: 10px;
+  height: 12px;
+  width: 17px;
+  background: url("../images/ajax-loader-small.gif") no-repeat top left;
 }
 
-div.DTE_Bubble_Background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.05);
+span.dtr-data div.DTE_Inline {
+  display: inline-table;
+}
+
+table.dataTable tbody tr.highlight {
+  background-color: #FFFBCC !important;
+}
+table.dataTable tbody tr.highlight,
+table.dataTable tbody tr.noHighlight,
+table.dataTable tbody tr.highlight td,
+table.dataTable tbody tr.noHighlight td {
+  -webkit-transition: background-color 500ms linear;
+  -moz-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  -o-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+table.dataTable.stripe tbody tr.odd.highlight, table.dataTable.display tbody tr.odd.highlight {
+  background-color: #f9f5c7;
+}
+table.dataTable.hover tbody tr:hover.highlight,
+table.dataTable.hover tbody tr.odd:hover.highlight,
+table.dataTable.hover tbody tr.even:hover.highlight, table.dataTable.display tbody tr:hover.highlight,
+table.dataTable.display tbody tr.odd:hover.highlight,
+table.dataTable.display tbody tr.even:hover.highlight {
+  background-color: #f6f2c5;
+}
+table.dataTable.order-column tbody tr.highlight > .sorting_1,
+table.dataTable.order-column tbody tr.highlight > .sorting_2,
+table.dataTable.order-column tbody tr.highlight > .sorting_3, table.dataTable.display tbody tr.highlight > .sorting_1,
+table.dataTable.display tbody tr.highlight > .sorting_2,
+table.dataTable.display tbody tr.highlight > .sorting_3 {
+  background-color: #faf6c8;
+}
+table.dataTable.display tbody tr.odd.highlight > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd.highlight > .sorting_1 {
+  background-color: #f1edc1;
+}
+table.dataTable.display tbody tr.odd.highlight > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd.highlight > .sorting_2 {
+  background-color: #f3efc2;
+}
+table.dataTable.display tbody tr.odd.highlight > .sorting_3, table.dataTable.order-column.stripe tbody tr.odd.highlight > .sorting_3 {
+  background-color: #f5f1c4;
+}
+table.dataTable.display tbody tr.even.highlight > .sorting_1, table.dataTable.order-column.stripe tbody tr.even.highlight > .sorting_1 {
+  background-color: #faf6c8;
+}
+table.dataTable.display tbody tr.even.highlight > .sorting_2, table.dataTable.order-column.stripe tbody tr.even.highlight > .sorting_2 {
+  background-color: #fcf8ca;
+}
+table.dataTable.display tbody tr.even.highlight > .sorting_3, table.dataTable.order-column.stripe tbody tr.even.highlight > .sorting_3 {
+  background-color: #fefacb;
+}
+table.dataTable.display tbody tr:hover.highlight > .sorting_1,
+table.dataTable.display tbody tr.odd:hover.highlight > .sorting_1,
+table.dataTable.display tbody tr.even:hover.highlight > .sorting_1, table.dataTable.order-column.hover tbody tr:hover.highlight > .sorting_1,
+table.dataTable.order-column.hover tbody tr.odd:hover.highlight > .sorting_1,
+table.dataTable.order-column.hover tbody tr.even:hover.highlight > .sorting_1 {
+  background-color: #eae6bb;
+}
+table.dataTable.display tbody tr:hover.highlight > .sorting_2,
+table.dataTable.display tbody tr.odd:hover.highlight > .sorting_2,
+table.dataTable.display tbody tr.even:hover.highlight > .sorting_2, table.dataTable.order-column.hover tbody tr:hover.highlight > .sorting_2,
+table.dataTable.order-column.hover tbody tr.odd:hover.highlight > .sorting_2,
+table.dataTable.order-column.hover tbody tr.even:hover.highlight > .sorting_2 {
+  background-color: #ece8bd;
+}
+table.dataTable.display tbody tr:hover.highlight > .sorting_3,
+table.dataTable.display tbody tr.odd:hover.highlight > .sorting_3,
+table.dataTable.display tbody tr.even:hover.highlight > .sorting_3, table.dataTable.order-column.hover tbody tr:hover.highlight > .sorting_3,
+table.dataTable.order-column.hover tbody tr.odd:hover.highlight > .sorting_3,
+table.dataTable.order-column.hover tbody tr.even:hover.highlight > .sorting_3 {
+  background-color: #efebbf;
 }
 
 div.DTE div.editor_upload {
@@ -363,14 +619,6 @@ div.DTE div.editor_upload.multi ul li button {
   margin-top: -1.5em;
 }
 
-div.DTE div.editor_upload button.btn,
-div.DTE div.editor_upload input[type=file] {
-  height: auto;
-}
-div.DTE div.editor_upload ul li button {
-  padding-bottom: 8px;
-}
-
 div.editor-datetime {
   position: absolute;
   background-color: white;
@@ -415,7 +663,7 @@ div.editor-datetime table td.day.today button {
   font-weight: bold;
 }
 div.editor-datetime table td.day.selected button {
-  background: #337ab7;
+  background: #4E6CA3;
   color: white;
   border-radius: 2px;
 }
@@ -525,4 +773,29 @@ div.editor-datetime div.editor-datetime-iconUp {
 div.editor-datetime div.editor-datetime-iconDown {
   height: 20px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAALCAMAAABf9c24AAAAFVBMVEX///99fX1+fn57e3t6enoAAAAAAAC73bqPAAAABnRSTlMAYmJkZt92bnysAAAAMElEQVR4AWOgDmBiRQIsmPKMrGxQgJDFlEfIYpoPk8Utz8qM232MYFfhkQfKUg8AANefAQxecJ58AAAAAElFTkSuQmCC");
+}
+
+div.DTE {
+  font-size: 0.91em;
+}
+div.DTE div.DTE_Header {
+  display: none;
+}
+div.DTE div.DTE_Body {
+  padding: 0;
+}
+div.DTE div.DTE_Body div.DTE_Body_Content {
+  overflow: hidden;
+}
+div.DTE div.DTE_Body div.DTE_Body_Content div.DTE_Field {
+  padding: 5px 5%;
+}
+div.DTE div.DTE_Footer {
+  display: none;
+}
+div.DTE div.DTE_Form_Error {
+  padding-top: 1em;
+  color: red;
+  display: none;
+  color: #b11f1f;
 }

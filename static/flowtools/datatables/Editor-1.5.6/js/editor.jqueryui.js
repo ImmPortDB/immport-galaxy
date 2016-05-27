@@ -76,10 +76,6 @@ Editor.display.jqueryui = $.extend( true, {}, Editor.models.displayController, {
 			}
 		} );
 
-		$(dte.dom.formError).appendTo(
-			dte.__dialouge.parent().find('div.ui-dialog-buttonpane')
-		);
-
 		return Editor.display.jqueryui;
 	},
 
@@ -87,6 +83,10 @@ Editor.display.jqueryui = $.extend( true, {}, Editor.models.displayController, {
 		dte.__dialouge
 			.append( append )
 			.dialog( 'open' );
+
+		$(dte.dom.formError).appendTo(
+			dte.__dialouge.parent().find('div.ui-dialog-buttonpane')
+		);
 
 		dte.__dialouge.parent().find('.ui-dialog-title').html( dte.dom.header.innerHTML );
 		dte.__dialouge.parent().addClass('DTED');

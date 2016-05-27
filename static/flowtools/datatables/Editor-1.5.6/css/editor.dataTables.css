@@ -83,7 +83,7 @@ div.DTE div.DTE_Form_Buttons button {
   /* IE10 */
   background-image: -o-linear-gradient(top, #ffffff 0%, #eee 65%, #f9f9f9 100%);
   /* Opera 11.10+ */
-  background-image: linear-gradient(top, #ffffff 0%, #eee 65%, #f9f9f9 100%);
+  background-image: linear-gradient(to bottom, #ffffff 0%, #eee 65%, #f9f9f9 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#ffffff', EndColorStr='#f9f9f9');
 }
 div.DTE button.btn:hover,
@@ -102,7 +102,7 @@ div.DTE div.DTE_Form_Buttons button:hover {
   /* IE10 */
   background-image: -o-linear-gradient(top, #f3f3f3 0%, #dbdbdb 65%, #f4f4f4 100%);
   /* Opera 11.10+ */
-  background-image: linear-gradient(top, #f3f3f3 0%, #dbdbdb 65%, #f4f4f4 100%);
+  background-image: linear-gradient(to bottom, #f3f3f3 0%, #dbdbdb 65%, #f4f4f4 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f3f3f3', EndColorStr='#f4f4f4');
 }
 div.DTE button.btn:active,
@@ -125,7 +125,7 @@ div.DTE div.DTE_Form_Buttons button:focus {
   /* IE10 */
   background-image: -o-linear-gradient(top, #a3d0ef 0%, #79ace9 65%, #a3d0ef 100%);
   /* Opera 11.10+ */
-  background-image: linear-gradient(top, #a3d0ef 0%, #79ace9 65%, #a3d0ef 100%);
+  background-image: linear-gradient(to bottom, #a3d0ef 0%, #79ace9 65%, #a3d0ef 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#a3d0ef', EndColorStr='#a3d0ef');
   outline: none;
 }
@@ -608,6 +608,10 @@ div.DTE_Inline div.DTE_Inline_Field div.DTE_Field > label,
 div.DTE_Inline div.DTE_Inline_Buttons div.DTE_Field > label {
   display: none;
 }
+div.DTE_Inline div.DTE_Inline_Field div.DTE_Field input,
+div.DTE_Inline div.DTE_Inline_Buttons div.DTE_Field input {
+  width: 100%;
+}
 div.DTE_Inline div.DTE_Inline_Field div.DTE_Form_Buttons button,
 div.DTE_Inline div.DTE_Inline_Buttons div.DTE_Form_Buttons button {
   margin: -6px 0 -6px 4px;
@@ -893,7 +897,7 @@ div.DTED_Envelope_Wrapper div.DTED_Envelope_Container div.DTED_Envelope_Close {
   background: #F8F8F8;
   background: -webkit-gradient(linear, center bottom, center top, from(#CCC), to(white));
   background: -moz-linear-gradient(top, white, #CCC);
-  background: linear-gradient(top, white, #CCC);
+  background: linear-gradient(to bottom, white, #CCC);
   text-shadow: 0 1px 0 white;
   border: 1px solid #999;
   border-radius: 2px;

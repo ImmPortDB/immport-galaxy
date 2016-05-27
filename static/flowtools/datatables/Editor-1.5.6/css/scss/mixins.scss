@@ -41,7 +41,7 @@
 	background-image:    -moz-linear-gradient(top, $fromColor, $middleColor, $toColor); /* FF3.6 */
 	background-image:     -ms-linear-gradient(top, $fromColor, $middleColor, $toColor); /* IE10 */
 	background-image:      -o-linear-gradient(top, $fromColor, $middleColor, $toColor); /* Opera 11.10+ */
-	background-image:         linear-gradient(top, $fromColor, $middleColor, $toColor);
+	background-image:         linear-gradient(to bottom, $fromColor, $middleColor, $toColor);
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{nth( $fromColor, 1 )}', EndColorStr='#{nth( $toColor, 1 )}');
 }
 
