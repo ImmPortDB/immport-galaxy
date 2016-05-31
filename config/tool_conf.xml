@@ -18,6 +18,8 @@
     <tool file="flowtools/runFlockMFI.xml" />
     <tool file="flowtools/generateMFI.xml" />
     <tool file="flowtools/runCrossSample.xml" />
+    <tool file="flowtools/getOntology.xml" />
+    <tool file="flowtools/profileCLs.xml" />
   </section>
   <section id="flowvisualizationtools" name="Flow Visualization Tools">
     <tool file="flowtools/genFlowOverview.xml" />

@@ -1,0 +1,24 @@
+#
+# Cell Ontology Module for Galaxy
+# FlowCL
+# 
+# Version 1
+# Cristel Thomas
+#
+#
+
+library(flowCL)
+
+getOntology <- function(output_file, markers) {
+  res <- flowCL(markers)
+  if (length(res) == 6) {
+    report <- capture.output(res$Table)
+    sink(output_file)
+    cat(report, sep = "\n")
+    sink()
+  }
+}
+
+args <- commandArgs(trailingOnly = TRUE)
+markers <- paste(args[3:length(args)], collapse="")
+getOntology(args[2], markers)
