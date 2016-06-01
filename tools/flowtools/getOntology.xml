@@ -1,7 +1,7 @@
 <tool id="getOntology" name="Explore cell ontology" version="1.0">
   <description>given a phenotype using flowCL.</description>
   <command interpreter="python">
-      getOntology.py -o "${output}" -t $__tool_directory__ -g "${graph}" -m "${marker1}" -m "${type1}"
+      getOntology.py -o $html_file -d $html_file.files_path -t $__tool_directory__ -m "${marker1}" -m "${type1}"
       #for $mrkrs in $Markers
         -m "${mrkrs.markername}"
         -m "${mrkrs.markertype}"
@@ -40,8 +40,7 @@
     </repeat>
   </inputs>
   <outputs>
-    <data format="txt" name="output" label="flowCL run"/>
-    <data format="pdf" name="graph" label="Graphical representation of flowCL run"/>
+    <data format="html" name="html_file" label="flowCL run"/>
   </outputs>
   <stdio>
     <exit_code range="2" level="fatal" description="There was a problem running flowCL. You might want to check your marker names - See stderr for more details." />
