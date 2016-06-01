@@ -67,37 +67,15 @@ FlowCL generates a plot for the most likely matches to ontology.
 
 **Example**
 
-*Output text file*::
+*Output summary*
 
-   Short marker names    "CD3-CD19-CD14+CD16+"                                                  
-   Ontology marker names "CD3 epsilon, CD19 molecule, CD14 molecule, low affinity"              
-                         "immunoglobulin gamma Fc region receptor III"                          
-   Experiment markers    "CD3,CD19,CD14,CD16"                                                   
-   Ontology exper. names "CD3 epsilon, CD19 molecule, CD14 molecule, low affinity"              
-                         "immunoglobulin gamma Fc region receptor III"                          
-   Successful Match?     "No"                                                                   
-   Marker ID             "1) PR_000001889, PR_000001483, PR_000001020, PR_000001002 2)"         
-                         "PR_000001889, PR_000001483, PR_000001020, PR_000001002 3)"            
-                         "PR_000001889, PR_000001483, PR_000001020, PR_000001002"               
-   Marker Label          "1) CD14 molecule, low affinity immunoglobulin gamma Fc region"        
-                         "receptor III, CD3 epsilon, CD19 molecule 2) CD14 molecule, low"       
-                         "affinity immunoglobulin gamma Fc region receptor III, CD3 epsilon,"   
-                         "CD19 molecule 3) CD14 molecule, low affinity immunoglobulin gamma Fc" 
-                         "region receptor III, CD3 epsilon, CD19 molecule"                      
-   Marker Key            "1) { } CD19-, CD3-, CD14+, CD16+ ( ) [ membrane-spanning 4-domains"   
-                         "subfamily A member 1-, C-C chemokine receptor type 2- ] 2) { } CD19-,"
-                         "CD3-, CD14+, CD16+ ( ) [ membrane-spanning 4-domains subfamily A"     
-                         "member 1-, C-C chemokine receptor type 2- ] 3) { } CD19-, CD3-,"      
-                         "CD14+, CD16+ ( ) [ C-C chemokine receptor type 2-, membrane-spanning" 
-                         "4-domains subfamily A member 1-, CX3C chemokine receptor 1hi ]"       
-   Score (Out of 1)      "1) 0.667 2) 0.667 3) 0.571"                                           
-   Cell ID               "1) CL_0001055 2) CL_0002397 3) CL_0002396"                            
-   Cell Label            "1) CD14-positive, CD16-low monocyte 2) CD14-positive, CD16-positive"  
-                         "monocyte 3) CD14-low, CD16-positive monocyte"                         
+The CL terms are hyperlink to the Immport Cell Ontology browser.
+
+.. image:: ../../static/images/flowtools/flowcl_summary.png
 
 *Graphical output*
 
-.. image:: ../../static/images/flowtools/flowcl.png
+.. image:: ../../static/images/flowtools/flowcl_graph.png
 
  </help>
  <citations>
