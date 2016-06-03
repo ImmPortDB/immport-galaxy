@@ -31,6 +31,10 @@ body td {
     width: 160px;
 }
 
+.smallcols {
+    width: 100px;
+}
+
 div.dataTables_wrapper {
     width: 95%;
     margin: 0 auto;

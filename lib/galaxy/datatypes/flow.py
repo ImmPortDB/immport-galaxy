@@ -158,4 +158,22 @@ class FlowStats3( Tabular ):
 
 #Binary.register_unsniffable_binary_ext("flowstat3")
 
+class FlowScore( Tabular ):
+    """Class describing a Flow Score file"""
+    file_ext = "flowscore"
 
+    def set_peek( self, dataset, is_multi_byte=False ):
+        if not dataset.dataset.purged:
+            dataset.peek = "Flow Score file"
+            dataset.blurb = data.nice_size( dataset.get_size() )
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+
+    def display_peek( self, dataset ):
+        try:
+            return dataset.peek
+        except:
+            return "Flow Score file (%s)" % ( data.nice_size( dataset.get_size() ) )
+
+#Binary.register_unsniffable_binary_ext("flowscore")

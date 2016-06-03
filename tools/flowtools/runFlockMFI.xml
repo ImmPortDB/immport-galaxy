@@ -28,7 +28,7 @@
   <outputs>
     <data format="flowclr" name="output" label="${method} with ${mfi} on ${input.name}"/>
     <data format="flowmfi" name="centroid" label="${mfi} centroids from ${method} on ${input.name}"/>
-    <data format="tabular" name="profile" label="Population profiles from ${method} on ${input.name}"/>
+    <data format="flowscore" name="profile" label="Population score profiles from ${method} on ${input.name}"/>
   </outputs>
    
  <help>

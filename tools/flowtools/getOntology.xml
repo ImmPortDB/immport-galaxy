@@ -69,7 +69,7 @@ FlowCL generates a plot for the most likely matches to ontology.
 
 *Output summary*
 
-The CL terms are hyperlink to the Immport Cell Ontology browser.
+The CL terms hyperlink to their representation in the Immport Cell Ontology browser.
 
 .. image:: ../../static/images/flowtools/flowcl_summary.png
 

@@ -1,5 +1,4 @@
 var flowcl_table = './flowCL_table.txt';
-var fcl = fcl || {};
 
 var displayFlowCLTable = function(){
 
@@ -12,7 +11,7 @@ var displayFlowCLTable = function(){
         $('#flowcl').html(fclHTML);
 
         var fclTableData = $.extend(true, [], data)
-        var popTable = $('#flowcltable').DataTable({
+        var fclTable = $('#flowcltable').DataTable({
             columns: [
                 {"data":"1", className: 'firstcol'},
                 {"data":"2"}

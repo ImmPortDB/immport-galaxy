@@ -1,6 +1,12 @@
 <tool id="genFlowOverview" name="Generate overview information" version="1.0">
   <description>of FLOCK flow analysis</description>
-  <command interpreter="python">genFlowOverview.py -i $input -o $html_file -M $mfi -d $html_file.files_path -t $__tool_directory__</command>
+  <command interpreter="python">
+   #if $ontology.runcl == "no"  
+    genFlowOverview.py -i "${input}" -o "${html_file}" -M "${mfi}" -d "${html_file.files_path}" -t $__tool_directory__
+   #else
+    genFlowOverview.py -i "${input}" -o "${html_file}" -M "${mfi}" -d "${html_file.files_path}" -t $__tool_directory__ -p "${scores}"
+   #end if  
+  </command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Result File"/>
     <param name="mfi" type="select" label="Calculate centroids using:">
@@ -8,12 +14,24 @@
         <option value="mdfi">Median Fluorescence Intensity</option>
         <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
     </param>
+    <conditional name="ontology">
+        <param name="runcl" type="select" label="Associate FLOCK population score profiles with Cell Ontology?" help="using FlowCL">
+            <option value="no">No, thank you</option>
+            <option value="yes">Yes, pretty please, even though it will take forever to run</option>
+        </param>
+        <when value="yes">
+            <param format="flowscore" name="scores" type="data" label="Population score profiles from FLOCK"/>
+        </when>
+    </conditional>
   </inputs>
   <outputs>
     <data format="html" name="html_file" label="Overview of ${input.name}">
     </data>
   </outputs>
-
+  <stdio>
+    <exit_code range="2" level="fatal" description="There was a problem running flowCL. You might want to check your marker names - See stderr for more details." />
+    <exit_code range="3:" level="fatal" description="See stderr for more details." />
+  </stdio>
  <help>
    This tool generates an overview of the flow analysis results.
    
@@ -21,7 +39,7 @@
 
 **Input**
 
-This tool can read in the output of FLOCK or of CrossSample (a tab-separated file containing the markers fluorescence intensities for each event, as well as the population or cell type they were attributed to)
+This tool can read in the output of FLOCK or of CrossSample (a tab-separated file containing the markers fluorescence intensities for each event, as well as the population or cell type they were attributed to). If the option is selected, flowCL is used to associate each population defined by FLOCK to a Cell Ontology term.
 
 **Output**
 
@@ -76,6 +94,17 @@ The user can reorder the markers, and choose which populations to display either
 
 .. image:: ../../static/images/flowtools/pcflock.png
 
+If the ontology option was selected, the following two tabs are displayed.
+The CL terms hyperlink to their representation in the Immport Cell Ontology browser. The full flowCL run summary is accessible by clicking on the phenotype.
+
+.. image:: ../../static/images/flowtools/profileCL.png
+
+.. image:: ../../static/images/flowtools/popprofiles.png
+
+
  </help>
+ <citations>
+   <citation type="doi">10.1093/bioinformatics/btu807</citation>
+ </citations>
 </tool>
 
