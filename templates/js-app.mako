@@ -3,7 +3,7 @@
 <html>
     <!--js-app.mako-->
     <head>
-        <title>Galaxy</title>
+        <title>ImmPort Galaxy</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         ## For mobile browsers, don't scale up
         <meta name="viewport" content="maximum-scale=1.0">

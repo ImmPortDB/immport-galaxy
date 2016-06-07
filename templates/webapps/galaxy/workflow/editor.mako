@@ -101,6 +101,7 @@
 
     .right-content {
         margin: 3px;
+        background-color:white;
     }
 
     canvas { position: absolute; z-index: 10; }

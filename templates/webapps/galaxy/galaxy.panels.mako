@@ -8,7 +8,7 @@
     ## set defaults
     self.galaxy_config = {
         ## template options
-        'title'         : 'Galaxy - Data Intensive Biology for Everyone',
+        'title'         : 'ImmPort Galaxy - Galaxy for Flow Analysis',
         'master'        : True,
         'left_panel'    : False,
         'right_panel'   : False,
