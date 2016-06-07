@@ -1,36 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>ImmPort Galaxy Home</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="style/base.css" type="text/css" />
-</head>
-<body style="margin: 0">
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <div class="jumbotron">
-        <div class="container">
-            <h2>Galaxy Flow Analyis hosted by ImmPort</h2>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/flowtools/css/main_openimmport.css" type="text/css">
+    <link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
+	<link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!--js-->
+    <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+</head>
+
+
+<body>
+
+<div class="container">
+    <style>
+        #navbar-target-menu-collapse ul.navbar-right {
+            margin-right: 5px;
+        }
+         .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-toggle{
+            padding: 32px;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #fff;
+        }
+
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+        .dropdown-submenu.pull-left>.dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+        
+    </style>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-target-menu-collapse">
+	                <span class="sr-only">Toggle navigation</span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+                </button>
+            </div>
+            
+            <div class="collapse navbar-collapse navbar-site-main" id="navbar-target-menu-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="menu-immport-org active">
+                        <a href="http://immport.org/immport-open/public/home/home" target="_blank">
+                            <img class="main-site-logo" src="/static/images/home/open-immport-logo-small.png">
+                            <span style="padding-left:5px;">ImmPort</span>
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Resources<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="http://www.immport-labs.org/immport-ontology/public/home/home" target="_blank">
+                                <img class="menu-dropdown-logo" src="/static/images/home/logo-cell-ontology.png"/>
+                                Cell Ontology
+                            </a></li>
+                            <li><a href="http://immport.org/immport-open/public/reference/cytokineRegistry" target="_blank">
+                                <img class="menu-dropdown-logo" src="/static/images/home/logo-cytokine-registry.png"/>
+                                Cytokine Registry
+                            </a></li>
+                            <li><a href="http://immport.org/immport-open/public/reference/genelists" target="_blank">
+                                <img class="menu-dropdown-logo" src="/static/images/home/logo-cytokine-registry.png"/>
+                                Gene Lists 
+                            </a></li>
+                            <li><a href="http://immport.org/immport-open/public/home/flowAnalysis" target="_blank">
+                                <img class="menu-dropdown-logo" src="/static/images/home/logo-flow-analysis.png"/>
+                                Flow Analysis
+                            </a></li>
+                            <li><a href="http://immport.org/immport-open/public/reference/fluVaccine" target="_blank">
+                                <img class="menu-dropdown-logo" src="/static/images/home/logo-vaccine-analysis.png"/>
+                                Flu Vaccine Analysis Tutorial</a>
+                            </li>
+                            <li><a href="http://www.immport-labs.org/immport-immunexpresso/public/immunexpresso/search" target="_blank">
+                                <img class="menu-dropdown-logo" src="/static/images/home/logo-immunexpresso.png"/>
+                                immuneXpresso
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<script src="/static/flowtools/js/handlebars-v1.3.0.js" type="text/javascript"></script>
+<script src="/static/flowtools/js/galaxy_home.js" type="text/javascript"></script>
+
+<script id="carousel-indicator-template" type="text/x-handlebars-template">
+	<li data-target="{{ itemTarget }}" data-slide-to="{{ itemIndex }}" class="{{ itemActiveText }}"></li>
+</script>
+<script id="carousel-item-template" type="text/x-handlebars-template">
+    <div class="item carousel-item-{{ itemIndex }} {{ itemActiveText }}">
+		<div class="carousel-item-title" style="display:none;">{{{ title }}}</div>
+        <div class="col-md-4 carousel-item-left">
+			{{#if paragraph1}}<p>{{ paragraph1 }}</p>{{/if}}
+			{{#if paragraph2}}<p>{{ paragraph2 }}</p>{{/if}}
+			<p>{{{ link }}}</p>
+        </div>
+        <div class="col-md-8 carousel-item-right">
+			{{#if image1}}<img class="carousel-item-image" src="/static/images/home/{{ image1 }}" />{{/if}}
+		</div>
+    </div>
+</script>
+
+<script id="announcement-info-template" type="text/x-handlebars-template">
+	<div class="info-block">
+		<div>{{{ content }}}</div>
+        {{#if display }}
+		<div class="pull-right">
+			<a class="announcement-link" data-type="{{ type }}" data-link="{{ link }}" data-display="{{ display }}" >
+				more <i class="glyphicon glyphicon-chevron-right"></i>
+			</a>
+		</div>
+        {{/if}}
+	</div>
+</script>
+<style>
+.right-info-panels {
+	margin-top: 5px;
+}
+.right-info-panels .panel-heading {
+	padding: 5px 10px 5px 10px;
+}
+.right-info-panels .panel-body {
+	padding: 5px 10px 5px 10px;
+	max-height: 270px;
+	overflow-y: scroll;
+}
+.right-info-panels .panel-body .info-block {
+	padding: 8px 5px 23px 5px;
+}
+.right-info-panels .panel-body .info-block:hover {
+	background-color: #f2f2f2;
+}
+</style>
+
+<div class="container" style="margin-top:10px;">
+    
+    <div class="row" style="padding-bottom:10px;">
+    	<div class="col-md-8">
+    		<div class="immport-notice" style="display:none;">
+		        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<div class="immport-notice-content"></div>
+				</div>
+	        </div>
+    		<div class="immport-about">
+    			<p>
+            		<img src="/static/images/home/immportgalaxy_green_sharp.png" style="height:125px;"/>
+            	</p>
+    			<p style="margin-top:20px;">
+    				<h4>Welcome to ImmPort Galaxy</h4>
+    			</p>
+		        <p>
+		       Immport Galaxy is your resource for (re-)analyzing flow cytometry data. Create a login and get started! This <a href="" target="_blank">guide</a> can help you get things going.<br> Explore the tools on the left panel or use one of the available workflows.
+		       </p>
+	        </div>
+	    </div>
+	    <div class="col-md-4 right-info-panels">
+			<div class="panel panel-default">
+				<div class="panel-heading">Announcements</div>
+				<div class="panel-body">
+				</div>
+			</div>
+	    </div>
+    </div>
+
+    <div class="row" style="padding-bottom:10px;">
+    	<div class="col-md-8">
+
+            <div id="carousel-immport-share" class="carousel slide" data-ride="carousel">
+                <div class="carousel-top-header">
+                    <div class="carousel-top-title col-md-9">
+                        &nbsp;<!-- Slide Title -->
+                    </div>
+                    <ol class="carousel-indicators col-md-3 pull-right">
+                    </ol>
+                </div>
+                <div class="carousel-inner">
+                </div>
+			</div>
+			
+			<a class="left carousel-control" href="#carousel-immport-share" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left"></span>
+			</a>
+			<a class="right carousel-control" href="#carousel-immport-share" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right"></span>
+			</a>
+
+        </div>
+    	<div class="col-md-4">
+            <div id="twitter_feed" width="25%">
+            <a class="twitter-timeline" href="https://twitter.com/ImmPortDB" data-widget-id="739893644740677632">Tweets by @ImmPortDB</a>
+
+<script>
+!function(d,s,id){
+    var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+    if(!d.getElementById(id)){
+        js=d.createElement(s);
+        js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js,fjs);
+    }
+}(document,"script","twitter-wjs");
+</script>
+            </div>       
         </div>
     </div>
+</div>
+<script>
+var CONTEXT_ROOT = 'http://immport.org/immport-open';
 
-    <div class="container">
+$().ready(function() {
+    $('.right-info-panels .panel-body').on('click', onAnnouncementClick); // announcement click
+    updateAnnouncements();
+    updateCarousel();
+    $('#carousel-immport-share').bind('slide.bs.carousel', function (e) {
+        updateCarouselTitle(e.relatedTarget);
+    });
+});
 
-        <p class="lead">
-            <a target="_blank" class="reference" href="http://galaxyproject.org/">
-            Galaxy</a> is an open platform for supporting data intensive
-            research. Galaxy is developed by <a target="_blank" class="reference" href="http://wiki.galaxyproject.org/GalaxyTeam">The Galaxy Team</a>
-            with the support of  <a target="_blank" class="reference" href="https://github.com/galaxyproject/galaxy/blob/dev/CONTRIBUTORS.md">many contributors</a>.
-        </p>
+</script>
+    
+<style>
+.row-footer {
+	padding-top: 10px;
+	/* border-top: solid 1px #e2e2e2; */
+	color: #999;
+	font-size: 0.9em;
+}
+.row-footer a {
+	color: #999;
+}
+.row-footer .block-header {
+	padding-bottom: 8px;
+}
+.row-footer .block-body {
+	padding-left: 20px;
+}
+</style>
+<div class="row row-footer">
+    <div class="row" style="padding-bottom:10px;">
+    	<div class="col-md-12">
+    		<div class="immport-about">
+    			<p style="margin-top:20px;">
+    				<h4>What is ImmPort?</h4>
+    			</p>
+		        <p>
+		       <a href="http://www.immport.org" target="_new">OpenImmport</a> is your resource for searching and downloading shared biomedical research data funded from NIAID DAIT and DMID, and other NIH and non-government funding agencies. Additional resources available at OpenImmPort include step-by-step data reuse tutorials including example R and Python analysis code, the Cell Ontology Visualizer, the Cytokine Registry, and ImmuneXpresso - the cytokine and cell interaction literature mining tool.
+		       </p>
+		       <p>
+               <a href="https://immport.niaid.nih.gov" target="_new">ImmPort</a> is the data submission portal where researchers upload, QC, and curate their data prior to sharing in OpenImmPort. 
+		        </p>
+	        </div>
+	    </div>
+	<div class="col-md-5">
+		<div class="block-header">Sponsored by:</div>
+		<ul>
+			<li><a href="http://www.niaid.nih.gov/Pages/default.aspx" target="_blank">National Institute of Allergy and Infectious Diseases (NIAID)</a></li>
+			<li><a href="http://www.nih.gov/" target="_blank">National Institutes of Health (NIH)</a></li>
+			<li><a href="http://www.hhs.gov/" target="_blank">Health and Human Services (HHS)</a></li>
+		</ul>
+	</div>
+	<div class="col-md-5">
+		<div class="block-header">
+			<a href="mailto:BISC_Helpdesk@niaid.nih.gov">Contact Us</a> | 
+			<a href="http://immport.org/immport-open/public/home/privacyPolicy" target="_blank">Privacy Policy</a> | 
+			<a href="http://immport.org/immport-open/public/home/disclaimer" target="_blank">Disclaimer</a> | 
+			<a href="http://immport.org/immport-open/public/home/accessibility" target="_blank">Accessibility</a>
+		</div>
+	</div>
+	<div class="col-md-2">
+   		<div id="socialmedia-block" class="homePageText">
+			<div class="title" style="margin-bottom:7px;">Connect with Us</div>
+			<div class="socialmedia-block-inner">
+				<ul>
+					<script>(function(d, s, id) {
+				  	var js, fjs = d.getElementsByTagName(s)[0];
+				  	if (d.getElementById(id)) return;
+				  	js = d.createElement(s); js.id = id;
+				  	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+				  	fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));
+					</script>
+					<div class="fb-like" data-href="https://www.facebook.com/Immport" 
+						style="padding-bottom:3px;"
+						data-send="false" data-layout="button_count" data-width="650" 
+						data-show-faces="false" data-font="lucida grande"></div>
+					<!-- 
+					<li class="facebook-link">
+						<a class="facebook" href="https://www.facebook.com/Immport" style="text-decoration: none" target="_blank">
+							<span>Facebook</span>
+						</a>
+					</li>
+					-->
+					<li class="twitter-link">
+						<a class="twitter" href="https://twitter.com/#!/ImmPortDB" style="text-decoration: none" target="_blank">
+							<span>Twitter</span>
+						</a>
+					</li>
+					<li class="rss-link">
+						<a href="/immport-open/resources/rss/newsfeed.xml"  style="text-decoration: none" target="_blank">
+							<span>RSS Feed</span>
+						</a>
+					</li>
+					<li class="google-link">
+						<a href=" https://groups.google.com/d/forum/immport"  style="text-decoration: none" target="_blank">
+							<span>Google Group</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
 
-        <footer>
-            The <a target="_blank" class="reference" href="http://galaxyproject.org/">Galaxy Project</a>
-            is supported in part by <a target="_blank" class="reference" href="http://www.genome.gov">NHGRI</a>,
-            <a target="_blank" class="reference" href="http://www.nsf.gov">NSF</a>,
-            <a target="_blank" class="reference" href="http://www.huck.psu.edu">The Huck Institutes of the Life Sciences</a>,
-            <a target="_blank" class="reference" href="http://www.ics.psu.edu">The Institute for CyberScience at Penn State</a>,
-            and <a target="_blank" class="reference" href="http://www.jhu.edu/">Johns Hopkins University</a>.
-        </footer>
-
-    </div>
-
+</div>
 </body>
 </html>

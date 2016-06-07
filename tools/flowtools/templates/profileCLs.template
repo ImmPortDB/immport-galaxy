@@ -34,8 +34,8 @@ th{background-color:#3e6db0;color:#fff;padding:5px;text-align:center}
     <div class="row" style="padding-bottom:10px;min-height:500px;">
         <div class="col-md-12" >
             <ul class="nav nav-tabs tabs-main">
-                <li class="homeTab active" data-value="clprofiles"><a href="#clprofiles" data-toggle="tab">Population Ontologies</a></li>
-                <li class="homeTab" data-value="scores"><a href="#scores" data-toggle="tab">Population Score Profiles</a></li>
+                <li class="homeTab active" data-value="clprofiles"><a href="#clprofiles" data-toggle="tab">Populations Cell Ontologies</a></li>
+                <li class="homeTab" data-value="scores"><a href="#scores" data-toggle="tab">Populations Score Profiles</a></li>
             </ul>
 
             <div class="tab-content">

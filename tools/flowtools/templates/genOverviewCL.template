@@ -46,8 +46,8 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <li class="homeTab" data-value="scatter2D"><a href="#scatter2D" data-toggle="tab">Scatter 2D</a></li>
                 <li class="homeTab" data-value="scatter3D"><a href="#scatter3D" data-toggle="tab">Scatter 3D</a></li>
                 <li class="homeTab" data-value="parallelCoordinates"><a href="#parallelCoordinates" data-toggle="tab">Parallel Coordinates</a></li>
-                <li class="homeTab" data-value="clprofiles"><a href="#clprofiles" data-toggle="tab">Population Ontologies</a></li>
-                <li class="homeTab" data-value="scores"><a href="#scores" data-toggle="tab">Population Score Profiles</a></li>
+                <li class="homeTab" data-value="clprofiles"><a href="#clprofiles" data-toggle="tab">Populations Cell Ontologies</a></li>
+                <li class="homeTab" data-value="scores"><a href="#scores" data-toggle="tab">Populations Score Profiles</a></li>
             </ul>
 
             <div class="tab-content">
