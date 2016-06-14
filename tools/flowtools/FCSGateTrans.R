@@ -74,7 +74,7 @@ iplogicore <- function (x, w, r, d, scale) {
   c <- r * exp(-(d - w)) * p^2
   d <- 1/p
   f <- a * (p^2 - 1)
-  y <- .Call("biexponential_transform", as.double(x), a, b, c, d, f, w, tol, maxit)
+  y <- .Call("flowCore_biexponential_transform", PACKAGE= 'flowCore', as.double(x), a, b, c, d, f, w, tol, maxit)
   y <- sapply(y * scale, ipfloor)
   return(y)
 }
