@@ -42,7 +42,6 @@ def run_flowCL(phenotype, output_file, output_dir, tool_dir):
                 cur_stg = "".join([str(k+1), ")"])
                 new_stg = "".join(["<br>", cur_stg])
                 newline = newline.replace(cur_stg, new_stg)
-                sys.stderr.write(newline + "ohyeah\n")
                 
             if labels[j] == "Cell ID":
                 cls = newline.split(" ")

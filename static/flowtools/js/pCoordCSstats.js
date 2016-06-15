@@ -29,7 +29,7 @@ var displaySmpTable = function() {
                    + d.SampleNumber + '/></td><td title="' + newSmpNames[d.SampleName] 
                    + '">' + newSmpNames[d.SampleName]
                    + '</td><td><span style="background-color:'
-                   + color_palette[d.SampleNumber]
+                   + color_palette[d.SampleNumber + 1]
                    + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
     });
 
@@ -71,6 +71,7 @@ var displaySmpTable = function() {
         displayTableGrid();
         updateParallelForeground();
     });
+    updateSmpTable();
 };
 
 var updateSmpTable = function() {
@@ -291,7 +292,7 @@ var displayParallelPlot = function() {
             return path(pcApp.flowData[smp]);
 		})
         .attr("stroke",function(d){
-			var smp = d.SampleNumber;
+			var smp = d.SampleNumber + 1;
             return color_palette[smp];})
         .attr("stroke-width", 1);
 

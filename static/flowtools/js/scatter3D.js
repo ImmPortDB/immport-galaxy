@@ -1,48 +1,3 @@
-var preprocessScatterData3D = function(text) {
-    data = d3.tsv.parseRows(text).map(function(row) {
-        return row.map(function(value) {
-            if (isNaN(value)) {
-                return value;
-            }
-            return +value;
-        });
-    });
-
-    scatterData3D['columnHeadings'] = data.shift();
-    scatterData3D['columnHeadings'].pop();
-    var popCol = data[0].length - 1;
-    var p = data.map(function(value,index) {
-        return parseInt(value[popCol]);
-    });
-
-    var populations = {};
-    for (var i = 0; i < p.length; i++) {
-        if (populations[p[i]] === undefined) {
-            populations[p[i]] = 1;
-        } else {
-            populations[p[i]] = populations[p[i]] + 1;
-        }
-    }
-
-    scatterData3D['popCol'] = popCol;
-    scatterData3D['populations'] = d3.set(p).values();
-    scatterData3D['populations'] = scatterData3D['populations']
-                                   .map(function(value,index) {
-                                     return parseInt(value);
-                                   });
-
-    scatterData3D['percent'] = scatterData3D['populations']
-                         .map(function(value,index) {
-                                     return Math.floor(populations[value] * 10000.0 / data.length) / 100.0;
-                                         });
-
-    scatterData3D['data'] = data;
-    scatterData3D['m1'] = 0;
-    scatterData3D['m2'] = 1;
-    scatterData3D['m3'] = 2;
-    scatterData3D['view'] = 1;
-};
-
 var processScatterData3D = function() {
     var min = d3.min(scatterData3D['data'], function(array) {
       return d3.min(array);
@@ -67,7 +22,7 @@ var processScatterData3D = function() {
     var zData = [];
     var popData = [];
     for (var i = 0; i < col1.length; i++) {
-        if (scatterData3D['populations'].indexOf(pop[i]) >= 0) {
+        if (scatterData3D['selectedPopulations'].indexOf(pop[i]) >= 0) {
             xData.push(col1[i]);
             yData.push(col2[i]);
             zData.push(col3[i]);
@@ -116,17 +71,17 @@ var displayScatterToolbar3D = function() {
     $("#xAxisMarker3D").on("change",function(e) {
         var m1 = $("#xAxisMarker3D").select2("val");
         scatterData3D['m1'] = m1;
-        scatterDataMFI['m1'] = m1;
+        scatterData3DMFI['m1'] = m1;
     });
     $("#yAxisMarker3D").on("change",function(e) {
         var m2 = $("#yAxisMarker3D").select2("val");
         scatterData3D['m2'] = m2;
-        scatterDataMFI['m2'] = m2;
+        scatterData3DMFI['m2'] = m2;
     });
     $("#zAxisMarker3D").on("change",function(e) {
         var m3 = $("#zAxisMarker3D").select2("val");
         scatterData3D['m3'] = m3;
-        scatterDataMFI['m3'] = m3;
+        scatterData3DMFI['m3'] = m3;
     });
 
     $("#view3D").on("change",function(e) {
@@ -136,16 +91,16 @@ var displayScatterToolbar3D = function() {
 
 
     $("#updateDisplay3D").on("click",function() {
-        scatterData3D['populations'] = [];
-        scatterDataMFI['populations'] = [];
+        scatterData3D['selectedPopulations'] = [];
+        scatterData3DMFI['selectedPopulations'] = [];
         $('.pop3D').each(function() {
             if (this.checked) {
-                scatterData3D['populations'].push(parseInt(this.value));
-                scatterDataMFI['populations'].push(parseInt(this.value));
+                scatterData3D['selectedPopulations'].push(parseInt(this.value));
+                scatterData3DMFI['selectedPopulations'].push(parseInt(this.value));
             }
         });
         processScatterData3D();
-        processScatterDataMFI3D();
+        processScatterData3DMFI();
         displayScatterPlot3D();
     });
 };
@@ -177,14 +132,14 @@ var displayScatterPopulation3D = function() {
             $('#selectall3D').prop("checked",false);
         }
     });
-};
-
-var updateSP3D = function(newNames){
-    $("#populationTable3D tbody").empty();
-    scatterData3D['populations'].map(function(value,index) {
-        $('#populationTable3D tr')
-            .last()
-            .after('<tr><td align="center"><input type="checkbox" checked class="pop3D" value=' + value + '/></td><td>' + newNames[value] + '<td><span style="background-color:' + color_palette[value] + '">&nbsp;&nbsp;&nbsp</span></td></td><td>' + scatterData3D['percent'][value - 1] + '</td></tr>');
+    
+    $('.pop3D').each(function() {
+        var selectedpop3D = parseInt(this.value);
+        if ($.inArray(selectedpop3D,scatterData3D['selectedPopulations']) > -1) {
+            this.checked = true;
+        } else {
+            this.checked = false;
+        }
     });
 };
 
@@ -221,13 +176,13 @@ var displayScatterPlot3D = function() {
     if ( view == 1 || view == 3) {
         var trace2 =
           {
-            x: scatterDataMFI['xData'],
-            y: scatterDataMFI['yData'],
-            z: scatterDataMFI['zData'],
+            x: scatterData3DMFI['xData'],
+            y: scatterData3DMFI['yData'],
+            z: scatterData3DMFI['zData'],
             mode: 'markers',
             opacity: 1.0,
             hoverinfo: "x+y+z",
-            marker: { symbol: "circle-open", size: 8, color: scatterDataMFI['popColors'] },
+            marker: { symbol: "circle-open", size: 8, color: scatterData3DMFI['popColors'] },
             type: 'scatter3d'
           };
         traces.push(trace2);

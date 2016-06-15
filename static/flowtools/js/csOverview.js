@@ -57,6 +57,15 @@ var displayPopulationLegend = function(plotconfig) {
             $(plotconfig.popSelectAll).prop("checked",false);
         }
     });
+    
+    $(plotconfig.popSelectj).each(function() {
+        var selectedpopn = parseInt(this.value);
+        if ($.inArray(selectedpopn,plotconfig.selectedPopulations) > -1) {
+            this.checked = true;
+        } else {
+            this.checked = false;
+        }
+    });    
 };
 
 var displayProp = function() {

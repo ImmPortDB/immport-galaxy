@@ -3,7 +3,7 @@ var scatterData3D = {};
 var scatterData3DMFI = {};
 var scatterDataMFI = {};
 var tableContent;
-var newNames = {};
+var newNames ={};
 
 var waitForFinalEvent = (function () {
   var timers = {};
@@ -142,10 +142,10 @@ var displayScatter2D = function() {
                 url: mfi_url,
                 dataType: "text",
                 success: function(mfi_text) {
-                   preprocessScatterDataMFI(mfi_text);
-                   preprocessScatterData2D(text);
+                   scatterDataMFI = new processMFI(mfi_text);
+                   scatterData2D = new processData(text);
                    displayScatterToolbar2D();
-                   displayScatterPopulation2D(newNames);
+                   displayScatterPopulation2D();
                    processScatterData2D();
                    processScatterDataMFI2D();
                    displayScatterPlot2D();
@@ -159,7 +159,7 @@ var displayScatter2D = function() {
             });
         }
     });
-}
+};
 
 var displayScatter3D = function() {
     var url = "flow.sample";
@@ -172,12 +172,12 @@ var displayScatter3D = function() {
                 url: mfi_url,
                 dataType: "text",
                 success: function(mfi_text) {
-                   preprocessScatterDataMFI(mfi_text);
-                   preprocessScatterData3D(text);
+                   scatterData3DMFI = new processMFI(mfi_text);
+                   scatterData3D = new processData(text);
                    displayScatterToolbar3D();
-                   displayScatterPopulation3D(newNames);
+                   displayScatterPopulation3D();
                    processScatterData3D();
-                   processScatterDataMFI3D();
+                   processScatterData3DMFI();
                    displayScatterPlot3D();
                    $(window).on('resize',function() {
                        waitForFinalEvent(function() {
@@ -189,26 +189,95 @@ var displayScatter3D = function() {
            });
        }
     });
-}
+};
 
-
-var displayScatter3DMFI = function() {
-    var url = "flow.mfi_pop";
-    $.ajax({
-       url: url,
-       dataType: "text",
-       success: function(text) {
-           preprocessScatterData3DMFI(text);
-           displayScatterToolbar3DMFI();
-           displayScatterPopulation3DMFI(newNames);
-           processScatterData3DMFI();
-           displayScatterPlot3DMFI();
-           $(window).on('resize',function() {
-               waitForFinalEvent(function() {
-                   processScatterData3DMFI();
-                   displayScatterPlot3DMFI();
-               },500,"resize3DMFI");
-           });
-       }
+function processData(text) {
+    var data = d3.tsv.parseRows(text).map(function(row) {
+        return row.map(function(value) {
+            if (isNaN(value)) {
+                return value;
+            }
+            return +value;
+        });
     });
-}
+
+    this.columnHeadings = data.shift();
+    this.columnHeadings.pop();
+    var popCol = data[0].length - 1;
+    var p = data.map(function(value,index) {
+        return parseInt(value[popCol]);
+    });
+
+    var populations = {};
+    for (var i = 0; i < p.length; i++) {
+        if (populations[p[i]] === undefined) {
+            populations[p[i]] = 1;
+        } else {
+            populations[p[i]] = populations[p[i]] + 1;
+        }
+    }
+
+    this.popCol = popCol;
+    this.populations = d3.set(p).values();
+    this.populations = this.populations.map(function(value,index) {
+                                      return parseInt(value);
+    });
+    this.selectedPopulations = this.populations;
+    this.percent = this.populations.map(function(value,index) {
+                                      return Math.floor(populations[value] * 10000.0 / data.length) / 100.0;
+    });
+
+    this.data = data;
+    this.m1 = 0;
+    this.m2 = 1;
+    this.m3 = 2;
+    this.view = 1;
+};
+
+function processMFI(text) {
+    data = d3.tsv.parseRows(text).map(function(row) {
+        return row.map(function(value) {
+            if (isNaN(value)) {
+                return value;
+            }
+            return +value;
+        });
+    });
+
+    // Get the Headings Row, then remove the Count, Percentage and
+    // Population headings
+    this.columnHeadings = data.shift();
+    this.columnHeadings.pop();
+    this.columnHeadings.pop();
+    this.columnHeadings.pop();
+
+    var popCol = data[0].length -1;
+    var pop = data.map(function(value,index) {
+        return parseInt(value[popCol]);
+    });
+
+    var perCol = data[0].length -2;
+    var per = data.map(function(value,index) {
+        return parseFloat(value[perCol]);
+    });
+
+    var countCol = data[0].length -3;
+    var count = data.map(function(value,index) {
+        return parseInt(value[countCol]);
+    });
+
+    this.popCol = popCol;
+    this.populations = pop;
+    this.selectedPopulations = pop;
+    this.percent = per;
+    this.counts = count;
+
+    var l = data[0].length;
+    this.data = data.map(function(row) {
+        return row.splice(0,countCol);
+    });
+    this.poplist = pop;
+    this.m1 = 0;
+    this.m2 = 1;
+    this.m3 = 2;
+};

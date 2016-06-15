@@ -31,7 +31,7 @@ var displayPopTable = function() {
                    + 'checked class="popSelect" value=' + index + '/></td>'
                    + '<td title="' + newNames[d.Population] + '">' + newNames[d.Population]
                    + '</td><td><span style="background-color:'
-                   + color_palette[index]
+                   + color_palette[index + 1]
                    + '">&nbsp;&nbsp;&nbsp;</span></td>'
                    + '<td>' + d.Percentage + '</td></tr>');
     });
@@ -90,6 +90,7 @@ var displayPopTable = function() {
         displayTableGrid();
         updateParallelForeground();
     });
+    updatePopTable();
 };
 
 var updatePopTable = function() {
@@ -296,7 +297,7 @@ var displayParallelPlot = function() {
         .append("path")
         .attr("d", path)
         .attr("stroke",function(d){
-              var pop = pCoordApp.populations.indexOf(d.Population);
+              var pop = pCoordApp.populations.indexOf(d.Population) + 1;
               return color_palette[pop];})
         //.attr("stroke-width", 2);
         // Use this if you want to scale the lines based on

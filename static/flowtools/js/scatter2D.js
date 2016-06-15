@@ -1,46 +1,3 @@
-var preprocessScatterData2D = function(text) {
-    var data = d3.tsv.parseRows(text).map(function(row) {
-        return row.map(function(value) {
-            if (isNaN(value)) {
-                return value;
-            }
-            return +value;
-        });
-    });
-
-    scatterData2D['columnHeadings'] = data.shift();
-    scatterData2D['columnHeadings'].pop();
-    var popCol = data[0].length - 1;
-    var p = data.map(function(value,index) {
-        return parseInt(value[popCol]);
-    });
-
-    var populations = {};
-    for (var i = 0; i < p.length; i++) {
-        if (populations[p[i]] === undefined) {
-            populations[p[i]] = 1;
-        } else {
-            populations[p[i]] = populations[p[i]] + 1;
-        }
-    }
-
-    scatterData2D['popCol'] = popCol;
-    scatterData2D['populations'] = d3.set(p).values();
-    scatterData2D['populations'] = scatterData2D['populations']
-                                   .map(function(value,index) {
-                                     return parseInt(value);
-                                   });
-
-    scatterData2D['percent'] = scatterData2D['populations']
-                         .map(function(value,index) {
-                                     return Math.floor(populations[value] * 10000.0 / data.length) / 100.0;
-                                         });
-
-    scatterData2D['data'] = data;
-    scatterData2D['m1'] = 0;
-    scatterData2D['m2'] = 1;
-    scatterData2D['view'] = 1;
-};
 
 var processScatterData2D = function() {
     var min = d3.min(scatterData2D['data'], function(array) {
@@ -63,7 +20,7 @@ var processScatterData2D = function() {
     var yData = [];
     var popData = [];
     for (var i = 0; i < col1.length; i++) {
-        if (scatterData2D['populations'].indexOf(pop[i]) >= 0) {
+        if (scatterData2D['selectedPopulations'].indexOf(pop[i]) >= 0) {
             xData.push(col1[i]);
             yData.push(col2[i]);
             popData.push(pop[i]);
@@ -117,12 +74,12 @@ var displayScatterToolbar2D = function() {
     });
 
     $("#updateDisplay2D").on("click",function() {
-        scatterData2D['populations'] = [];
-        scatterDataMFI['populations'] = [];
+        scatterData2D['selectedPopulations'] = [];
+        scatterDataMFI['selectedPopulations'] = [];
         $('.pop2D').each(function() {
             if (this.checked) {
-                scatterData2D['populations'].push(parseInt(this.value));
-                scatterDataMFI['populations'].push(parseInt(this.value));
+                scatterData2D['selectedPopulations'].push(parseInt(this.value));
+                scatterDataMFI['selectedPopulations'].push(parseInt(this.value));
             }
         });
         processScatterData2D();
@@ -158,7 +115,15 @@ var displayScatterPopulation2D = function() {
             $('#selectall2D').prop("checked",false);
         }
     });
-
+    
+    $('.pop2D').each(function() {
+        var selectedpop2D = parseInt(this.value);
+        if ($.inArray(selectedpop2D,scatterData2D['selectedPopulations']) > -1) {
+            this.checked = true;
+        } else {
+            this.checked = false;
+        }
+    });
 };
 
 var displayScatterPlot2D = function() {
@@ -219,3 +184,5 @@ var displayScatterPlot2D = function() {
 
     Plotly.newPlot('scatterPlotDiv2D',traces,layout);
 };
+
+

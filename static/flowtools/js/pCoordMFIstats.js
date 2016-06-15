@@ -34,7 +34,7 @@ var displayPopTablem = function() {
                    + index + '/></td><td title="' + newPopNames[d] 
                    + '">' + newPopNames[d]
                    + '</td><td><span style="background-color:'
-                   + color_palette[index]
+                   + color_palette[index + 1]
                    + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
     });
 
@@ -97,6 +97,8 @@ var displayPopTablem = function() {
         displayTableGridm();
         updateParallelForegroundidx();
     });
+    updatePopTableidx();
+    updateSmpTableidx();
 };
 
 var updatePopTableidx = function() {
@@ -426,7 +428,7 @@ var displayParallelPlotm = function() {
         .append("path")
         .attr("d", path)
         .attr("stroke",function(d){
-			  var pop = pcAppMFI.populations.indexOf(d.Population);
+			  var pop = pcAppMFI.populations.indexOf(d.Population) + 1;
               return color_palette[pop];})
       //.attr("stroke-width", 1);
         // Use this if you want to scale the lines based on

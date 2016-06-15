@@ -8,9 +8,10 @@
 #
 
 library(flowCL)
+library(base)
 
 getOntology <- function(output_file, markers) {
-  res <- flowCL(markers)
+  res <- flowCL(markers, ResetArch = TRUE)
   if (length(res) == 6) {
     report <- capture.output(res$Table)
     sink(output_file)
