@@ -15,7 +15,6 @@ profile_key = {
 def run_flowCL(phenotype, output_txt, output_pdf, tool):
     run_command = " ". join(["Rscript --slave --vanilla", tool, "--args", output_txt, phenotype])
     os.system(run_command)
-         
     get_graph = " ".join(["mv flowCL_results/*.pdf", output_pdf])
     os.system(get_graph)
     return
@@ -28,7 +27,7 @@ def generate_flowCL_query(list_markers, list_types):
     for i in range(1, len(list_markers)):
         if not list_markers[i].startswith("FSC") and not list_markers[i].startswith("SSC"):
             query.append(list_markers[i].upper())
-            query.append(profile_key[list_types[i]])        
+            query.append(profile_key[list_types[i]])
     # return concatenated string
     return("".join(query))
 
@@ -39,61 +38,72 @@ def translate_profiles(input_file, tool_dir, output, html_dir):
     html_table = "".join([html_dir, "/CLprofiles.txt"])
     score_table = "".join(["cp ", input_file, " ", html_dir, "/scores.txt"])
     os.system(score_table)
-    
+
     # read profile
     with open(input_file, "r") as flock_profiles, open(html_table, "w") as out:
         headers = flock_profiles.readline()
         headers = headers.strip()
         markers = headers.split("\t")
         counter = 0
- 
-        out.write("Population\tFlowCL Query\tNb Results\tLink to PDF\tTop Result Label\tTop Result Score\tTop Result CL\n")       
 
+        out.write("Population\tFlowCL Query\tNb Results\tLink to PDF\tTop Result Label\tTop Result Score\tTop Result CL\n")       
+        queries = {}
         # create marker query for each population
         for lines in flock_profiles:
             lines = lines.strip("\n")
             pop_profile = lines.split("\t")
             flowcl_query = generate_flowCL_query(markers, pop_profile)
             counter += 1
-            # create filenames for results & graphs
-            txt = "".join(["flowcl_pop", str(counter).zfill(2), ".txt"])
-            text_result = "/".join([html_dir, txt])
-            graph = "".join(["flowcl_pop", str(counter).zfill(2), ".pdf"])
-            graph_output = "/".join([html_dir, graph])
-            # run flowCL for each marker profile
-            run_flowCL(flowcl_query, text_result, graph_output, tool)
-            
-            # write query results to CLprofiles.txt
             nb_results = "0"
             top_label = "no_match"
             top_score = "NA"
             top_CL = "NA"
             pdf_link = "NA"
-            ## test that text file exists if not results are all NAs:
-            if os.path.isfile(text_result):
-                with open(text_result, "r") as res:
-                    for line in res:
-                        if line.startswith("Score"):
-                            data = line.split(") ")
-                            top_score = data[2][:-2]
-                            tot_results = len(data) - 2
-                            nb_results = str(tot_results)
-                            if tot_results == 5:
-                                if len(data[6].split("+")) > 1:
-                                    nb_results = "5+"
-                        elif line.startswith("Cell ID"):
-                            prep_link = line.split(") ")[1][:-2]
-                            cl = prep_link.replace("_", ":")
-                            link = "".join(['<a href="http://www.immport-labs.org/immport-ontology/public/home/home/', cl,'" target="_blank">'])
-                            top_CL = "".join([link, prep_link, "</a>"])
-                        elif line.startswith("Cell Label"):
-                            top_label = line.split(") ")[1][:-2]
-                            pdf_link = "".join(['<a href="', graph ,'" target="_blank">PDF</a>'])
-                            tmpflowcl_query = "".join(['<a href="', txt,'" target="_blank">',flowcl_query,'</a>'])
-                            flowcl_query = tmpflowcl_query
-                        
-            out.write("\t".join([pop_profile[0],flowcl_query, nb_results,pdf_link, top_label, top_score, top_CL]) + "\n")
-      
+            # check if query was run before
+            if not flowcl_query in queries:
+                # create filenames for results & graphs
+                txt = "".join(["flowcl_pop", str(counter).zfill(2), ".txt"])
+                text_result = "/".join([html_dir, txt])
+                graph = "".join(["flowcl_pop", str(counter).zfill(2), ".pdf"])
+                graph_output = "/".join([html_dir, graph])
+                # run flowCL for each marker profile
+                run_flowCL(flowcl_query, text_result, graph_output, tool)
+
+                ## test that text file exists if not results are all NAs:
+                if os.path.isfile(text_result):
+                    with open(text_result, "r") as res:
+                        for line in res:
+                            if line.startswith("Score"):
+                                data = line.split(") ")
+                                top_score = data[2][:-2]
+                                tot_results = len(data) - 2
+                                nb_results = str(tot_results)
+                                if tot_results == 5:
+                                    if len(data[6].split("+")) > 1:
+                                        nb_results = "5+"
+                            elif line.startswith("Cell ID"):
+                                prep_link = line.split(") ")[1][:-2]
+                                cl = prep_link.replace("_", ":")
+                                link = "".join(['<a href="http://www.immport-labs.org/immport-ontology/public/home/home/', cl,'" target="_blank">'])
+                                top_CL = "".join([link, prep_link, "</a>"])
+                            elif line.startswith("Cell Label"):
+                                top_label = line.split(") ")[1][:-2]
+                                pdf_link = "".join(['<a href="', graph ,'" target="_blank">PDF</a>'])
+                                tmpflowcl_query = "".join(['<a href="', txt,'" target="_blank">',flowcl_query,'</a>'])
+
+                    queries[flowcl_query] = {
+                        "query" : tmpflowcl_query,
+                        "results" : nb_results,
+                        "pdf" : pdf_link,
+                        "label" : top_label,
+                        "score" : top_score,
+                        "CL": top_CL
+                    }
+            # write query results to CLprofiles.txt
+            out.write("\t".join([pop_profile[0],queries[flowcl_query]["query"], queries[flowcl_query]["results"], 
+                                 queries[flowcl_query]["pdf"], queries[flowcl_query]["label"], 
+                                 queries[flowcl_query]["score"], queries[flowcl_query]["CL"]]) + "\n")
+
     env = Environment(loader=FileSystemLoader(tool_dir + "/templates"))
     template = env.get_template("profileCLs.template")
 

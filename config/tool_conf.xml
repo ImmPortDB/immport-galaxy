@@ -7,6 +7,7 @@
     <tool file="flowtools/extractKeywords.xml" />
     <tool file="flowtools/FCSGateTrans.xml"/>a
     <tool file="flowtools/convertFCSToText.xml"/>
+    <tool file="flowtools/FCSflowAI.xml" />
   </section>
   <section id="flowfiletools" name="Flow File Tools">
     <tool file="flowtools/getHeaders.xml" />
