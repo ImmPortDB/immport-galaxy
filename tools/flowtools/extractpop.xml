@@ -1,0 +1,51 @@
+<tool id="extractPop" name="Extract populations" version="1.1">
+  <description>of interest from FLOCK or Cross Sample output.</description>
+  <command interpreter="python">
+    extractpop.py -i $input -o $output -p "${population}"
+  </command>
+
+  <inputs>
+    <param format="flowclr" name="input" type="data" label="Source file"/>
+    <param name="population" type="text" label="Populations to extract:" value="i.e.:2,3,11,25"/>
+  </inputs>
+
+  <outputs>
+    <data format="flowtext" name="output" label="Populations ${population} from ${input.name}"/>
+  </outputs>
+  <stdio>
+    <exit_code range="3" level="fatal" description="Please provide a comma separated list of populations to extract" />
+  </stdio>
+ <help>
+   This tool extracts events from given populations from FLOCK or Cross Sample outputs.
+   
+-----
+
+**Input**
+
+FLOCK or Cross Sample output - a table of the fluorescence intensities for each event and the population associated with each.
+
+**Output** 
+
+The input file filtered for selected populations.
+
+-----
+
+**Example**
+
+*Input* - fluorescence intensities per marker and population ID per event::
+
+   Marker1 Marker2 Marker3 Population
+   34      45      12      1
+   33      65      10      5
+   19      62      98      2
+   12      36      58      1
+   
+*Populations selected:* 2
+
+*Output* - fluorescence intensities per marker and population ID per event::
+
+   Marker1 Marker2 Marker3 Population
+   19      62      98      2
+
+ </help>
+</tool>

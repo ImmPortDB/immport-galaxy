@@ -1,0 +1,39 @@
+<tool id="getDensityPlots" name="Generate scatter plots" version="1.0">
+  <description>for any given markers in FCS file.</description>
+  <command>
+      Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/getDensityPlots.R --args $input "${channels}" $output
+  </command>
+  <inputs>
+    <param format="fcs" name="input" type="data" label="FCS file"/>
+    <param name="channels" type="text" label="Markers to plot:" value="i.e.:1,3,4"/>
+  </inputs>
+  <outputs>
+    <data format="pdf" name="output" label="Scatter Plots of ${channels} from ${input.name}"/>
+  </outputs>
+  <stdio>
+    <exit_code range="10" level="fatal" description="Please provide a comma separated list of channels to plot" />
+    <exit_code range="11" level="fatal" description="Please provide numeric values for the list of channels to plot" />
+  </stdio>
+ <help>
+   This tool allows automated gating of debris using flowDensity and conversion of FCS files to text using the FCSTrans transformation.
+   
+-----
+
+**Input files**
+
+This tool takes valid FCS files as input.
+
+**Output files**
+
+This tool generates a scatter plot for each marker combination in a single pdf.
+
+-----
+
+**Example**
+
+*Output*: 
+
+.. image:: ../../static/images/flowtools/densityplots.png
+
+ </help>
+</tool>

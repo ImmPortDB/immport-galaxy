@@ -8,12 +8,15 @@
     <tool file="flowtools/FCSGateTrans.xml"/>a
     <tool file="flowtools/convertFCSToText.xml"/>
     <tool file="flowtools/FCSflowAI.xml" />
+    <tool file="flowtools/getDensityPlots.xml" />
+    <tool file="flowtools/getMarkers.xml" />
   </section>
   <section id="flowfiletools" name="Flow File Tools">
     <tool file="flowtools/getHeaders.xml" />
     <tool file="flowtools/editColumnHeadings.xml" />
     <tool file="flowtools/FCStxtMergeDownsample.xml" />
     <tool file="flowtools/txtDiagnosis.xml" />
+    <tool file="flowtools/extractpop.xml" />
   </section>
   <section id="flowanalysistools" name="Flow Analysis Tools">
     <tool file="flowtools/runFlockMFI.xml" />
