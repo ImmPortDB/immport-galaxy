@@ -26,7 +26,7 @@
         <div id="everything" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
             ## TODO: needed?
             <div id="background"></div>
-
+            
             %if masthead:
             <div id="masthead" class="navbar navbar-fixed-top navbar-inverse"></div>
             ## a div below the masthead to show server messages set in galaxy.ini

@@ -1,5 +1,6 @@
 name	title	paragraph1	paragraph2	link	image1
-densityplot	Density Plots using FlowDensity	FlowDensity allows automated gating of debris for FCS that need it. Check out the gating tool to see it work.			densityplot.png	
-3dscatter	Interactive 3D Scatter Plot	3 markers can be better than two to study cell populations. Select your preferred markers and play around with the visualization to see how they differ from one another.			3dplot.png	
-stackeda	Compare samples	Follow the distribution of populations between samples.			plot.png	
-pcplot	Behold the power of Parallel Coordinate Graphs	Compare markers and samples in one look.			pcplot.png	
+densityplot	Density Plots using FlowDensity	FlowDensity is used to automatically gate cellular debris for FCS that need it. Check out the gating tool to see it in action, or generate scatter plots of your markers of interest from your FCS files.			densityplot.png
+3dscatter	Interactive 3D Scatter Plot	3 markers can be better than two to study cell populations. Select your preferred markers and play around with the visualization of the FLOCK output to see how they differ from one another.			3dplot.png
+stackeda	Compare samples	Follow the distribution of populations between samples.			plot.png
+pcplot	Behold the power of Parallel Coordinate Graphs	Compare markers and samples in one interactive look			pcplot.png
+flowai	FCS QC with flowAI	Generate a quality control report of each of your FCS files using flowAI, which checks flow rate, signal acquisition and dynamic range of the data.			qcflowai.png
