@@ -1,7 +1,11 @@
 <tool id="flowAI" name="flowAI" version="1.0">
   <description> automatic quality control </description>
-  <command>
-      Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSflowAI.R --args $input $remove $alphaFR $chremFS $outFS $penFS $sideFM $full_rep $highfcs $lowfcs $qcfcs
+  <stdio>
+    <exit_code range="2:" level="fatal" description="See stderr for more details." />
+  </stdio>
+  <command><![CDATA[
+      Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSflowAI.R --args "${input}" "${remove}" $alphaFR $chremFS $outFS $penFS "${sideFM}" "${full_rep}" $highfcs $lowfcs $qcfcs
+  ]]>
   </command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS file"/>
@@ -27,7 +31,6 @@
     <param name="lowQ_FCS" type="boolean" checked="false" truevalue="TRUE" falsevalue="FALSE" label="Create FCS file with only low quality events?"/>
     <param name="QC_FCS" type="boolean" checked="false" truevalue="TRUE" falsevalue="FALSE" label="Create FCS file with an additional parameter where low quality events have values higher than 10,000?"/>
   </inputs>
-
   <outputs>
     <data format="html" name="full_rep" label="QC of ${input.name}">
     </data>
@@ -41,11 +44,7 @@
       <filter>(QC_FCS)</filter>
     </data>
   </outputs>
-  <stdio>
-    <exit_code range="2:" level="fatal" description="See stderr for more details." />
-  </stdio>
-
-<help>
+  <help><![CDATA[
    This tool automatically performs quality control of flow cytometry data.
 
 -----
@@ -112,6 +111,7 @@ Dynamic range check. The red and blue line indicates the number of events detect
 
 .. image:: ../../static/images/flowtools/margins.png
 
+ ]]>
  </help>
 <citations>
   <citation type="doi">10.1093/bioinformatics/btw191</citation>

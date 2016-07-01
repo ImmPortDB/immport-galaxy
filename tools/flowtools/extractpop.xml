@@ -1,21 +1,20 @@
-<tool id="extractPop" name="Extract populations" version="1.1">
+<tool id="extract_pop" name="Extract populations" version="1.0">
   <description>of interest from FLOCK or Cross Sample output.</description>
-  <command interpreter="python">
-    extractpop.py -i $input -o $output -p "${population}"
+  <stdio>
+    <exit_code range="3" level="fatal" description="Please provide a comma separated list of populations to extract" />
+  </stdio>
+  <command><![CDATA[
+    python $__tool_directory__/extractpop.py -i "${input}" -o "${output}" -p "${population}"
+  ]]>
   </command>
-
   <inputs>
     <param format="flowclr" name="input" type="data" label="Source file"/>
     <param name="population" type="text" label="Populations to extract:" value="i.e.:2,3,11,25"/>
   </inputs>
-
   <outputs>
     <data format="flowtext" name="output" label="Populations ${population} from ${input.name}"/>
   </outputs>
-  <stdio>
-    <exit_code range="3" level="fatal" description="Please provide a comma separated list of populations to extract" />
-  </stdio>
- <help>
+ <help><![CDATA[
    This tool extracts events from given populations from FLOCK or Cross Sample outputs.
    
 -----
@@ -46,6 +45,6 @@ The input file filtered for selected populations.
 
    Marker1 Marker2 Marker3 Population
    19      62      98      2
-
+ ]]>
  </help>
 </tool>

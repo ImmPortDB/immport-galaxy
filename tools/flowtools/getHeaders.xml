@@ -1,10 +1,15 @@
-<tool id="getHeaders" name="Check headers" version="1.0">
+<tool id="get_headers" name="Check headers" version="1.0">
   <description>of any set of text files.</description>
-  <command interpreter="python">getHeaders.py -o $output_file
+  <stdio>
+       <exit_code range="1:" />
+   </stdio>
+  <command><![CDATA[
+	  python $__tool_directory__/getHeaders.py -o "${output_file}"
  #for $f in $input#
-    -i $f
-    -n "$f.name"
+    -i "${f}"
+    -n "${f.name}"
  #end for#
+  ]]>
   </command>
   <inputs>
     <param format="txt,flowtext,tabular" name="input" type="data_collection" collection_type="list" label="Text files Collection"/>
@@ -12,7 +17,7 @@
   <outputs>
     <data format="tabular" name="output_file" label="Headers of files in ${input.name}"/>
   </outputs>
- <help>
+  <help><![CDATA[
    This tool returns a table of the headers of a set of text files.
 
 -----
@@ -45,5 +50,6 @@ The output file is a table listing the headers for each file.
 
    File1 Marker1 Marker2 Marker3
    File2 Marker4 Marker5 Marker3
- </help>
+  ]]>
+  </help>
 </tool>

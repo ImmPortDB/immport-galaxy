@@ -8,7 +8,6 @@
 #
 
 library(flowCL)
-library(base)
 
 getOntology <- function(output_file, markers) {
   res <- flowCL(markers, ResetArch = TRUE)

@@ -1,7 +1,11 @@
-<tool id="FCSGateTrans" name="Automated gating, Transformation and Conversion of FCS to Text" version="1.0">
+<tool id="fcs_gate_trans_convert" name="Automated gating, Transformation and Conversion of FCS to Text" version="1.0">
   <description>using FlowDensity and the FCSTrans tranformation.</description>
-  <command>
-      Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSGateTrans.R --args $input $output $comp $fcsout $graph $report
+  <stdio>
+    <exit_code range="2:" level="fatal" description="See stderr for more details." />
+  </stdio>
+  <command><![CDATA[
+      Rscript --slave --vanilla $__tool_directory__/FCSGateTrans.R --args "${input}" "${output}" $comp "${fcsout}" "${graph}" "${report}"
+  ]]>
   </command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS file"/>
@@ -27,10 +31,7 @@
       <filter>gate=="TRUE"</filter>
     </data>
   </outputs>
-  <stdio>
-    <exit_code range="2:" level="fatal" description="See stderr for more details." />
-  </stdio>
- <help>
+ <help><![CDATA[
    This tool allows automated gating of debris using flowDensity and conversion of FCS files to text using the FCSTrans transformation.
    
 -----
@@ -101,7 +102,7 @@ It is up to the user to verify whether or not the data benefit from being gated.
 *Gating plots*:
 
 .. image:: ../../static/images/flowtools/flowdensity.png
-
+  ]]>
  </help>
  <citations>
    <citation type="doi">10.1002/cyto.a.22037</citation>

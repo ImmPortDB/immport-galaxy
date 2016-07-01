@@ -1,7 +1,11 @@
-<tool id="convertFCSToText" name="Convert FCS to Text" version="1.0">
+<tool id="convert_fcs_to_text" name="Convert FCS to Text" version="1.0">
   <description>with no transformation.</description>
-  <command>
-        Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSConvert.R --args $input $output_file $compensate 
+  <stdio>
+       <exit_code range="1:" />
+  </stdio>
+  <command><![CDATA[
+        Rscript --slave --vanilla $__tool_directory__/FCSConvert.R --args "${input}" "${output_file}" $compensate 
+  ]]>
   </command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS file"/>
@@ -11,8 +15,7 @@
   <outputs>
     <data format="flowtext" name="output_file" label="No Transformation ${input.name}"/>
   </outputs>
-
- <help>
+ <help><![CDATA[
    This tool converts FCS files to text format with no tranformation.
    
 -----
@@ -34,5 +37,6 @@ The output is a tab-separated text, containing the fluorescence intensity values
    894             1023	        199     277     320     227
    262             73           437     69      0       146
    340             115          509     268     0       74
+  ]]>
  </help>
 </tool>

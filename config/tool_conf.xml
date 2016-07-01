@@ -9,7 +9,7 @@
     <tool file="flowtools/convertFCSToText.xml"/>
     <tool file="flowtools/FCSflowAI.xml" />
     <tool file="flowtools/getDensityPlots.xml" />
-    <tool file="flowtools/getMarkers.xml" />
+    <tool file="flowtools/FCSstats.xml" />
   </section>
   <section id="flowfiletools" name="Flow File Tools">
     <tool file="flowtools/getHeaders.xml" />

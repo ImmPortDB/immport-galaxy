@@ -1,7 +1,12 @@
-<tool id="getProfilesCL" name="Associate FLOCK populations" version="1.0">
+<tool id="get_profiles_cell_ontology" name="Associate FLOCK populations" version="1.0">
   <description>with cell ontology</description>
-  <command interpreter="python">
-    profileCLs.py -i $input -o $html_file -d $html_file.files_path -t $__tool_directory__
+  <stdio>
+    <exit_code range="2" level="fatal" description="There was a problem running flowCL. You might want to check your marker names - See stderr for more details." />
+    <exit_code range="3:" level="fatal" description="See stderr for more details." />
+  </stdio>
+  <command><![CDATA[
+    python $__tool_directory__/profileCLs.py -i "${input}" -o "${html_file}" -d "${html_file.files_path}" -t $__tool_directory__
+  ]]>
   </command>
   <inputs>
     <param format="flowscore" name="input" type="data" label="Population score profiles from FLOCK"/>
@@ -10,11 +15,7 @@
     <data format="html" name="html_file" label="Cell ontology of ${input.name}">
     </data>
   </outputs>
-  <stdio>
-    <exit_code range="2" level="fatal" description="There was a problem running flowCL. You might want to check your marker names - See stderr for more details." />
-    <exit_code range="3:" level="fatal" description="See stderr for more details." />
-  </stdio>
- <help>
+ <help><![CDATA[
    This tool uses flowCL to find a match for each of the populations defined by FLOCK.
    
 .. class:: warningmark
@@ -57,10 +58,10 @@ The CL terms hyperlink to their representation in the Immport Cell Ontology brow
 .. image:: ../../static/images/flowtools/profileCL.png
 
 .. image:: ../../static/images/flowtools/popprofiles.png
-
- </help>
- <citations>
-   <citation type="doi">10.1093/bioinformatics/btu807</citation>
- </citations>
+  ]]>
+  </help>
+  <citations>
+    <citation type="doi">10.1093/bioinformatics/btu807</citation>
+  </citations>
 </tool>
 

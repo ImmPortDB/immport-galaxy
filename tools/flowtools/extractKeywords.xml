@@ -1,7 +1,11 @@
-<tool id="extractKeywords" name="Extract Keywords" version="1.0">
+<tool id="extract_fcs_keywords" name="Extract Keywords" version="1.0">
   <description>from FCS files.</description>
-  <command>
-    Rscript --slave --vanilla $GALAXY_ROOT_DIR/tools/flowtools/FCSKeyword.R --args $input $keyword_file
+  <stdio>
+       <exit_code range="1:" />
+  </stdio>
+  <command><![CDATA[
+    Rscript --slave --vanilla $__tool_directory__/FCSKeyword.R --args "${input}" "${keyword_file}"
+  ]]>
   </command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS file"/>
@@ -10,7 +14,7 @@
     <data format="tabular" name="keyword_file" label="Extract Keywords on ${input.name}"/>
   </outputs>
 
- <help>
+ <help><![CDATA[
    This tool extracts the Keywords from a FCS file.
    
 -----
@@ -52,6 +56,6 @@ $P1N=FSC-H
 ..
 
 ...
-
+ ]]>
  </help>
 </tool>

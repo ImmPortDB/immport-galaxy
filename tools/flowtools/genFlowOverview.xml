@@ -1,11 +1,16 @@
-<tool id="genFlowOverview" name="Generate overview information" version="1.0">
+<tool id="gen_flow_overview" name="Generate overview information" version="1.0">
   <description>of FLOCK flow analysis</description>
-  <command interpreter="python">
+  <stdio>
+    <exit_code range="2" level="fatal" description="There was a problem running flowCL. You might want to check your marker names - See stderr for more details." />
+    <exit_code range="3:" level="fatal" description="See stderr for more details." />
+  </stdio>
+  <command><![CDATA[
    #if $ontology.runcl == "no"  
-    genFlowOverview.py -i "${input}" -o "${html_file}" -M "${mfi}" -d "${html_file.files_path}" -t $__tool_directory__
+    python $__tool_directory__/genFlowOverview.py -i "${input}" -o "${html_file}" -M "${mfi}" -d "${html_file.files_path}" -t $__tool_directory__
    #else
-    genFlowOverview.py -i "${input}" -o "${html_file}" -M "${mfi}" -d "${html_file.files_path}" -t $__tool_directory__ -p "${scores}"
-   #end if  
+    python $__tool_directory__/genFlowOverview.py -i "${input}" -o "${html_file}" -M "${mfi}" -d "${html_file.files_path}" -t $__tool_directory__ -p "${scores}"
+   #end if 
+  ]]> 
   </command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Result File"/>
@@ -17,7 +22,7 @@
     <conditional name="ontology">
         <param name="runcl" type="select" label="Associate FLOCK population score profiles with Cell Ontology?" help="using FlowCL">
             <option value="no">No, thank you</option>
-            <option value="yes">Yes, pretty please, even though it will take forever to run</option>
+            <option value="yes">Yes, pretty please, even though it will take 10 more minutes to run</option>
         </param>
         <when value="yes">
             <param format="flowscore" name="scores" type="data" label="Population score profiles from FLOCK"/>
@@ -28,11 +33,7 @@
     <data format="html" name="html_file" label="Overview of ${input.name}">
     </data>
   </outputs>
-  <stdio>
-    <exit_code range="2" level="fatal" description="There was a problem running flowCL. You might want to check your marker names - See stderr for more details." />
-    <exit_code range="3:" level="fatal" description="See stderr for more details." />
-  </stdio>
- <help>
+ <help><![CDATA[
    This tool generates an overview of the flow analysis results.
    
 -----
@@ -101,7 +102,7 @@ The CL terms hyperlink to their representation in the Immport Cell Ontology brow
 
 .. image:: ../../static/images/flowtools/popprofiles.png
 
-
+ ]]>
  </help>
  <citations>
    <citation type="doi">10.1093/bioinformatics/btu807</citation>

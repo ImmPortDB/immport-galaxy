@@ -1,18 +1,19 @@
-<tool id="txtDiagnosis" name="Check data" version="1.1">
+<tool id="txt_diagnosis" name="Check data" version="1.0">
   <description> in txt-converted FCS files.</description>
-  <command interpreter="python">
-    txtdiagnosis.py -i $input -o $output -n ${input.name}
+  <stdio>
+       <exit_code range="1:" />
+   </stdio>
+  <command><![CDATA[
+    python $__tool_directory__/txtdiagnosis.py -i "${input}" -o "${output}" -n "${input.name}"
+  ]]>
   </command>
-
   <inputs>
     <param format="flowtext" name="input" type="data" label="Text file to check"/>
   </inputs>
-
   <outputs>
     <data format="txt" name="output" label="Report on ${input.name}"/>
   </outputs>
-   
- <help>
+ <help><![CDATA[
    This tool looks for potential errors in txt-converted FCS files.
    
 -----
@@ -48,5 +49,6 @@ The output is a report with the errors and corresponding line numbers.
    WARNING: line 2 in example_file.txt contains non-numeric results
    WARNING: line 4 in example_file.txt contains non-numeric results
    WARNING: line 8 in example_file.txt contains non-numeric results
+ ]]>
  </help>
 </tool>

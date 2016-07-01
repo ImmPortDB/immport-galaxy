@@ -1,6 +1,12 @@
-<tool id="generateMFI" name="Generate the centroids" version="1.0">
+<tool id="generate_mfi" name="Generate the centroids" version="1.0">
   <description>from a flow result file</description>
-  <command interpreter="python">generateMFI.py -i $input -o $output -M $mfi</command>
+  <stdio>
+       <exit_code range="1:" />
+  </stdio>
+  <command><![CDATA[
+	  python $__tool_directory__/generateMFI.py -i "${input}" -o "${output}" -M "${mfi}"
+  ]]>
+  </command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Text file"/>
     <param name="mfi" type="select" label="Calculate centroids using:">
@@ -12,8 +18,7 @@
   <outputs>
     <data format="flowmfi" name="output" label="${mfi} centroids from ${input.name}"/>
   </outputs>
-
- <help>
+ <help><![CDATA[
    This tool generates the MFI from a flow result file.
    
 -----
@@ -45,5 +50,6 @@ The output is a table containing the mean, median or geometric mean fluorescent 
    2          21      63      100
    3          31      52      45
    4          11      78      25
+  ]]>
  </help>
 </tool>
