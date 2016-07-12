@@ -14,7 +14,7 @@
 # 3) transformFCS("filename")
 #
 #
-# Automated Gating of Lymphocytes with FlowDensity
+# Automated Gating of Debris with FlowDensity
 # Authors of FlowDensity: Jafar Taghiyar, Mehrnoush Malek
 #
 # Reference: flowDensity: reproducing manual gating of flow
@@ -371,13 +371,13 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
       postgating_summary <- capture.output(summary(trans_gated_data))
       postgating_dim <- capture.output(dim(trans_gated_data))
       sink(report)
-      cat("#########################\n")
-      cat("##    BEFORE GATING    ##\n")
-      cat("#########################\n")
+      cat("=========================\n")
+      cat("==    BEFORE GATING    ==\n")
+      cat("=========================\n")
       cat(pregating_dim, pregating_summary, sep="\n")
-      cat("\n#########################\n")
-      cat("##    AFTER  GATING    ##\n")
-      cat("#########################\n")
+      cat("\n=========================n")
+      cat("==    AFTER  GATING    ==\n")
+      cat("=========================\n")
       cat(postgating_dim, postgating_summary, sep="\n")
       sink()
              

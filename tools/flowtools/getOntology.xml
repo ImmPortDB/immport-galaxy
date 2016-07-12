@@ -1,5 +1,10 @@
 <tool id="get_cell_ontology" name="Explore cell ontology" version="1.0">
   <description>given a phenotype using flowCL.</description>
+  <requirements>
+    <requirement type="package" version="2.8">jinja2</requirement>
+    <requirement type="package" version="3.2.3">r</requirement>
+    <requirement type="package" version="1.10.0">bioconductor-flowcl</requirement>
+  </requirements>
  <stdio>
     <exit_code range="2" level="fatal" description="There was a problem running flowCL. You might want to check your marker names - See stderr for more details." />
     <exit_code range="3:" level="fatal" description="See stderr for more details." />
@@ -47,6 +52,15 @@
   <outputs>
     <data format="html" name="html_file" label="flowCL run"/>
   </outputs>
+  <tests>
+    <test>
+      <param name="" value=""/>
+      <param name="" value=""/>
+      <output name="output_file" file="out.html">
+        <extra_files type="file" name="flow.mfi" value="flow.mfi"/>
+        <extra_files type="file" name="m0_m0_90X90.png" value="m0_m0_90X90.png" compare="contains"/>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool uses flowCL to find the most likely match to a given set a markers.
    

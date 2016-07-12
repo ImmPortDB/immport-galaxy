@@ -1,5 +1,9 @@
 <tool id="convert_fcs_to_text" name="Convert FCS to Text" version="1.0">
   <description>with no transformation.</description>
+  <requirements>
+    <requirement type="package" version="3.3.0">r</requirement>
+    <requirement type="package" version="1.38.2">bioconductor-flowcore</requirement>
+  </requirements>
   <stdio>
        <exit_code range="1:" />
   </stdio>
@@ -15,6 +19,18 @@
   <outputs>
     <data format="flowtext" name="output_file" label="No Transformation ${input.name}"/>
   </outputs>
+  <tests>
+    <test>
+      <param name="input" value="testfcs1.fcs"/>
+      <param name="compensate" value="FALSE"/>
+      <output name="output_file" file="nocomp.flowtext"/>
+    </test>
+    <test>
+      <param name="input" value="testfcs1.fcs"/>
+      <param name="compensate" value="TRUE"/>
+      <output name="output_file" file="withcomp.flowtext"/>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool converts FCS files to text format with no tranformation.
    

@@ -1,5 +1,9 @@
 <tool id="fcstxt_merge_downsample" name="Downsample and merge" version="1.0">
   <description>txt-converted FCS files into one text file based on headers.</description>
+  <requirements>
+    <requirement type="package" version="1.10.2">numpy</requirement>
+    <requirement type="package" version="0.17.1">pandas</requirement>
+  </requirements>
   <stdio>
     <exit_code range="2" level="fatal" description="Non-numeric data. See stderr for more details." />
     <exit_code range="3" level="warning" description="Selected columns do not exist in all files" />
@@ -7,6 +11,7 @@
     <exit_code range="6" level="fatal" description="Please provide integers for columns you want to merge on." />
     <exit_code range="7" level="fatal" description="Please provide a comma separated list of integers for columns you want to merge on." />
     <exit_code range="8" level="fatal" description="Please provide a numeric value [0,1] for the downsampling factor." />
+    <exit_code range="9" level="fatal" description="There are no columns in common to all files." />
   </stdio>
   <command><![CDATA[
 	  python $__tool_directory__/FCStxtMergeDownsample.py -o "${output_file}" -d "${factorDS}"
@@ -27,6 +32,32 @@
   <outputs>
     <data format="flowtext" name="output_file" label="Merge flowtext on ${input.name}"/>
   </outputs>
+  <tests>
+    <test>
+      <param name="input">
+        <collection type="list">
+          <element name="input1.txt" value="test1/input1.txt"/>
+          <element name="input2.txt" value="test1/input2.txt"/>
+          <element name="input3.txt" value="test1/input3.txt"/>
+        </collection>
+      </param>
+      <param name="factorDS" value=".8"/>
+      <param name="columns" value="i.e.:1,2,5"/>
+      <output name="output_file" file="merge1.flowtext"/>
+    </test>
+    <test>
+      <param name="input">
+        <collection type="list">
+          <element name="input1.txt" value="test2/input1.txt"/>
+          <element name="input2.txt" value="test2/input2.txt"/>
+          <element name="input3.txt" value="test2/input3.txt"/>
+        </collection>
+      </param>
+      <param name="factorDS" value="i.e.:0.1 or 10%"/>
+      <param name="columns" value="1,2,3"/>
+      <output name="output_file" file="merge2.flowtext"/>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool downsamples and merges multipe txt-converted FCS files into one text file.
 

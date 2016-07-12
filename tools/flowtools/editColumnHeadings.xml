@@ -24,6 +24,26 @@
   <outputs>
     <data format="flowtext" name="output_file" label="Rearranged ${input.name}"/>
   </outputs>
+  <tests>
+    <test>
+      <param name="input" value="input1.txt"/>
+      <param name="columns" value="3,4,5,6"/>
+      <param name="colnames" value="CD4,CCR3,CD8,CCR7"/>
+      <output name="output_file" file="output1.flowtext"/>
+    </test>
+    <test>
+      <param name="input" value="input2.txt"/>
+      <param name="columns" value="2,3,6,1"/>
+      <param name="colnames" value="i.e.:Marker1,,Marker4"/>
+      <output name="output_file" file="output2.flowtext"/>
+    </test>
+    <test>
+      <param name="input" value="input3.txt"/>
+      <param name="columns" value="i.e.:1,5,2"/>
+      <param name="colnames" value="M1,M2,M3,M4,M5,M6"/>
+      <output name="output_file" file="output3.flowtext"/>
+    </test>
+  </tests>
   <help><![CDATA[
    This tool allows to remove, rearrange and/or rename the columns in a text file.
 

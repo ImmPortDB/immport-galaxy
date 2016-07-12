@@ -1,5 +1,8 @@
 <tool id="cross_sample_overview" name="Generate overview information" version="1.0">
   <description>of the CrossSample analysis</description>
+  <requirements>
+    <requirement type="package" version="2.8">jinja2</requirement>
+  </requirements>
   <stdio>
        <exit_code range="1:" />
   </stdio>
@@ -16,6 +19,17 @@
     <data format="html" name="html_file" label="Overview of ${input.name}">
     </data>
   </outputs>
+  <tests>
+    <test>
+      <param name="input" value="input.flowstat1"/>
+      <param name="inputmfi" value="input.flowstat2"/>
+      <param name="mfistats" value="input.flowstat3"/>
+      <output name="output_file" file="out.html">
+        <extra_files type="file" name="csAllMFIs.tsv" value="csAllMFIs.tsv"/>
+        <extra_files type="file" name="csOverview.tsv" value="csOverview.tsv"/>
+      </output>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool generates an overview of the flow analysis results.
    

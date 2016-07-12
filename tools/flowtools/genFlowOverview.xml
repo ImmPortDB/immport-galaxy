@@ -1,5 +1,14 @@
 <tool id="gen_flow_overview" name="Generate overview information" version="1.0">
   <description>of FLOCK flow analysis</description>
+  <requirements>
+    <requirement type="package" version="1.5.0">matplotlib</requirement>
+    <requirement type="package" version="1.10.2">numpy</requirement>
+    <requirement type="package" version="0.16.0">scipy</requirement>
+    <requirement type="package" version="0.17.1">pandas</requirement>
+    <requirement type="package" version="2.8">jinja2</requirement>
+    <requirement type="package" version="3.2.3">r</requirement>
+    <requirement type="package" version="1.10.0">bioconductor-flowcl</requirement>
+  </requirements>
   <stdio>
     <exit_code range="2" level="fatal" description="There was a problem running flowCL. You might want to check your marker names - See stderr for more details." />
     <exit_code range="3:" level="fatal" description="See stderr for more details." />
@@ -33,6 +42,23 @@
     <data format="html" name="html_file" label="Overview of ${input.name}">
     </data>
   </outputs>
+  <tests>
+    <test>
+      <param name="input" value="input.flowclr"/>
+      <param name="mfi" value="mfi"/>
+      <param name="runcl" value="no"/>
+      <output name="output_file" file="out.html">
+        <extra_files type="file" name="flow.mfi" value="flow.mfi"/>
+        <extra_files type="file" name="flow.mfi_pop" value="flow.mfi_pop"/>
+        <extra_files type="file" name="flow.overview" value="flow.overview"/>
+        <extra_files type="file" name="flow.sample" value="flow.sample"/>
+        <extra_files type="file" name="m0_m0_90X90.png" value="m0_m0_90X90.png" compare="contains"/>
+        <extra_files type="file" name="m0_m1_90X90.png" value="m0_m1_90X90.png" compare="contains"/>
+        <extra_files type="file" name="m1_m0_90X90.png" value="m1_m0_90X90.png" compare="contains"/>
+        <extra_files type="file" name="m1_m1_90X90.png" value="m1_m1_90X90.png" compare="contains"/>
+      </output>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool generates an overview of the flow analysis results.
    

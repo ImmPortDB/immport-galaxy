@@ -1,5 +1,8 @@
 <tool id="extract_pop" name="Extract populations" version="1.0">
   <description>of interest from FLOCK or Cross Sample output.</description>
+  <requirements>
+    <requirement type="package" version="0.17.1">pandas</requirement>
+  </requirements>
   <stdio>
     <exit_code range="3" level="fatal" description="Please provide a comma separated list of populations to extract" />
   </stdio>
@@ -8,12 +11,19 @@
   ]]>
   </command>
   <inputs>
-    <param format="flowclr" name="input" type="data" label="Source file"/>
+    <param format="flowclr,txt" name="input" type="data" label="Source file"/>
     <param name="population" type="text" label="Populations to extract:" value="i.e.:2,3,11,25"/>
   </inputs>
   <outputs>
     <data format="flowtext" name="output" label="Populations ${population} from ${input.name}"/>
   </outputs>
+  <tests>
+    <test>
+      <param name="input" value="input.txt"/>
+      <param name="population" value="2,4"/>
+      <output name="output" file="output.flowtext"/>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool extracts events from given populations from FLOCK or Cross Sample outputs.
    

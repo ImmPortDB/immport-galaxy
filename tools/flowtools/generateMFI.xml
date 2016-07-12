@@ -1,5 +1,10 @@
 <tool id="generate_mfi" name="Generate the centroids" version="1.0">
   <description>from a flow result file</description>
+  <requirements>
+    <requirement type="package" version="0.17.1">pandas</requirement>
+    <requirement type="package" version="1.10.2">numpy</requirement>
+    <requirement type="package" version="0.16.0">scipy</requirement>
+  </requirements>
   <stdio>
        <exit_code range="1:" />
   </stdio>
@@ -18,6 +23,23 @@
   <outputs>
     <data format="flowmfi" name="output" label="${mfi} centroids from ${input.name}"/>
   </outputs>
+  <tests>
+    <test>
+      <param name="input" value="input.flowclr"/>
+      <param name="mfi" value="mfi"/>
+      <output name="output" file="mfi.flowmfi"/>
+    </test>
+    <test>
+      <param name="input" value="input.flowclr"/>
+      <param name="mfi" value="mdfi"/>
+      <output name="output" file="mdfi.flowmfi"/>
+    </test>
+    <test>
+      <param name="input" value="input.flowclr"/>
+      <param name="mfi" value="gmfi"/>
+      <output name="output" file="gmfi.flowmfi"/>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool generates the MFI from a flow result file.
    

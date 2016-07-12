@@ -1,5 +1,8 @@
 <tool id="txt_diagnosis" name="Check data" version="1.0">
   <description> in txt-converted FCS files.</description>
+  <requirements>
+    <requirement type="package" version="0.17.1">pandas</requirement>
+  </requirements>
   <stdio>
        <exit_code range="1:" />
    </stdio>
@@ -8,11 +11,21 @@
   ]]>
   </command>
   <inputs>
-    <param format="flowtext" name="input" type="data" label="Text file to check"/>
+    <param format="flowtext,txt,tabular" name="input" type="data" label="Text file to check"/>
   </inputs>
   <outputs>
     <data format="txt" name="output" label="Report on ${input.name}"/>
   </outputs>
+  <tests>
+    <test>
+      <param name="input" value="input_error.txt"/>
+      <output name="output" file="output_error.txt"/>
+    </test>
+    <test>
+      <param name="input" value="input_noerror.txt"/>
+      <output name="output" file="output_noerror.txt"/>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool looks for potential errors in txt-converted FCS files.
    

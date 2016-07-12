@@ -40,6 +40,9 @@ def compareheaders(files):
                 flag[refhdgs] += 1
         if flag[refhdgs] == len(files):
             hdgs_in_common.append(refhdgs)
+
+    if not hdgs_in_common:
+        sys.exit(9)
     return(hdgs_in_common)
 
 def getheadersindex(list_headings, headings):

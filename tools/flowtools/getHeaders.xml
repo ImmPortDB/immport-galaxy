@@ -17,6 +17,18 @@
   <outputs>
     <data format="tabular" name="output_file" label="Headers of files in ${input.name}"/>
   </outputs>
+  <tests>
+    <test>
+      <param name="input">
+        <collection type="list">
+          <element name="input1.txt" value="input1.txt"/>
+          <element name="input2.txt" value="input2.txt"/>
+          <element name="input3.txt" value="input3.txt"/>
+        </collection>
+      </param>
+      <output name="output_file" file="output.tabular"/>
+    </test>
+  </tests>
   <help><![CDATA[
    This tool returns a table of the headers of a set of text files.
 

@@ -1,5 +1,9 @@
 <tool id="extract_fcs_keywords" name="Extract Keywords" version="1.0">
   <description>from FCS files.</description>
+  <requirements>
+    <requirement type="package" version="3.3.0">r</requirement>
+    <requirement type="package" version="1.38.2">bioconductor-flowcore</requirement>
+  </requirements>
   <stdio>
        <exit_code range="1:" />
   </stdio>
@@ -13,7 +17,12 @@
   <outputs>
     <data format="tabular" name="keyword_file" label="Extract Keywords on ${input.name}"/>
   </outputs>
-
+  <tests>
+    <test>
+      <param name="input" value="testfcs1.fcs"/>
+      <output name="keyword_file" file="out.tabular"/>
+    </test>
+  </tests>
  <help><![CDATA[
    This tool extracts the Keywords from a FCS file.
    
