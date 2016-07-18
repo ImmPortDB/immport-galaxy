@@ -37,5 +37,3 @@ try(file.rename(dir(".", pattern = ".*_QC.fcs"), args[10]), silent =TRUE)
 try(file.rename(dir(".", pattern = ".*_highQ.fcs"), args[11]), silent =TRUE)
 try(file.rename(dir(".", pattern = ".*_lowQ.fcs"), args[12]), silent =TRUE)
 
-
-

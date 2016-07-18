@@ -7,23 +7,23 @@ from argparse import ArgumentParser
 from jinja2 import Environment, FileSystemLoader
 from shutil import copyfile
 
-def csOverview(inputfile, inputmfi, outputfile, outputdir, toolsdir):
-    os.mkdir(outputdir)
+def cs_overview(input_file, input_mfi, output_file, output_dir, tools_dir):
+    os.mkdir(output_dir)
 
-    env = Environment(loader=FileSystemLoader(toolsdir + "/templates"))
+    env = Environment(loader=FileSystemLoader(tools_dir + "/templates"))
     template = env.get_template("csOverview.template")
 
-    real_directory = outputdir.replace("/job_working_directory","")
+    real_directory = output_dir.replace("/job_working_directory","")
     context = { 'outputDirectory': real_directory }
     overview = template.render(**context)
-    with open(outputfile,"w") as outf:
+    with open(output_file,"w") as outf:
         outf.write(overview)
 
-    csoverview_file = outputdir + "/csOverview.tsv"
-    copyfile(inputfile, csoverview_file)
+    cs_overview_file = output_dir + "/csOverview.tsv"
+    copyfile(input_file, cs_overview_file)
 
-    csoverview_mfis = outputdir + "/csAllMFIs.tsv"
-    copyfile(inputmfi, csoverview_mfis)
+    cs_overview_mfis = output_dir + "/csAllMFIs.tsv"
+    copyfile(input_mfi, csoverview_mfis)
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -69,6 +69,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    csOverview(args.input_file, args.input_mfi, args.output_file, args.output_directory, args.tool_directory)
+    cs_overview(args.input_file, args.input_mfi, args.output_file, args.output_directory, args.tool_directory)
     sys.exit(0)
 

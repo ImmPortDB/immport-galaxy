@@ -25,7 +25,7 @@ def generate_flowCL_query(list_markers, list_types):
     query = []
     # go through both lists, remove fsc/ssc
     for i in range(1, len(list_markers)):
-        if not list_markers[i].upper().startswith("FSC") and not list_markers[i].upper().startswith("SSC"):
+        if not list_markers[i].startswith("FSC") and not list_markers[i].startswith("SSC"):
             query.append(list_markers[i].upper())
             query.append(profile_key[list_types[i]])
     # return concatenated string

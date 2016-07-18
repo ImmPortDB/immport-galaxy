@@ -42,7 +42,7 @@ This tool requires valid FCS files as input. Files are processed serially. Apply
 
 **Output file**
 
-The output is a tab-separated text, containing the fluorescence intensity values for each marker.
+The output is tab-separated text, containing the fluorescence intensity values for each marker.
 
 -----
 

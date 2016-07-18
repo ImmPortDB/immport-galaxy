@@ -43,7 +43,7 @@
       </param>
       <param name="factorDS" value=".8"/>
       <param name="columns" value="i.e.:1,2,5"/>
-      <output name="output_file" file="merge1.flowtext"/>
+      <output name="output_file" file="merge1.flowtext" compare="sim_size"/>
     </test>
     <test>
       <param name="input">
@@ -55,11 +55,11 @@
       </param>
       <param name="factorDS" value="i.e.:0.1 or 10%"/>
       <param name="columns" value="1,2,3"/>
-      <output name="output_file" file="merge2.flowtext"/>
+      <output name="output_file" file="merge2.flowtext" compare="sim_size"/>
     </test>
   </tests>
  <help><![CDATA[
-   This tool downsamples and merges multipe txt-converted FCS files into one text file.
+   This tool downsamples and merges multiple txt-converted FCS files into one text file.
 
 -----
 
@@ -69,7 +69,7 @@ This tool requires collections of txt, flowtext or tabular files as input.
 
 **Downsampling**
 
-By default, the files are not downsampled. If a number is provided, each file in the input dataset collection will be downsampled randomly without replacement as follows:
+By default, files are not downsampled. If a downsampling factor is provided, each file in the input dataset collection will be downsampled randomly without replacement as follows:
 
 - If n is between 0 and 1, the size of the output will be n times that of the input files.  
 - If n is between 1 and 100, the size of the output will be n% that of the input files.  
@@ -80,9 +80,7 @@ At this time, up-sampling is not supported. If the number provided is greater th
 
 **Output file**
 
-The output flowtext file contains the concatenated input files provided that all lines after the header line contain only numbers.  
-By default, only the columns that exist in all input files (as assessed by the header) are concatenated. The user can specify the columns to merge, bypassing the headers check.  
-If a downsampling factor is provided, the corresponding proportion of each input file ONLY will be read in (and checked for errors).
+The output flowtext file contains is a concatenation of the input files provided all data after the header contains only numbers. By default, only columns existing in all input files (as assessed by the header) are concatenated. The user can specify columns to merge, bypassing the headers check. If a downsampling factor is provided, the corresponding proportion of each input file ONLY will be read in (and checked for errors).
 
 .. class:: warningmark
 
@@ -92,9 +90,9 @@ Potential errors are logged to stderr. If the number of errors reaches 10, the r
 
 Tip: Three tools in the Flow File Tools section can help prepare files for merging and/or downsampling: 
 
-- Check headers of any set of text files gives the headers of all files in a collection of text, flowtext or tabular files.
-- Remove, rearrange and/or rename columns in txt-converted FCS files allows manipulation of the columns of a file or a set of files.
-- Check data in txt-converted FCS files identifies the lines in a file containing non-numeric data.
+- Check headers tool provides a list of headers for all files in a collection of text, flowtext or tabular files.
+- Remove, rearrange and/or rename columns tool allows manipulation of the columns of a file or a set of files.
+- Check data tool identifies the lines in a file containing non-numeric data.
 
 -----
 
@@ -171,4 +169,7 @@ If run specifying columns 1,2,3 and with a downsampling factor of 0.5::
    62      34      45
  ]]>
  </help>
+  <citations>
+    <citation type="doi">10.1038/srep02327</citation>
+  </citations>
 </tool>

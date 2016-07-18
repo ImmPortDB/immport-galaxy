@@ -94,7 +94,7 @@ This tool is not intended to analyze CyTOF data as is.
 **Input**
 
 FLOCK requires a text file, generated from a FCS file, as input.
-In order to define the populations in a given dataset collection for a given set of markers, run FLOCK on a super-set of FCS file. You can use one of the merge tools to concatenate and/or downsample datasets, and remove, edit or rearrange markers before running FLOCK on your favorite set of markers.
+In order to define the populations in a given dataset collection for a given set of markers, run FLOCK on a super-set of FCS file. Use the Downsample and merge tool to concatenate and/or downsample datasets, and remove, edit or rearrange markers before running FLOCK on your favorite set of markers.
 
 **Output** 
 

@@ -11,30 +11,30 @@ def is_integer(s):
     except ValueError:
         return False
 
-def rearrangeFile(input_file, col_order, col_names, output_file):
+def rearrange_file(input_file, col_order, col_names, output_file):
     with open(input_file, "r") as infl, open(output_file, "w") as outf:
         ## headers
         hdrs = infl.readline().strip()
         current_hdrs = hdrs.split("\t")
 
         if col_names:
-            tmphdr = []
+            tmp_hdr = []
             for i in range(0, len(col_names)):
                 if col_names[i].strip():
-                    tmphdr.append(col_names[i])
+                    tmp_hdr.append(col_names[i])
                 else:
                     if col_order:
-                        tmphdr.append(current_hdrs[col_order[i]])
+                        tmp_hdr.append(current_hdrs[col_order[i]])
                     else:
                         if len(col_names) != len(current_hdrs):
                             sys.exit(4)
-                        tmphdr.append(current_hdrs[i])         
-            hdrs = ("\t".join(tmphdr))
+                        tmp_hdr.append(current_hdrs[i])         
+            hdrs = ("\t".join(tmp_hdr))
         elif col_order:
-            tphdr = []
+            tp_hdr = []
             for j in col_order:
-                tphdr.append(current_hdrs[j])
-            hdrs = ("\t".join(tphdr))
+                tp_hdr.append(current_hdrs[j])
+            hdrs = ("\t".join(tp_hdr))
             
         outf.write(hdrs + "\n")
         
@@ -76,39 +76,37 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     ## check column indices
-    defaultvaluecol = ["i.e.:1,5,2", "default", "Default"]
+    default_value_col = ["i.e.:1,5,2", "default", "Default"]
     col_order = []
     if args.columns:
-        if not args.columns in defaultvaluecol:
-            tmpcol = args.columns.split(",")
-            if len(tmpcol) == 1:
-                if not tmpcol[0].strip():
+        if not args.columns in default_value_col:
+            tmp_col = args.columns.split(",")
+            if len(tmp_col) == 1:
+                if not tmp_col[0].strip():
                     col_order = []
-                elif not is_integer(tmpcol[0].strip()):
+                elif not is_integer(tmp_col[0].strip()):
                     sys.exit(2)
                 else:
-                    col_order.append(int(tmpcol[0].strip()) - 1)
+                    col_order.append(int(tmp_col[0].strip()) - 1)
             else:
-                for c in range(0, len(tmpcol)):
-                    if not is_integer(tmpcol[c].strip()):
+                for c in range(0, len(tmp_col)):
+                    if not is_integer(tmp_col[c].strip()):
                         sys.exit(3)
                     else:
-                        col_order.append(int(tmpcol[c].strip()) - 1)
+                        col_order.append(int(tmp_col[c].strip()) - 1)
 
     ## check column names
-    defaultvaluenms = ["i.e.:Marker1,,Marker4", "default", "Default"]
+    default_value_nms = ["i.e.:Marker1,,Marker4", "default", "Default"]
     col_names = []
     if args.column_names:
-        if not args.column_names in defaultvaluenms:
-            tmpnames = args.column_names.split(",")
+        if not args.column_names in default_value_nms:
+            tmp_names = args.column_names.split(",")
             if col_order:
-                if len(col_order) != len(tmpnames):
+                if len(col_order) != len(tmp_names):
                     sys.exit(4)
-            for cn in tmpnames:
+            for cn in tmp_names:
                 col_names.append(cn.strip())    
                 
-    rearrangeFile(args.input_file, col_order, col_names, args.output_file)
+    rearrange_file(args.input_file, col_order, col_names, args.output_file)
 
     sys.exit(0)
-
-

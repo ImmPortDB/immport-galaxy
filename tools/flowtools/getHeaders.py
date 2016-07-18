@@ -5,7 +5,7 @@ import os
 
 from argparse import ArgumentParser
 
-def printheaders(files, filenames, outfile):
+def print_headers(files, filenames, outfile):
     with open(outfile, "w") as outf:
         for i, eachfile in enumerate(files):
             with open(eachfile, "r") as ef:
@@ -42,5 +42,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     input_files = [f for f in args.input_files]
     file_names = [fn for fn in args.file_names]
-    printheaders(input_files, file_names, args.output_file)
+    print_headers(input_files, file_names, args.output_file)
     sys.exit(0)

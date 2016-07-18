@@ -12,7 +12,7 @@ def is_number(s):
     except ValueError:
         return False
 
-def errorReport(input_file,fname, output_file):
+def error_report(input_file,fname, output_file):
     errors = 0
     df = pd.read_table(input_file)
     with open(output_file, "w") as outf:
@@ -58,5 +58,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    errorReport(args.input_file, args.filename, args.output_file)
+    error_report(args.input_file, args.filename, args.output_file)
     sys.exit(0)

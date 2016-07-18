@@ -1,3 +1,12 @@
+#
+# Density Plot Module for Galaxy
+# FlowDensity
+# 
+# Version 1
+# Cristel Thomas
+#
+#
+
 library(flowCore)
 library(flowDensity)
 
@@ -38,7 +47,6 @@ checkFCS <- function(input_file, channels, output_file) {
     print (paste(input_file, "does not meet FCS standard"))
   }
 }
-
 
 args <- commandArgs(trailingOnly = TRUE)
 channels <- ""

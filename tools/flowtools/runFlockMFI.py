@@ -5,9 +5,8 @@ import sys
 import os
 from argparse import ArgumentParser
 import pandas as pd
-from scipy.stats import gmean
 
-def generateMFI(input_file_name, output_file_name, mfi_calc):
+def generate_MFI(input_file_name, output_file_name, mfi_calc):
     flockdf = pd.read_table(input_file_name)
     if mfi_calc == "mfi":
         MFIs = flockdf.groupby('Population').mean().round(decimals=2)
@@ -20,7 +19,7 @@ def generateMFI(input_file_name, output_file_name, mfi_calc):
 		MFIs.to_csv(outf, sep="\t", float_format='%.0f')
     return
 
-def runFlock(input_file, method, bins, density, output_file, profile, tool_directory):
+def run_FLOCK(input_file, method, bins, density, output_file, profile, tool_directory):
     run_command = tool_directory + "/bin/"  + method + " " + input_file
     if bins:
         run_command += " " + bins
@@ -96,9 +95,9 @@ if __name__ == "__main__":
             help="File location for the output profile file.")
 
     args = parser.parse_args()
-    runFlock(args.input_file,args.method,args.bins,
+    run_FLOCK(args.input_file,args.method,args.bins,
              args.density, args.output_file, args.profile, args.tool_directory)
 
-    generateMFI(args.output_file, args.centroids, args.mfi_calc)
+    generate_MFI(args.output_file, args.centroids, args.mfi_calc)
 
     sys.exit(0)

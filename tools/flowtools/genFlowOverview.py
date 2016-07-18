@@ -111,7 +111,7 @@ def translate_profiles(input_file, tool_dir, html_dir):
                                  queries[flowcl_query]["pdf"], queries[flowcl_query]["label"], 
                                  queries[flowcl_query]["score"], queries[flowcl_query]["CL"]]) + "\n")
 
-def genFlowOverview(flow_stats,args):
+def gen_flow_overview(flow_stats,args):
     os.mkdir(args.output_directory)
     html_template = "genOverview.template"
     
@@ -243,6 +243,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
         
     flow_stats = gen_overview_stats(args.input_file)
-    genFlowOverview(flow_stats,args)
+    gen_flow_overview(flow_stats,args)
     sys.exit(0)
 

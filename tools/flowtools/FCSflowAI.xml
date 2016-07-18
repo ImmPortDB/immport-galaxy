@@ -59,26 +59,10 @@
       <param name="penFS" value="200"/>
       <param name="sideFM" value="both"/>
       <param name="highQ_FCS" value="TRUE"/>
-      <param name="lowQ_FCS" value="TRUE"/>
-      <param name="QC_FCS" value="TRUE"/>
-      <output name="full_rep" file="QCreport.html"/>
-      <output name="highfcs" file="hqdata.fcs"/>
-      <output name="lowfcs" file="lqdata.fcs"/>
-      <output name="qcfcs" file="alldata.fcs"/>
-    </test>
-    <test>
-      <param name="input" value="input.fcs"/>
-      <param name="remove" value="all"/>
-      <param name="alphaFR" value="0.01"/>
-      <param name="chremFS" value="TRUE"/>
-      <param name="outFS" value="FALSE"/>
-      <param name="penFS" value="200"/>
-      <param name="sideFM" value="both"/>
-      <param name="highQ_FCS" value="TRUE"/>
       <param name="lowQ_FCS" value="FALSE"/>
       <param name="QC_FCS" value="FALSE"/>
-      <output name="full_rep" file="std/QCreport.html"/>
-      <output name="highfcs" file="std/hqdata.fcs"/>
+      <output name="full_rep" file="std/QCreport.html" lines_diff="2"/>
+      <output name="highfcs" file="std/hqdata.fcs" compare="sim_size"/>
     </test>
     <test>
       <param name="input" value="input.fcs"/>
@@ -91,10 +75,10 @@
       <param name="highQ_FCS" value="TRUE"/>
       <param name="lowQ_FCS" value="TRUE"/>
       <param name="QC_FCS" value="TRUE"/>
-      <output name="full_rep" file="std/QCreport.html"/>
-      <output name="highfcs" file="std/hqdata.fcs"/>
-      <output name="lowfcs" file="std/lqdata.fcs"/>
-      <output name="qcfcs" file="std/alldata.fcs"/>
+      <output name="full_rep" file="std/QCreport.html" lines_diff="2"/>
+      <output name="highfcs" file="std/hqdata.fcs" compare="sim_size"/>
+      <output name="lowfcs" file="std/lqdata.fcs" compare="sim_size"/>
+      <output name="qcfcs" file="std/alldata.fcs" compare="sim_size"/>
     </test>
     <test>
       <param name="input" value="input.fcs"/>
@@ -105,10 +89,10 @@
       <param name="penFS" value="200"/>
       <param name="sideFM" value="both"/>
       <param name="highQ_FCS" value="TRUE"/>
-      <param name="lowQ_FCS" value="TRUE"/>
-      <param name="QC_FCS" value="TRUE"/>
-      <output name="full_rep" file="nooutliers/QCreport_nooutliers.html"/>
-      <output name="highfcs" file="nooutliers/hqdata_nooutliers.fcs"/>
+      <param name="lowQ_FCS" value="FALSE"/>
+      <param name="QC_FCS" value="FALSE"/>
+      <output name="full_rep" file="nooutliers/QCreport_nooutliers.html" lines_diff="2"/>
+      <output name="highfcs" file="nooutliers/hqdata_nooutliers.fcs" compare="sim_size"/>
     </test>
     <test>
       <param name="input" value="input.fcs"/>
@@ -119,10 +103,10 @@
       <param name="penFS" value="200"/>
       <param name="sideFM" value="both"/>
       <param name="highQ_FCS" value="TRUE"/>
-      <param name="lowQ_FCS" value="TRUE"/>
-      <param name="QC_FCS" value="TRUE"/>
-      <output name="full_rep" file="withsfsc/QCreport_sfsc.html"/>
-      <output name="highfcs" file="withsfsc/hqdata_sfsc.fcs"/>
+      <param name="lowQ_FCS" value="FALSE"/>
+      <param name="QC_FCS" value="FALSE"/>
+      <output name="full_rep" file="withsfsc/QCreport_sfsc.html" lines_diff="2"/>
+      <output name="highfcs" file="withsfsc/hqdata_sfsc.fcs" compare="sim_size"/>
     </test>
   </tests>
   <help><![CDATA[
@@ -132,18 +116,14 @@
 
 **Input files**
 
-The output files required are::
-
   • One or more FCS files. 
 
 **Output files**
 
-The output files generated are::
-
-  • full HTML report,
-  • new FCS file containing only the high quality events (default),
-  • new FCS file containing only the low quality events (optional),
-  • original FCS file containing an additional parameter where the low quality events have a value higher than 10,000 (optional).
+  • full HTML report
+  • new FCS file containing only high quality events (default)
+  • new FCS file containing only low quality events (optional)
+  • original FCS file containing an additional parameter where the low quality events have a value higher than 10,000 (optional)
 
 
 The files generated will be FCS 3.0.
@@ -152,7 +132,7 @@ The files generated will be FCS 3.0.
 
 Description of the approach
 '''''''''''''''''''''''''''
-The approach of the tool is to separately check and discern anomalies from three fundamental properties of flow cytometry data:
+This tool identifies anomalies from three fundamental properties of flow cytometry data:
 
   - *Flow rate*. Surges and substantial shifts of the rate of the cells passing through the capillary tube are detected.
 
@@ -162,7 +142,7 @@ The approach of the tool is to separately check and discern anomalies from three
    
 .. class:: infomark
 
-At the end of the analysis, a HTML report is generated with embedded informative plots. The evaluation of the report is not only fundamental to check the status of the FCS file but also to::
+An HTML report with informative plots is generated. Users are advised to review the report and also:::
 
   1. Eventually adjust the quality control parameters  
   2. Discard the entire FCS file because of an unacceptable number of anomalies
@@ -171,26 +151,24 @@ At the end of the analysis, a HTML report is generated with embedded informative
 
 Parameters
 ''''''''''
-The default settings should work well for the majority of cases. Nonetheless it might be necessary to customize the setting according to the dataset used. 
-For example, for FCS files of large dimension it is usually better to use more tolerant setting (higher values) for the signal acquisition check.
-
+Default settings work well in the majority of cases. Setting customization may be needed to address properties of unique datasets. For example, high-dimensional FCS files may perform best with more tolerant setttings for signal acquisition checks.
 
 Example
 '''''''
-This section reports an example of the quality control with flowAI and the plots generated for the HTML report:
+This section provides an example of a flowAI quality control html report with plots:
 
 
-Flow rate check. the anomalies are flagged with a green circle. The quality control detected and discarded a surge and a shift from the median value in the last part of the experiment.
+Flow rate check: anomalies are flagged with a green circle. In this instance a surge was detected and discarded as well as a shift from the median value later in the experiment.
 
-.. image:: ../../static/images/flowtools/autoflowrate.png
+.. image:: static/images/autoflowrate.png
 
-Signal acquisition check. The stable region has a yellow background. The algorithm detects shifts in signal acquisitions for each channel separately and then it retains the biggest common region with no anomalies.
+Signal acquistion check: Orange background (or yellow depending on the user's computer) highlights the stable region. Signal acquistion shifts are identified on a per channel basis and the largest region containing no anomalies is retained.
 
-.. image:: ../../static/images/flowtools/autosignal.png
+.. image:: static/images/autosignal.png
 
-Dynamic range check. The red and blue line indicates the number of events detected over time. The x-axis corresponds to the one of the signal acquisition plot.
+Dynamic range check: red and blue lines reflect the detected number of events over time. The x-axis corresponds to that of the signal acquisition plot.
 
-.. image:: ../../static/images/flowtools/margins.png
+.. image:: static/images/"a"margins.png
 
  ]]>
  </help>

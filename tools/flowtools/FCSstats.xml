@@ -1,5 +1,5 @@
-<tool id="get_fcs_stats" name="Get summary statistics" version="1.0">
-  <description>from a FCS file.</description>
+<tool id="get_fcs_stats" name="Get summary" version="1.0">
+  <description>of FCS files.</description>
   <requirements>
     <requirement type="package" version="3.3.0">r</requirement>
      <requirement type="package" version="1.38.2">bioconductor-flowcore</requirement>
@@ -24,17 +24,17 @@
     </test>
   </tests>
  <help><![CDATA[
-   This tool generates a summary of a FCS file as well as the list of markers in the file.
+   This tool generates a summary of a FCS file and list of markers.
    
 -----
 
-**Input files**
+**Input file**
 
-This tool takes valid FCS files as input.
+This tool uses valid FCS files as input.
 
-**Output files**
+**Output file**
 
-A summary listing the number of events and parameters, statistics for each and a list of markers is generated.
+FCS file summary includes number of events, list of markers and parameters, and summary statistics for each.
 
 -----
 

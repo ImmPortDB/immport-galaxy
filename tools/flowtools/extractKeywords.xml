@@ -20,7 +20,7 @@
   <tests>
     <test>
       <param name="input" value="testfcs1.fcs"/>
-      <output name="keyword_file" file="out.tabular"/>
+      <output name="keyword_file" file="out.tabular" lines_diff="2"/>
     </test>
   </tests>
  <help><![CDATA[
@@ -30,11 +30,11 @@
 
 **Input files**
 
-This tool takes FCS files as input. It can only process one file at a time.
+This tool uses FCS files as input.
 
 **Output file**
 
-The output is a list of the headers in the provided FCS file.
+The list of FCS file headers is output.
 
 -----
 

@@ -1,12 +1,21 @@
+#
+# FCS Summary Statistic Module for Galaxy
+# FlowCore
+# 
+# Version 1
+# Cristel Thomas
+#
+#
+
 library(flowCore)
 
 getMarkerNames <- function(input, output) {
   fcs <- read.FCS(input, transformation=F)
   
   ## marker names
-  Channels <- colnames(fcs)
-  Markers <- as.vector(pData(parameters(fcs))$desc)
-  df <- data.frame(Channels, Markers)
+  channels <- colnames(fcs)
+  markers <- as.vector(pData(parameters(fcs))$desc)
+  df <- data.frame(channels, markers)
   fcs_summary <- capture.output(summary(fcs))
   fcs_dim <- capture.output(dim(fcs))
   fcs_markers <- capture.output(df)
@@ -14,7 +23,7 @@ getMarkerNames <- function(input, output) {
 
   sink(output)
   cat(fcs_dim, sep="\n")
-  cat("\n\n=========================n")
+  cat("\n\n=========================\n")
   cat("==     FCS SUMMARY     ==\n")
   cat("=========================\n")
   cat(fcs_summary, sep="\n")
@@ -40,7 +49,6 @@ checkFCS <- function(input_file, output_file) {
     print (paste(input_file, "does not meet FCS standard"))
   }
 }
-
 
 args <- commandArgs(trailingOnly = TRUE)
 checkFCS(args[2], args[3])

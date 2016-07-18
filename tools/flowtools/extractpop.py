@@ -6,10 +6,10 @@ import pandas as pd
 
 from argparse import ArgumentParser
 
-def extract_pop(infile, poplist, outfile):
-    df = pd.read_table(infile, dtype={'Population': object})
-    dfout = df.loc[df['Population'].isin(poplist)]
-    dfout.to_csv(outfile, sep="\t", index = False)
+def extract_pop(in_file, pop_list, out_file):
+    df = pd.read_table(in_file, dtype={'Population': object})
+    dfout = df.loc[df['Population'].isin(pop_list)]
+    dfout.to_csv(out_file, sep="\t", index = False)
     return
 
 if __name__ == "__main__":
@@ -38,12 +38,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     ## check populations
-    defaultvalues = ["i.e.:2,3,11,25", "default", "Default"]
+    default_values = ["i.e.:2,3,11,25", "default", "Default"]
     populations = []
     if args.pops:
-        if not args.pops in defaultvalues:
-            tmppops = args.pops.split(",")
-            for popn in tmppops:
+        if not args.pops in default_values:
+            tmp_pops = args.pops.split(",")
+            for popn in tmp_pops:
                 populations.append(popn.strip())    
         else:
             sys.exit(3)

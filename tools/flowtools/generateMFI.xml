@@ -41,7 +41,7 @@
     </test>
   </tests>
  <help><![CDATA[
-   This tool generates the MFI from a flow result file.
+   This tool generates the Mean, Median or Geometric Mean Fluorescence Intensity of a FLOCK output file.
    
 -----
 

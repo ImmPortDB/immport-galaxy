@@ -57,7 +57,7 @@
       <param name="gate" value="TRUE"/>
       <param name="format" value="FALSE"/>
       <output name="output" file="withcomp.flowtext"/>
-      <output name="graph" file="graph.pdf"/>
+      <output name="graph" file="graph.pdf" compare="sim_size"/>
       <output name="report" file="report.txt"/>
     </test>
     <test>
@@ -66,8 +66,8 @@
       <param name="gate" value="TRUE"/>
       <param name="format" value="TRUE"/>
       <output name="output" file="withcomp.flowtext"/>
-      <output name="fcsout" file="comp_gated.fcs"/>
-      <output name="graph" file="graph.pdf"/>
+      <output name="fcsout" file="comp_gated.fcs" compare="sim_size"/>
+      <output name="graph" file="graph.pdf" compare="sim_size"/>
       <output name="report" file="report.txt"/>
     </test>
   </tests>
@@ -78,26 +78,26 @@
 
 **Input files**
 
-This tool takes valid FCS files as input. It can only process one file at a time. The user can choose to automatically gate cellular debris, and/or compensate the data. 
+This tool uses FCS files as input and files are processed serially. Users choose to automatically gate cellular debris, and/or compensate the data. 
 
 **Output files**
 
-The output is a tab-separated text, containing the transformed fluorescence intensity values for each marker.
+Output is tab-separated text containing transformed fluorescence intensity values for each marker.
 If the option is selected, a FCS file (format FCS3.0) is generated.
 
 **Gating output**
 
-If the option to automatically gate the debris is selected, a summary of the data before and after gating is generated, as well as density scatter plots of each couple of markers before and after gating.
+Automatically gated output includes a summary of data pre- and post-gating as well as density scatter plots pre- and post- gating for each marker pair.
 
 -----
 
 **Automated Gating**
 
-Automated gating is implemented with flowDensity. The coordinates of the gate are calculated based on the density of the forward scatter channel only, to remove cellular debris only. The gate is vertical and located at the largest value of either the 0.1 quantile of the FSC density or the lowest density between the first and second density peaks. Cells smaller than the threshold are removed.
+Automated gating is implemented with flowDensity. Cellular debris removal uses gate coordinates calculated based on the density of the forward scatter channel only. The calculated gate is vertical and located at the largest value of either the 0.1 quantile of the FSC density or the lowest density between the first and second density peaks. Cells smaller than the threshold are removed.
 
 .. class:: warningmark
 
-It is up to the user to verify whether or not the data benefit from being gated. To this end, the user is invited to check the number of events before and after gating, as well as the scatter plots showing the data before and after gating.
+Users should verify whether data benefit from being gated. We recommend evaluating the number of events and scatter plots pre- and post-gating.
 
 -----
 
@@ -141,7 +141,7 @@ It is up to the user to verify whether or not the data benefit from being gated.
 
 *Gating plots*:
 
-.. image:: ../../static/images/flowtools/flowdensity.png
+.. image:: static/images/flowdensity.png
   ]]>
  </help>
  <citations>
@@ -150,4 +150,3 @@ It is up to the user to verify whether or not the data benefit from being gated.
    <citation type="doi">10.1186/1471-2105-10-106</citation>
  </citations>
 </tool>
-

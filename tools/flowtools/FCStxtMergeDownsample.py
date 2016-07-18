@@ -22,7 +22,7 @@ def is_integer(s):
     except ValueError:
         return False
 
-def compareheaders(files):
+def compare_headers(files):
     headers = {}
     for eachfile in files:
         with open(eachfile, "r") as ef:
@@ -32,27 +32,27 @@ def compareheaders(files):
     flag = {}
     hdgs_in_common_index = {}
 
-    for refhdgs in headers[files[0]]:
-        flag[refhdgs] = 1
+    for ref_hdgs in headers[files[0]]:
+        flag[ref_hdgs] = 1
         
         for ij in range(1, len(files)):
-            if refhdgs in headers[files[ij]]:
-                flag[refhdgs] += 1
-        if flag[refhdgs] == len(files):
-            hdgs_in_common.append(refhdgs)
+            if ref_hdgs in headers[files[ij]]:
+                flag[ref_hdgs] += 1
+        if flag[ref_hdgs] == len(files):
+            hdgs_in_common.append(ref_hdgs)
 
     if not hdgs_in_common:
         sys.exit(9)
     return(hdgs_in_common)
 
-def getheadersindex(list_headings, headings):
+def get_headers_index(list_headings, headings):
     idxs = []
     lhdgs = [x.lower() for x in headings]
     for element in list_headings:
         idxs.append(int(lhdgs.index(element)))
     return(idxs)
 
-def mergeAndDStxt(in_files, out_file, col_names, factords):
+def merge_and_DS_txt(in_files, out_file, col_names, factor_ds):
     """Concatenates together tab-separated files.
     The output will have only the columns in common to all the files provided as input, 
     as determined by the headers.
@@ -66,17 +66,16 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
     max_error = 10
 
     ## get list of headers in common to all files
-    list_hdgs = compareheaders(in_files)
+    list_hdgs = compare_headers(in_files)
 
     with open(out_file, "w") as outf:
-
         ff_order = []
         ## HEADERS:
-        with open(in_files[0], "r") as firstfile:
-            headingsff = firstfile.readline().strip()
-            headings = headingsff.split("\t")
+        with open(in_files[0], "r") as first_file:
+            headings_ff = first_file.readline().strip()
+            headings = headings_ff.split("\t")
             # Get index of headers in common:
-            hdrs_idx = getheadersindex(list_hdgs, headings)
+            hdrs_idx = get_headers_index(list_hdgs, headings)
 
             # If column to merge on were provided:
             if col_names:
@@ -98,8 +97,8 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
         # DATA
         for infile in in_files:
             with open(infile, "r") as inf:
-                headingsinf = inf.readline().strip()
-                hdgs = headingsinf.split("\t")
+                headings_inf = inf.readline().strip()
+                hdgs = headings_inf.split("\t")
                 # Get the index of columns to keep:
                 hdgs_idx = []
                 for ctc in ff_order:
@@ -113,8 +112,8 @@ def mergeAndDStxt(in_files, out_file, col_names, factords):
                     hdgs_idx = col_names
             
             df = pd.read_table(infile, usecols = hdrs_idx)
-            wcfile = len(df.index) - 1
-            df_ds = df.sample(int(wcfile * factords), replace = False)
+            wc_file = len(df.index) - 1
+            df_ds = df.sample(int(wc_file * factor_ds), replace = False)
 
             for cols in df_ds.columns.values:
                 if df_ds[cols].count() != len(df_ds[cols]):
@@ -176,41 +175,42 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     # Get columns to merge on if any:
-    defaultvaluecol = ["i.e.:1,2,5", "default", "Default"]
+    default_value_col = ["i.e.:1,2,5", "default", "Default"]
     columns = []
     if args.columns:
-        if not args.columns in defaultvaluecol:
-            tmpcol = args.columns.split(",")
-            if len(tmpcol) == 1:
-                if not tmpcol[0].strip():
+        if not args.columns in default_value_col:
+            tmp_col = args.columns.split(",")
+            if len(tmp_col) == 1:
+                if not tmp_col[0].strip():
                     columns = []
-                elif not is_integer(tmpcol[0].strip()):
+                elif not is_integer(tmp_col[0].strip()):
                     sys.exit(7)
                 else:
-                    columns.append(int(tmpcol[0].strip()) - 1)
+                    columns.append(int(tmp_col[0].strip()) - 1)
             else:
-                for c in range(0, len(tmpcol)):
-                    if not is_integer(tmpcol[c].strip()):
+                for c in range(0, len(tmp_col)):
+                    if not is_integer(tmp_col[c].strip()):
                         sys.exit(6)
                     else:
-                        columns.append(int(tmpcol[c].strip()) - 1)
+                        columns.append(int(tmp_col[c].strip()) - 1)
 
     # Get down sampling factor if any:
-    defaultvalueds = ["i.e.:0.1 or 10X", "default", "Default"]
-    dsfactor = 1
+    ## Note: change '%' to 'X' because somehow that's what Galaxy passes?
+    default_value_ds = ["i.e.:0.1 or 10X", "default", "Default"]
+    ds_factor = 1
     if args.downsampling_factor:
-        if not args.downsampling_factor in defaultvalueds:
+        if not args.downsampling_factor in default_value_ds:
             args.downsampling_factor = args.downsampling_factor.strip()
             downsampling_factor = args.downsampling_factor.rstrip("X")
             if is_number(downsampling_factor):
-                dsfactor = float(downsampling_factor)
-                if dsfactor > 1:
-                    dsfactor = float(downsampling_factor) / 100
-                if dsfactor > 100:
+                ds_factor = float(downsampling_factor)
+                if ds_factor > 1:
+                    ds_factor = float(downsampling_factor) / 100
+                if ds_factor > 100:
                     sys.exit(8)
             else:
                 sys.exit(8)
     
     input_files = [f for f in args.input_files]
-    mergeAndDStxt(input_files, args.output_file, columns, dsfactor)
+    merge_and_DS_txt(input_files, args.output_file, columns, ds_factor)
     sys.exit(0)

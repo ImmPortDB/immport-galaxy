@@ -45,7 +45,7 @@
     </test>
   </tests>
   <help><![CDATA[
-   This tool allows to remove, rearrange and/or rename the columns in a text file.
+   This tool enables the removal, rearrangement and/or renaming of text file columns.
 
 -----
 
@@ -55,7 +55,7 @@ This tool requires txt, flowtext or tabular files as input.
 
 **Column order**
 
-Please indicate the columns to keep in the order in which they should be (comma-separated list). 
+Please indicate columns to keep in the order in which they should be (comma-separated list). 
 This field is optional.
 
 **Column names**
@@ -65,7 +65,7 @@ This field is optional.
 
 .. class: warningmark
 
-If both columns to keep and column names are specified, the number of columns must match. See below for an example.
+When providing column order AND new column headings the column count for each must match. See below for an example.
 
 **Output file**
 

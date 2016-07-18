@@ -28,7 +28,7 @@
     </test>
   </tests>
  <help><![CDATA[
-   This tool allows automated gating of debris using flowDensity and conversion of FCS files to text using the FCSTrans transformation.
+   This tool allows generation of density scatter plots using flowDensity.
    
 -----
 
@@ -49,4 +49,8 @@ This tool generates a scatter plot for each marker combination in a single pdf.
 .. image:: ../../static/images/flowtools/densityplots.png
   ]]>
   </help>
+ <citations>
+   <citation type="doi">10.1093/bioinformatics/btu677</citation>
+   <citation type="doi">10.1186/1471-2105-10-106</citation>
+ </citations>
 </tool>
