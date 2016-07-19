@@ -1,15 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <toolbox>
-  <section id="flowfileupload" name="Upload Flow Files">
+  <section id="flowfileupload" name="Upload Files">
     <tool file="data_source/upload.xml" />
   </section>
   <section id="fcsfiletools" name="FCS file Tools">
     <tool file="flowtools/extractKeywords.xml" />
-    <tool file="flowtools/FCSGateTrans.xml"/>a
-    <tool file="flowtools/convertFCSToText.xml"/>
-    <tool file="flowtools/FCSflowAI.xml" />
+    <tool file="flowtools/getFCSheaders.xml"/>
     <tool file="flowtools/getDensityPlots.xml" />
     <tool file="flowtools/FCSstats.xml" />
+    <tool file="flowtools/FCSflowAI.xml" />
+    <tool file="flowtools/FCSGateTrans.xml"/>
+    <tool file="flowtools/convertFCSToText.xml"/>
   </section>
   <section id="flowfiletools" name="Flow File Tools">
     <tool file="flowtools/getHeaders.xml" />

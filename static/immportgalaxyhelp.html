@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ImmPort Galaxy Help</title>
+    <meta charset="utf-8">
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/flowtools/css/immportgalaxy.css" type="text/css">
+    <link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!--js-->
+    <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-target-menu-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        
+        <div class="collapse navbar-collapse navbar-site-main" id="navbar-target-menu-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="menu-immport-org">
+                    <a href="http://www.immport.org" target="_blank">
+                        <img class="main-site-logo" src="/static/images/home/immport-logo-black-background.png">
+                        <span class="title-menu">ImmPort</span>
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Applications<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+
+                       <li><a href="http://www.immport.org/immport-open/public/home/studySearch">
+                            <img class="menu-dropdown-logo" src="/static/images/home/immport-icon-blue.png"
+                            th:src="@{/images/header/immport-icon-blue.png}" />
+                            Search/Download
+                        </a></li>
+                        <li><a href="https://immport.niaid.nih.gov">
+                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
+                            th:src="@{/images/header/immport-logo-image-32.png}" />
+                            Upload
+                        </a></li>
+                        <li><a href="http://immport-submission.niaid.nih.gov/downloads/">
+                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
+                            th:src="@{/images/header/immport-logo-image-32.png}" />
+                            Data Upload Validator
+                        </a></li>
+                        <li><a href="https://immport.niaid.nih.gov/immportWeb/analysis/flow/displayOverview.do?method=displayManagementOverview">
+                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
+                            th:src="@{/images/header/immport-logo-image-32.png}" />
+                            FLOCK
+                        </a></li>
+                        <li><a href="http://immportgalaxy.org/">
+                            <img class="menu-dropdown-logo" src="/static/images/home/immport-icon-green.png"
+                            th:src="@{/images/header/immport-icon-green.png}" />
+                            ImmPort Galaxy
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://www.immport.org/immport-open/public/home/documentation">Documentation</a></li>
+                <li><a href="http://www.immport.org/immport-open/public/home/publications">Publications</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="http://www.immport.org/immport-open/public/home/dataProviders">Data Providers</a></li>
+                        <li><a href="http://www.immport.org/immport-open/public/home/dataSummary">Data Summary</a></li>
+                        <li><a href="http://www.immport.org/immport-open/public/home/cite">How to cite ImmPort</a></li>
+                        <li><a href="http://www.immport.org/immport-open/public/home/news">News/Events</a></li>
+                        <li><a href="http://www.immport.org/immport-open/public/home/teamCurrent">Team</a></li>
+                        <li><a href="http://www.immport.org/immport-open/public/home/about">What is ImmPort?</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+	
+<div class="container" style="margin-top:10px;">
+    <div class="row" style="padding-bottom:10px;">
+    	<div class="col-md-12">
+    		<div class="immport-notice" style="display:none;">
+		        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<div class="immport-notice-content"></div>
+				</div>
+	        </div>
+    		<div class="immport-about">
+    			<div class="col-md-3 main-logo">
+            		<img src="/static/images/home/immportgalaxy_green_sharp.png" style="height:110px;"/>
+				</div>
+				<div class="col-md-9 help-title">
+					<p>
+						<h4>Help</h4>
+					</p>
+					<p>
+						Access all videos from the ImmPort Team <a href="https://www.youtube.com/channel/UC8lQSx1Z7sMFm07wfqI-_kA" target="_blank">here</a>.
+				    </p>
+					<p>
+						If your question remains unanswered, <a href="mailto:immport-galaxy@immport.org">contact us</a>. We might be able to help.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="help-panel" id="main-accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseZero">Administration</a>
+                </h4>
+            </div>
+            <div id="collapseZero" class="panel-collapse collapse">
+                <div class="panel-body">
+                    
+	                <div class="help-inner-panel" id="accordion-inner0">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner0" href="#collapse00">How to register</a>
+                                </h4>
+                            </div>
+                            <div id="collapse00" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>To create an account for ImmPort Galaxy, click on 'User' in the top green bar. Click on register, and enter your email address and password. Choose a public name and you're good to go. More <a href="https://www.youtube.com/watch?v=nO8vIv8En9Y" target="_blank">here</a>.<br>Note that registration to ImmPort Galaxy is separate from registration to ImmPort.
+									</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner0" href="#collapse01">Why create an account?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse01" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>Creating an account allows users to keep their histories (uploaded and generated files). Having an account also allows users to access and use workflows. You can use ImmPort Galaxy without registering, but your work will not be saved.
+									</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner0" href="#collapse02">Data retention policy</a>
+                                </h4>
+                            </div>
+                            <div id="collapse02" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>Data will be kept for a year. <font color="red">we need to decide how much data users can have each</font>
+									</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner0" href="#collapse03">Forgotten password</a>
+                                </h4>
+                            </div>
+                            <div id="collapse03" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p><a href="mailto:immport-galaxy@immport.org">Contact us</a> if you have forgotten your password.
+									<font color="red">check the ini file to configure mail</font>
+									</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner0" href="#collapse04">Forgotten username</a>
+                                </h4>
+                            </div>
+                            <div id="collapse04" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p><a href="mailto:immport-galaxy@immport.org">Contact us</a> if you have forgotten your username.
+									<font color="red">check the ini file to configure mail</font>
+									</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner0" href="#collapse05">Get my own local instance of ImmPort Galaxy</a>
+                                </h4>
+                            </div>
+                            <div id="collapse05" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>ImmPort is on <a href="">GitHub</a><font color="red">add link when GH is set up</font>. Get your own local instance of ImmPort Galaxy by cloning our repo. More info on installing Galaxy <a href="https://wiki.galaxyproject.org/Admin/GetGalaxy">here</a>.
+									</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner0" href="#collapse06">Cite ImmPort Galaxy</a>
+                                </h4>
+                            </div>
+                            <div id="collapse06" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p><b><a href="https://gcc2016.iu.edu/">Galaxy Community Conference 2016:</a></b><br>Thomas C, Thomson E, Dunn P <i>et al.</i> ImmPortGalaxy: developing a workflow for flow Cytometry analysis in Galaxy [v1; not peer reviewed]. <i>F1000Research</i> 2016, 5:1546 <a href="http://f1000research.com/slides/5-1546">(slides)</a><br>doi: 10.7490/f1000research.1112455.1
+									</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+	                </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseOne">Galaxy</a>
+                </h4>
+            </div>
+            
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    <p>ImmPort Galaxy is only one version of the many instances of the <a href="https://galaxyproject.org/">Galaxy Project</a>. The Galaxy Project is also on <a href="https://github.com/galaxyproject">GitHub</a>. Learn more about Galaxy <a href="https://wiki.galaxyproject.org/Learn">here</a>.
+                    </p>
+	                <div class="help-inner-panel" id="accordion-inner1">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner1" href="#collapse10">Interactive tours</a>
+                                </h4>
+                            </div>
+                            <div id="collapse10" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>To access available interactive tours of Galaxy, click on 'Help' in the top green bar. Click on interactive tours and pick the tour you want to take. More <a href="">here</a><font color="red">make video</font>.
+									</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner1" href="#collapse11">Use scratchbooks</a>
+                                </h4>
+                            </div>
+                            <div id="collapse11" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>To enable scratchbooks, click on the square icon next to 'User' on the top green bar. In scratchbook mode, several files can be viewed at the same time. More <a href="">here</a>.<font color="red">make video</font></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner1" href="#collapse12">Get Galaxy</a>
+                                </h4>
+                            </div>
+                            <div id="collapse12" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>ImmPort Galaxy is available on <a href="">GitHub</a>. The Galaxy Project is also on <a href="https://github.com/galaxyproject">GitHub</a>. You can find more information on installing your own local instance <a href="https://wiki.galaxyproject.org/Admin/GetGalaxy">here</a>.
+									</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner1" href="#collapse13">Contribute to Galaxy</a>
+                                </h4>
+                            </div>
+                            <div id="collapse13" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>Contribute to Galaxy or write a tool for Galaxy. More information <a href="https://wiki.galaxyproject.org/GetInvolved">here</a>.
+									</p>
+                                </div>
+                            </div>
+                        </div>
+	                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseTwo">File management</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+
+	                <div class="help-inner-panel" id="accordion-inner2">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse20">Upload data</a>
+                                </h4>
+                            </div>
+                            <div id="collapse20" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>To upload data, click on 'Upload Files' at the top of the left panel.<a href="https://www.youtube.com/watch?v=1BbhiYFOX_I">here</a>. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse21">Data format</a>
+                                </h4>
+                            </div>
+                            <div id="collapse21" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text. explain how to chagne extension once downloaded</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse22">Why are filenames modified by Galaxy?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse22" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse23">File sharing</a>
+                                </h4>
+                            </div>
+                            <div id="collapse23" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse24">Deleted file recovery</a>
+                                </h4>
+                            </div>
+                            <div id="collapse24" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse25">Download data</a>
+                                </h4>
+                            </div>
+                            <div id="collapse25" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>add something here about 'if you'd like a higher quality image contact us plus explain how to chagne extension once downloaded</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse26">Where did my file go?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse26" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse27">What do all these icons do?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse27" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse28">Create a dataset collection</a>
+                                </h4>
+                            </div>
+                            <div id="collapse28" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse29">Work with dataset collections</a>
+                                </h4>
+                            </div>
+                            <div id="collapse29" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+	                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseThree">History management</a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>some blurb about how histories are convenient to work with starting with a dataset collection?</p>
+	                <div class="help-inner-panel" id="accordion-inner3">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse30">Create a history</a>
+                                </h4>
+                            </div>
+                            <div id="collapse30" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse31">Populate a history with alread uploaded files</a>
+                                </h4>
+                            </div>
+                            <div id="collapse31" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse32">Rename a history</a>
+                                </h4>
+                            </div>
+                            <div id="collapse32" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse33">Delete a history</a>
+                                </h4>
+                            </div>
+                            <div id="collapse33" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse34">Recover a deleted history</a>
+                                </h4>
+                            </div>
+                            <div id="collapse34" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse35">Work with histories</a>
+                                </h4>
+                            </div>
+                            <div id="collapse35" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+	                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseFour">Galaxy Tools</a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+                <div class="panel-body">
+
+	                <div class="help-inner-panel" id="accordion-inner4">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner4" href="#collapse40">Anatomy of a Galaxy tool</a>
+                                </h4>
+                            </div>
+                            <div id="collapse40" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner4" href="#collapse41">Write your own tool</a>
+                                </h4>
+                            </div>
+                            <div id="collapse41" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                       <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner4" href="#collapse42">Contribute your tool</a>
+                                </h4>
+                            </div>
+                            <div id="collapse42" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                       <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner4" href="#collapse43">Ask for a new tool</a>
+                                </h4>
+                            </div>
+                            <div id="collapse43" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+	                </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseFive">Workflows</a>
+                </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+                <div class="panel-body">
+
+	                <div class="help-inner-panel" id="accordion-inner5">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner5" href="#collapse50">Are there available workflows?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse50" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner5" href="#collapse51">Access available workflows</a>
+                                </h4>
+                            </div>
+                            <div id="collapse51" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner5" href="#collapse52">Add workflows to tool panel</a>
+                                </h4>
+                            </div>
+                            <div id="collapse52" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner5" href="#collapse53">Create workflows</a>
+                                </h4>
+                            </div>
+                            <div id="collapse53" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner5" href="#collapse54">Share workflows</a>
+                                </h4>
+                            </div>
+                            <div id="collapse54" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+	                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseSix">Analysis</a>
+                </h4>
+            </div>
+            <div id="collapseSix" class="panel-collapse collapse">
+                <div class="panel-body">
+
+	                <div class="help-inner-panel" id="accordion-inner6">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner6" href="#collapse60">What's the difference between running batch mode and dataset collection?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse60" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner6" href="#collapse61">Run a basic flow analysis</a>
+                                </h4>
+                            </div>
+                            <div id="collapse61" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some textRun a basic flow analysis</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner6" href="#collapse62">Run FLOCK</a>
+                                </h4>
+                            </div>
+                            <div id="collapse62" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner6" href="#collapse63">Analyze CYTOF data</a>
+                                </h4>
+                            </div>
+                            <div id="collapse63" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+	                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseSeven">Visualization</a>
+                </h4>
+            </div>
+            <div id="collapseSeven" class="panel-collapse collapse">
+                <div class="panel-body">
+
+	                <div class="help-inner-panel" id="accordion-inner7">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse70">Understand FLOCK Overview</a>
+                                </h4>
+                            </div>
+                            <div id="collapse70" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse71">Understand Cross Sample Overview</a>
+                                </h4>
+                            </div>
+                            <div id="collapse71" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+	                </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseEight">Troubleshooting</a>
+                </h4>
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse">
+                <div class="panel-body">
+
+	                <div class="help-inner-panel" id="accordion-inner8">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse80">Galaxy issues?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse80" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse81">ImmPort Galaxy tool issues?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse81" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse82">Found a bug?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse82" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
+	                </div>
+
+                </div>
+            </div>
+        </div>
+
+	</div>
+</div>
+
+<div class="row-footer">
+	<div class="col-md-12">
+		<p style="margin-top:20px;">
+			<h4>What is ImmPort?</h4>
+		</p>
+        <p>
+       <a href="http://www.immport.org" target="_new">OpenImmport</a> is your resource for searching and downloading shared biomedical research data funded from NIAID DAIT and DMID, and other NIH and non-government funding agencies. Additional resources available at OpenImmPort include step-by-step data reuse tutorials including example R and Python analysis code, the Cell Ontology Visualizer, the Cytokine Registry, and ImmuneXpresso - the cytokine and cell interaction literature mining tool.
+       </p>
+       <p>
+       <a href="https://immport.niaid.nih.gov" target="_new">ImmPort</a> is the data submission portal where researchers upload, QC, and curate their data prior to sharing in OpenImmPort. 
+        </p>
+    </div>
+	<div class="col-md-5">
+		<div class="block-header">Sponsored by:</div>
+		<ul>
+			<li><a href="http://www.niaid.nih.gov/Pages/default.aspx" target="_blank">National Institute of Allergy and Infectious Diseases (NIAID)</a></li>
+			<li><a href="http://www.nih.gov/" target="_blank">National Institutes of Health (NIH)</a></li>
+			<li><a href="http://www.hhs.gov/" target="_blank">Health and Human Services (HHS)</a></li>
+		</ul>
+	</div>
+	<div class="col-md-5">
+		<div class="block-header">
+			<a href="mailto:BISC_Helpdesk@niaid.nih.gov">Contact Us</a> | 
+			<a href="http://immport.org/`/public/home/privacyPolicy" target="_blank">Privacy Policy</a> | 
+			<a href="http://immport.org/immport-open/public/home/disclaimer" target="_blank">Disclaimer</a> | 
+			<a href="http://immport.org/immport-open/public/home/accessibility" target="_blank">Accessibility</a>
+		</div>
+	</div>
+	<div class="col-md-2">
+   		<div id="socialmedia-block" class="homePageText">
+			<div class="title" style="margin-bottom:7px;">Connect with Us</div>
+			<div class="socialmedia-block-inner">
+				<ul>
+					<script>(function(d, s, id) {
+				  	var js, fjs = d.getElementsByTagName(s)[0];
+				  	if (d.getElementById(id)) return;
+				  	js = d.createElement(s); js.id = id;
+				  	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+				  	fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));
+					</script>
+					<div class="fb-like" data-href="https://www.facebook.com/Immport" 
+						style="padding-bottom:3px;"
+						data-send="false" data-layout="button_count" data-width="650" 
+						data-show-faces="false" data-font="lucida grande"></div>
+					<li class="twitter-link">
+						<a class="twitter" href="https://twitter.com/#!/ImmPortDB" style="text-decoration: none" target="_blank">
+							<span>Twitter</span>
+						</a>
+					</li>
+					<li class="rss-link">
+						<a href="/immport-open/resources/rss/newsfeed.xml"  style="text-decoration: none" target="_blank">
+							<span>RSS Feed</span>
+						</a>
+					</li>
+					<li class="google-link">
+						<a href=" https://groups.google.com/d/forum/immport"  style="text-decoration: none" target="_blank">
+							<span>Google Group</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
