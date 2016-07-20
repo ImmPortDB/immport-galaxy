@@ -40,6 +40,7 @@
 *This version of the tool does NOT support column editing. Please go to immportgalaxy.org if you wish to use this feature.pytho*
 
 -----
+
 **Input**
 
 Input files are summary tables generated from a CrossSample analysis (tab-separated file containing counts of events in each population for each file run through CrossSample and a tab-separated file containing the MFI for each marker in each population for each file.)

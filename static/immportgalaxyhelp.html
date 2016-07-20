@@ -7,14 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/static/flowtools/css/immportgalaxy.css" type="text/css">
-    <link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
-    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./immportgalaxy.css" type="text/css">
+    <link href="lib/graphs/static/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="./font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
     <!--js-->
-    <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
-    <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-
+    <script src="lib/graphs/static/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="lib/graphs/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -180,7 +179,7 @@
                             <div id="collapse03" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p><a href="mailto:immport-galaxy@immport.org">Contact us</a> if you have forgotten your password.
-									<font color="red">check the ini file to configure mail</font>
+									<font color="red"> check the ini file to configure mail</font>
 									</p>
                                 </div>
                             </div>
@@ -195,7 +194,7 @@
                             <div id="collapse04" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p><a href="mailto:immport-galaxy@immport.org">Contact us</a> if you have forgotten your username.
-									<font color="red">check the ini file to configure mail</font>
+									<font color="red"> check the ini file to configure mail</font>
 									</p>
                                 </div>
                             </div>
@@ -209,7 +208,7 @@
                             </div>
                             <div id="collapse05" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>ImmPort is on <a href="">GitHub</a><font color="red">add link when GH is set up</font>. Get your own local instance of ImmPort Galaxy by cloning our repo. More info on installing Galaxy <a href="https://wiki.galaxyproject.org/Admin/GetGalaxy">here</a>.
+                                    <p>ImmPort is on <a href="">GitHub</a><font color="red"> add link when GH is set up</font>. Get your own local instance of ImmPort Galaxy by cloning our repo. More info on installing Galaxy <a href="https://wiki.galaxyproject.org/Admin/GetGalaxy">here</a>.
 									</p>
                                 </div>
                             </div>
@@ -254,7 +253,7 @@
                             </div>
                             <div id="collapse10" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To access available interactive tours of Galaxy, click on 'Help' in the top green bar. Click on interactive tours and pick the tour you want to take. More <a href="">here</a><font color="red">make video</font>.
+                                    <p>To access available interactive tours of Galaxy, click on 'Help' in the top green bar. Click on interactive tours and pick the tour you want to take. More <a href="">here</a>. <font color="red">make video</font>
 									</p>
                                 </div>
                             </div>
@@ -268,7 +267,7 @@
                             </div>
                             <div id="collapse11" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To enable scratchbooks, click on the square icon next to 'User' on the top green bar. In scratchbook mode, several files can be viewed at the same time. More <a href="">here</a>.<font color="red">make video</font></p>
+                                    <p>To enable scratchbooks, click on the square icon next to 'User' on the top green bar. In scratchbook mode, several files can be viewed at the same time. More <a href="">here</a>. <font color="red">make video</font></p>
                                 </div>
                             </div>
                         </div>
@@ -323,7 +322,7 @@
                             </div>
                             <div id="collapse20" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To upload data, click on 'Upload Files' at the top of the left panel.<a href="https://www.youtube.com/watch?v=1BbhiYFOX_I">here</a>. 
+                                    <p>To upload data, click on 'Upload file(s)' in the 'Upload Flow Files' section at the top of the left panel. Files can be selected from your computer by clicking on 'Choose local file', or dragged and dropped into the upload dialog box. 'Paste/Fetch data' gives the option to either directly copy the content of a file, or to retrieve data through a URL. More info <a href="https://www.youtube.com/watch?v=1BbhiYFOX_I">here</a>. <font color="red"> make video </font>
                                     </p>
                                 </div>
                             </div>
@@ -332,12 +331,14 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse21">Data format</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse21">File format</a>
                                 </h4>
                             </div>
                             <div id="collapse21" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text. explain how to chagne extension once downloaded</p>
+                                    <p>ImmPort Galaxy supports standard text formats (plain text, csv and tsv/tabular), FCS 2.0 and 3.0, pdf and HTML. Files generated by ImmPort Galaxy are FCS 3.0, text or HTML. <br> 
+                                    Note that the extension of the text files generated by ImmPort Galaxy are non-standard and might not be understood by your computer once downloaded. You can change their datatype to 'txt' by editing their attribute (click on the pencil icon next to the file name to access that option) before download, or rename the file once downloaded. Alternatively you can set your local file browser to open that type of file with your favorite text editor.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -345,12 +346,13 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse22">Why are filenames modified by Galaxy?</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse22">Why are the text file extensions not '.txt'?</a>
                                 </h4>
                             </div>
                             <div id="collapse22" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>Text files generated by ImmPort Galaxy have non-standard extensions, but they are still text files. Once downloaded, they can be read and opened by your favorite text editor, or with excel as tab-separated text.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -358,12 +360,13 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse23">File sharing</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse23">Why is my file yellow/grey/red?</a>
                                 </h4>
                             </div>
                             <div id="collapse23" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>Files in the history panel can be grey, green, yellow or red. Grey indicates that the job is being evaluated or queued to run, yellow that the job is running. Green indicates that the job completed successfully. Red indicates a problem with the job. For more info on how to proceed with a failed job, see Troubleshooting / ImmPort Galaxy tool issues. More info <a href="https://wiki.galaxyproject.org/Support#Dataset_status_and_how_jobs_execute">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -376,7 +379,8 @@
                             </div>
                             <div id="collapse24" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>Deleted files can be recovered, within the limits of the data retention policy. To recover a deleted file in a history, click on 'deleted' at the top of your history. The link will now read 'hide deleted', and every file in your history that has been deleted will be displayed and highlighted with a yellow box. You can restore deleted files by clicking on 'undelete'. If a file has been deleted by the administrator because of the data retention policy, it will not be recoverable. More <a href="">here</a>. <font color="red">add video</font>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -389,7 +393,9 @@
                             </div>
                             <div id="collapse25" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>add something here about 'if you'd like a higher quality image contact us plus explain how to chagne extension once downloaded</p>
+                                    <p>To download files, start by clicking on the filename in your history. File details (file size, format...) will appear, along with a few grey icons at the bottom. Click on the first icon on the left (floppy disk) to download the file. HTML output files will be downloaded as a zip file containing all supporting data. Note that binary files will be downloaded automatically when you click on the eye icon next to their name. <br>Note that the graphs generated with Plotly in the visualization tools output can be saved as pngs by clicking on the camera icon that appears when mousing over the graphs. For the other graphs, a screenshot is the best option so far. More <a href="https://www.youtube.com/watch?v=jjzALENv5gU">here</a> and <a href="">here</a>. <font color="red"> link the flock overview video when it's done</font>. <br>
+                                    For higher resolution images, please <a href="mailto:immport-galaxy@immport.org">contact us</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -397,56 +403,16 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse26">Where did my file go?</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse26">What do all these icons do?</a>
                                 </h4>
                             </div>
                             <div id="collapse26" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>The three visible icons next to each filename in the history panel allow users to visualize the file in the central panel, or download the file if it is not a format Galaxy can read (eye), to edit the metadata associated with the file (pencil) and to delete the file (x). Clicking on the filename displays file details and more icons. The far left one (floppy disk) controls file download. The second one (i) opens complete file and job details in the central panel. This is the one that gives you access to the actual command line used to run the job, and actual error messages if any (by clikcin on 'stderr'). The next icon (circling arrows) brings up the tool view in the central panel and allows you to rerun the job that generated the file (with the same parameters already selected / entered). The fourth icon is not present in all files and allows access to different visualization options (see Visualization / Galaxy options). The last 2 icons allow users to add a tag or a comment to the file. More <a href="https://www.youtube.com/watch?v=jjzALENv5gU">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="panel panel-default inner-a">
-                            <div class="panel-heading heading-inner">
-                                <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse27">What do all these icons do?</a>
-                                </h4>
-                            </div>
-                            <div id="collapse27" class="panel-collapse collapse">
-                                <div class="panel-body inner-body">
-                                    <p>some text</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default inner-a">
-                            <div class="panel-heading heading-inner">
-                                <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse28">Create a dataset collection</a>
-                                </h4>
-                            </div>
-                            <div id="collapse28" class="panel-collapse collapse">
-                                <div class="panel-body inner-body">
-                                    <p>some text</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default inner-a">
-                            <div class="panel-heading heading-inner">
-                                <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse29">Work with dataset collections</a>
-                                </h4>
-                            </div>
-                            <div id="collapse29" class="panel-collapse collapse">
-                                <div class="panel-body inner-body">
-                                    <p>some text</p>
-                                </div>
-                            </div>
-                        </div>
-
-
 	                </div>
                 </div>
             </div>
@@ -455,22 +421,38 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseThree">History management</a>
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseThree">Working with Galaxy (histories and dataset collections)</a>
                 </h4>
             </div>
             <div id="collapseThree" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>some blurb about how histories are convenient to work with starting with a dataset collection?</p>
+                    <p>Manage your analyses with dataset collections and histories.</p>
 	                <div class="help-inner-panel" id="accordion-inner3">
+
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse30">Create a history</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse300">What is a dataset collection?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse300" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>A 'dataset collection' in Galaxy-speak is a set of files grouped together on which you can run tools, instead of running each tool on each individual file. It's a powerful way to analyse data as it allows you to run the same job, with the same parameters, on many files at the same time while keeping track of each file. Some tools in ImmPort Galaxy require dataset collections as input.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse30">Create a dataset collection</a>
                                 </h4>
                             </div>
                             <div id="collapse30" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>To create a dataset collection, click on the checkbox at the top of your history. This will allow you to select files by clicking checkboxes. Once you have selected files that should go in a dataset collection, click on 'For all selected...' and select 'Build a dataset list' in the dropdown. More <a href="https://www.youtube.com/watch?v=F3qNs1_675g">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -478,25 +460,28 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse31">Populate a history with alread uploaded files</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse31">Work with dataset collections</a>
                                 </h4>
                             </div>
                             <div id="collapse31" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>Unless the input type is restricted, there are three icons next to each file input on the tool interface. The first one allows to select single files, the second one several files, and the third one dataset collections. To run jobs on dataset collections, click on the third icon. If there are no dataset collections in the history, nothing will appear in the dropdown. Otherwise, just select your dataset collection and run the tool as you would for a single file. More <a href="https://www.youtube.com/watch?v=K-bgypyg8gc">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
+
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse32">Rename a history</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse32">Create a history</a>
                                 </h4>
                             </div>
                             <div id="collapse32" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>To create a new history, click on the cog icon at the top right of the right panel and select 'Create New'. You can also create a new history from the history view by clicking on the icon right of the cog, and clicking on 'crete new' at the top right corner. More <a href="https://www.youtube.com/watch?v=V4VD1nuecZM">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -504,12 +489,13 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse33">Delete a history</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse33">Populate a history with already uploaded files</a>
                                 </h4>
                             </div>
                             <div id="collapse33" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>Histories can be populated either by uploading data, or with files already uploaded or generated by galaxy tools in other histories. To move files from existing histories to a new history, go to the history view by clicking on the icon right of the cog at the top right of the right panel. Drag and drop existing files or dataset collections from existing histories into the newly created history. More <a href="https://www.youtube.com/watch?v=V4VD1nuecZM">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -517,12 +503,12 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse34">Recover a deleted history</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse34">Rename a history</a>
                                 </h4>
                             </div>
                             <div id="collapse34" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>To keep track of your histories, rename them by clicking on their name on the right panel or in the history view. Hit enter once the new name is written to save it. Another option is to click on the cog icon at the top right of the right panel, select 'Saved Histories' and click on the downward arrow next to the history name to change. In the dropdown, select rename.</p>
                                 </div>
                             </div>
                         </div>
@@ -530,16 +516,28 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse35">Work with histories</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse35">Delete or Undelete a history</a>
                                 </h4>
                             </div>
                             <div id="collapse35" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse36">Share a history</a>
+                                </h4>
+                            </div>
+                            <div id="collapse36" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>some text</p>
                                 </div>
                             </div>
                         </div>
-
 	                </div>
                 </div>
             </div>
@@ -563,7 +561,7 @@
                             </div>
                             <div id="collapse40" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>some text <a href="https://www.youtube.com/watch?v=Rh-4tXTeX0g"></a></p>
                                 </div>
                             </div>
                         </div>
@@ -656,7 +654,7 @@
                             </div>
                             <div id="collapse52" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>some text <a href="https://www.youtube.com/watch?v=Hmou9AM6z-8"> </a></p>
                                 </div>
                             </div>
                         </div>
@@ -687,6 +685,18 @@
                             </div>
                         </div>
 
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner5" href="#collapse55">Run a workflow</a>
+                                </h4>
+                            </div>
+                            <div id="collapse55" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text <a href="https://www.youtube.com/watch?v=KZf9Cwy62YQ"></a></p>
+                                </div>
+                            </div>
+                        </div>
 	                </div>
                 </div>
             </div>
@@ -710,7 +720,8 @@
                             </div>
                             <div id="collapse60" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -794,11 +805,101 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse72">Galaxy options</a>
+                                </h4>
+                            </div>
+                            <div id="collapse72" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+
 	                </div>
 
                 </div>
             </div>
         </div>
+
+<!--Add when we do implement notebooks-------------------------------------------------------------------------------------------------
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseNine">Jupyter Notebooks</a>
+                </h4>
+            </div>
+            <div id="collapseNine" class="panel-collapse collapse">
+                <div class="panel-body">
+
+	                <div class="help-inner-panel" id="accordion-inner9">
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner9" href="#collapse90">Open a notebook</a>
+                                </h4>
+                            </div>
+                            <div id="collapse90" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner9" href="#collapse91">Jupyter Notebook anatomy</a>
+                                </h4>
+                            </div>
+                            <div id="collapse91" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner9" href="#collapse92">Basic Notebook commands to communicate with Galaxy</a>
+                                </h4>
+                            </div>
+                            <div id="collapse92" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner9" href="#collapse93">Run a Notebook</a>
+                                </h4>
+                            </div>
+                            <div id="collapse93" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner9" href="#collapse94">More about Jupyter Notebooks</a>
+                                </h4>
+                            </div>
+                            <div id="collapse94" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>some text</p>
+                                </div>
+                            </div>
+                        </div>
+	                </div>
+                </div>
+            </div>
+        </div>
+------------------------------------------------------------------------------------------------------------------------------------------------------>
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -830,7 +931,7 @@
                             </div>
                             <div id="collapse81" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>some text</p>
+                                    <p>SOP: click on i/stderr for more info. if  that doesn't help, please copy and send to us</p>
                                 </div>
                             </div>
                         </div>
