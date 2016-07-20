@@ -57,7 +57,7 @@ def get_pop_prop(input_files, summary_stat, mfi_stats, marker_names, mfi_calc):
             cs = pd.read_table(files)
             tot[files] = len(cs.index)
             for pops in cs.Population:
-                if pops in popcount[files]:
+                if pops in pop_count[files]:
                     pop_count[files][pops] += 1
                 else:
                     pop_count[files][pops] = 1
