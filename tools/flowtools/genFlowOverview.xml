@@ -100,39 +100,39 @@ Summary of the data:
 
 The comment field of this table is editable, and can be used to name the populations. The edited values are used to populate the legends of the other graphs. The columns are re-orderable. The 'col visibility' button allows to choose which columns to display. 'CSV', 'PDF' and 'Copy' respectively allow to download a comma-separated values file, a pdf version or to copy to your clipboard in a tab-separated format the current view of the table.
 
-.. image:: static/images/summary.png
+.. image:: ../../static/images/flowtools/summary.png
 
-.. image:: static/images/edit_summary.png
+.. image:: ../../static/images/flowtools/edit_summary.png
 
 
 Scatterplots overview:
 
-.. image:: static/images/overview.png
+.. image:: ../../static/images/flowtools/overview.png
 
 2D Scatterplot: 
 
 The user can choose which populations and markers to display. The Plotly toolbar allows more control over the display of the graph. There is an option to save the plot as a png file.
 
-.. image:: static/images/scatter2D.png
+.. image:: ../../static/images/flowtools/scatter2D.png
 
 3D Scatterplot: 
 
 The user can choose which populations and markers to display. The Plotly toolbar allows more control over the display of the graph. There is an option to save the plot as a png file.
 
-.. image:: static/images/scatter3D.png
+.. image:: ../../static/images/flowtools/scatter3D.png
 
 Parallel Coordinates. 
 
 The user can reorder the markers, and choose which populations to display either by selecting them in the legends via checkboxes or by selecting them on the graph. Data selected for display is shown in the table below the graph. Mousing over a line in that table highlights the corresponding line on the graph. The 'col visibility' button allows to choose which columns to display. 'CSV', 'PDF' and 'Copy' respectively allow to download a comma-separated values file, a pdf version or to copy to your clipboard in a tab-separated format the current view of the table.
 
-.. image:: static/images/pcflock.png
+.. image:: ../../static/images/flowtools/pcflock.png
 
 If the ontology option was selected, the following two tabs are displayed.
 The CL terms hyperlink to their representation in the Immport Cell Ontology browser. The full flowCL run summary is accessible by clicking on the phenotype.
 
-.. image:: static/images/profileCL.png
+.. image:: ../../static/images/flowtools/profileCL.png
 
-.. image:: static/images/popprofiles.png
+.. image:: ../../static/images/flowtools/popprofiles.png
 
  ]]>
  </help>
