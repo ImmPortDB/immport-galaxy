@@ -23,7 +23,7 @@ def cs_overview(input_file, input_mfi, output_file, output_dir, tools_dir):
     copyfile(input_file, cs_overview_file)
 
     cs_overview_mfis = output_dir + "/csAllMFIs.tsv"
-    copyfile(input_mfi, csoverview_mfis)
+    copyfile(input_mfi, cs_overview_mfis)
 
 if __name__ == "__main__":
     parser = ArgumentParser(
