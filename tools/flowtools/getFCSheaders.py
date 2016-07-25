@@ -31,9 +31,9 @@ def print_fcs_headers(files, filenames, outfile, tool_dir):
 
     with open(outfile, "w") as outf:
         for i, flc in enumerate(files):
-            outf.write("\t".join([filenames[i], "channels", headers[flc][0]]))
+            outf.write("\t".join([filenames[i], "channels", headers[flc][0]]) + "\n")
         for j, flm in enumerate(files):
-            outf.write("\t".join([filenames[j], "markers", headers[flm][1]]))
+            outf.write("\t".join([filenames[j], "markers", headers[flm][1]]) + "\n")
     return
 
 if __name__ == "__main__":

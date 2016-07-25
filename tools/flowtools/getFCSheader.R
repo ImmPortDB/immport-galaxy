@@ -11,7 +11,6 @@ library(flowCore)
 
 getFCSMarkerNames <- function(input, output) {
   fcs <- read.FCS(input, transformation=F)
-  
   ## marker names
   channels <- colnames(fcs)
   markers <- as.vector(pData(parameters(fcs))$desc)
@@ -31,7 +30,7 @@ checkFCS <- function(input_file, output_file) {
   })
 
   if (isValid) {
-    getMarkerNames(input_file, output_file)
+    getFCSMarkerNames(input_file, output_file)
   } else {
     print (paste(input_file, "does not meet FCS standard"))
   }
