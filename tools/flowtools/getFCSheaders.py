@@ -22,7 +22,7 @@ def get_fcs_marker_list(marker_file):
 
 def print_fcs_headers(files, filenames, outfile, tool_dir):
     headers = {}
-    tool = "/".join([tool_dir, "getFCSHeader.R"])
+    tool = "/".join([tool_dir, "getFCSheader.R"])
     for eachfile in files:
         tmp_output = "tmp_fcs_headers.txt"
         run_command = " ". join(["Rscript --slave --vanilla", tool, "--args", eachfile, tmp_output])
