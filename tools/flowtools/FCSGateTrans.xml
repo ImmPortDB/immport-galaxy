@@ -9,12 +9,26 @@
     <exit_code range="2:" level="fatal" description="See stderr for more details." />
   </stdio>
   <command><![CDATA[
-      Rscript --slave --vanilla $__tool_directory__/FCSGateTrans.R --args "${input}" "${output}" $comp "${fcsout}" "${graph}" "${report}"
+      Rscript --slave --vanilla $__tool_directory__/FCSGateTrans.R --args "${input}" "${output}" $comp "${fcsout}" "${graph}" "${report}" "${transform.trans_method}"
+    #if $transform.trans_method == "arcsinh"
+      $transform.scaling_factor
+    #end if
   ]]>
   </command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS file"/>
     <param name="comp" type="boolean" checked="false" truevalue="TRUE" falsevalue="FALSE" label="Compensate?"/>
+    <conditional name="transform">
+        <param name="trans_method" type="select" label="Transformation using:" help="by default, FCSTrans">
+            <option value="logicle">FCSTrans</option>
+            <option value="arcsinh">arcsinh</option>
+            <option value="None">no transformation please.</option>
+        </param>
+        <when value="arcsinh">
+            <param name="scaling_factor" type="integer" min="1" max="200" value="150" label="Scaling factor b for arcsinh transform:" help="The default value is 150 for standard FCM data. The recommended value for cyTOF data is 5.">
+            </param>
+        </when>
+    </conditional>
     <param name="gate" type="select" label="Automatically gate debris?">
       <option value="FALSE">No, thank you</option>
       <option value="TRUE">Yes, please</option>
@@ -42,13 +56,32 @@
       <param name="comp" value="FALSE"/>
       <param name="gate" value="FALSE"/>
       <param name="format" value="FALSE"/>
+      <param name="trans_method" value="logicle"/>
       <output name="output" file="nocomp.flowtext"/>
+    </test>
+    <test>
+      <param name="input" value="testfcs1.fcs"/>
+      <param name="comp" value="FALSE"/>
+      <param name="gate" value="FALSE"/>
+      <param name="format" value="FALSE"/>
+      <param name="trans_method" value="None"/>
+      <output name="output" file="notrans.flowtext"/>
+    </test>
+    <test>
+      <param name="input" value="testfcs1.fcs"/>
+      <param name="comp" value="FALSE"/>
+      <param name="gate" value="FALSE"/>
+      <param name="format" value="FALSE"/>
+      <param name="trans_method" value="arcsinh"/>
+      <param name="scaling_factor" value="150"/>
+      <output name="output" file="arcsinh150.flowtext"/>
     </test>
     <test>
       <param name="input" value="testfcs1.fcs"/>
       <param name="comp" value="TRUE"/>
       <param name="gate" value="FALSE"/>
       <param name="format" value="FALSE"/>
+      <param name="trans_method" value="logicle"/>
       <output name="output" file="withcomp.flowtext"/>
     </test>
     <test>
@@ -56,6 +89,7 @@
       <param name="comp" value="TRUE"/>
       <param name="gate" value="TRUE"/>
       <param name="format" value="FALSE"/>
+      <param name="trans_method" value="logicle"/>
       <output name="output" file="withcomp.flowtext"/>
       <output name="graph" file="graph.pdf" compare="sim_size"/>
       <output name="report" file="report.txt"/>
@@ -65,6 +99,7 @@
       <param name="comp" value="TRUE"/>
       <param name="gate" value="TRUE"/>
       <param name="format" value="TRUE"/>
+      <param name="trans_method" value="logicle"/>
       <output name="output" file="withcomp.flowtext"/>
       <output name="fcsout" file="comp_gated.fcs" compare="sim_size"/>
       <output name="graph" file="graph.pdf" compare="sim_size"/>
@@ -73,12 +108,12 @@
   </tests>
  <help><![CDATA[
    This tool allows automated gating of debris using flowDensity and conversion of FCS files to text using the FCSTrans transformation.
-   
+
 -----
 
 **Input files**
 
-This tool uses FCS files as input and files are processed serially. Users choose to automatically gate cellular debris, and/or compensate the data. 
+This tool uses FCS files as input and files are processed serially. Users choose to automatically gate cellular debris, and/or compensate the data.
 
 **Output files**
 
@@ -88,6 +123,10 @@ If the option is selected, a FCS file (format FCS3.0) is generated.
 **Gating output**
 
 Automatically gated output includes a summary of data pre- and post-gating as well as density scatter plots pre- and post- gating for each marker pair.
+
+-----
+
+Compensation will be implemented according to the spillover matrix included in the FCS files (if available).
 
 -----
 
@@ -116,8 +155,8 @@ Users should verify whether data benefit from being gated. We recommend evaluati
    =========================
    ==    BEFORE GATING    ==
    =========================
-       events parameters 
-       203584         13 
+       events parameters
+       203584         13
            FSC-A FSC-H SSC-A  SSC-H APC-A APC-H7-A FITC-A PerCP-Cy5-5-A V450-A V500-A   PE-A PE-Cy7-A  Time
    Min.        0    78     0    0.0     0      0.0      0             0      0      0    0.0        0     0
    1st Qu.   869   769   544  514.0   940      0.0   1023           826    978   1104  358.8      913  4182
@@ -129,11 +168,11 @@ Users should verify whether data benefit from being gated. We recommend evaluati
    =========================
    ==    AFTER  GATING    ==
    =========================
-       events parameters 
-       171547         13 
+       events parameters
+       171547         13
            FSC-A FSC-H  SSC-A  SSC-H APC-A APC-H7-A FITC-A PerCP-Cy5-5-A V450-A V500-A PE-A PE-Cy7-A  Time
    Min.      403   219    1.0    4.0     0      0.0      0             0      0      0    0        0     0
-   1st Qu.   949   849  599.0  565.0   979      0.0   1063           943   1203   1119  444     1060  4182 
+   1st Qu.   949   849  599.0  565.0   979      0.0   1063           943   1203   1119  444     1060  4182
    Median   1348  1170  782.0  730.0  1809      0.0   1258          1717   2082   1493 1785     1883  8358
    Mean     1353  1177  989.2  885.9  1642    779.4   1330          1678   1778   1753 1458     1873  8504
    3rd Qu.  1670  1475 1204.0 1076.0  2322   1559.0   1591          2623   2345   2630 2289     2808 12700

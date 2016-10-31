@@ -5,6 +5,7 @@ import sys
 import os
 from argparse import ArgumentParser
 import pandas as pd
+from scipy.stats import gmean
 
 def generate_MFI(input_file_name, output_file_name, mfi_calc):
     flockdf = pd.read_table(input_file_name)

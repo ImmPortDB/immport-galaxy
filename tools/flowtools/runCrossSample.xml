@@ -17,7 +17,7 @@
  ]]>
   </command>
   <inputs>
-    <param format="flowtext" name="input" type="data_collection" collection_type="list" label="Flow text files Collection"/>
+    <param format="flowtext" name="input" type="data_collection" collection_type="list" label="Flowtext files Collection"/>
     <param format="flowmfi" name="centroid" type="data" label="Centroid file"/>
     <param name="mfi" type="select" label="Calculate centroids using:">
       <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
@@ -27,7 +27,7 @@
   </inputs>
   <outputs>
     <collection type="list" label="CrossSample on ${input.name}" name="output">
-      <discover_datasets pattern="(?P&lt;name&gt;.*)" directory="crossSampleOutputs" />
+        <discover_datasets pattern="(?P&lt;name&gt;.*)" directory="crossSampleOutputs" format="flowclr" />
     </collection>
     <data format="flowstat1" name="stats" label="Population distribution after CrossSample on ${input.name} using ${mfi}"/>
     <data format="flowstat2" name="mfistats" label="${mfi} centroids of CrossSample on ${input.name} using ${mfi}"/>
@@ -48,9 +48,9 @@
       <output name="allstats" file="out1.flowstat3"/>
       <output name="mfistats" file="out1.flowstat2" compare="sim_size"/>
       <output_collection name="output" type="list" count="3">
-        <element name="input1" file="run1/input1.flowtext.crossSample"/>
-        <element name="input2" file="run1/input2.flowtext.crossSample"/>
-        <element name="input3" file="run1/input3.flowtext.crossSample"/>
+        <element name="input1" file="run1/input1.flowtext.flowclr"/>
+        <element name="input2" file="run1/input2.flowtext.flowclr"/>
+        <element name="input3" file="run1/input3.flowtext.flowclr"/>
       </output_collection>
     </test>
     <test>
@@ -67,15 +67,15 @@
       <output name="allstats" file="out2.flowstat3"/>
       <output name="mfistats" file="out2.flowstat2" compare="sim_size"/>
       <output_collection name="output" type="list" count="3">
-        <element name="input1" file="run2/input1.flowtext.crossSample"/>
-        <element name="input2" file="run2/input2.flowtext.crossSample"/>
-        <element name="input3" file="run2/input3.flowtext.crossSample"/>
+        <element name="input1" file="run2/input1.flowtext.flowclr"/>
+        <element name="input2" file="run2/input2.flowtext.flowclr"/>
+        <element name="input3" file="run2/input3.flowtext.flowclr"/>
       </output_collection>
     </test>
   </tests>
   <help><![CDATA[
    This tool runs CrossSample using the MFI from FLOCK and text-converted FCS files.
-   
+
 -----
 
 **Input**
@@ -94,7 +94,7 @@ A table of the population composition of each file is generated as well as MFI a
 .. class:: infomark
 
 Tip: If headers in each text-converted FCS file do not match those in the centroid file, the program will not run. Edit the input file using the Remove, rearrange and/or rename columns tool in the Flow File Tools section prior to Cross Sample analysis.
- 
+
 -----
 
 **Example**

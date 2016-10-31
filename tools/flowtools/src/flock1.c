@@ -724,7 +724,7 @@ int select_bin(double **normalized_data, int file_Len, int num_dm, int min_grid,
 
    if ((select_num_bin<min_grid) || (select_num_bin>max_grid))
   {
-    fprintf(stderr,"Number of events collected is too few in terms of number of markers used. The file should not be processed!\n"); //modified on Nov 4, 2010
+    fprintf (stderr,"Number of events collected is too few in terms of number of markers used. The file should not be processed!\n%d\n%d\n%d\n", select_num_bin, min_grid,max_grid); //modified on Nov 4, 2010
 	exit(0);
   }
 	

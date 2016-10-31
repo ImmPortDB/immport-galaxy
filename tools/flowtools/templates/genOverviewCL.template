@@ -47,7 +47,6 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <li class="homeTab" data-value="scatter3D"><a href="#scatter3D" data-toggle="tab">Scatter 3D</a></li>
                 <li class="homeTab" data-value="parallelCoordinates"><a href="#parallelCoordinates" data-toggle="tab">Parallel Coordinates</a></li>
                 <li class="homeTab" data-value="clprofiles"><a href="#clprofiles" data-toggle="tab">Populations Cell Ontologies</a></li>
-                <li class="homeTab" data-value="scores"><a href="#scores" data-toggle="tab">Populations Score Profiles</a></li>
             </ul>
 
             <div class="tab-content">
@@ -163,11 +162,6 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     </div>
                 </div>
                 </div>
-                <div class="tab-pane" id="scores" style="height:800px;">
-                    <div class="row">
-                        <div id="scoretbl"/>
-                    </div>
-                </div>
             </div>				
   	    </div>
     </div>
@@ -187,7 +181,6 @@ var scatter2DLoaded = false;
 var scatter3DLoaded = false;
 var parallelCoordinatesLoaded = false;
 var clprofilesLoaded = false;
-var scoresLoaded = false;
 
 $().ready(function() {
     $(document).on('shown.bs.tab','a[data-toggle="tab"]', function(e) {
@@ -237,13 +230,6 @@ $().ready(function() {
         }
         clprofilesLoaded = true;
         displayCLTable();
-      }
-      if (tab == '#scores') {
-        if (scoresLoaded) {
-            return true;
-        }
-        scoresLoaded = true;
-        displayScoresTable();
       }
     });
 

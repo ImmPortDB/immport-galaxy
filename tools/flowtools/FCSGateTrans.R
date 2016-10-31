@@ -1,7 +1,7 @@
 #
 # ImmPort FCS conversion program
 # Authors: Yue Liu and Yu "Max" Qian
-# 
+#
 # Reference: FCSTrans: An open source software system for FCS
 #            file conversion and data transformation
 #            Qian Y, Liu Y, Campbell J, Thomson E, Kong YM,
@@ -28,11 +28,11 @@
 # Version 1.5
 # March 2016 -- added lines to run directly from command line (cristel thomas)
 # May 2016 -- added automated gating (cristel thomas)
+# August 2016 -- added options for data transformation (cristel thomas)
 
 library(flowCore)
 library(flowDensity)
 library(GEOmap)
-
 #
 # Set output to 0 when input is less than cutoff value
 #
@@ -43,7 +43,6 @@ ipfloor <- function (x, cutoff=0, target=0) {
   }
   return(y)
 }
-
 #
 # Set output to 0 when input is less than cutoff value
 #
@@ -54,7 +53,6 @@ ipceil <- function (x, cutoff=0, target=0) {
   }
   return(y)
 }
-
 #
 # Calculation core of iplogicle
 #
@@ -66,7 +64,7 @@ iplogicore <- function (x, w, r, d, scale) {
   p <- if (w == 0) {
          1
        } else {
-         uniroot(function(p) -w + 2 * p * log(p)/(p + 1), c(.Machine$double.eps, 
+         uniroot(function(p) -w + 2 * p * log(p)/(p + 1), c(.Machine$double.eps,
          2 * (w + d)))$root
        }
   a <- r * exp(-(d - w))
@@ -74,11 +72,11 @@ iplogicore <- function (x, w, r, d, scale) {
   c <- r * exp(-(d - w)) * p^2
   d <- 1/p
   f <- a * (p^2 - 1)
-  y <- .Call("flowCore_biexponential_transform", PACKAGE= 'flowCore', as.double(x), a, b, c, d, f, w, tol, maxit)
+  y <- .Call("flowCore_biexponential_transform", PACKAGE= 'flowCore',
+             as.double(x), a, b, c, d, f, w, tol, maxit)
   y <- sapply(y * scale, ipfloor)
   return(y)
 }
-
 #
 # Function for calculating w
 #
@@ -88,7 +86,6 @@ iplogiclew <- function (w, cutoff=-111, r=262144, d=4.5, scale=1) {
   y <- iplogicore(cutoff, w, r, d, scale) - .Machine$double.eps^0.6
   return(y)
 }
-
 #
 # ImmPort logicle function - convert fluorescent marker values to channel output
 #
@@ -102,7 +99,6 @@ iplogicle <- function (x, r=262144, d=4.5, range=4096, cutoff=-111, w=-1) {
   y <- iplogicore(x, w, r, d, range)
   return(y)
 }
-
 #
 # Convert fluorescent values to channel output using log transformation
 #
@@ -111,7 +107,6 @@ iplog <- function(x) {
   y <- 1024 * log10(x) - 488.6
   return(y)
 }
-
 #
 # ImmPort linear function - convert scatter values to channel output
 # linear transformation
@@ -122,7 +117,6 @@ ipscatter <- function (x, channelrange=262144) {
   y <- sapply(y, ipceil, cutoff=4095, target=4095)
   return(y)
 }
-
 #
 # ImmPort time function - convert time values to channel output
 # linear transformation
@@ -131,7 +125,6 @@ iptime <- function (x, channelrange) {
   y <- sapply(x, ipfloor)
   return(y)
 }
-
 #
 # Determine the type of marker. Marker type is used
 # to determine type of transformation to apply for this channel.
@@ -173,7 +166,6 @@ getMarkerType <- function(name,debug=FALSE) {
   }
   return(type)
 }
-
 #
 # Scale data
 #
@@ -188,14 +180,12 @@ scaleData <- function(data, channelrange=0) {
   data <- 262144 * data / channelrange
   return(data)
 }
-
 #
 # Check if AccuriData. Accuri data needs different conversion
 #
 isAccuriData <- function(keywords) {
   isTRUE(as.character(keywords$"$CYT") == "Accuri C6")
 }
-
 #
 # Convert FCS file
 #
@@ -205,7 +195,6 @@ convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
     print("convertFCS requires flowFrame object as input")
     return(FALSE)
   }
-
   keywords <- keyword(fcs)
   markers <- colnames(fcs)
   params <- fcs@parameters
@@ -216,7 +205,6 @@ convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
     print(paste("    FCS version:", keywords$FCSversion))
     print(paste("    DATATYPE:", keywords['$DATATYPE']))
   }
-
   if (keywords$FCSversion == "2" || keywords$FCSversion == "3" ||
       keywords$FCSversion == "3.1" ) {
     datatype <- unlist(keywords['$DATATYPE'])
@@ -231,7 +219,6 @@ convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
         tryCatch({fcs = compensate(fcs, spill)},
                   error = function(ex) {str(ex); })
       }
-
       # Process fcs expression data, using transformation
       # based on category of the marker.
       fcs_exprs <- exprs(fcs)
@@ -247,7 +234,7 @@ convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
           print(paste("    Marker type:", markertype))
           print(paste("    Range value:", keywords[rangekeyword]))
         }
-        
+
         if (markertype == "TIME") {
           channel <- iptime(fcs_exprs[, i])
         } else {
@@ -282,20 +269,16 @@ convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
     fcs_channel <- exprs(fcs)
     colnames(fcs_channel) <- markers
   }
-  
   newfcs <- flowFrame(fcs_channel, params, list_description)
-  return(newfcs)  
+  return(newfcs)
 }
-
-
 #
 # Starting function for processing a FCS file
 #
-processFCSFile <- function(input_file, output_file="", compensate=FALSE, 
+processFCSFile <- function(input_file, output_file="", compensate=FALSE,
                            fcsformat=FALSE, fcsfile="",
-                           gate=FALSE, graph_file="", report="", 
-                           debug=FALSE) {
-
+                           gate=FALSE, graph_file="", report="", method="",
+                           scaling_factor, debug=FALSE) {
   #
   # Generate the file names for the output_file
   #
@@ -307,7 +290,6 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
     print (paste("Original file name: ",filename))
     print (paste("Output file name: ",output_file))
   }
-
   fcs <- read.FCS(input_file, transformation=F)
   keywords <- keyword(fcs)
   markers <- colnames(fcs)
@@ -318,35 +300,44 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
       print_markers[i] <- markers[i]
     }
   }
-
-  # 
+  #
   # Transform the data
   #
+  transformed_data <- fcs
   if (isAccuriData(keywords)) {
     print("Accuri data is not supported")
   } else {
-    transformed_data <- convertFCS(fcs,compensate,debug)
+    if (method == "arcsinh"){
+      channels_to_exclude <- c(grep(colnames(fcs), pattern="FSC"),
+                               grep(colnames(fcs), pattern="SSC"),
+                               grep(colnames(fcs), pattern="Time"))
+      list_channels <- colnames(fcs)[-channels_to_exclude]
+      trans <- arcsinhTransform(transformationId="defaultArcsinhTransform",
+                                a = 0, b = scaling_factor, c = 0)
+      translist <- transformList(list_channels, trans)
+      transformed_data <- transform(fcs, translist)
+    } else if (method == "logicle"){
+      transformed_data <- convertFCS(fcs,compensate,debug)
+    }
   }
-
   trans_gated_data <- transformed_data
-
   #
   # Gate data
   #
   if (gate){
     # check that there are SSC and FSC channels to gate on
-    chans <- c(grep(colnames(transformed_data), pattern="FSC"), 
+    chans <- c(grep(colnames(transformed_data), pattern="FSC"),
                grep(colnames(transformed_data), pattern="SSC"))
     totalchans <- chans
     if (length(chans) > 2) {
       #get first FSC and corresponding SSC
-      chans <- c(grep(colnames(transformed_data), pattern="FSC-A"), 
+      chans <- c(grep(colnames(transformed_data), pattern="FSC-A"),
                  grep(colnames(transformed_data), pattern="SSC-A"))
       if (length(chans) == 0) {
-        chans <- c(grep(colnames(transformed_data), pattern="FSC-H"), 
+        chans <- c(grep(colnames(transformed_data), pattern="FSC-H"),
                    grep(colnames(transformed_data), pattern="SSC-H"))
         if (length(chans) == 0) {
-          chans <- c(grep(colnames(transformed_data), pattern="FSC-W"), 
+          chans <- c(grep(colnames(transformed_data), pattern="FSC-W"),
                      grep(colnames(transformed_data), pattern="SSC-W"))
         }
       }
@@ -355,16 +346,16 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
       warning('No forward/side scatter channels found, gating aborted.')
     } else {
       # gate lymphocytes
-      lymph <- flowDensity(obj=transformed_data, channels=chans, 
-                           position=c(TRUE, NA),  
+      lymph <- flowDensity(obj=transformed_data, channels=chans,
+                           position=c(TRUE, NA),
                            debris.gate=c(TRUE, FALSE))
       # gate singlets if A and H/W
       if (length(totalchans) > 2) {
-          trans_gated_data <- getflowFrame(flowDensity(obj=lymph, singlet.gate=TRUE))
+          trans_gated_data <- getflowFrame(flowDensity(obj=lymph,
+                                           singlet.gate=TRUE))
       } else {
         trans_gated_data <- getflowFrame(lymph)
       }
-
       # report
       pregating_summary <- capture.output(summary(transformed_data))
       pregating_dim <- capture.output(dim(transformed_data))
@@ -380,43 +371,41 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
       cat("#########################\n")
       cat(postgating_dim, postgating_summary, sep="\n")
       sink()
-             
       # plots
-      pdf(graph_file, useDingbats=FALSE, onefile=TRUE) 
+      pdf(graph_file, useDingbats=FALSE, onefile=TRUE)
       par(mfrow=c(2,2))
       time_channel <- grep(toupper(colnames(transformed_data)), pattern="TIME")
       nb_markers <- length(colnames(transformed_data)) - length(time_channel)
       maxrange <- transformed_data@parameters@data$range[1]
       for (m in 1:(nb_markers - 1)) {
         for (n in (m+1):nb_markers) {
-          plotDens(transformed_data, c(m,n), xlab = print_markers[m], ylab = print_markers[n], 
-                   main = "Before Gating", ylim = c(0, maxrange), xlim = c(0, maxrange))
-          plotDens(trans_gated_data, c(m,n), xlab = print_markers[m], ylab = print_markers[n], 
-                   main = "After Gating", ylim = c(0, maxrange), xlim = c(0, maxrange))
+          plotDens(transformed_data, c(m,n), xlab = print_markers[m],
+                   ylab = print_markers[n], main = "Before Gating",
+                   ylim = c(0, maxrange), xlim = c(0, maxrange))
+          plotDens(trans_gated_data, c(m,n), xlab = print_markers[m],
+                   ylab = print_markers[n], main = "After Gating",
+                   ylim = c(0, maxrange), xlim = c(0, maxrange))
         }
       }
       dev.off()
     }
   }
-  
   if (fcsformat) {
     write.FCS(trans_gated_data, fcsfile)
   }
-  
-  output_data <- exprs(trans_gated_data)    
+  output_data <- exprs(trans_gated_data)
   colnames(output_data) <- print_markers
   write.table(output_data, file=output_file, quote=F,
               row.names=F,col.names=T, sep='\t', append=F)
 }
-
 # Convert FCS file using FCSTrans logicile transformation
 # @param input_file     FCS file to be transformed
 # @param output_file    FCS file transformed ".txt" extension
 # @param compensate     Flag indicating whether to apply compensation
 #                       matrix if it exists.
-transformFCS <- function(input_file, output_file, compensate=FALSE, 
-                         fcsformat=FALSE, fcsfile="", 
-                         gate=FALSE, graph_file="", report_file="", 
+transformFCS <- function(input_file, output_file, compensate=FALSE,
+                         fcsformat=FALSE, fcsfile="", gate=FALSE, graph_file="",
+                         report_file="", trans_met="", scaling_factor="",
                          debug=FALSE) {
   isValid <- F
   # Check file beginning matches FCS standard
@@ -425,14 +414,13 @@ transformFCS <- function(input_file, output_file, compensate=FALSE,
   }, error = function(ex) {
     print (paste("    ! Error in isFCSfile", ex))
   })
-
   if (isValid) {
-    processFCSFile(input_file, output_file, compensate, fcsformat, fcsfile, gate, graph_file, report_file)
+    processFCSFile(input_file, output_file, compensate, fcsformat, fcsfile,
+                   gate, graph_file, report_file, trans_met, scaling_factor)
   } else {
     print (paste(input_file, "does not meet FCS standard"))
   }
 }
-
 #
 # Run FCS Gate-Trans
 #
@@ -442,6 +430,8 @@ report <- ""
 fcsoutput_file <- ""
 fcsoutput <- FALSE
 gate <- FALSE
+trans_method <- "None"
+scaling_factor <- 1 / 150
 if (args[5]!="None") {
   fcsoutput <- TRUE
   fcsoutput_file <- args[5]
@@ -451,6 +441,11 @@ if (args[6]!="None") {
   graphs <- args[6]
   report <- args[7]
 }
-
-transformFCS(args[2], args[3], args[4], fcsoutput, fcsoutput_file, gate, graphs, report)
-
+if (args[8]!="None"){
+  trans_method <- args[8]
+  if (args[8] == "arcsinh"){
+    scaling_factor <- 1 / as.numeric(args[9])
+  }
+}
+transformFCS(args[2], args[3], args[4], fcsoutput, fcsoutput_file, gate, graphs,
+             report, trans_method, scaling_factor)

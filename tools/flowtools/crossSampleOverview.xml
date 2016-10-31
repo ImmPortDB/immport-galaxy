@@ -35,12 +35,6 @@
    
 -----
 
-.. class:: warningmark
-
-*This version of the tool does NOT support column editing. Please go to immportgalaxy.org if you wish to use this feature.pytho*
-
------
-
 **Input**
 
 Input files are summary tables generated from a CrossSample analysis (tab-separated file containing counts of events in each population for each file run through CrossSample and a tab-separated file containing the MFI for each marker in each population for each file.)
@@ -48,6 +42,10 @@ Input files are summary tables generated from a CrossSample analysis (tab-separa
 **Output**
 
 The output is a page that allows visualization of the data. 
+
+.. class:: warningmark
+
+*The output of this tool is interactive. However, comments or any other modifications made are not saved when exiting the view.*
 
 -----
 

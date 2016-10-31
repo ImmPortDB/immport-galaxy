@@ -9,7 +9,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/static/flowtools/css/immportgalaxy.css" type="text/css">
     <link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
-	<link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/static/flowtools/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
     <!--js-->
     <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -19,7 +19,6 @@
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-target-menu-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -28,45 +27,30 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        
+
         <div class="collapse navbar-collapse navbar-site-main" id="navbar-target-menu-collapse">
             <ul class="nav navbar-nav navbar-left">
                 <li class="menu-immport-org">
                     <a href="http://immport.org" target="_blank">
-                        <img class="main-site-logo" src="/static/images/home/immport-logo-black-background.png">
+                        <img class="main-site-logo" src="/static/images/flowtools/home/immport-logo-black-background.png">
                         <span class="title-menu">ImmPort</span>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Applications<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-
-                       <li><a href="http://www.immport.org/immport-open/public/home/studySearch" target="_blank">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-icon-blue.png"
-                            th:src="@{/images/header/immport-icon-blue.png}" />
-                            Search/Download
+                        <li><a href="https://ai-biscdatamgtqa1.niaid.nih.gov:8443/home">
+                            <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-logo-image-32.png" />
+                            Private Data
                         </a></li>
-                        <li><a href="https://immport.niaid.nih.gov" target="_blank">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
-                            th:src="@{/images/header/immport-logo-image-32.png}" />
-                            Upload
+                        <li><a href="http://www.immport.org/immport-open/public/home/studySearch" >
+                            <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-icon-blue.png" />
+                            Shared Data
                         </a></li>
-                        <li><a href="http://immport-submission.niaid.nih.gov/downloads/" target="_blank">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
-                            th:src="@{/images/header/immport-logo-image-32.png}" />
-                            Data Upload Validator
-                        </a></li>
-                        <li><a href="https://immport.niaid.nih.gov/immportWeb/analysis/flow/displayOverview.do?method=displayManagementOverview" target="_blank">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
-                            th:src="@{/images/header/immport-logo-image-32.png}" />
-                            FLOCK
-                        </a></li>
-                        <li><a href="http://immportgalaxy.org/" target="_blank">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-icon-green.png"
-                            th:src="@{/images/header/immport-icon-green.png}" />
-                            ImmPort Galaxy
+                        <li><a href="https://immportgalaxy.org/">
+                            <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-icon-green.png" />
+                            Data Analysis
                         </a></li>
                     </ul>
                 </li>
@@ -84,56 +68,49 @@
                         <li><a href="http://www.immport.org/immport-open/public/home/teamCurrent" target="_blank">Team</a></li>
                         <li><a href="http://www.immport.org/immport-open/public/home/about" target="_blank">What is ImmPort?</a></li>
                     </ul>
-                </li>
+                  </li>
+                  <li><a href="https://ai-biscusradmqa1.niaid.nih.gov:8443/registrationuser/registration"> Register </a></li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container" style="margin-top:10px;">
-    <div class="row" style="padding-bottom:10px;">
-    	<div class="col-md-12">
-    		<div class="immport-notice" style="display:none;">
-		        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-					<div class="immport-notice-content"></div>
-				</div>
-	        </div>
-    		<div class="immport-about">
-    			<div class="col-md-3 main-logo">
-            		<img src="/static/images/home/immportgalaxy_green_sharp.png" style="height:110px;"/>
-				</div>
-				<div class="col-md-9">
-					<p style="margin-top:20px;">
-    					<h4>Welcome to ImmPort Galaxy</h4>
-    				</p>
-                	<p>
-						<b><font color="red">This version of ImmPortGalaxy is a pre-alpha-release.</b><br> Don't take anything on this page for granted and expect unexpected "features". Thank you for your understanding!<br></font>
-					</p>
-		        	<p>
-		       Immport Galaxy is your resource for analyzing flow cytometry data. Create a login and get started! This <a href="immportgalaxyhelp.html" target="_blank">guide</a> can help you get things going.<br> Get data from <a href="http://www.immport.org/" target="_blank">Immport</a> or upload your own, and explore the tools on the left panel or use one of the available workflows.
-		       		</p>
-			   	 	<p>If there is a tool you would like to use, or if you'd like to contribute a tool please do contact us <a href="mailto:BISC_Helpdesk@niaid.nih.gov">here</a>.
-			   	 	</p>
-				</div>	
-	        </div>
-		</div>
-		<div class="col-md-8">
-		    <div>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLGdDPtK0UvobeIw7LOgQ_sJO18DITY_Nn&autoplay=1&loop=1" frameborder="0" allowfullscreen></iframe>
-		    </div>
-	    </div>
-	    <div class="col-md-4 right-info-panels">
-			<div class="panel panel-default">
-				<div class="panel-heading">Announcements</div>
-				<div class="panel-body">
-				</div>
-			</div>
-	    </div>
+    <div class="row" style="padding-bottom:30px;">
+        <div class="immport-notice" style="display:none;">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="immport-notice-content"></div>
+            </div>
+        </div>
+        <div class="immport-about">
+            <div class="col-md-3 main-logo">
+                <img src="/static/images/flowtools/home/immportgalaxy_green_sharp.png" style="height:130px;"/>
+            </div>
+            <div class="col-md-9">
+                <p style="margin-top:40px;">
+                    <h3 style="text-align:center;">Welcome to ImmPort Galaxy!</h3>
+                </p>
+            </div>
+        </div>
     </div>
     <div class="row" style="padding-bottom:10px;">
-    	<div class="col-md-8">
-            <div id="carousel-immport-share" class="carousel slide" data-ride="carousel">
+        <div class="col-md-7">
+            <div>
+                <iframe width="560" height="315" align="middle"  src="https://www.youtube.com/embed/videoseries?list=PLGdDPtK0UvobeIw7LOgQ_sJO18DITY_Nn&autoplay=1&loop=1" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="col-md-5 text-justify">
+            <p class="immport-warning"><b><font color="red">This version of ImmPortGalaxy is an alpha-release.</b><br> Don't take anything on this page for granted and expect unexpected "features". Thank you for your understanding!<br></font>
+            </p>
+            <p class="immport-banner">ImmPort Galaxy is your resource for analyzing flow cytometry data.<br>Create a login and get started! This <a href="immportgalaxyhelp.html" target="_blank">guide</a> can help you get things going. Get data from <a href="http://www.immport.org/" target="_blank">ImmPort</a>, upload your own or use one of the test datasets published in Shared Data. Explore available tools on the left panel or use one of the available published workflows in Shared Data.<br>
+            <br>If there is a tool you would like to use, or if you'd like to contribute a tool please do contact us <a href="mailto:BISC_Helpdesk@niaid.nih.gov">here</a>.
+            </p>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom:10px;">
+        <div class="col-md-12">
+            <div id="carousel-immport-share" class="carousel slide carousel-container" data-ride="carousel">
                 <div class="carousel-top-header">
                     <div class="carousel-top-title col-md-9">
                         &nbsp;<!-- Slide Title -->
@@ -143,93 +120,77 @@
                 </div>
                 <div class="carousel-inner">
                 </div>
-			</div>
-			<a class="left carousel-control" href="#carousel-immport-share" data-slide="prev">
-			    <span class="glyphicon glyphicon-chevron-left"></span>
-			</a>
-			<a class="right carousel-control" href="#carousel-immport-share" data-slide="next">
-			    <span class="glyphicon glyphicon-chevron-right"></span>
-			</a>
-        </div>
-    	<div class="col-md-4">
-            <div id="twitter_feed" width="25%">
-                <a class="twitter-timeline" href="https://twitter.com/ImmPortDB" data-widget-id="739893644740677632">Tweets by @ImmPortDB</a>
-            </div>       
+            </div>
+            <a class="left carousel-control" href="#carousel-immport-share" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-immport-share" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
         </div>
     </div>
 </div>
-    
 
 <div class="row-footer" style="padding-bottom:10px;">
     <div class="col-md-12">
         <p style="margin-top:20px;">
-	    <h4>What is ImmPort?</h4>
-    	</p>
-	<p>
-	    <a href="http://www.immport.org" target="_blank">OpenImmport</a> is your resource for searching and downloading shared biomedical research data funded from NIAID DAIT and DMID, and other NIH and non-government funding agencies. Additional resources available at OpenImmPort include step-by-step data reuse tutorials including example R and Python analysis code, the Cell Ontology Visualizer, the Cytokine Registry, and ImmuneXpresso - the cytokine and cell interaction literature mining tool.
-	</p>
+            <h4>What is ImmPort?</h4>
+        </p>
         <p>
-            <a href="https://immport.niaid.nih.gov" target="_blank">ImmPort</a> is the data submission portal where researchers upload, QC, and curate their data prior to sharing in OpenImmPort. 
-	</p>
-	<p style="margin-top:20px;">
-	    <h4>Galaxy Project</h4>
-	</p>
+            Search and download shared biomedical research data funded from NIAID DAIT and DMID, and other NIH and non-government funding agencies on <a href="http://www.immport.org" target="_blank">OpenImmPort</a>. Additional resources available include step-by-step data reuse tutorials including example R and Python analysis code, the Cell Ontology Visualizer, the Cytokine Registry, and ImmuneXpresso - the cytokine and cell interaction literature mining tool.<br>
+        </p>
         <p>
-	    ImmPort Galaxy was made possible by the <a href="https://wiki.galaxyproject.org/" target="_blank">Galaxy Project</a>.
-	</p>
-
+          ImmPort Galaxy is powered by the <a href="https://wiki.galaxyproject.org/" target="_blank">Galaxy Project</a>.
+        </p>
     </div>
     <div class="col-md-5">
-	<div class="block-header">Sponsored by:</div>
-	<ul>
-	    <li><a href="http://www.niaid.nih.gov/Pages/default.aspx" target="_blank">National Institute of Allergy and Infectious Diseases (NIAID)</a></li>
-	    <li><a href="http://www.nih.gov/" target="_blank">National Institutes of Health (NIH)</a></li>
-	    <li><a href="http://www.hhs.gov/" target="_blank">Health and Human Services (HHS)</a></li>
-	</ul>
+        <div class="block-header">Sponsored by:</div>
+        <ul>
+            <li><a href="http://www.niaid.nih.gov/Pages/default.aspx" target="_blank">National Institute of Allergy and Infectious Diseases (NIAID)</a></li>
+            <li><a href="http://www.nih.gov/" target="_blank">National Institutes of Health (NIH)</a></li>
+            <li><a href="http://www.hhs.gov/" target="_blank">Health and Human Services (HHS)</a></li>
+        </ul>
     </div>
     <div class="col-md-5">
-	<div class="block-header">
-	    <a href="mailto:BISC_Helpdesk@niaid.nih.gov">Contact Us</a> | 
-	    <a href="http://immport.org/immport-open/public/home/privacyPolicy" target="_blank">Privacy Policy</a> | 
-	    <a href="http://immport.org/immport-open/public/home/disclaimer" target="_blank">Disclaimer</a> | 
-	    <a href="http://immport.org/immport-open/public/home/accessibility" target="_blank">Accessibility</a>
-	</div>
+        <div class="block-header">
+            <a href="mailto:BISC_Helpdesk@niaid.nih.gov">Contact Us</a> |
+            <a href="http://immport.org/immport-open/public/home/privacyPolicy" target="_blank">Privacy Policy</a> |
+            <a href="http://immport.org/immport-open/public/home/disclaimer" target="_blank">Disclaimer</a> |
+            <a href="http://immport.org/immport-open/public/home/accessibility" target="_blank">Accessibility</a>
+        </div>
     </div>
     <div class="col-md-2">
-   	<div id="socialmedia-block" class="homePageText">
-	    <div class="title" style="margin-bottom:7px;">Connect with Us</div>
-		<div class="socialmedia-block-inner">
-		    <ul>
-			<script>(function(d, s, id) {
-			  	var js, fjs = d.getElementsByTagName(s)[0];
-			  	if (d.getElementById(id)) return;
-			  	js = d.createElement(s); js.id = id;
-			  	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-			  	fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));
-			</script>
-			<div class="fb-like" data-href="https://www.facebook.com/Immport" 
-				style="padding-bottom:3px;"
-				data-send="false" data-layout="button_count" data-width="650" 
-				data-show-faces="false" data-font="lucida grande"></div>
-			    <li class="twitter-link">
-		  	        <a class="twitter" href="https://twitter.com/#!/ImmPortDB" style="text-decoration: none" target="_blank">
-				<span>Twitter</span>
-				</a>
-		  	    </li>
-			    <li class="rss-link">
-				<a href="/immport-open/resources/rss/newsfeed.xml"  style="text-decoration: none" target="_blank">
-				<span>RSS Feed</span>
-				</a>
-			    </li>
-			    <li class="google-link">
-				<a href=" https://groups.google.com/d/forum/immport"  style="text-decoration: none" target="_blank">
-				<span>Google Group</span>
-				</a>
-			   </li>
-		     </ul>
-	        </div>
-	  </div>
+        <div id="socialmedia-block" class="homePageText">
+            <div class="title" style="margin-bottom:7px;">Connect with Us</div>
+            <div class="socialmedia-block-inner">
+                <ul>
+                    <script>(function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                        fjs.parentNode.insertBefore(js, fjs);
+                      }(document, 'script', 'facebook-jssdk'));
+                    </script>
+                    <div class="fb-like" data-href="https://www.facebook.com/ImmPort"
+                      style="padding-bottom:3px;"
+                      data-send="false" data-layout="button_count" data-width="650"
+                      data-show-faces="false" data-font="lucida grande"></div>
+                    <li class="twitter-link">
+                        <a class="twitter" href="https://twitter.com/#!/ImmPortDB" style="text-decoration: none" target="_blank"><span>Twitter</span>
+                        </a>
+                    </li>
+                    <li class="rss-link">
+                        <a href="/immport-open/resources/rss/newsfeed.xml"  style="text-decoration: none" target="_blank"><span>RSS Feed</span>
+                        </a>
+                    </li>
+                    <li class="google-link">
+                        <a href=" https://groups.google.com/d/forum/immport"  style="text-decoration: none" target="_blank"><span>Google Group</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -237,38 +198,25 @@
 <script src="/static/flowtools/js/galaxy_home.js" type="text/javascript"></script>
 
 <script id="carousel-indicator-template" type="text/x-handlebars-template">
-	<li data-target="{{ itemTarget }}" data-slide-to="{{ itemIndex }}" class="{{ itemActiveText }}"></li>
+    <li data-target="{{ itemTarget }}" data-slide-to="{{ itemIndex }}" class="{{ itemActiveText }}"></li>
 </script>
 
 <script id="carousel-item-template" type="text/x-handlebars-template">
     <div class="item carousel-item-{{ itemIndex }} {{ itemActiveText }}">
-		<div class="carousel-item-title" style="display:none;">{{{ title }}}</div>
+        <div class="carousel-item-title" style="display:none;">{{{ title }}}</div>
         <div class="col-md-4 carousel-item-left">
-			{{#if paragraph1}}<p>{{ paragraph1 }}</p>{{/if}}
-			{{#if paragraph2}}<p>{{ paragraph2 }}</p>{{/if}}
-			<p>{{{ link }}}</p>
+            {{#if paragraph1}}<p>{{ paragraph1 }}</p>{{/if}}
+            {{#if paragraph2}}<p>{{ paragraph2 }}</p>{{/if}}
+            <p>{{{ link }}}</p>
         </div>
         <div class="col-md-8 carousel-item-right">
-			{{#if image1}}<img class="carousel-item-image" src="./images/{{ image1 }}" />{{/if}}
-		</div>
+            {{#if image1}}<img class="carousel-item-image" src="./images/flowtools/home/{{ image1 }}" />{{/if}}
+        </div>
     </div>
 </script>
 
-<script id="announcement-info-template" type="text/x-handlebars-template">
-	<div class="info-block">
-		<div>{{{ content }}}</div>
-        {{#if display }}
-		<div class="pull-right">
-			<a class="announcement-link" data-type="{{ type }}" data-link="{{ link }}" data-display="{{ display }}" >
-				more <i class="glyphicon glyphicon-chevron-right"></i>
-			</a>
-		</div>
-        {{/if}}
-	</div>
-</script>
-
 <script>
-!function(d,s,id){
+/*!function(d,s,id){
     var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
     if(!d.getElementById(id)){
         js=d.createElement(s);
@@ -276,12 +224,10 @@
         fjs.parentNode.insertBefore(js,fjs);
     }
 }(document,"script","twitter-wjs");
-
+*/
 var CONTEXT_ROOT = 'http://immport.org/immport-open';
 
 $().ready(function() {
-    $('.right-info-panels .panel-body').on('click', onAnnouncementClick); // announcement click
-    updateAnnouncements();
     updateCarousel();
     $('#carousel-immport-share').bind('slide.bs.carousel', function (e) {
         updateCarouselTitle(e.relatedTarget);

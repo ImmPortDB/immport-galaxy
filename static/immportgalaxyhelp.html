@@ -9,7 +9,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/static/flowtools/css/immportgalaxy.css" type="text/css">
     <link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
-	<link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/static/flowtools/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
     <!--js-->
     <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -28,45 +28,31 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        
+
         <div class="collapse navbar-collapse navbar-site-main" id="navbar-target-menu-collapse">
             <ul class="nav navbar-nav navbar-left">
                 <li class="menu-immport-org">
                     <a href="http://www.immport.org" target="_blank">
-                        <img class="main-site-logo" src="/static/images/home/immport-logo-black-background.png">
+                        <img class="main-site-logo" src="/static/images/flowtools/home/immport-logo-black-background.png">
                         <span class="title-menu">ImmPort</span>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Applications<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-
-                       <li><a href="http://www.immport.org/immport-open/public/home/studySearch">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-icon-blue.png"
-                            th:src="@{/images/header/immport-icon-blue.png}" />
-                            Search/Download
+                        <li><a href="https://ai-biscdatamgtqa1.niaid.nih.gov:8443/home">
+                            <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-logo-image-32.png" />
+                            Private Data
                         </a></li>
-                        <li><a href="https://immport.niaid.nih.gov">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
-                            th:src="@{/images/header/immport-logo-image-32.png}" />
-                            Upload
+                        <li><a href="http://www.immport.org/immport-open/public/home/studySearch" >
+                            <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-icon-blue.png" />
+                            Shared Data
                         </a></li>
-                        <li><a href="http://immport-submission.niaid.nih.gov/downloads/">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
-                            th:src="@{/images/header/immport-logo-image-32.png}" />
-                            Data Upload Validator
-                        </a></li>
-                        <li><a href="https://immport.niaid.nih.gov/immportWeb/analysis/flow/displayOverview.do?method=displayManagementOverview">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-logo-image-32.png"
-                            th:src="@{/images/header/immport-logo-image-32.png}" />
-                            FLOCK
-                        </a></li>
-                        <li><a href="http://immportgalaxy.org/">
-                            <img class="menu-dropdown-logo" src="/static/images/home/immport-icon-green.png"
-                            th:src="@{/images/header/immport-icon-green.png}" />
-                            ImmPort Galaxy
+                        <li><a href="https://immportgalaxy.org/">
+                            <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-icon-green.png" />
+                            Data Analysis
                         </a></li>
                     </ul>
                 </li>
@@ -85,39 +71,40 @@
                         <li><a href="http://www.immport.org/immport-open/public/home/about">What is ImmPort?</a></li>
                     </ul>
                 </li>
+                <li><a href="https://ai-biscusradmqa1.niaid.nih.gov:8443/registrationuser/registration"> Register </a></li>
             </ul>
         </div>
     </div>
 </nav>
-	
+
 <div class="container" style="margin-top:10px;">
     <div class="row" style="padding-bottom:10px;">
-    	<div class="col-md-12">
-    		<div class="immport-notice" style="display:none;">
-		        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-					<div class="immport-notice-content"></div>
-				</div>
-	        </div>
-    		<div class="immport-about">
-    			<div class="col-md-3 main-logo">
-            		<img src="/static/images/home/immportgalaxy_green_sharp.png" style="height:110px;"/>
-				</div>
-				<div class="col-md-9 help-title">
-					<p>
-						<h4>Help</h4>
-					</p>
-					<p>
-						Access all videos from the ImmPort Team <a href="https://www.youtube.com/channel/UC8lQSx1Z7sMFm07wfqI-_kA" target="_blank">here</a>.
-				    </p>
-					<p>
-						If your question remains unanswered, <a href="mailto:immport-galaxy@immport.org">contact us</a>. We might be able to help.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="help-panel" id="main-accordion">
+        <div class="col-md-12">
+            <div class="immport-notice" style="display:none;">
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <div class="immport-notice-content"></div>
+                </div>
+            </div>
+            <div class="immport-about">
+                <div class="col-md-3 main-logo">
+                    <img src="/static/images/flowtools/home/immportgalaxy_green_sharp.png" style="height:110px;"/>
+                </div>
+                <div class="col-md-9 help-title">
+                    <p>
+                        <h4>Help</h4>
+                    </p>
+                    <p>
+                        Access all videos from the ImmPort Team <a href="https://www.youtube.com/channel/UC8lQSx1Z7sMFm07wfqI-_kA" target="_blank">here</a>.
+                    </p>
+                    <p>
+                        If your question remains unanswered, <a href="mailto:immport-galaxy@immport.org">contact us</a>. We might be able to help.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="help-panel" id="main-accordion">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -126,8 +113,8 @@
             </div>
             <div id="collapseZero" class="panel-collapse collapse">
                 <div class="panel-body">
-                    
-	                <div class="help-inner-panel" id="accordion-inner0">
+
+                    <div class="help-inner-panel" id="accordion-inner0">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -137,7 +124,7 @@
                             <div id="collapse00" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>To create an account for ImmPort Galaxy, click on 'User' in the top green bar. Click on register, and enter your email address and password. Choose a public name and you're good to go. More <a href="https://www.youtube.com/watch?v=nO8vIv8En9Y" target="_blank">here</a>.<br>Note that registration to ImmPort Galaxy is separate from registration to ImmPort.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +138,7 @@
                             <div id="collapse01" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>Creating an account allows users to keep their histories (uploaded and generated files). Having an account also allows users to access and use workflows. You can use ImmPort Galaxy without registering, but your work will not be saved.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -165,11 +152,11 @@
                             <div id="collapse02" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>Data will be kept for a year. <font color="red">we need to decide how much data users can have each</font>
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -179,12 +166,12 @@
                             <div id="collapse03" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p><a href="mailto:immport-galaxy@immport.org">Contact us</a> if you have forgotten your password.
-									<font color="red"> check the ini file to configure mail</font>
-									</p>
+                                    <font color="red"> check the ini file to configure mail</font>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -194,12 +181,12 @@
                             <div id="collapse04" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p><a href="mailto:immport-galaxy@immport.org">Contact us</a> if you have forgotten your username.
-									<font color="red"> check the ini file to configure mail</font>
-									</p>
+                                    <font color="red"> check the ini file to configure mail</font>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -208,8 +195,8 @@
                             </div>
                             <div id="collapse05" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>ImmPort is on <a href="" target="_blank">GitHub</a><font color="red"> add link when GH is set up</font>. Get your own local instance of ImmPort Galaxy by cloning our repo. More info on installing Galaxy <a href="https://wiki.galaxyproject.org/Admin/GetGalaxy" target="_blank">here</a>.
-									</p>
+                                    <p>ImmPort is on <a href="https://github.com/ImmPortDB" target="_blank">GitHub</a>. Get your own local instance of ImmPort Galaxy by cloning our repo. More info on installing Galaxy <a href="https://wiki.galaxyproject.org/Admin/GetGalaxy" target="_blank">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -223,12 +210,12 @@
                             <div id="collapse06" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p><b><a href="https://gcc2016.iu.edu/">Galaxy Community Conference 2016:</a></b><br>Thomas C, Thomson E, Dunn P <i>et al.</i> ImmPortGalaxy: developing a workflow for flow Cytometry analysis in Galaxy [v1; not peer reviewed]. <i>F1000Research</i> 2016, 5:1546 <a href="http://f1000research.com/slides/5-1546" target="_blank">(slides)</a><br>doi: 10.7490/f1000research.1112455.1
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        
-	                </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -238,13 +225,13 @@
                     <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseOne">Galaxy</a>
                 </h4>
             </div>
-            
+
             <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body">
 
                     <p>ImmPort Galaxy is only one version of the many instances of the <a href="https://galaxyproject.org/" target="_blank">Galaxy Project</a>. The Galaxy Project is also on <a href="https://github.com/galaxyproject" target="_blank">GitHub</a>. Learn more about Galaxy <a href="https://wiki.galaxyproject.org/Learn" target="_blank">here</a>.
                     </p>
-	                <div class="help-inner-panel" id="accordion-inner1">
+                    <div class="help-inner-panel" id="accordion-inner1">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -254,7 +241,7 @@
                             <div id="collapse10" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>To access available interactive tours of Galaxy, click on 'Help' in the top green bar. Click on interactive tours and pick the tour you want to take.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -267,7 +254,8 @@
                             </div>
                             <div id="collapse11" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To enable scratchbooks, click on the square icon next to 'User' on the top green bar. In scratchbook mode, several files can be viewed at the same time. More <a href="" target="_blank">here</a>. <font color="red">make video</font></p>
+                                    <p>To enable scratchbooks, click on the square icon next to 'User' on the top green bar. In scratchbook mode, several files can be viewed at the same time. More <a href="https://youtu.be/yR_LE9S0hio" target="_blank">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -280,8 +268,8 @@
                             </div>
                             <div id="collapse12" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>ImmPort Galaxy is available on <a href="">GitHub</a>. The Galaxy Project is also on <a href="https://github.com/galaxyproject" target="_blank">GitHub</a>. You can find more information on installing your own local instance <a href="https://wiki.galaxyproject.org/Admin/GetGalaxy" target="_blank">here</a>.
-									</p>
+                                    <p>ImmPort Galaxy is available on <a href="https://github.com/ImmPortDB/immport-galaxy">GitHub</a>. The Galaxy Project is also on <a href="https://github.com/galaxyproject" target="_blank">GitHub</a>. You can find more information on installing your own local instance <a href="https://wiki.galaxyproject.org/Admin/GetGalaxy" target="_blank">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -295,11 +283,11 @@
                             <div id="collapse13" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>Contribute to Galaxy or write a tool for Galaxy. More information <a href="https://wiki.galaxyproject.org/GetInvolved" target="_blank">here</a>.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-	                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -313,7 +301,7 @@
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body">
 
-	                <div class="help-inner-panel" id="accordion-inner2">
+                    <div class="help-inner-panel" id="accordion-inner2">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -322,7 +310,7 @@
                             </div>
                             <div id="collapse20" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To upload data, click on 'Upload file(s)' in the 'Upload Flow Files' section at the top of the left panel. Files can be selected from your computer by clicking on 'Choose local file', or dragged and dropped into the upload dialog box. 'Paste/Fetch data' gives the option to either directly copy the content of a file, or to retrieve data through a URL. More info <a href="https://www.youtube.com/watch?v=1BbhiYFOX_I" target="_blank">here</a>. <font color="red"> make video </font>
+                                    <p>To upload data, click on 'Upload file(s)' in the 'Upload Flow Files' section at the top of the left panel. Files can be selected from your computer by clicking on 'Choose local file', or dragged and dropped into the upload dialog box. 'Paste/Fetch data' gives the option to either directly copy the content of a file, or to retrieve data through a URL. More info <a href="https://youtu.be/gfG6YdWyVNU" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -336,7 +324,7 @@
                             </div>
                             <div id="collapse21" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>ImmPort Galaxy supports standard text formats (plain text, csv and tsv/tabular), FCS 2.0 and 3.0, pdf and HTML. Files generated by ImmPort Galaxy are FCS 3.0, text or HTML. <br> 
+                                    <p>ImmPort Galaxy supports standard text formats (plain text, csv and tsv/tabular), FCS 2.0 and 3.0, pdf and HTML. Files generated by ImmPort Galaxy are FCS 3.0, text or HTML. <br>
                                     Note that the extension of the text files generated by ImmPort Galaxy are non-standard and might not be understood by your computer once downloaded. You can change their datatype to 'txt' by editing their attribute (click on the pencil icon next to the file name to access that option) before download, or rename the file once downloaded. Alternatively you can set your local file browser to open that type of file with your favorite text editor.
                                     </p>
                                 </div>
@@ -379,7 +367,7 @@
                             </div>
                             <div id="collapse24" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Deleted files can be recovered, within the limits of the data retention policy. To recover a deleted file in a history, click on 'deleted' at the top of your history. The link will now read 'hide deleted', and every file in your history that has been deleted will be displayed and highlighted with a yellow box. You can restore deleted files by clicking on 'undelete'. If a file has been deleted by the administrator because of the data retention policy, it will not be recoverable. More <a href="" target="_blank">here</a>. <font color="red">add video</font>
+                                    <p>Deleted files can be recovered, within the limits of the data retention policy. To recover a deleted file in a history, click on 'deleted' at the top of your history. The link will now read 'hide deleted', and every file in your history that has been deleted will be displayed and highlighted with a yellow box. You can restore deleted files by clicking on 'undelete'. If a file has been deleted by the administrator because of the data retention policy, it will not be recoverable. More <a href="https://youtu.be/qgTqG8pKzWs" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -408,12 +396,12 @@
                             </div>
                             <div id="collapse26" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>The three visible icons next to each filename in the history panel allow users to visualize the file in the central panel, or download the file if it is not a format Galaxy can read (eye), to edit the metadata associated with the file (pencil) and to delete the file (x). Clicking on the filename displays file details and more icons. The far left one (floppy disk) controls file download. The second one (i) opens complete file and job details in the central panel. This is the one that gives you access to the actual command line used to run the job, and actual error messages if any (by clicking on 'stderr'). The next icon (circling arrows) brings up the tool view in the central panel and allows you to rerun the job that generated the file (with the same parameters already selected / entered). The fourth icon is not present in all files and allows access to different visualization options (see Visualization / Galaxy options). The last 2 icons allow users to add a tag or a comment to the file. More <a href="https://www.youtube.com/watch?v=jjzALENv5gU" target="_blank">here</a>.
+                                    <p>The three visible icons next to each filename in the history panel allow users to visualize the file in the central panel, or download the file if it is not a format Galaxy can read (eye), to edit the metadata associated with the file (pencil) and to delete the file (x). Clicking on the filename displays file details and more icons. The far left one (floppy disk) controls file download. The second one (i) opens complete file and job details in the central panel. This is the one that gives you access to the actual command line used to run the job, and actual error messages if any (by clicking on 'stderr'). The next icon (circling arrows) brings up the tool view in the central panel and allows you to rerun the job that generated the file (with the same parameters already selected / entered). The fourth icon is not present in all files and allows access to different visualization options (see Visualization / Galaxy options). The last two icons allow users to add a tag or a comment to the file. More <a href="https://www.youtube.com/watch?v=jjzALENv5gU" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
                         </div>
-	                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -421,13 +409,27 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseThree">Working with Galaxy (histories and dataset collections)</a>
+                    <a data-toggle="collapse" data-parent="#main-accordion" href="#collapseThree">Working with Galaxy (datasets, histories and dataset collections)</a>
                 </h4>
             </div>
             <div id="collapseThree" class="panel-collapse collapse">
                 <div class="panel-body">
                     <p>Manage your analyses with dataset collections and histories.</p>
-	                <div class="help-inner-panel" id="accordion-inner3">
+                    <div class="help-inner-panel" id="accordion-inner3">
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner3" href="#collapse39">What is a dataset?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse39" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>A 'dataset' in Galaxy-speak is a single file. Once a file is loaded in Galaxy, it becomes accessible as part of your saved datasets, provided you are logged in. To access saved datasets, click on 'User' in the top green bar, then click on 'Saved datasets'. From the Datasets Management page, you can copy any of your existing datasets to your current history.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
@@ -480,7 +482,7 @@
                             </div>
                             <div id="collapse33" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Creating a history is only available once logged in. To create a new history, click on the cog icon at the top right of the right panel and select 'Create New'. You can also create a new history from the history view by clicking on the icon right of the cog, and clicking on 'create new' at the top right corner. More <a href="https://www.youtube.com/watch?v=V4VD1nuecZM" target="_blank">here</a>.
+                                    <p>Creating a history is only available once logged in. To create a new history, click on the cog icon at the top right of the right panel and select 'Create New'. You can also create a new history from the history view by clicking on the icon right of the cog, and clicking on 'create new' at the top right corner. More <a href="https://youtu.be/MZB9LWBpFiI" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -494,7 +496,7 @@
                             </div>
                             <div id="collapse34" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Histories can be populated either by uploading data, or with files already uploaded or generated by galaxy tools in other histories. To move files from existing histories to a new history, go to the history view by clicking on the icon right of the cog at the top right of the right panel. Drag and drop existing files or dataset collections from existing histories into the newly created history. More <a href="https://www.youtube.com/watch?v=V4VD1nuecZM" target="_blank">here</a>.
+                                    <p>Histories can be populated either by uploading data, or with files already uploaded or generated by galaxy tools in other histories. To move files from existing histories to a new history, go to the history view by clicking on the icon right of the cog at the top right of the right panel. Drag and drop existing files or dataset collections from existing histories into the newly created history. More <a href="https://youtu.be/MZB9LWBpFiI" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -508,7 +510,7 @@
                             </div>
                             <div id="collapse35" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>This feature is only available once logged in. Click on 'Shared Data' on the top green bar. Select 'Publish Histories' to see publicly available histories, and click on the one you want to import. On the next screen, click on 'Import history' at the top right corner. More <a href="" target="_blank">here</a>. <font color="red">MAKE VIDEO</font>
+                                    <p>This feature is only available once logged in. Click on 'Shared Data' on the top green bar. Select 'Publish Histories' to see publicly available histories, and click on the one you want to import. On the next screen, click on 'Import history' at the top right corner. More <a href="https://youtu.be/MZB9LWBpFiI" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -535,8 +537,8 @@
                             </div>
                             <div id="collapse37" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>There are several ways to delete a history. Switch to the history that needs to be deleted, click on the cog icon at the top right of the right panel and select 'Delete' under 'History Action'. Alternatively, from any history click on 'Saved histories', select the history to delete and click 'Delete'.<br> Within the scope of the data retention policy, a deleted history is recoverable. To recover a deleted history, click on the square icon next to the cog at the top right corner in the right panel. In the history view, click on the ellipsis icon next to the search windows and select 'Include deleted histories'. All deleted histories should now be displayed with the others. Above the history that needs to be recovered, click on the downward arrow, and select 'Undelete'. More <a href="" target="_blank">here</a>.<font color="red"> make videos</font>
-									</p>
+                                    <p>There are several ways to delete a history. Switch to the history that needs to be deleted, click on the cog icon at the top right of the right panel and select 'Delete' under 'History Action'. Alternatively, from any history click on 'Saved histories', select the history to delete and click 'Delete'.<br> Within the scope of the data retention policy, a deleted history is recoverable. To recover a deleted history, click on the square icon next to the cog at the top right corner in the right panel. In the history view, click on the ellipsis icon next to the search windows and select 'Include deleted histories'. All deleted histories should now be displayed with the others. Above the history that needs to be recovered, click on the downward arrow, and select 'Undelete'. More <a href="https://youtu.be/Z6jvNUg-ZSc" target="_blank">here</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -549,12 +551,12 @@
                             </div>
                             <div id="collapse38" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Sharing histories is only available once logged in.<br>To share a history, click on the cog icon at the top right of the right panel and select 'Saved histories'. Click on the arrow next to the name of the history you want to share, and in the dropdown menu, select 'Share or Publish'. To share the current history, click on the cog icon and select 'Share or Publish'. Histories can be made publicly available via link or by publishing them to ImmPort Galaxy, or shared with another ImmPort Galaxy user only.
+                                    <p>Sharing histories is only available once logged in.<br>To share a history, click on the cog icon at the top right of the right panel and select 'Saved histories'. Click on the arrow next to the name of the history you want to share, and in the dropdown menu, select 'Share or Publish'. To share the current history, click on the cog icon and select 'Share or Publish'. Histories can be made publicly available via link or by publishing them to ImmPort Galaxy, or shared with another ImmPort Galaxy user only. More <a href="https://youtu.be/oKZUebCVP-M" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
                         </div>
-	                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -568,7 +570,7 @@
             <div id="collapseFour" class="panel-collapse collapse">
                 <div class="panel-body">
 
-	                <div class="help-inner-panel" id="accordion-inner4">
+                    <div class="help-inner-panel" id="accordion-inner4">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -578,7 +580,7 @@
                             <div id="collapse40" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>ImmPort Galaxy tools all have a similar interface. The top section controls input file(s) and parameter(s) selection. Below that is a help section describing expected input and outputs. Citations are indicated at the very bottom if applicable. More <a href="https://www.youtube.com/watch?v=Rh-4tXTeX0g" target="_blank">here</a>.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -591,7 +593,7 @@
                             <div id="collapse41" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>You are more than welcome to contribute to ImmPort Galaxy (or Galaxy!). Guidelines to write a galaxy tool can be found <a href="http://galaxy-iuc-standards.readthedocs.io/en/latest/best_practices/tool_xml.html" target="_blank">here</a>.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -605,7 +607,7 @@
                             <div id="collapse42" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>To contribute your tool to ImmPort Galaxy, fork us on <a href="">GitHub</a> or <a href="mailto:immport-galaxy@immport.org">contact us</a> directly. To be added to ImmPort Galaxy, a tool should be up to current <a href="http://galaxy-iuc-standards.readthedocs.io/en/latest/best_practices/tool_xml.html#coding-style" target="_blank">IUC standards</a>. In addition, the help section should be complete with input and output file description.<br>Take it a step further by sharing your tool in the Galaxy toolshed. More info <a href="https://wiki.galaxyproject.org/ToolShed/PublishTool" target="_blank">here</a>.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -619,12 +621,12 @@
                             <div id="collapse43" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>Please <a href="mailto:immport-galaxy@immport.org">contact us</a> if you think a tool is missing.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
-	                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -639,7 +641,7 @@
             <div id="collapseFive" class="panel-collapse collapse">
                 <div class="panel-body">
 
-	                <div class="help-inner-panel" id="accordion-inner5">
+                    <div class="help-inner-panel" id="accordion-inner5">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -649,7 +651,7 @@
                             <div id="collapse50" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>ImmPort Galaxy provides a few basic analysis workflows which you can access by logging in. Currently available workflows support QC and basic flow analysis. Workflows created and maintained by the ImmPort team are published under 'immport-galaxy'.
-									</p>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -662,7 +664,7 @@
                             </div>
                             <div id="collapse51" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To access or import available workflows, click on 'Shared Data' on the top green bar and select 'Published Workflows'. Click on the downward arrow next to the name of the workflow to import, and select 'Import'. Workflows are immediatly available to use. Workflows created and maintained by the ImmPort team are published under 'immport-galaxy'.
+                                    <p>To access or import available workflows, click on 'Shared Data' on the top green bar and select 'Published Workflows'. Click on the downward arrow next to the name of the workflow to import, and select 'Import'. Workflows are immediatly available to use. Workflows created and maintained by the ImmPort team are published under 'immport-galaxy'. More <a href="https://youtu.be/izCQ6b1DRIM" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -676,7 +678,7 @@
                             </div>
                             <div id="collapse52" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To use an existing workflow, click on 'Workflow' in the top green bar. Click on the downward arrow next to the name of the workflow to run and select 'Run'. Alternatively, click on 'All workflows' in the left panel under the tools, and click on the workflow to run.<br>>Workflows can be added to the tool panel, under 'Workflows', for ease of use. To do that, click on 'Configure your workflow menu' after clicking on 'Workflow' in the top green bar. Select the workflows to display by checking the box under 'Show in menu'. The workflows should now appear under the list of tools in the tool panel. More <a href="https://www.youtube.com/watch?v=Hmou9AM6z-8" target="_blank">here</a>.
+                                    <p>To use an existing workflow, click on 'Workflow' in the top green bar. Click on the downward arrow next to the name of the workflow to run and select 'Run'. Alternatively, click on 'All workflows' in the left panel under the tools, and click on the workflow to run.<br>Workflows can be added to the tool panel, under 'Workflows', for ease of use. To do that, click on 'Configure your workflow menu' after clicking on 'Workflow' in the top green bar. Select the workflows to display by checking the box under 'Show in menu'. The workflows should now appear under the list of tools in the tool panel. More <a href="https://www.youtube.com/watch?v=Hmou9AM6z-8" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -690,7 +692,7 @@
                             </div>
                             <div id="collapse53" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To create a workflow, click on 'Workflow' in the top green bar, then on 'Create new workflow' on the top right. Any of the tools in the tool panel are accessible from the workflow editor, and can be arranged in whatever order seems relevant. More <a href="" target="_blank">here</a>.
+                                    <p>To create a workflow, click on 'Workflow' in the top green bar, then on 'Create new workflow' on the top right. Any of the tools in the tool panel are accessible from the workflow editor, and can be arranged in whatever order seems relevant. More <a href="https://youtu.be/m2u4sG3uYqc" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -704,7 +706,7 @@
                             </div>
                             <div id="collapse54" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Workflows can be shared with specific users, or be made publicly available. To share a workflow, click on 'Workflow' in the top green bar. Click on the downward arrow next to the name of the workflow to share, and select 'Share or Publish'.
+                                    <p>Workflows can be shared with specific users, or be made publicly available. To share a workflow, click on 'Workflow' in the top green bar. Click on the downward arrow next to the name of the workflow to share, and select 'Share or Publish'. More <a href="https://youtu.be/m2u4sG3uYqc" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -723,7 +725,7 @@
                                 </div>
                             </div>
                         </div>
-	                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -737,7 +739,7 @@
             <div id="collapseSix" class="panel-collapse collapse">
                 <div class="panel-body">
 
-	                <div class="help-inner-panel" id="accordion-inner6">
+                    <div class="help-inner-panel" id="accordion-inner6">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -793,7 +795,7 @@
                         </div>
 
 
-	                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -807,7 +809,7 @@
             <div id="collapseSeven" class="panel-collapse collapse">
                 <div class="panel-body">
 
-	                <div class="help-inner-panel" id="accordion-inner7">
+                    <div class="help-inner-panel" id="accordion-inner7">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -849,7 +851,7 @@
                             </div>
                         </div>
 
-	                </div>
+                    </div>
 
                 </div>
             </div>
@@ -865,7 +867,7 @@
             <div id="collapseNine" class="panel-collapse collapse">
                 <div class="panel-body">
 
-	                <div class="help-inner-panel" id="accordion-inner9">
+                    <div class="help-inner-panel" id="accordion-inner9">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -926,7 +928,7 @@
                                 </div>
                             </div>
                         </div>
-	                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -941,7 +943,7 @@
             <div id="collapseEight" class="panel-collapse collapse">
                 <div class="panel-body">
 
-	                <div class="help-inner-panel" id="accordion-inner8">
+                    <div class="help-inner-panel" id="accordion-inner8">
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
@@ -982,79 +984,79 @@
                             </div>
                         </div>
 
-	                </div>
+                    </div>
 
                 </div>
             </div>
         </div>
 
-	</div>
+    </div>
 </div>
 
 <div class="row-footer">
-	<div class="col-md-12">
-		<p style="margin-top:20px;">
-			<h4>What is ImmPort?</h4>
-		</p>
+    <div class="col-md-12">
+        <p style="margin-top:20px;">
+            <h4>What is ImmPort?</h4>
+        </p>
         <p>
-       <a href="http://www.immport.org" target="_new">OpenImmport</a> is your resource for searching and downloading shared biomedical research data funded from NIAID DAIT and DMID, and other NIH and non-government funding agencies. Additional resources available at OpenImmPort include step-by-step data reuse tutorials including example R and Python analysis code, the Cell Ontology Visualizer, the Cytokine Registry, and ImmuneXpresso - the cytokine and cell interaction literature mining tool.
-       </p>
-       <p>
-       <a href="https://immport.niaid.nih.gov" target="_new">ImmPort</a> is the data submission portal where researchers upload, QC, and curate their data prior to sharing in OpenImmPort. 
+            Search and download shared biomedical research data funded from NIAID DAIT and DMID, and other NIH and non-government funding agencies on <a href="http://www.immport.org" target="_blank">OpenImmPort</a>. Additional resources available include step-by-step data reuse tutorials including example R and Python analysis code, the Cell Ontology Visualizer, the Cytokine Registry, and ImmuneXpresso - the cytokine and cell interaction literature mining tool.<br>
+        </p>
+        <p>
+          ImmPort Galaxy is powered by the <a href="https://wiki.galaxyproject.org/" target="_blank">Galaxy Project</a>.
         </p>
     </div>
-	<div class="col-md-5">
-		<div class="block-header">Sponsored by:</div>
-		<ul>
-			<li><a href="http://www.niaid.nih.gov/Pages/default.aspx" target="_blank">National Institute of Allergy and Infectious Diseases (NIAID)</a></li>
-			<li><a href="http://www.nih.gov/" target="_blank">National Institutes of Health (NIH)</a></li>
-			<li><a href="http://www.hhs.gov/" target="_blank">Health and Human Services (HHS)</a></li>
-		</ul>
-	</div>
-	<div class="col-md-5">
-		<div class="block-header">
-			<a href="mailto:BISC_Helpdesk@niaid.nih.gov">Contact Us</a> | 
-			<a href="http://immport.org/`/public/home/privacyPolicy" target="_blank">Privacy Policy</a> | 
-			<a href="http://immport.org/immport-open/public/home/disclaimer" target="_blank">Disclaimer</a> | 
-			<a href="http://immport.org/immport-open/public/home/accessibility" target="_blank">Accessibility</a>
-		</div>
-	</div>
-	<div class="col-md-2">
-   		<div id="socialmedia-block" class="homePageText">
-			<div class="title" style="margin-bottom:7px;">Connect with Us</div>
-			<div class="socialmedia-block-inner">
-				<ul>
-					<script>(function(d, s, id) {
-				  	var js, fjs = d.getElementsByTagName(s)[0];
-				  	if (d.getElementById(id)) return;
-				  	js = d.createElement(s); js.id = id;
-				  	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-				  	fjs.parentNode.insertBefore(js, fjs);
-					}(document, 'script', 'facebook-jssdk'));
-					</script>
-					<div class="fb-like" data-href="https://www.facebook.com/Immport" 
-						style="padding-bottom:3px;"
-						data-send="false" data-layout="button_count" data-width="650" 
-						data-show-faces="false" data-font="lucida grande"></div>
-					<li class="twitter-link">
-						<a class="twitter" href="https://twitter.com/#!/ImmPortDB" style="text-decoration: none" target="_blank">
-							<span>Twitter</span>
-						</a>
-					</li>
-					<li class="rss-link">
-						<a href="/immport-open/resources/rss/newsfeed.xml"  style="text-decoration: none" target="_blank">
-							<span>RSS Feed</span>
-						</a>
-					</li>
-					<li class="google-link">
-						<a href=" https://groups.google.com/d/forum/immport"  style="text-decoration: none" target="_blank">
-							<span>Google Group</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+    <div class="col-md-5">
+        <div class="block-header">Sponsored by:</div>
+        <ul>
+            <li><a href="http://www.niaid.nih.gov/Pages/default.aspx" target="_blank">National Institute of Allergy and Infectious Diseases (NIAID)</a></li>
+            <li><a href="http://www.nih.gov/" target="_blank">National Institutes of Health (NIH)</a></li>
+            <li><a href="http://www.hhs.gov/" target="_blank">Health and Human Services (HHS)</a></li>
+        </ul>
+    </div>
+    <div class="col-md-5">
+        <div class="block-header">
+            <a href="mailto:BISC_Helpdesk@niaid.nih.gov">Contact Us</a> |
+            <a href="http://immport.org/`/public/home/privacyPolicy" target="_blank">Privacy Policy</a> |
+            <a href="http://immport.org/immport-open/public/home/disclaimer" target="_blank">Disclaimer</a> |
+            <a href="http://immport.org/immport-open/public/home/accessibility" target="_blank">Accessibility</a>
+        </div>
+    </div>
+    <div class="col-md-2">
+           <div id="socialmedia-block" class="homePageText">
+            <div class="title" style="margin-bottom:7px;">Connect with Us</div>
+            <div class="socialmedia-block-inner">
+                <ul>
+                    <script>(function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                    </script>
+                    <div class="fb-like" data-href="https://www.facebook.com/ImmPort"
+                        style="padding-bottom:3px;"
+                        data-send="false" data-layout="button_count" data-width="650"
+                        data-show-faces="false" data-font="lucida grande"></div>
+                    <li class="twitter-link">
+                        <a class="twitter" href="https://twitter.com/#!/ImmPortDB" style="text-decoration: none" target="_blank">
+                            <span>Twitter</span>
+                        </a>
+                    </li>
+                    <li class="rss-link">
+                        <a href="/immport-open/resources/rss/newsfeed.xml"  style="text-decoration: none" target="_blank">
+                            <span>RSS Feed</span>
+                        </a>
+                    </li>
+                    <li class="google-link">
+                        <a href=" https://groups.google.com/d/forum/immport"  style="text-decoration: none" target="_blank">
+                            <span>Google Group</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
