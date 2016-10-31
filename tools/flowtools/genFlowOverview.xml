@@ -52,6 +52,7 @@
         <extra_files type="file" name="flow.mfi_pop" value="flow1.mfi_pop"/>
         <extra_files type="file" name="flow.overview" value="flow1.overview"/>
         <extra_files type="file" name="flow.sample" value="flow1.sample"/>
+        <extra_files type="file" name="boxplot.json" value="boxplotData1.json"/>
         <extra_files type="file" name="m0_m0_90X90.png" value="m0_m0_90X90.png" compare="contains"/>
         <extra_files type="file" name="m0_m1_90X90.png" value="m0_m1_90X90.png" compare="contains"/>
         <extra_files type="file" name="m1_m0_90X90.png" value="m1_m0_90X90.png" compare="contains"/>
@@ -68,6 +69,7 @@
         <extra_files type="file" name="flow.mfi_pop" value="flow.mfi_pop"/>
         <extra_files type="file" name="flow.overview" value="flow.overview"/>
         <extra_files type="file" name="flow.sample" value="flow.sample"/>
+        <extra_files type="file" name="boxplot.json" value="boxplotData.json"/>
         <extra_files type="file" name="CLprofiles.txt" value="CLprofiles.txt"/>
         <extra_files type="file" name="scores.txt" value="scores.txt"/>
         <extra_files type="file" name="flowcl_pop01.pdf" value="flowcl_pop01.pdf" compare="contains"/>

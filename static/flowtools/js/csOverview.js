@@ -1,8 +1,11 @@
 var url = "./csOverview.tsv";
+var boxplotUrl = "./csBoxplotData.json";
 var pctablecontent;
 var newSmpNames= {};
 var newPopNames = {};
 var configBarplot = {};
+var configBoxplotP = {};
+var configBoxplotM = {};
 var configAreaplot = {};
 
 var waitForFinalEvent = (function () {
@@ -30,44 +33,6 @@ var preprocess = function(text){
     return crossSampleData;
 };
 
-var displayPopulationLegend = function(plotconfig) {
-    $(plotconfig.table).empty();
-    plotconfig.allPopulations.map(function(value,index) {
-        $(plotconfig.table)
-			.append('<tr><td align="center">' 
-			+ '<input type="checkbox" checked class=' + plotconfig.popSelect 
-			+ ' value=' + value + '/></td><td title="' + newPopNames[value] + '">' 
-			+ newPopNames[value] + '</td><td><span style="background-color:' 
-			+ color_palette[value] + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
-    });
-
-    $(plotconfig.popSelectAll).click(function() {
-        var checkAll = $(plotconfig.popSelectAll).prop('checked');
-        if (checkAll) {
-            $(plotconfig.popSelectj).prop("checked", true);
-        } else {
-            $(plotconfig.popSelectj).prop("checked", false);
-        }
-    });
-
-    $(plotconfig.popSelectj).click(function() {
-        if ($(plotconfig.popSelectj).length == $(plotconfig.popSelectCheck).length) {
-            $(plotconfig.popSelectAll).prop("checked",true);
-        } else {
-            $(plotconfig.popSelectAll).prop("checked",false);
-        }
-    });
-    
-    $(plotconfig.popSelectj).each(function() {
-        var selectedpopn = parseInt(this.value);
-        if ($.inArray(selectedpopn,plotconfig.selectedPopulations) > -1) {
-            this.checked = true;
-        } else {
-            this.checked = false;
-        }
-    });    
-};
-
 var displayProp = function() {
     d3.text(url, function(error, data){
         if (error){
@@ -79,12 +44,12 @@ var displayProp = function() {
         data = d3.tsv.parse(data);
         function propHandle(method, url, d, successCallBack, errorCallBack) {
             var output = {data : propTableData};
-            successCallBack(output);   
+            successCallBack(output);
         };
 
         function popHandle(method, url, d, successCallBack, errorCallBack) {
             var output = {data : popTableData};
-            successCallBack(output);   
+            successCallBack(output);
         };
 
         var fileID = [];
@@ -114,7 +79,7 @@ var displayProp = function() {
                 popTableHeadings.push({"data":d, "title":d});
                 popEditorData.push({"label":d,"name":d});
             }
-        });        
+        });
         popTableData.push(newPopNames);
         pctablecontent = $.extend(true,[],propTableData);
 
@@ -127,7 +92,7 @@ var displayProp = function() {
             fields: propEditorData,
             idSrc: 'SampleName'
         });
-        
+
         $('#proptable').on( 'click', 'tbody td:first-child', function (e) {
             smpEditor.bubble( this );
         });
@@ -135,11 +100,11 @@ var displayProp = function() {
             columns: propTableHeadings,
             data: propTableData,
             order: [[ smpcol, "asc" ]],
-            pageLength: 10, 
+            pageLength: 10,
             scrollX: true,
             scrollCollapse: true,
             dom: '<"top"Bi>t<"bottom"lp><"clear">',
-            columnDefs: [{ 
+            columnDefs: [{
                 targets: propTargets,
                 className: "dt-body-right",
                 render: function(data, type, row){
@@ -159,7 +124,7 @@ var displayProp = function() {
             },
             select: true
         });
-        
+
         // Add titles to File ID and Sample Name
         $('#proptable tr').each(function(i,d){
             if (i > 0) {
@@ -173,8 +138,7 @@ var displayProp = function() {
                 });
             }
         });
-        
-        
+
         // Add a table below to rename pops
         // Might want to change that some other time?
         var popHTML = '<table id="popnamestable" class="popt dtable display nowrap compact" cellspacing="0" width="100%"/>';
@@ -185,7 +149,7 @@ var displayProp = function() {
             fields: popEditorData,
             idSrc: '1'
         });
-        
+
         $('#popnamestable').on( 'click', 'tbody td', function (e) {
             popEditor.bubble( this );
         });
@@ -195,12 +159,12 @@ var displayProp = function() {
             select: true,
             data: popTableData
         });
-              
+
         smpEditor.on( 'preSubmit', function(e, object, action){
             var data = object.data;
             var key = Object.keys(data)[0];
             var count = object.data[key]['Comment'];
-            
+
             propTableData.forEach(function(d){
                 if (d.SampleName === key) {
                     d.Comment = count;
@@ -224,21 +188,21 @@ var displayStackedAreaPlot = function() {
         url: url,
         dataType: "text",
         success: function(text) {
-			configAreaplot = {
-				displaybutton : '#updateDisplayA',
-				popSelectj : '.popSelectA',
-				plotdivj : '#plotDivA',
-				csdata : preprocess(text),
-				plotdiv : 'plotDivA',
-				type : "areaplot",
-				table : '#popTableA tbody',
-				popSelect : "popSelectA",
-				allPopulations : [],
-				selectedPopulations : [],
-				popSelectAll : '#popSelectAllA',
-				popSelectCheck : '.popSelectA:checked',
-			}
-            displayToolbar(configAreaplot);
+          configAreaplot = {
+            displaybutton : '#updateDisplayA',
+            popSelectj : '.popSelectA',
+            plotdivj : '#plotDivA',
+            csdata : preprocess(text),
+            plotdiv : 'plotDivA',
+            type : 'areaplot',
+            table : '#popTableA tbody',
+            popSelect : 'popSelectA',
+            allPopulations : [],
+            selectedPopulations : [],
+            popSelectAll : '#popSelectAllA',
+            popSelectCheck : '.popSelectA:checked'
+          };
+          displayToolbar(configAreaplot);
         }
     })
 };
@@ -248,23 +212,58 @@ var displayStackedBarplot = function() {
         url: url,
         dataType: "text",
         success: function(text) {
-			configBarplot = {
-				displaybutton : "#updateDisplayB",
-				popSelectj : '.popSelectB',
-				plotdivj : "#plotDivB",
-				csdata : preprocess(text),
-				plotdiv : 'plotDivB',
-				type : "barplot",
-				table : '#popTableB tbody',
-				popSelect : "popSelectB",
-				allPopulations : [],
-				selectedPopulations : [],
-				popSelectAll : '#popSelectAllB',
-				popSelectCheck: ".popSelectB:checked",
-				checkAll : ""
-			}
-            displayToolbar(configBarplot);
+          configBarplot = {
+            displaybutton : '#updateDisplayB',
+            popSelectj : '.popSelectB',
+            plotdivj : '#plotDivB',
+            csdata : preprocess(text),
+            plotdiv : 'plotDivB',
+            type : 'barplot',
+            table : '#popTableB tbody',
+            popSelect : 'popSelectB',
+            allPopulations : [],
+            selectedPopulations : [],
+            popSelectAll : '#popSelectAllB',
+            popSelectCheck: '.popSelectB:checked'
+          };
+          displayToolbar(configBarplot);
         }
     })
 };
 
+var displayBoxplot = function() {
+    $.ajax({
+        url: boxplotUrl,
+        dataType: "json",
+        success: function(data) {
+          configBoxplot = {
+            displaybutton : '#updateDisplayC',
+            toggledisplayj : '#changeDisplayC',
+            toggledisplay : 'changeDisplayC',
+            popSelectj : '.popSelectC',
+            plotdivj : '#plotDivC',
+            csdata : data,
+            plotdiv : 'plotDivC',
+            type : 'boxplot',
+            table : '#popTableC tbody',
+            popSelect : 'popSelectC',
+            allMarkers : [],
+            selectedMarkers: [],
+            allPopulations : [],
+            selectedPopulations : [],
+            popSelectAll : '#popSelectAllC',
+            popSelectCheck: '.popSelectC:checked',
+            mrkrSelectAll : '#mrkrSelectAllC',
+            mrkrSelectCheck: '.mrkrSelectC:checked',
+            mrkrSelect : 'mrkrSelectC',
+            mtable : '#mrkrTableC tbody',
+            mrkrSelectj: '.mrkrSelectC',
+            displayvalues: '#displayLabelsC',
+            displayMFI: '#displayMFIC',
+            view: 'p',
+            mrkrNames :  Object.keys(data.mfi)
+          };
+          displayToolbar(configBoxplot);
+        }
+    })
+};

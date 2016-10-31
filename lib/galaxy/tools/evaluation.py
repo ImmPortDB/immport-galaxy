@@ -58,7 +58,7 @@ class ToolEvaluator( object ):
         request_context = WorkRequestContext( app=self.app, user=job.history and job.history.user, history=job.history )
 
         def validate_inputs( input, value, context, **kwargs ):
-            value = input.from_html( value, request_context, context )
+            value = input.from_json( value, request_context, context )
             input.validate( value, request_context )
         visit_input_values( self.tool.inputs, incoming, validate_inputs )
 
@@ -131,7 +131,7 @@ class ToolEvaluator( object ):
         param_dict.update( incoming )
 
         input_dataset_paths = dataset_path_rewrites( input_paths )
-        self.__populate_wrappers(param_dict, input_dataset_paths, job_working_directory)
+        self.__populate_wrappers(param_dict, input_datasets, input_dataset_paths, job_working_directory)
         self.__populate_input_dataset_wrappers(param_dict, input_datasets, input_dataset_paths)
         self.__populate_output_dataset_wrappers(param_dict, output_datasets, output_paths, job_working_directory)
         self.__populate_output_collection_wrappers(param_dict, output_collections, output_paths, job_working_directory)
@@ -167,11 +167,11 @@ class ToolEvaluator( object ):
 
         do_walk( inputs, input_values )
 
-    def __populate_wrappers(self, param_dict, input_dataset_paths, job_working_directory):
+    def __populate_wrappers(self, param_dict, input_datasets, input_dataset_paths, job_working_directory):
 
         def wrap_input( input_values, input ):
+            value = input_values[ input.name ]
             if isinstance( input, DataToolParameter ) and input.multiple:
-                value = input_values[ input.name ]
                 dataset_instances = DatasetListWrapper.to_dataset_instances( value )
                 input_values[ input.name ] = \
                     DatasetListWrapper( job_working_directory,
@@ -219,18 +219,20 @@ class ToolEvaluator( object ):
                     tool=self,
                     name=input.name
                 )
-                identifier_key = "%s|__identifier__" % input.name
-                if identifier_key in param_dict:
-                    wrapper_kwds["identifier"] = param_dict[identifier_key]
                 if dataset:
                     # A None dataset does not have a filename
                     real_path = dataset.file_name
                     if real_path in input_dataset_paths:
                         wrapper_kwds[ "dataset_path" ] = input_dataset_paths[ real_path ]
+                identifier_key = identifier_key_dict.get(dataset, None)
+                if identifier_key:
+                    element_identifier = param_dict.get(identifier_key, None)
+                    if element_identifier:
+                        wrapper_kwds[ "identifier" ] = element_identifier
                 input_values[ input.name ] = \
                     DatasetFilenameWrapper( dataset, **wrapper_kwds )
             elif isinstance( input, DataCollectionToolParameter ):
-                dataset_collection = input_values[ input.name ]
+                dataset_collection = value
                 wrapper_kwds = dict(
                     datatypes_registry=self.app.datatypes_registry,
                     dataset_paths=input_dataset_paths,
@@ -245,15 +247,16 @@ class ToolEvaluator( object ):
                 input_values[ input.name ] = wrapper
             elif isinstance( input, SelectToolParameter ):
                 input_values[ input.name ] = SelectToolParameterWrapper(
-                    input, input_values[ input.name ], self.app, other_values=param_dict, path_rewriter=self.unstructured_path_rewriter )
+                    input, value, self.app, other_values=param_dict, path_rewriter=self.unstructured_path_rewriter )
             else:
                 input_values[ input.name ] = InputValueWrapper(
-                    input, input_values[ input.name ], param_dict )
+                    input, value, param_dict )
 
         # HACK: only wrap if check_values is not false, this deals with external
         #       tools where the inputs don't even get passed through. These
         #       tools (e.g. UCSC) should really be handled in a special way.
         if self.tool.check_values:
+            identifier_key_dict = dict((v, "%s|__identifier__" % k) for k, v in input_datasets.iteritems())  # allows lookup of identifier through HDA.
             self.__walk_inputs( self.tool.inputs, param_dict, wrap_input )
 
     def __populate_input_dataset_wrappers(self, param_dict, input_datasets, input_dataset_paths):
@@ -424,25 +427,25 @@ class ToolEvaluator( object ):
 
         try:
             self.__build_config_files( )
-        except Exception, e:
+        except Exception as e:
             # capture and log parsing errors
             global_tool_errors.add_error(self.tool.config_file, "Building Config Files", e)
             raise e
         try:
             self.__build_param_file( )
-        except Exception, e:
+        except Exception as e:
             # capture and log parsing errors
             global_tool_errors.add_error(self.tool.config_file, "Building Param File", e)
             raise e
         try:
             self.__build_command_line( )
-        except Exception, e:
+        except Exception as e:
             # capture and log parsing errors
             global_tool_errors.add_error(self.tool.config_file, "Building Command Line", e)
             raise e
         try:
             self.__build_environment_variables()
-        except Exception, e:
+        except Exception as e:
             global_tool_errors.add_error(self.tool.config_file, "Building Environment Variables", e)
             raise e
 

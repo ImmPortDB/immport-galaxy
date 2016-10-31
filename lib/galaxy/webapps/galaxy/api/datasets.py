@@ -156,7 +156,7 @@ class DatasetsController( BaseAPIController, UsesVisualizationMixin ):
         if msg:
             return msg
 
-        # Get datasources and check for essages.
+        # Get datasources and check for messages.
         data_sources = dataset.get_datasources( trans )
         messages_list = [ data_source_dict[ 'message' ] for data_source_dict in data_sources.values() ]
         return_message = self._get_highest_priority_msg( messages_list )
@@ -251,7 +251,7 @@ class DatasetsController( BaseAPIController, UsesVisualizationMixin ):
 
         registry = trans.app.data_provider_registry
 
-        # allow the caller to specifiy which provider is used
+        # allow the caller to specify which provider is used
         #   pulling from the original providers if possible, then the new providers
         if provider:
             if provider in registry.dataset_type_name_to_data_provider:
@@ -278,7 +278,7 @@ class DatasetsController( BaseAPIController, UsesVisualizationMixin ):
 
     @web.expose_api_raw_anonymous
     def display( self, trans, history_content_id, history_id,
-                 preview=False, filename=None, to_ext=None, chunk=None, raw=False, **kwd ):
+                 preview=False, filename=None, to_ext=None, raw=False, **kwd ):
         """
         GET /api/histories/{encoded_history_id}/contents/{encoded_content_id}/display
         Displays history content (dataset).
@@ -297,7 +297,8 @@ class DatasetsController( BaseAPIController, UsesVisualizationMixin ):
             if raw:
                 if filename and filename != 'index':
                     file_path = trans.app.object_store.get_filename( hda.dataset,
-                                                                     extra_dir=( 'dataset_%s_files' % hda.dataset.id ), alt_name=filename)
+                                                                     extra_dir=( 'dataset_%s_files' % hda.dataset.id ),
+                                                                     alt_name=filename)
                 else:
                     file_path = hda.file_name
                 rval = open( file_path )
@@ -306,7 +307,7 @@ class DatasetsController( BaseAPIController, UsesVisualizationMixin ):
                 display_kwd = kwd.copy()
                 if 'key' in display_kwd:
                     del display_kwd["key"]
-                rval = hda.datatype.display_data( trans, hda, preview, filename, to_ext, chunk, **display_kwd )
+                rval = hda.datatype.display_data( trans, hda, preview, filename, to_ext, **display_kwd )
 
         except Exception as exception:
             log.error( "Error getting display data for dataset (%s) from history (%s): %s",

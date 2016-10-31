@@ -5,7 +5,7 @@ import sys
 from argparse import ArgumentParser
 
 def is_integer(s):
-    try: 
+    try:
         int(s)
         return True
     except ValueError:
@@ -16,35 +16,36 @@ def rearrange_file(input_file, col_order, col_names, output_file):
         ## headers
         hdrs = infl.readline().strip()
         current_hdrs = hdrs.split("\t")
-
+        if not col_order and col_names:
+            if len(col_names) != len(current_hdrs):
+                sys.stderr.write("There are " + str(len(current_hdrs)) + " columns but " + str(len(col_names)) + " marker names were provided\n")
+                sys.exit(4)
         if col_names:
             tmp_hdr = []
             for i in range(0, len(col_names)):
                 if col_names[i].strip():
-                    tmp_hdr.append(col_names[i])
+                    tmp_hdr.append(col_names[i].strip())
                 else:
                     if col_order:
                         tmp_hdr.append(current_hdrs[col_order[i]])
                     else:
-                        if len(col_names) != len(current_hdrs):
-                            sys.exit(4)
-                        tmp_hdr.append(current_hdrs[i])         
+                        tmp_hdr.append(current_hdrs[i])
             hdrs = ("\t".join(tmp_hdr))
         elif col_order:
             tp_hdr = []
             for j in col_order:
                 tp_hdr.append(current_hdrs[j])
             hdrs = ("\t".join(tp_hdr))
-            
+
         outf.write(hdrs + "\n")
-        
+
         ## columns
         for lines in infl:
             cols = lines.strip().split("\t")
             if not col_order:
                 col_order = [x for x in range(0,len(current_hdrs))]
             outf.write("\t".join([cols[c] for c in col_order]) + "\n")
-                
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -100,13 +101,12 @@ if __name__ == "__main__":
     col_names = []
     if args.column_names:
         if not args.column_names in default_value_nms:
-            tmp_names = args.column_names.split(",")
+            col_names = args.column_names.split(",")
             if col_order:
-                if len(col_order) != len(tmp_names):
+                if len(col_order) != len(col_names):
+                    sys.stderr.write("There are " + str(len(col_order)) + " columns selected and " + str(len(col_names)) + " marker names\n")
                     sys.exit(4)
-            for cn in tmp_names:
-                col_names.append(cn.strip())    
-                
+
     rearrange_file(args.input_file, col_order, col_names, args.output_file)
 
     sys.exit(0)

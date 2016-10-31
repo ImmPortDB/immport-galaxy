@@ -102,12 +102,7 @@ return Backbone.View.extend({
         this.select_extension = new Select.View({
             css         : 'footer-selection',
             container   : this.$('#footer-extension'),
-            data        : [ { 'id': 'fcs', 'text': 'fcs','description': "FCS" },
-                            { 'id': 'flowtext', 'text': 'flowtext','description': 'Flow Text FIle' },
-                            { 'id': 'flowclr', 'text': 'flowclr','description': 'Flow CLR FIle' },
-                            { 'id': 'flowmfi', 'text': 'flowmfi','description': 'Flow MFI FIle' }
-                          ],
-            //data        : _.filter(this.list_extensions, function(ext) { return !ext.composite_files }),
+            data        : _.filter(this.list_extensions, function(ext) { return !ext.composite_files }),
             value       : this.options.default_extension,
             onchange    : function(extension) {
                 self.updateExtension(extension);
@@ -186,7 +181,7 @@ return Backbone.View.extend({
         it.set('percentage', percentage);
 
         // update ui button
-        this.ui_button.set('percentage', this._uploadPercentage(percentage, it.get('file_size')));
+        this.ui_button.model.set('percentage', this._uploadPercentage(percentage, it.get('file_size')));
     },
 
     // success
@@ -197,7 +192,7 @@ return Backbone.View.extend({
         it.set('status', 'success');
 
         // update ui button
-        this.ui_button.set('percentage', this._uploadPercentage(100, it.get('file_size')));
+        this.ui_button.model.set('percentage', this._uploadPercentage(100, it.get('file_size')));
 
         // update completed
         this.upload_completed += it.get('file_size') * 100;
@@ -224,8 +219,7 @@ return Backbone.View.extend({
         it.set('info', message);
 
         // update ui button
-        this.ui_button.set('percentage', this._uploadPercentage(100, it.get('file_size')));
-        this.ui_button.set('status', 'danger');
+        this.ui_button.model.set( { 'percentage': this._uploadPercentage(100, it.get('file_size')), 'status': 'danger' } );
 
         // update completed
         this.upload_completed += it.get('file_size') * 100;
@@ -361,8 +355,7 @@ return Backbone.View.extend({
         });
 
         // reset progress
-        this.ui_button.set('percentage', 0);
-        this.ui_button.set('status', 'success');
+        this.ui_button.model.set( { 'percentage': 0, 'status': 'success' } );
 
         // update running
         this.counter.running = this.counter.announce;
@@ -382,7 +375,7 @@ return Backbone.View.extend({
         // check
         if (this.counter.running > 0) {
             // show upload has paused
-            this.ui_button.set('status', 'info');
+            this.ui_button.model.set('status', 'info');
 
             // set html content
             $('#upload-info').html('Queue will pause after completing the current file...');
@@ -410,7 +403,7 @@ return Backbone.View.extend({
             this.select_genome.value(this.options.default_genome);
 
             // reset button
-            this.ui_button.set('percentage', 0);
+            this.ui_button.model.set('percentage', 0);
 
             // show on screen info
             this._updateScreen();
@@ -548,7 +541,7 @@ return Backbone.View.extend({
                                     '<th>Name</th>' +
                                     '<th>Size</th>' +
                                     '<th>Type</th>' +
-                                    //'<th>Genome</th>' +
+                                    '<th>Genome</th>' +
                                     '<th>Settings</th>' +
                                     '<th>Status</th>' +
                                     '<th/>' +
@@ -561,8 +554,8 @@ return Backbone.View.extend({
                         '<span class="footer-title">Type (set all):</span>' +
                         '<span id="footer-extension"/>' +
                         '<span id="footer-extension-info" class="upload-icon-button fa fa-search"/> ' +
-                        //'<span class="footer-title">Genome (set all):</span>' +
-                        //'<span id="footer-genome"/>' +
+                        '<span class="footer-title">Genome (set all):</span>' +
+                        '<span id="footer-genome"/>' +
                     '</div>' +
                     '<div id="upload-buttons" class="upload-buttons"/>' +
                 '</div>';

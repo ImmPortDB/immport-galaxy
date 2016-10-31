@@ -7,13 +7,17 @@
        <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-    python $__tool_directory__/crossSampleOverview.py -i "${input}" -I "${inputmfi}" -s "${mfistats}" -o "${html_file}" -d "${html_file.files_path}" -t $__tool_directory__
+    python $__tool_directory__/crossSampleOverview.py -i "${input}" -I "${inputmfi}" -o "${html_file}" -m "${mfi}" -d "${html_file.files_path}" -t $__tool_directory__
+    #for $f in $cs_outputs#
+       -s $f
+    #end for#
   ]]>
   </command>
   <inputs>
     <param format="flowstat1" name="input" type="data" label="CrossSample Population Summary Table"/>
     <param format="flowstat2" name="inputmfi" type="data" label="Centroids MFI Summary Table"/>
-    <param format="flowstat3" name="mfistats" type="data" label="MFI Descriptive Statistics"/>
+    <param format="flowmfi" name="mfi" type="data" label="Centroids File from FLOCK"/>
+    <param format="flowclr" name="cs_outputs" type="data_collection" collection_type="list" label="CrossSample output files"/>
   </inputs>
   <outputs>
     <data format="html" name="html_file" label="Overview of ${input.name}">
@@ -23,16 +27,24 @@
     <test>
       <param name="input" value="input.flowstat1"/>
       <param name="inputmfi" value="input.flowstat2"/>
-      <param name="mfistats" value="input.flowstat3"/>
+      <param name="mfi" value="input.mfi"/>
+      <param name="cs_outputs">
+        <collection type="list">
+          <element name="input1" value="input1.flowclr"/>
+          <element name="input2" value="input2.flowclr"/>
+          <element name="input3" value="input3.flowclr"/>
+        </collection>
+      </param>
       <output name="output_file" file="out.html" lines_diff="4">
         <extra_files type="file" name="csAllMFIs.tsv" value="csAllMFIs.tsv"/>
         <extra_files type="file" name="csOverview.tsv" value="csOverview.tsv"/>
+        <extra_files type="file" name="csBoxplotData.json" value="csBoxplotData.json"/>
       </output>
     </test>
   </tests>
  <help><![CDATA[
    This tool generates an overview of the flow analysis results.
-   
+
 -----
 
 **Input**
@@ -41,7 +53,7 @@ Input files are summary tables generated from a CrossSample analysis (tab-separa
 
 **Output**
 
-The output is a page that allows visualization of the data. 
+The output is a page that allows visualization of the data.
 
 .. class:: warningmark
 
@@ -70,7 +82,7 @@ Centroids MFI Summary table::
    140     921     19      ... 1          0.1        Biosample2
    428     79      508     ... 2          0.25       Biosample2
    9       225     90      ... 3          0.3        Biosample2
-   
+
 MFI Descriptive Stats table::
 
    Population Marker1_mean Marker1_median Marker1_stdev ... Percentage_mean Percentage_median Percentage_stdev
@@ -96,19 +108,19 @@ The user can choose which populations to display. The graph displays the proport
 
 .. image:: ../../static/images/flowtools/stackedA.png
 
-Stacked bar plot of the population distribution in each sample. 
+Stacked bar plot of the population distribution in each sample.
 
 The user can choose which populations to display. The graph displays the proportion of each population within the set of selected populations. The Plotly toolbar allows more control over the display of the graph. There is an option to save the plot as a png file.
 
 .. image:: ../../static/images/flowtools/stackedB.png
 
-Parallel coordinates representation of populations. 
+Parallel coordinates representation of populations.
 
 The user can reorder the populations, and choose which samples to display either by selecting them in the legend via checkboxes or by selecting them on the graph. Data selected for display is shown in the table below the graph. Mousing over a line in that table highlights the corresponding line on the graph. The 'col visibility' button allows to choose which columns to display. 'CSV', 'PDF' and 'Copy' respectively allow to download a comma-separated values file, a pdf version or to copy to your clipboard in a tab-separated format the current view of the table.
 
 .. image:: ../../static/images/flowtools/pcpop.png
 
-Parallel coordinates representation of the data. 
+Parallel coordinates representation of the data.
 
 The user can reorder the markers, and choose which samples and/or populations to display either by selecting them in the legends via checkboxes or by selecting them on the graph. Data selected for display is shown in the table below the graph. Mousing over a line in that table highlights the corresponding line on the graph. The 'col visibility' button allows to choose which columns to display. 'CSV', 'PDF' and 'Copy' respectively allow to download a comma-separated values file, a pdf version or to copy to your clipboard in a tab-separated format the current view of the table.
 

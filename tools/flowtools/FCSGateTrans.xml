@@ -1,5 +1,5 @@
 <tool id="fcs_gate_trans_convert" name="Automated gating, Transformation and Conversion of FCS to Text" version="1.0">
-  <description>using FlowDensity and the FCSTrans tranformation.</description>
+  <description>using FlowDensity and the FCSTrans transformation.</description>
   <requirements>
     <requirement type="package" version="3.3.0">r</requirement>
     <requirement type="package" version="1.38.2">bioconductor-flowcore</requirement>

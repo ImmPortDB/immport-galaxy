@@ -1,5 +1,5 @@
 from __future__ import print_function
-import numpy as np
+from argparse import ArgumentParser
 from scipy.stats import gmean
 import pandas as pd
 
@@ -60,17 +60,33 @@ def gen_overview_stats(file_name):
 
 
 if __name__ == '__main__':
-    print("Welcome to Overview Stats")
-    file_name = '/home/galaxy/galaxy/database/files/000/dataset_68.dat'
-    flow_stats = gen_overview_stats(file_name)
+    parser = ArgumentParser(
+             prog="flowstats",
+             description="Gets statistics on FLOCK run")
+
+    parser.add_argument(
+            '-i',
+            dest="input_file",
+            required=True,
+            help="File locations for flow clr file.")
+
+    parser.add_argument(
+            '-o',
+            dest="out_file",
+            required=True,
+            help="Path to the directory for the output file.")
+    args = parser.parse_args()
+
+    flow_stats = gen_overview_stats(args.input_file)
     print("Events: ",flow_stats['events'])
     print("Min: ",flow_stats['min'])
     print("Max: ",flow_stats['max'])
     print("Columns: ",flow_stats['columns'])
     print("Markers: ",flow_stats['markers'])
-    #print("Population: ",flow_stats['population'])
+    print("Population: ",flow_stats['population'])
     print("Population Freq: ",flow_stats['population_freq'])
     print("Population Sample: ",flow_stats['population_sample'])
     print("Population Per: ",flow_stats['population_per'])
     print("Sample Data contains ",len(flow_stats['sample']), " events")
     print("MIF_POP ",flow_stats['mfi_pop'])
+    sys.exit(0)

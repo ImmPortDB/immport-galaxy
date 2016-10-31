@@ -4,6 +4,7 @@ var scatterData3DMFI = {};
 var scatterDataMFI = {};
 var tableContent;
 var newNames ={};
+var bpurl = "./boxplotData.json";
 
 var waitForFinalEvent = (function () {
   var timers = {};
@@ -34,10 +35,10 @@ var displayMFI = function() {
         var pp = mfiHdgs.pop();
         mfiHdgs.unshift(pp);
         mfiHdgs.unshift("Comment");
-        data = d3.tsv.parse(data);        
+        data = d3.tsv.parse(data);
         function handleSubmit(method, url, d, successCallBack, errorCallBack) {
             var output = {data : mfiTableData};
-            successCallBack(output);   
+            successCallBack(output);
         };
 
         $('#mfiDiv').empty();
@@ -55,7 +56,7 @@ var displayMFI = function() {
             mfiTableHeadings.push({"data": d, "title": d});
             mfiEditorData.push({"label" : d, "name" : d});
         });
-        
+
         var mfiTableHTML = '<table id="mfitable" class="dtable display compact" cellspacing="0" width="100%"/>';
 
         var popcol = 1;
@@ -70,7 +71,7 @@ var displayMFI = function() {
             fields: mfiEditorData,
             idSrc: 'Population'
         });
-        
+
         $('#mfitable').on( 'click', 'tbody td:first-child', function (e) {
             editor.bubble( this );
         });
@@ -78,9 +79,9 @@ var displayMFI = function() {
             columns: mfiTableHeadings,
             data: mfiTableData,
             order: [[ popcol, "asc" ]],
-            pageLength: 25, 
+            pageLength: 25,
             dom: '<"top"Bi>t<"bottom"lp><"clear">',
-            columnDefs: [{ 
+            columnDefs: [{
                 targets: mfiTargets,
                 className: "dt-body-right",
                 render: function(data, type, row){
@@ -189,6 +190,43 @@ var displayScatter3D = function() {
            });
        }
     });
+};
+
+var displayMFIBoxplot = function() {
+    $.ajax({
+        url: bpurl,
+        dataType: "json",
+        success: function(data) {
+          configbp = {
+            displaybutton : '#updateDisplaybp',
+            toggledisplayj : '#changeDisplay',
+            toggledisplay : 'changeDisplay',
+            popSelectj : '.popSelectbp',
+            plotdivj : '#plotDivbp',
+            csdata : data,
+            plotdiv : 'plotDivbp',
+            type : 'boxplot',
+            table : '#popTablebp tbody',
+            popSelect : 'popSelectbp',
+            allMarkers : [],
+            selectedMarkers: [],
+            allPopulations : [],
+            selectedPopulations : [],
+            popSelectAll : '#popSelectAllbp',
+            popSelectCheck: '.popSelectbp:checked',
+            mrkrSelectAll : '#mrkrSelectAll',
+            mrkrSelectCheck: '.mrkrSelect:checked',
+            mrkrSelect : 'mrkrSelect',
+            mtable : '#mrkrTable tbody',
+            mrkrSelectj: '.mrkrSelect',
+            displayvalues: '#displayLabels',
+            displayMFI: '#displayMFI',
+            view: 'p',
+            mrkrNames :  Object.keys(data.mfi)
+          };
+          displayToolbar(configbp);
+        }
+    })
 };
 
 function processData(text) {

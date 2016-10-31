@@ -25,16 +25,17 @@ attribute change to a model object.
 #   instead of the three separate classes. With no 'apparent' perfect scheme
 #   I'm opting to just keep them separate.
 import datetime
+import logging
 import re
 
-import sqlalchemy
 import routes
+import sqlalchemy
+from six import string_types
 
 from galaxy import exceptions
 from galaxy import model
 from galaxy.model import tool_shed_install
 
-import logging
 log = logging.getLogger( __name__ )
 
 
@@ -375,7 +376,7 @@ class ModelManager( object ):
         """
         # cpu-expensive
         for item in items:
-            filter_results = map( lambda f: f( item ), filters )
+            filter_results = [f( item ) for f in filters]
             if all( filter_results ):
                 yield item
 
@@ -735,7 +736,7 @@ class ModelDeserializer( HasAModelManager ):
     """
     # TODO:?? a larger question is: which should be first? Deserialize then validate - or - validate then deserialize?
 
-    def __init__( self, app, **kwargs ):
+    def __init__( self, app, validator=None, **kwargs ):
         """
         Set up deserializers and validator.
         """
@@ -746,7 +747,7 @@ class ModelDeserializer( HasAModelManager ):
         self.deserializable_keyset = set([])
         self.add_deserializers()
         # a sub object that can validate incoming values
-        self.validate = ModelValidator( self.app )
+        self.validate = validator or ModelValidator( self.app )
 
     def add_deserializers( self ):
         """
@@ -837,7 +838,7 @@ class ModelValidator( HasAModelManager ):
 
     # validators for primitives and compounds of primitives
     def basestring( self, key, val ):
-        return self.type( key, val, basestring )
+        return self.type( key, val, string_types )
 
     def bool( self, key, val ):
         return self.type( key, val, bool )
@@ -849,7 +850,7 @@ class ModelValidator( HasAModelManager ):
         """
         Must be a basestring or None.
         """
-        return self.type( key, val, ( basestring, type( None ) ) )
+        return self.type( key, val, ( string_types, type( None ) ) )
 
     def int_range( self, key, val, min=None, max=None ):
         """
@@ -930,6 +931,9 @@ class ModelFilterParser( HasAModelManager ):
         super( ModelFilterParser, self ).__init__( app, **kwargs )
         self.app = app
 
+        #: regex for testing/dicing iso8601 date strings, with optional time and ms, but allowing only UTC timezone
+        self.date_string_re = re.compile( r'^(\d{4}\-\d{2}\-\d{2})[T| ]{0,1}(\d{2}:\d{2}:\d{2}(?:\.\d{1,6}){0,1}){0,1}Z{0,1}$' )
+
         # dictionary containing parsing data for ORM/SQLAlchemy-based filters
         # ..note: although kind of a pain in the ass and verbose, opt-in/whitelisting allows more control
         #   over potentially expensive queries
@@ -987,7 +991,7 @@ class ModelFilterParser( HasAModelManager ):
                 return orm_filter
 
         # by convention, assume most val parsers raise ValueError
-        except ValueError, val_err:
+        except ValueError as val_err:
             raise exceptions.RequestParameterInvalidException( 'unparsable value for filter',
                 column=attr, operation=op, value=val, ValueError=str( val_err ) )
 
@@ -1121,19 +1125,21 @@ class ModelFilterParser( HasAModelManager ):
 
     def parse_date( self, date_string ):
         """
-        Attempts to get an SQL-able(?) date string for a query filter.
+        Reformats a string containing either seconds from epoch or an iso8601 formated
+        date string into a new date string usable within a filter query.
+
+        Seconds from epoch can be a floating point value as well (i.e containing ms).
         """
-        # Attempts to parse epoch int back into date string
+        # assume it's epoch if no date separator is present
         try:
-            epoch = int( date_string )
-            date = datetime.datetime.fromtimestamp( epoch )
-            return date.isoformat().replace( 'T', ' ', 1 )
+            epoch = float( date_string )
+            datetime_obj = datetime.datetime.fromtimestamp( epoch )
+            return datetime_obj.isoformat( sep=' ' )
         except ValueError:
             pass
-        # or removes T from date string
-        if not hasattr( self, 'date_string_re' ):
-            self.date_string_re = re.compile( r'^\d{4}\-\d{2}\-\d{2}T' )
-        if self.date_string_re.match( date_string ):
-            return date_string.replace( 'T', ' ', 1 )
-        # or as is
-        return date_string
+
+        match = self.date_string_re.match( date_string )
+        if match:
+            date_string = ' '.join([ group for group in match.groups() if group ])
+            return date_string
+        raise ValueError( 'datetime strings must be in the ISO 8601 format and in the UTC' )

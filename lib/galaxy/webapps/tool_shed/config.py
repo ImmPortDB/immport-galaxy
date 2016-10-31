@@ -7,7 +7,8 @@ import sys
 import logging
 import logging.config
 import ConfigParser
-from galaxy.util import string_as_bool, listify
+from datetime import timedelta
+from galaxy.util import string_as_bool
 from galaxy.web.formatting import expand_pretty_datetime_format
 from galaxy.version import VERSION, VERSION_MAJOR
 
@@ -66,26 +67,21 @@ class Configuration( object ):
         self.new_file_path = resolve_path( kwargs.get( "new_file_path", "database/tmp" ), self.root )
         self.cookie_path = kwargs.get( "cookie_path", "/" )
         self.enable_quotas = string_as_bool( kwargs.get( 'enable_quotas', False ) )
-        self.test_conf = resolve_path( kwargs.get( "test_conf", "" ), self.root )
         self.id_secret = kwargs.get( "id_secret", "USING THE DEFAULT IS NOT SECURE!" )
         # Tool stuff
         self.tool_path = resolve_path( kwargs.get( "tool_path", "tools" ), self.root )
         self.tool_secret = kwargs.get( "tool_secret", "" )
         self.tool_data_path = resolve_path( kwargs.get( "tool_data_path", "shed-tool-data" ), os.getcwd() )
+        self.tool_data_table_config_path = None
         self.integrated_tool_panel_config = resolve_path( kwargs.get( 'integrated_tool_panel_config', 'integrated_tool_panel.xml' ), self.root )
         self.builds_file_path = resolve_path( kwargs.get( "builds_file_path", os.path.join( self.tool_data_path, 'shared', 'ucsc', 'builds.txt') ), self.root )
         self.len_file_path = resolve_path( kwargs.get( "len_file_path", os.path.join( self.tool_data_path, 'shared', 'ucsc', 'chrom') ), self.root )
         self.ftp_upload_dir = kwargs.get( 'ftp_upload_dir', None )
-        # Install and test framework for testing tools contained in repositories.
-        self.display_legacy_test_results = string_as_bool( kwargs.get( 'display_legacy_test_results', True ) )
-        self.num_tool_test_results_saved = kwargs.get( 'num_tool_test_results_saved', 5 )
         self.update_integrated_tool_panel = False
         # Galaxy flavor Docker Image
         self.enable_galaxy_flavor_docker_image = string_as_bool( kwargs.get( "enable_galaxy_flavor_docker_image", "False" ) )
         self.use_remote_user = string_as_bool( kwargs.get( "use_remote_user", "False" ) )
-        self.user_activation_on = kwargs.get( 'user_activation_on', None )
-        self.activation_grace_period = kwargs.get( 'activation_grace_period', None )
-        self.inactivity_box_content = kwargs.get( 'inactivity_box_content', None )
+        self.user_activation_on = None
         self.registration_warning_message = kwargs.get( 'registration_warning_message', None )
         self.terms_url = kwargs.get( 'terms_url', None )
         self.blacklist_location = kwargs.get( 'blacklist_file', None )
@@ -136,6 +132,7 @@ class Configuration( object ):
         self.sentry_dsn = kwargs.get( 'sentry_dsn', None )
         # Where the tool shed hgweb.config file is stored - the default is the Galaxy installation directory.
         self.hgweb_config_dir = resolve_path( kwargs.get( 'hgweb_config_dir', '' ), self.root )
+        self.disable_push = string_as_bool( kwargs.get( "disable_push", "True" ) )
         # Proxy features
         self.apache_xsendfile = kwargs.get( 'apache_xsendfile', False )
         self.nginx_x_accel_redirect_base = kwargs.get( 'nginx_x_accel_redirect_base', False )
@@ -150,6 +147,7 @@ class Configuration( object ):
         self.citation_cache_type = kwargs.get( "citation_cache_type", "file" )
         self.citation_cache_data_dir = resolve_path( kwargs.get( "citation_cache_data_dir", "database/tool_shed_citations/data" ), self.root )
         self.citation_cache_lock_dir = resolve_path( kwargs.get( "citation_cache_lock_dir", "database/tool_shed_citations/locks" ), self.root )
+        self.password_expiration_period = timedelta(days=int(kwargs.get("password_expiration_period", 0)))
 
     @property
     def shed_tool_data_path( self ):
@@ -175,10 +173,6 @@ class Configuration( object ):
             shed_tool_data_table_config=[ 'shed_tool_data_table_conf.xml', 'config/shed_tool_data_table_conf.xml' ],
         )
 
-        listify_defaults = dict(
-            tool_data_table_config_path=[ 'config/tool_data_table_conf.xml', 'tool_data_table_conf.xml', 'config/tool_data_table_conf.xml.sample' ],
-        )
-
         for var, defaults in defaults.items():
             if kwargs.get( var, None ) is not None:
                 path = kwargs.get( var )
@@ -190,22 +184,6 @@ class Configuration( object ):
                 else:
                     path = defaults[-1]
             setattr( self, var, resolve_path( path, self.root ) )
-
-        for var, defaults in listify_defaults.items():
-            paths = []
-            if kwargs.get( var, None ) is not None:
-                paths = listify( kwargs.get( var ) )
-            else:
-                for default in defaults:
-                    for path in listify( default ):
-                        if not os.path.exists( resolve_path( path, self.root ) ):
-                            break
-                    else:
-                        paths = listify( default )
-                        break
-                else:
-                    paths = listify( defaults[-1] )
-            setattr( self, var, [ resolve_path( x, self.root ) for x in paths ] )
 
         # Backwards compatibility for names used in too many places to fix
         self.datatypes_config = self.datatypes_config_file
@@ -226,7 +204,7 @@ class Configuration( object ):
             if path not in [ None, False ] and not os.path.isdir( path ):
                 try:
                     os.makedirs( path )
-                except Exception, e:
+                except Exception as e:
                     raise ConfigurationError( "Unable to create missing directory: %s\n%s" % ( path, e ) )
         # Create the directories that it makes sense to create.
         for path in self.file_path, \
@@ -235,7 +213,7 @@ class Configuration( object ):
             if path not in [ None, False ] and not os.path.isdir( path ):
                 try:
                     os.makedirs( path )
-                except Exception, e:
+                except Exception as e:
                     raise ConfigurationError( "Unable to create missing directory: %s\n%s" % ( path, e ) )
         # Check that required files exist.
         if not os.path.isfile( self.datatypes_config ):

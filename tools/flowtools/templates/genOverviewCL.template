@@ -47,6 +47,8 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <li class="homeTab" data-value="scatter3D"><a href="#scatter3D" data-toggle="tab">Scatter 3D</a></li>
                 <li class="homeTab" data-value="parallelCoordinates"><a href="#parallelCoordinates" data-toggle="tab">Parallel Coordinates</a></li>
                 <li class="homeTab" data-value="clprofiles"><a href="#clprofiles" data-toggle="tab">Populations Cell Ontologies</a></li>
+                <li class="homeTab" data-value="stats"><a href="#boxplots" data-toggle="tab">Summary Statistics Boxplots</a></li>
+                <li class="homeTab" data-value="heatmap"><a href="#heatmap" data-toggle="tab">Heatmaps</a></li>
             </ul>
 
             <div class="tab-content">
@@ -89,7 +91,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     </div>
                     </div>
                 </div>
-                
+
                 <div class="tab-pane" id="scatter3D" style="min-height:500px;">
                     <div id="toolbarDiv3D" class="col-md-12 chartDiv">
                     X Axis: <select id="xAxisMarker3D" style="width:150px;">
@@ -105,7 +107,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                             </select>
                     <button id="updateDisplay3D">Update Display</button>
                     </div>
-                
+
                     <div class="col-md-12 chartDiv">
                     <div id="scatterPlotDiv3D" class="col-md-10" style="height:100%;"></div>
                     <div id="populationDiv3D" class="col-md-2" style="height:100%;">
@@ -155,14 +157,94 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     </div>
                   </div>
                 </div>
-				
+
+                <div class="tab-pane" id="boxplots" style="min-height:500px;">
+                    <div class="col-md-12 chartDiv">
+                        <div id="mrkrDiv" class="col-md-2" style="height:100%;min-width:5%;">
+                          Select All: <input type="checkbox" checked id="mrkrSelectAll"/>
+                          <table id="mrkrTable" class="table table-condensed table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Shade</th>
+                                <th>Marker Names</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                          <input type="checkbox" unchecked id="displayLabels"/>&nbsp;Display values<br>
+                          <input type="checkbox" unchecked id="displayMFI"/>&nbsp;Display MFI<br>
+                          &nbsp;&nbsp;<button id="changeDisplay">View per marker</button>
+
+                        </div>
+
+                        <div id="plotDivbp" class="col-md-8" style="height:100%;"></div>
+
+                        <div id="popDivbp" class="col-md-2" style="height:100%;">
+                            Select All: <input type="checkbox" checked id="popSelectAllbp"/>
+                            &nbsp;&nbsp;<button id="updateDisplaybp">Update Display</button>
+                            <table id="popTablebp" class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Pop. Names</th>
+                                        <th>Color</th>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="heatmap" style="min-height:500px;">
+                    <div class="col-md-12 chartDiv">
+                        <div id="mrkrDivD" class="col-md-2" style="height:100%;min-width:5%;">
+                            Select All: <input type="checkbox" checked id="mrkrSelectAllD"/>
+                            <table id="mrkrTableD" class="table table-condensed table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>Shade</th>
+                                  <th>Marker Names</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                            </table>
+                            <input type="checkbox" unchecked id="displayLabelsD"/>&nbsp;Display values<br>
+                            <input type="checkbox" unchecked id="displayMFID"/>&nbsp;Display MFI
+                        </div>
+
+                        <div id="plotDivD" class="col-md-8" style="height:100%;"></div>
+
+                        <div id="popDivD" class="col-md-2" style="height:100%;">
+                            Select All: <input type="checkbox" checked id="popSelectAllD"/>
+                            &nbsp;&nbsp;<button id="updateDisplayD">Update Display</button>
+                            <table id="popTableD" class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Pop. Names</th>
+                                        <th>Color</th>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="tab-pane" id="clprofiles" style="min-height:500px;">
                     <div class="row">
                         <div id="clprof"/>
                     </div>
                 </div>
                 </div>
-            </div>				
+            </div>
   	    </div>
     </div>
 </div>
@@ -181,6 +263,8 @@ var scatter2DLoaded = false;
 var scatter3DLoaded = false;
 var parallelCoordinatesLoaded = false;
 var clprofilesLoaded = false;
+var bpLoaded = false;
+var hmLoaded = false;
 
 $().ready(function() {
     $(document).on('shown.bs.tab','a[data-toggle="tab"]', function(e) {
@@ -223,6 +307,26 @@ $().ready(function() {
         }
         parallelCoordinatesLoaded = true;
         displayParallelCoordinates();
+      }
+      if (tab == '#boxplots') {
+        if (bpLoaded) {
+            displayPopulationLegend(configbp);
+            displayMarkerTable(configbp);
+            updateBoxplot(configbp);
+            return true;
+        }
+        bpLoaded = true;
+        displayMFIBoxplot();
+      }
+      if (tab == '#heatmap') {
+        if (hmLoaded) {
+//            displayPopulationLegend(configHeatmap);
+//            displayMarkerTable(configHeatmap);
+//            updateHeatmap(configHeatmap);
+            return true;
+        }
+        hmLoaded = true;
+//        displayBoxplot();
       }
       if (tab == '#clprofiles') {
         if (clprofilesLoaded) {

@@ -2,9 +2,10 @@ define([
     "mvc/history/history-content-model",
     "mvc/history/hda-model",
     "mvc/history/hdca-model",
+    "mvc/dataset/states",
     "mvc/base-mvc",
     "utils/localization"
-], function( HISTORY_CONTENT, HDA_MODEL, HDCA_MODEL, BASE_MVC, _l ){
+], function( HISTORY_CONTENT, HDA_MODEL, HDCA_MODEL, STATES, BASE_MVC, _l ){
 
 'use strict';
 
@@ -43,12 +44,16 @@ var HistoryContents = Backbone.Collection
                     return new HDCA_MODEL.HistoryPairDatasetCollection( attrs, options );
                 case 'list:paired':
                     return new HDCA_MODEL.HistoryListPairedDatasetCollection( attrs, options );
+                case 'list:list':
+                    return new HDCA_MODEL.HistoryListOfListsDatasetCollection( attrs, options );
             }
             // This is a hack inside a hack:
             // Raise a plain object with validationError to fake a model.validationError
             // (since we don't have a model to use validate with)
             // (the outer hack being the mixed content/model function in this collection)
-            return { validationError : 'Unknown collection_type: ' + attrs.history_content_type };
+            var msg = 'Unknown collection_type: ' + attrs.collection_type;
+            console.warn( msg, attrs );
+            return { validationError : msg };
         }
         return { validationError : 'Unknown history_content_type: ' + attrs.history_content_type };
     },
@@ -102,15 +107,8 @@ var HistoryContents = Backbone.Collection
      *  @see HistoryDatasetAssociation#inReadyState
      */
     running : function(){
-        var idList = [];
-        this.each( function( item ){
-            var isRunning = !item.inReadyState();
-            if( isRunning ){
-//TODO: is this still correct since type_id
-                idList.push( item.get( 'id' ) );
-            }
-        });
-        return idList;
+        function filterFn( c ){ return !c.inReadyState(); }
+        return new HistoryContents( this.filter( filterFn ) );
     },
 
     /** Get the model with the given hid
@@ -156,17 +154,71 @@ var HistoryContents = Backbone.Collection
         return new HistoryContents( this.filter( filterFn ) );
     },
 
+    /** return a new contents collection of only hidden items */
+    visibleAndUndeleted : function(){
+        function filterFn( c ){ return c.get( 'visible' ) && !c.get( 'deleted' ); }
+        return new HistoryContents( this.filter( filterFn ) );
+    },
+
     /** return true if any contents don't have details */
     haveDetails : function(){
         return this.all( function( content ){ return content.hasDetails(); });
     },
 
     // ........................................................................ ajax
+    /** override to use newest (versioned) api */
+    fetch : function( options ){
+        options = options || {};
+        options.data = _.defaults( options.data || {}, {
+            v : 'dev'
+        });
+        return Backbone.Collection.prototype.fetch.call( this, options );
+    },
+
+    /** override to use newest (versioned) api */
+    fetchUpdated : function( since, options ){
+        options = options || {};
+        options.traditional = true;
+        // TODO: this is painful - simplify here or move q/qv to named/mappable params
+        options.data = [{ name: 'v', value: 'dev' }];
+        if( since ){
+            options.data = options.data.concat( this._filtersFromMap({
+                'update_time-ge' : since.toISOString(),
+            }));
+        }
+        options.merge = true;
+        options.remove = false;
+        return this.fetch( options );
+    },
+
+    _filtersFromMap : function( filterMap ){
+        var filters = [];
+        // TODO: this seems unnecessary
+        _.each( filterMap, function( val, key ){
+            filters.push({ name: 'q',  value: key });
+            filters.push({ name: 'qv', value: val });
+        });
+        return filters;
+    },
+
     /** fetch detailed model data for all contents in this collection */
     fetchAllDetails : function( options ){
         options = options || {};
         var detailsFlag = { details: 'all' };
         options.data = ( options.data )?( _.extend( options.data, detailsFlag ) ):( detailsFlag );
+        return this.fetch( options );
+    },
+
+    /** specialty fetch method for retrieving the element_counts of all hdcas in the history */
+    fetchCollectionCounts : function( options ){
+        options = options || {};
+        options.data = _.defaults({
+            keys : [ 'type_id', 'element_count' ].join( ',' ),
+            q    : 'history_content_type',
+            qv   : 'dataset_collection',
+        }, options.data || {} );
+        options.merge = true;
+        options.remove = false;
         return this.fetch( options );
     },
 
@@ -233,10 +285,14 @@ var HistoryContents = Backbone.Collection
             type = ( contentType === 'hdca'? 'dataset_collection' : 'dataset' );
         }
         var collection = this,
-            xhr = jQuery.post( this.url(), {
-                content : id,
-                source  : contentType,
-                type    : type
+            xhr = jQuery.ajax( this.url(), {
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    content : id,
+                    source  : contentType,
+                    type    : type
+                })
             })
             .done( function( response ){
                 collection.add([ response ]);
@@ -257,17 +313,6 @@ var HistoryContents = Backbone.Collection
     },
 
     // ........................................................................ misc
-    /** override to ensure type id is set */
-    set : function( models, options ){
-        models = _.isArray( models )? models : [ models ];
-        _.each( models, function( model ){
-            if( !model.type_id || !model.get || !model.get( 'type_id' ) ){
-                model.type_id = HISTORY_CONTENT.typeIdStr( model.history_content_type, model.id );
-            }
-        });
-        Backbone.Collection.prototype.set.call( this, models, options );
-    },
-
     /** */
     createHDCA : function( elementIdentifiers, collectionType, name, options ){
         //precondition: elementIdentifiers is an array of plain js objects
@@ -292,7 +337,6 @@ var HistoryContents = Backbone.Collection
                 contents.trigger( 'error', xhr, status, message );
             });
     },
-
 
     /** In this override, copy the historyId to the clone */
     clone : function(){
