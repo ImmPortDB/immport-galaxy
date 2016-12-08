@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-""" Flow analysis datatypes.
+"""
+Flow analysis datatypes.
 """
 
 import gzip
@@ -21,6 +22,7 @@ from . import data
 
 log = logging.getLogger(__name__)
 
+
 def is_number(s):
     try:
         float(s)
@@ -28,23 +30,24 @@ def is_number(s):
     except ValueError:
         return False
 
-class FCS( Binary ):
+
+class FCS(Binary):
     """Class describing an FCS binary file"""
     file_ext = "fcs"
 
-    def set_peek( self, dataset, is_multi_byte=False ):
+    def set_peek(self, dataset, is_multi_byte=False):
         if not dataset.dataset.purged:
             dataset.peek = "Binary FCS file"
-            dataset.blurb = data.nice_size( dataset.get_size() )
+            dataset.blurb = data.nice_size(dataset.get_size())
         else:
             dataset.peek = 'file does not exist'
             dataset.blurb = 'file purged from disk'
 
-    def display_peek( self, dataset ):
+    def display_peek(self, dataset):
         try:
             return dataset.peek
         except:
-            return "Binary FCSfile (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "Binary FCSfile (%s)" % (data.nice_size(dataset.get_size()))
 
     def sniff(self, filename):
         """
@@ -63,23 +66,24 @@ class FCS( Binary ):
         """Returns the mime type of the datatype"""
         return 'application/octet-stream'
 
-class FlowText( Tabular ):
+
+class FlowText(Tabular):
     """Class describing an Flow Text file"""
     file_ext = "flowtext"
 
-    def set_peek( self, dataset, is_multi_byte=False ):
+    def set_peek(self, dataset, is_multi_byte=False):
         if not dataset.dataset.purged:
             dataset.peek = "Text Flow file"
-            dataset.blurb = data.nice_size( dataset.get_size() )
+            dataset.blurb = data.nice_size(dataset.get_size())
         else:
             dataset.peek = 'file does not exist'
             dataset.blurb = 'file purged from disk'
 
-    def display_peek( self, dataset ):
+    def display_peek(self, dataset):
         try:
             return dataset.peek
         except:
-            return "Text Flow file (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "Text Flow file (%s)" % (data.nice_size(dataset.get_size()))
 
     def sniff(self, filename):
         """Quick test on file formatting and values"""
@@ -96,23 +100,23 @@ class FlowText( Tabular ):
         return 'text/tab-separated-values'
 
 
-class FlowClustered( Tabular ):
+class FlowClustered(Tabular):
     """Class describing a Flow Text that has been clustered through FLOCK"""
     file_ext = "flowclr"
 
-    def set_peek( self, dataset, is_multi_byte=False ):
+    def set_peek(self, dataset, is_multi_byte=False):
         if not dataset.dataset.purged:
             dataset.peek = "Text Flow Clustered file"
-            dataset.blurb = data.nice_size( dataset.get_size() )
+            dataset.blurb = data.nice_size(dataset.get_size())
         else:
             dataset.peek = 'file does not exist'
             dataset.blurb = 'file purged from disk'
 
-    def display_peek( self, dataset ):
+    def display_peek(self, dataset):
         try:
             return dataset.peek
         except:
-            return "Text Flow Clustered file (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "Flow Text Clustered file (%s)" % (data.nice_size(dataset.get_size()))
 
     def sniff(self, filename):
         """Quick test on headers and values"""
@@ -130,23 +134,24 @@ class FlowClustered( Tabular ):
         """Returns the mime type of the datatype"""
         return 'text/tab-separated-values'
 
-class FlowMFI( Tabular ):
+
+class FlowMFI(Tabular):
     """Class describing a Flow MFI file"""
     file_ext = "flowmfi"
 
-    def set_peek( self, dataset, is_multi_byte=False ):
+    def set_peek(self, dataset, is_multi_byte=False):
         if not dataset.dataset.purged:
             dataset.peek = "MFI Flow file"
-            dataset.blurb = data.nice_size( dataset.get_size() )
+            dataset.blurb = data.nice_size(dataset.get_size())
         else:
             dataset.peek = 'file does not exist'
             dataset.blurb = 'file purged from disk'
 
-    def display_peek( self, dataset ):
+    def display_peek(self, dataset):
         try:
             return dataset.peek
         except:
-            return "MFI Flow file (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "MFI Flow file (%s)" % (data.nice_size(dataset.get_size()))
 
     def sniff(self, filename):
         """Quick test on file formatting and values"""
@@ -164,23 +169,24 @@ class FlowMFI( Tabular ):
         """Returns the mime type of the datatype"""
         return 'text/tab-separated-values'
 
-class FlowStats1( Tabular ):
+
+class FlowStats1(Tabular):
     """Class describing a Flow Stats file"""
     file_ext = "flowstat1"
 
-    def set_peek( self, dataset, is_multi_byte=False ):
+    def set_peek(self, dataset, is_multi_byte=False):
         if not dataset.dataset.purged:
             dataset.peek = "Flow Stats1 file"
-            dataset.blurb = data.nice_size( dataset.get_size() )
+            dataset.blurb = data.nice_size(dataset.get_size())
         else:
             dataset.peek = 'file does not exist'
             dataset.blurb = 'file purged from disk'
 
-    def display_peek( self, dataset ):
+    def display_peek(self, dataset):
         try:
             return dataset.peek
         except:
-            return "Flow Stats1 file (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "Flow Stats1 file (%s)" % (data.nice_size(dataset.get_size()))
 
     def sniff(self, filename):
         """Quick test on file formatting and values"""
@@ -194,23 +200,24 @@ class FlowStats1( Tabular ):
         """Returns the mime type of the datatype"""
         return 'text/tab-separated-values'
 
-class FlowStats2( Tabular ):
+
+class FlowStats2(Tabular):
     """Class describing a Flow Stats file"""
     file_ext = "flowstat2"
 
-    def set_peek( self, dataset, is_multi_byte=False ):
+    def set_peek(self, dataset, is_multi_byte=False):
         if not dataset.dataset.purged:
             dataset.peek = "Flow Stats2 file"
-            dataset.blurb = data.nice_size( dataset.get_size() )
+            dataset.blurb = data.nice_size(dataset.get_size())
         else:
             dataset.peek = 'file does not exist'
             dataset.blurb = 'file purged from disk'
 
-    def display_peek( self, dataset ):
+    def display_peek(self, dataset):
         try:
             return dataset.peek
         except:
-            return "Flow Stats2 file (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "Flow Stats2 file (%s)" % (data.nice_size(dataset.get_size()))
 
     def sniff(self, filename):
         """Quick test on file formatting and values"""
@@ -224,23 +231,24 @@ class FlowStats2( Tabular ):
         """Returns the mime type of the datatype"""
         return 'text/tab-separated-values'
 
-class FlowStats3( Tabular ):
+
+class FlowStats3(Tabular):
     """Class describing a Flow Stats file"""
     file_ext = "flowstat3"
 
-    def set_peek( self, dataset, is_multi_byte=False ):
+    def set_peek(self, dataset, is_multi_byte=False):
         if not dataset.dataset.purged:
             dataset.peek = "Flow Stats3 file"
-            dataset.blurb = data.nice_size( dataset.get_size() )
+            dataset.blurb = data.nice_size(dataset.get_size())
         else:
             dataset.peek = 'file does not exist'
             dataset.blurb = 'file purged from disk'
 
-    def display_peek( self, dataset ):
+    def display_peek(self, dataset):
         try:
             return dataset.peek
         except:
-            return "Flow Stats3 file (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "Flow Stats3 file (%s)" % (data.nice_size(dataset.get_size()))
 
     def sniff(self, filename):
         """Quick test on file formatting and values"""
@@ -258,23 +266,24 @@ class FlowStats3( Tabular ):
         """Returns the mime type of the datatype"""
         return 'text/tab-separated-values'
 
-class FlowScore( Tabular ):
+
+class FlowScore(Tabular):
     """Class describing a Flow Score file"""
     file_ext = "flowscore"
 
-    def set_peek( self, dataset, is_multi_byte=False ):
+    def set_peek(self, dataset, is_multi_byte=False):
         if not dataset.dataset.purged:
             dataset.peek = "Flow Score file"
-            dataset.blurb = data.nice_size( dataset.get_size() )
+            dataset.blurb = data.nice_size(dataset.get_size())
         else:
             dataset.peek = 'file does not exist'
             dataset.blurb = 'file purged from disk'
 
-    def display_peek( self, dataset ):
+    def display_peek(self, dataset):
         try:
             return dataset.peek
         except:
-            return "Flow Score file (%s)" % ( data.nice_size( dataset.get_size() ) )
+            return "Flow Score file (%s)" % (data.nice_size(dataset.get_size()))
 
     def sniff(self, filename):
         """Quick test on file formatting and values"""

@@ -1,4 +1,4 @@
-<tool id="fcstxt_merge_downsample" name="Downsample and merge" version="1.0">
+<tool id="fcstxt_merge_downsample" name="Downsample and merge" version="1.1">
   <description>txt-converted FCS files into one text file based on headers.</description>
   <requirements>
     <requirement type="package" version="1.10.2">numpy</requirement>
@@ -15,7 +15,7 @@
   </stdio>
   <command><![CDATA[
 	  python $__tool_directory__/FCStxtMergeDownsample.py -o "${output_file}" -d "${factorDS}"
- #if $columns 
+ #if $columns
    -c "${columns}"
  #end if
  #for $f in $input#
@@ -24,7 +24,7 @@
   ]]>
   </command>
   <inputs>
-    <param format="txt,tabular,flowtext" name="input" type="data_collection" collection_type="list" label="Text files Collection"/>
+    <param format="flowtext" name="input" type="data_collection" collection_type="list" label="Text files Collection"/>
     <param name="factorDS" type="text" label="Downsample by:" value="i.e.:0.1 or 10%" optional="true" help="1 by default (no downsampling)."/>
     <param name="columns" type="text" label="Merge columns:" value="i.e.:1,2,5" optional="true" help="By default, will merge on the columns in common to all files.">
 	</param>
@@ -71,8 +71,8 @@ This tool requires collections of txt, flowtext or tabular files as input.
 
 By default, files are not downsampled. If a downsampling factor is provided, each file in the input dataset collection will be downsampled randomly without replacement as follows:
 
-- If n is between 0 and 1, the size of the output will be n times that of the input files.  
-- If n is between 1 and 100, the size of the output will be n% that of the input files.  
+- If n is between 0 and 1, the size of the output will be n times that of the input files.
+- If n is between 1 and 100, the size of the output will be n% that of the input files.
 
 .. class:: warningmark
 
@@ -88,7 +88,7 @@ Potential errors are logged to stderr. If the number of errors reaches 10, the r
 
 .. class:: infomark
 
-Tip: Three tools in the Flow File Tools section can help prepare files for merging and/or downsampling: 
+Tip: Three tools in the Flow File Tools section can help prepare files for merging and/or downsampling:
 
 - Check headers tool provides a list of headers for all files in a collection of text, flowtext or tabular files.
 - Remove, rearrange and/or rename columns tool allows manipulation of the columns of a file or a set of files.
@@ -107,7 +107,7 @@ Tip: Three tools in the Flow File Tools section can help prepare files for mergi
    24      56      32
    95      83      53
    74      15      87
-   
+
 *File2*::
 
    Marker4 Marker5 Marker3
@@ -124,15 +124,15 @@ Tip: Three tools in the Flow File Tools section can help prepare files for mergi
 
 If run without specifying the columns::
 
-   Marker3 
-   12 
-   10 
+   Marker3
+   12
+   10
    76
    32
    53
    87
-   98 
-   58 
+   98
+   58
    68
    53
    45
@@ -155,7 +155,7 @@ If run specifying columns 1,2,3::
    76      74      53
    62      34      45
    93      21      76
-   
+
 .. class:: infomark
 
 If run specifying columns 1,2,3 and with a downsampling factor of 0.5::

@@ -5,6 +5,7 @@ import os
 
 from argparse import ArgumentParser
 
+
 def get_fcs_marker_list(marker_file):
     with open(marker_file, "r") as mrkrs:
         useless_first_line = mrkrs.readline()
@@ -19,6 +20,7 @@ def get_fcs_marker_list(marker_file):
         "\t".join(markers)
     ]
     return(fcs_markers)
+
 
 def print_fcs_headers(files, filenames, outfile, tool_dir):
     headers = {}
@@ -35,6 +37,7 @@ def print_fcs_headers(files, filenames, outfile, tool_dir):
         for j, flm in enumerate(files):
             outf.write("\t".join([filenames[j], "markers", headers[flm][1]]) + "\n")
     return
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -57,9 +60,9 @@ if __name__ == "__main__":
 
     parser.add_argument(
             '-t',
-            dest = "tool_dir",
-            required = True,
-            help = "Path to the tool directory")
+            dest="tool_dir",
+            required=True,
+            help="Path to the tool directory")
 
     parser.add_argument(
             '-o',

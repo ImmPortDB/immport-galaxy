@@ -5,6 +5,7 @@ import pandas as pd
 from argparse import ArgumentParser
 import sys
 
+
 def is_number(s):
     try:
         float(s)
@@ -12,7 +13,8 @@ def is_number(s):
     except ValueError:
         return False
 
-def error_report(input_file,fname, output_file):
+
+def error_report(input_file, fname, output_file):
     errors = 0
     df = pd.read_table(input_file)
     with open(output_file, "w") as outf:
@@ -25,38 +27,38 @@ def error_report(input_file,fname, output_file):
                         to_check = checklines.strip().split("\t")
                         count_lines += 1
                         for item in to_check:
-                            if not is_number(item): 
+                            if not is_number(item):
                                 errors += 1
-                                outf.write(" ".join(["WARNING: line", str(count_lines),
-                                                           "in", fname ,"contains non-numeric results\n"]))
+                                outf.write(" ".join(["WARNING: line", str(count_lines), "in", fname, "contains non-numeric results\n"]))
         if errors == 0:
             outf.write("No errors in the file.\n")
     return
 
+
 if __name__ == "__main__":
     parser = ArgumentParser(
-             prog = "txtDiagnosis",
-             description = "Reports potential errors in text-converted FCS files.")
+             prog="txtDiagnosis",
+             description="Reports potential errors in text-converted FCS files")
 
     parser.add_argument(
             '-i',
-            dest = "input_file",
-            required = True,
-            help = "File location for the text file.")
+            dest="input_file",
+            required=True,
+            help="File location for the text file.")
 
     parser.add_argument(
             '-n',
-            dest = "filename",
-            required = True,
-            help = "Filename location for the text file.")
+            dest="filename",
+            required=True,
+            help="Filename location for the text file.")
 
     parser.add_argument(
             '-o',
-            dest = "output_file",
-            required = True,
-            help = "Name of the output file.")
+            dest="output_file",
+            required=True,
+            help="Name of the output file.")
 
     args = parser.parse_args()
-    
+
     error_report(args.input_file, args.filename, args.output_file)
     sys.exit(0)

@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import sys
-import os
-from scipy.stats import gmean
 from argparse import ArgumentParser
-from collections import defaultdict
 import pandas as pd
 
 
@@ -15,7 +12,7 @@ def get_FLOCK_stats(input_file, output_file, out_file2):
     percent = (df['Population'].value_counts(normalize=True) * 100).round(decimals=2)
     tot_count = len(df['Population'])
 
-    to_rm = summary.loc(axis=0)[:,['count']].index.tolist()
+    to_rm = summary.loc(axis=0)[:, ['count']].index.tolist()
     df1 = summary[~summary.index.isin(to_rm)]
     df1.to_csv(out_file2, sep="\t")
 
@@ -25,6 +22,7 @@ def get_FLOCK_stats(input_file, output_file, out_file2):
             outf.write("\t".join([str(pops), str(counts.loc[pops]), str(percent.loc[pops])]) + "\n")
         outf.write("Total\t" + str(tot_count) + "\t \n")
     return
+
 
 if __name__ == '__main__':
     parser = ArgumentParser(

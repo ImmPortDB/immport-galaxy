@@ -2,12 +2,13 @@
 from __future__ import print_function
 import sys
 import os
-
+import logging
 import pandas as pd
 from argparse import ArgumentParser
 from jinja2 import Environment, FileSystemLoader
 from shutil import copyfile
 from collections import defaultdict
+
 
 def panel_to_json_string(panel):
     # from http://stackoverflow.com/questions/28078118/merge-many-json-strings-with-python-pandas-inputs
@@ -24,6 +25,7 @@ def panel_to_json_string(panel):
     except:
         logging.exception('Panel Encoding did not work')
     return stream
+
 
 def get_outliers(group, upper, lower):
     cat = group.name
@@ -51,21 +53,22 @@ def get_boxplot_stats(all_data, mfi_file, output_json):
             if marker != 'Population':
                 outliers[population][marker] = list(out[population][marker])
     outdf = pd.DataFrame(outliers)
-    #Get initial MFI values
+    # Get initial MFI values
     mfi = pd.read_table(mfi_file)
     mfi = mfi.set_index('Population')
 
-    data = {'q1' : q1,
-            'q2' : q2,
-            'q3' : q3,
+    data = {'q1': q1,
+            'q2': q2,
+            'q3': q3,
             'upper': upper,
             'lower': lower,
-            'outliers' : outdf.T,
-            'mfi' : mfi}
+            'outliers': outdf.T,
+            'mfi': mfi}
     wp = pd.Panel(data)
 
     with open(output_json, "w") as js_all:
         js_all.write(panel_to_json_string(wp))
+
 
 def cs_overview(input_file, input_mfi, init_mfi, output_file, output_dir, tools_dir, cs_files):
     os.mkdir(output_dir)
@@ -73,10 +76,10 @@ def cs_overview(input_file, input_mfi, init_mfi, output_file, output_dir, tools_
     env = Environment(loader=FileSystemLoader(tools_dir + "/templates"))
     template = env.get_template("csOverview.template")
 
-    real_directory = output_dir.replace("/job_working_directory","")
-    context = { 'outputDirectory': real_directory }
+    real_directory = output_dir.replace("/job_working_directory", "")
+    context = {'outputDirectory': real_directory}
     overview = template.render(**context)
-    with open(output_file,"w") as outf:
+    with open(output_file, "w") as outf:
         outf.write(overview)
 
     cs_overview_file = output_dir + "/csOverview.tsv"
@@ -85,19 +88,20 @@ def cs_overview(input_file, input_mfi, init_mfi, output_file, output_dir, tools_
     cs_overview_mfis = output_dir + "/csAllMFIs.tsv"
     copyfile(input_mfi, cs_overview_mfis)
 
-    ## Get all the data to calculate quantiles, IRC and outliers.
+    # Get all the data to calculate quantiles, IRC and outliers.
     tmp_all_data = "csAllData.tsv"
     with open(tmp_all_data, "a") as alldata:
         # assumes that the files have ran through flock and CS and therefore have the same headers
         df1 = pd.read_table(cs_files[0])
-        df1.to_csv(alldata, sep="\t", header = True, index = False)
+        df1.to_csv(alldata, sep="\t", header=True, index=False)
         for i in range(1, len(cs_files)):
             df = pd.read_table(cs_files[i])
-            df.to_csv(alldata, sep="\t", header = False, index = False)
+            df.to_csv(alldata, sep="\t", header=False, index=False)
 
     cs_boxplot_data = output_dir + "/csBoxplotData.json"
     get_boxplot_stats(tmp_all_data, init_mfi, cs_boxplot_data)
     return
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -147,8 +151,8 @@ if __name__ == "__main__":
             required=True,
             help="Location of the Tool Directory.")
 
-
     args = parser.parse_args()
+
     cs_files = [f for f in args.cs_outputs]
     cs_overview(args.input_file, args.input_mfi, args.mfi, args.output_file, args.output_directory, args.tool_directory, cs_files)
     sys.exit(0)

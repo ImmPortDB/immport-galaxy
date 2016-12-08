@@ -7,6 +7,7 @@ from collections import defaultdict
 from argparse import ArgumentParser
 from jinja2 import Environment, FileSystemLoader
 
+
 def generate_flowCL_query(list_markers, list_types):
     if (len(list_markers) != len(list_types)):
         return("pb with headers")
@@ -18,6 +19,7 @@ def generate_flowCL_query(list_markers, list_types):
             query.append(list_types[i])
     # return concatenated string
     return("".join(query))
+
 
 def run_flowCL(phenotype, output_file, output_dir, tool_dir):
     os.mkdir(output_dir)
@@ -50,6 +52,7 @@ def run_flowCL(phenotype, output_file, output_dir, tool_dir):
     else:
         sys.stderr.write("There are no results with this query. Please check your markers if you believe there should be.")
         sys.exit(2)
+
     with open(output_table, "w") as tbl:
         tbl.write("1\t2\nQuery\t" + phenotype + "\n")
         for j in table:
@@ -75,49 +78,50 @@ def run_flowCL(phenotype, output_file, output_dir, tool_dir):
     env = Environment(loader=FileSystemLoader(tool_dir + "/templates"))
     template = env.get_template("flowCL.template")
 
-    real_directory = output_dir.replace("/job_working_directory","")
-    context = { 'outputDirectory': real_directory }
+    real_directory = output_dir.replace("/job_working_directory", "")
+    context = {'outputDirectory': real_directory}
     overview = template.render(**context)
-    with open(output_file,"w") as outf:
+    with open(output_file, "w") as outf:
         outf.write(overview)
     return
 
+
 if __name__ == "__main__":
     parser = ArgumentParser(
-             prog = "getOntology",
-             description = "runs flowCL on a set of markers.")
+             prog="getOntology",
+             description="runs flowCL on a set of markers.")
 
     parser.add_argument(
             '-m',
-            dest = "markers",
-            required = True,
-            action = 'append',
-            help = "marker queries.")
+            dest="markers",
+            required=True,
+            action='append',
+            help="marker queries.")
 
     parser.add_argument(
             '-y',
-            dest = "marker_types",
-            required = True,
-            action = 'append',
-            help = "marker queries.")
+            dest="marker_types",
+            required=True,
+            action='append',
+            help="marker queries.")
 
     parser.add_argument(
             '-o',
-            dest = "output_file",
-            required = True,
-            help = "Name of the output html file.")
+            dest="output_file",
+            required=True,
+            help="Name of the output html file.")
 
     parser.add_argument(
             '-d',
-            dest = "output_dir",
-            required = True,
-            help = "Path to the html supporting directory")
+            dest="output_dir",
+            required=True,
+            help="Path to the html supporting directory")
 
     parser.add_argument(
             '-t',
-            dest = "tool_dir",
-            required = True,
-            help = "Path to the tool directory")
+            dest="tool_dir",
+            required=True,
+            help="Path to the tool directory")
 
     args = parser.parse_args()
 

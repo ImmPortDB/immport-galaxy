@@ -4,6 +4,7 @@ import sys
 
 from argparse import ArgumentParser
 
+
 def is_integer(s):
     try:
         int(s)
@@ -11,9 +12,10 @@ def is_integer(s):
     except ValueError:
         return False
 
+
 def rearrange_file(input_file, col_order, col_names, output_file):
     with open(input_file, "r") as infl, open(output_file, "w") as outf:
-        ## headers
+        # headers
         hdrs = infl.readline().strip()
         current_hdrs = hdrs.split("\t")
         if not col_order and col_names:
@@ -39,11 +41,11 @@ def rearrange_file(input_file, col_order, col_names, output_file):
 
         outf.write(hdrs + "\n")
 
-        ## columns
+        # columns
         for lines in infl:
             cols = lines.strip().split("\t")
             if not col_order:
-                col_order = [x for x in range(0,len(current_hdrs))]
+                col_order = [x for x in range(0, len(current_hdrs))]
             outf.write("\t".join([cols[c] for c in col_order]) + "\n")
 
 
@@ -76,11 +78,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    ## check column indices
+    # check column indices
     default_value_col = ["i.e.:1,5,2", "default", "Default"]
     col_order = []
     if args.columns:
-        if not args.columns in default_value_col:
+        if args.columns not in default_value_col:
             tmp_col = args.columns.split(",")
             if len(tmp_col) == 1:
                 if not tmp_col[0].strip():
@@ -96,11 +98,11 @@ if __name__ == "__main__":
                     else:
                         col_order.append(int(tmp_col[c].strip()) - 1)
 
-    ## check column names
+    # check column names
     default_value_nms = ["i.e.:Marker1,,Marker4", "default", "Default"]
     col_names = []
     if args.column_names:
-        if not args.column_names in default_value_nms:
+        if args.column_names not in default_value_nms:
             col_names = args.column_names.split(",")
             if col_order:
                 if len(col_order) != len(col_names):

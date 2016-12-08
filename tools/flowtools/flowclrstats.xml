@@ -8,21 +8,21 @@
     <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-    python $__tool_directory__/flowclrstats.py -i "${input}" -o "${output}" -p "${report}"
+    python $__tool_directory__/flowclrstats.py -i "${input}" -p "${output}" -o "${report}"
  ]]>
   </command>
   <inputs>
     <param format="flowclr" name="input" type="data" collection_type="list" label="FLOCK file"/>
   </inputs>
   <outputs>
-    <data format="tabular" name="report" label="Summary statistics of ${input.name}"/>
-    <data format="tabular" name="output" label="Population report of ${input.name}"/>
+    <data format="tabular" name="output" label="Summary statistics of ${input.name}"/>
+    <data format="tabular" name="report" label="Population report of ${input.name}"/>
   </outputs>
   <tests>
     <test>
-      <param name="input" value=""/>
-      <output name="output" file="" compare=""/>
-      <output name="report" file="" compare=""/>
+      <param name="input" value="input.flowclr"/>
+      <output name="output" file="out.tabular" />
+      <output name="report" file="report.tabular" />
     </test>
   </tests>
   <help><![CDATA[
