@@ -14,6 +14,17 @@
     <!--js-->
     <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+
+    <!--Google Analytics-->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+         ga('create', 'UA-79040210-1', 'auto', 'IG_help');
+         ga('send', 'pageview');
+         ga('IG_help.send', 'pageview');
+    </script>
 </head>
 
 <body>
@@ -42,15 +53,15 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Applications<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="https://ai-biscdatamgtqa1.niaid.nih.gov:8443/home">
+                        <li><a href="https://immport.niaid.nih.gov" target="_blank">
                             <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-logo-image-32.png" />
                             Private Data
                         </a></li>
-                        <li><a href="http://www.immport.org/immport-open/public/home/studySearch" >
+                        <li><a href="http://www.immport.org/immport-open/public/home/studySearch" target="_blank">
                             <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-icon-blue.png" />
                             Shared Data
                         </a></li>
-                        <li><a href="https://immportgalaxy.org/">
+                        <li><a href="https://immportgalaxy.org/" target="_blank">
                             <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-icon-green.png" />
                             Data Analysis
                         </a></li>
@@ -71,7 +82,7 @@
                         <li><a href="http://www.immport.org/immport-open/public/home/about">What is ImmPort?</a></li>
                     </ul>
                 </li>
-                <li><a href="https://ai-biscusradmqa1.niaid.nih.gov:8443/registrationuser/registration"> Register </a></li>
+                <li><a href="https://immport-user-admin.niaid.nih.gov:8443/registrationuser/registration" target="_blank"> Register </a></li>
             </ul>
         </div>
     </div>
@@ -151,7 +162,7 @@
                             </div>
                             <div id="collapse02" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Data will be kept for a year. <font color="red">we need to decide how much data users can have each</font>
+                                    <p>Data will be kept for a year. This policy is subject to change. <!--font color="red">we need to decide how much data users can have each</font-->
                                     </p>
                                 </div>
                             </div>
@@ -166,7 +177,6 @@
                             <div id="collapse03" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p><a href="mailto:immport-galaxy@immport.org">Contact us</a> if you have forgotten your password.
-                                    <font color="red"> check the ini file to configure mail</font>
                                     </p>
                                 </div>
                             </div>
@@ -181,7 +191,6 @@
                             <div id="collapse04" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p><a href="mailto:immport-galaxy@immport.org">Contact us</a> if you have forgotten your username.
-                                    <font color="red"> check the ini file to configure mail</font>
                                     </p>
                                 </div>
                             </div>
@@ -381,7 +390,7 @@
                             </div>
                             <div id="collapse25" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To download files, start by clicking on the filename in your history. File details (file size, format...) will appear, along with a few grey icons at the bottom. Click on the first icon on the left (floppy disk) to download the file. HTML output files will be downloaded as a zip file containing all supporting data. Note that binary files will be downloaded automatically when you click on the eye icon next to their name. <br>Note that the graphs generated with Plotly in the visualization tools output can be saved as pngs by clicking on the camera icon that appears when mousing over the graphs. For the other graphs, a screenshot is the best option so far. More <a href="https://www.youtube.com/watch?v=jjzALENv5gU" target="_blank">here</a> and <a href="" target="_blank">here</a>. <font color="red"> link the flock overview video when it's done</font>. <br>
+                                    <p>To download files, start by clicking on the filename in your history. File details (file size, format...) will appear, along with a few grey icons at the bottom. Click on the first icon on the left (floppy disk) to download the file. HTML output files will be downloaded as a zip file containing all supporting data. Note that binary files will be downloaded automatically when you click on the eye icon next to their name. <br>Note that the graphs generated with Plotly in the visualization tools output can be saved as pngs by clicking on the camera icon that appears when mousing over the graphs. For the other graphs, a screenshot is the best option so far. More <a href="https://www.youtube.com/watch?v=jjzALENv5gU" target="_blank">here</a>. <br>
                                     For higher resolution images, please <a href="mailto:immport-galaxy@immport.org">contact us</a>.
                                     </p>
                                 </div>
@@ -773,7 +782,7 @@
                                             <li>Explore the populations defined by FLOCK with the tool 'Generate overview information of FLOCK analysis' under 'Flow visualization tools'</li>
                                             <li>Explore the results of Cross Sample with the tool 'Generate overview information of the CrossSample analysis' under 'Flow visualization tools'</li>
                                         </ol>
-                                    <b>Tip: </b> For a successful analysis, make sure that the merged file run through FLOCK and all individual files run subsequently through Cross Sample have the same marker names.<br>
+                                    <b>Tip: </b> For a successful analysis, make sure that the merged file run through FLOCK and all individual files run subsequently through Cross Sample have the same marker names. Make sure that the markers kept for analysis are all meaningful - FLOCK clusters blindly without checking the headers of the files. Channels related to cell length, time, beads etc will be taken into account if they are not removed prior to analysis.<br>
                                     This workflow is available among the workflows published by immport-galaxy.<br> Feel free to <a href="mailto:immport-galaxy@immport.org">contact us</a> for additional information. More references are indicated <a href="http://www.immport.org/immport-open/public/home/publications" target="_blank">here</a> and at the bottom of the help section of each tool.
                                     </p>
                                 </div>
@@ -838,7 +847,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-default inner-a">
+                        <!--div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
                                     <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse72">Galaxy options</a>
@@ -849,7 +858,7 @@
                                     <p><font color="red">Need more time to explore this</font></p>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
 
                     </div>
 
@@ -966,6 +975,19 @@
                                 <div class="panel-body inner-body">
                                     <p>The first thing to do if a tool's output turns red instead of the expected green is to read the exit message. To do this, click on the filename, and once the file details appear, on the 'i' icon at the bottom. In the central pane should now be all of the job's details. Click on 'stderr' to access the exit message. If that does not help, please copy the message and send it to us <a href="mailto:immport-galaxy@immport.org">here</a>.
                                     </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse83">flowCL issues?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse83" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>Querying the cell ontology database with flowCL will not work with user-defined marker names. The marker names need to be in a format compatible with the CL. Things like 'CELL_LENGTH' or 'Time' will not be recognized. For more help, please <a href="mailto:immport-galaxy@immport.org">contact us</a>.</p>
                                 </div>
                             </div>
                         </div>

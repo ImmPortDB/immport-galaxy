@@ -1,6 +1,9 @@
-#
 # Cell Ontology Module for Galaxy
 # FlowCL
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
 # 
 # Version 1
 # Cristel Thomas

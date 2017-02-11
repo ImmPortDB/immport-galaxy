@@ -1,7 +1,10 @@
-#
 # FCS Headers Module for Galaxy
 # FlowCore
-# 
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
+#
 # Version 1
 # Cristel Thomas
 #
@@ -16,7 +19,7 @@ getFCSMarkerNames <- function(input, output) {
   markers <- as.vector(pData(parameters(fcs))$desc)
   df <- data.frame(channels, markers)
   fcs_markers <- capture.output(df)
-  
+
   write.table(df, output, sep="\t")
 }
 

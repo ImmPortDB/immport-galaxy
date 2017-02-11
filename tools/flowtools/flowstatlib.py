@@ -1,3 +1,7 @@
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
 from __future__ import print_function
 import sys
 import pandas as pd

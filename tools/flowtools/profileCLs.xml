@@ -70,7 +70,7 @@
 
 .. class:: warningmark
 
-here some sort of reminder that trusting data from a software might not be the best way to go necessarily, and that it would be wise oh so wise to still look at the data to make sure that the scores from FLOCK mean what you think they mean.
+Please note that the scores computed for each markers and population correspond to quartiles binning, and not necessarily to what would be considered +, -, low or high.
 
 -----
 

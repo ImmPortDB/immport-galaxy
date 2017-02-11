@@ -102,6 +102,10 @@
 
 Tool input is a tab-separated file containing markers fluorescence intensities for each event as well as population and is generated as part of FLOCK or CrossSample output.  If the option is selected, flowCL is used to associate populations defined by FLOCK to a Cell Ontology term.
 
+.. class:: infomark
+
+Tip: Marker names need to be in the Cell Ontology for flowCL to run.
+
 **Output**
 
 The output is a page with multiple tabs that allows visualization of the data.

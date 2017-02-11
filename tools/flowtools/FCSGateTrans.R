@@ -1,4 +1,7 @@
-#
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
 # ImmPort FCS conversion program
 # Authors: Yue Liu and Yu "Max" Qian
 #

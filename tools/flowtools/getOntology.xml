@@ -70,7 +70,7 @@
 
 **Input**
 
-Type in the marker names and select the expression level in the drop-down menu.
+Type in the marker names and select the expression level in the drop-down menu. Marker names need to be in the Cell Ontology for this to work.
 
 **Output**
 
