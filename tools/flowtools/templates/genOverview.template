@@ -7,19 +7,20 @@
 <link rel="stylesheet" href="/static/flowtools/datatables/datatables.min.css"/>
 <link rel="stylesheet" href="/static/flowtools/datatables/Buttons-1.1.2/css/buttons.dataTables.min.css"/>
 <link rel="stylesheet" href="/static/flowtools/datatables/Select-1.1.2/css/select.dataTables.min.css"/>
+<link rel="stylesheet" href="/static/flowtools/datatables/Editor-1.5.6/css/editor.dataTables.min.css"/>
 <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 <script src="/static/flowtools/select2/select2.full.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/d3/d3.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/plotly-latest.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/datatables/datatables.min.js" type="text/javascript"></script>
+<script src="/static/flowtools/datatables/Editor-1.5.6/js/dataTables.editor.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/color_palette.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/overview.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatter2D.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatter3D.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatterMFI.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/parallelCoordinates.js" type="text/javascript"></script>
-<script src="/static/flowtools/js/boxplotsFlow.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/boxplotsFlow.js" type="text/javascript"></script>
 
 <style>
@@ -45,7 +46,6 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <li class="homeTab" data-value="scatter3D"><a href="#scatter3D" data-toggle="tab">Scatter 3D</a></li>
                 <li class="homeTab" data-value="parallelCoordinates"><a href="#parallelCoordinates" data-toggle="tab">Parallel Coordinates</a></li>
                 <li class="homeTab" data-value="stats"><a href="#boxplots" data-toggle="tab">Summary Statistics Boxplots</a></li>
-                <li class="homeTab" data-value="heatmap"><a href="#heatmap" data-toggle="tab">Heatmaps</a></li>
             </ul>
 
             <div class="tab-content">
@@ -136,12 +136,11 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                                   </input>
                                   Opacity: <span id="pcopacity">80%</span>
                             </div>
-                            Select All: <input type="checkbox" checked id="popSelectAll"/>
-                            &nbsp;&nbsp;<button id="resetPCoordDisplay">Reset Display</button>
+                            <button id="resetPCoordDisplay">Reset Display</button>
                             <table id="popTable" class="table table-condensed table-bordered">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" checked id="popSelectAll"/></th>
                                         <th>Pop. Name</th>
                                         <th>Color</th>
                                         <th>%</th>
@@ -158,13 +157,12 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <div class="tab-pane" id="boxplots" style="min-height:500px;">
                     <div class="col-md-12 chartDiv">
                         <div id="mrkrDiv" class="col-md-2" style="height:100%;min-width:5%;">
-                          Select All: <input type="checkbox" checked id="mrkrSelectAll"/>
                           <table id="mrkrTable" class="table table-condensed table-bordered">
                             <thead>
                               <tr>
                                 <th>Shade</th>
                                 <th>Marker Names</th>
-                                <th></th>
+                                <th><input type="checkbox" checked id="mrkrSelectAll"/></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -179,12 +177,11 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                         <div id="plotDivbp" class="col-md-8" style="height:100%;"></div>
 
                         <div id="popDivbp" class="col-md-2" style="height:100%;">
-                            Select All: <input type="checkbox" checked id="popSelectAllbp"/>
-                            &nbsp;&nbsp;<button id="updateDisplaybp">Update Display</button>
+                            <button id="updateDisplaybp">Update Display</button>
                             <table id="popTablebp" class="table table-condensed table-bordered">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" checked id="popSelectAllbp"/></th>
                                         <th>Pop. Names</th>
                                         <th>Color</th>
                                      </tr>
@@ -195,46 +192,6 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane" id="heatmap" style="min-height:500px;">
-                    <div class="col-md-12 chartDiv">
-                        <div id="mrkrDivD" class="col-md-2" style="height:100%;min-width:5%;">
-                            Select All: <input type="checkbox" checked id="mrkrSelectAllD"/>
-                            <table id="mrkrTableD" class="table table-condensed table-bordered">
-                              <thead>
-                                <tr>
-                                  <th>Shade</th>
-                                  <th>Marker Names</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                            </table>
-                            <input type="checkbox" unchecked id="displayLabelsD"/>&nbsp;Display values<br>
-                            <input type="checkbox" unchecked id="displayMFID"/>&nbsp;Display MFI
-                        </div>
-
-                        <div id="plotDivD" class="col-md-8" style="height:100%;"></div>
-
-                        <div id="popDivD" class="col-md-2" style="height:100%;">
-                            Select All: <input type="checkbox" checked id="popSelectAllD"/>
-                            &nbsp;&nbsp;<button id="updateDisplayD">Update Display</button>
-                            <table id="popTableD" class="table table-condensed table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Pop. Names</th>
-                                        <th>Color</th>
-                                     </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -249,7 +206,6 @@ var scatter2DLoaded = false;
 var scatter3DLoaded = false;
 var parallelCoordinatesLoaded = false;
 var bpLoaded = false;
-var hmLoaded = false;
 
 $().ready(function() {
     $(document).on('shown.bs.tab','a[data-toggle="tab"]', function(e) {
@@ -302,16 +258,6 @@ $().ready(function() {
         }
         bpLoaded = true;
         displayMFIBoxplot();
-      }
-      if (tab == '#heatmap') {
-        if (hmLoaded) {
-//            displayPopulationLegend(configHeatmap);
-//            displayMarkerTable(configHeatmap);
-//            updateHeatmap(configHeatmap);
-            return true;
-        }
-        hmLoaded = true;
-//        displayBoxplot();
       }
     });
 

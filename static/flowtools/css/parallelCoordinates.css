@@ -12,6 +12,21 @@
     //border-width: 1px;
 }
 /*
+** This for stacked / bar plot
+*/
+.optionButtons{
+    //vertical-align: center;
+    padding-bottom: 8px;
+}
+ #togglePlot {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 60px;
+    width: 90px;
+    padding: 4px 8px 8px 4px;
+}
+/*
 ** DataTables config
 */
 div.dt-buttons {
