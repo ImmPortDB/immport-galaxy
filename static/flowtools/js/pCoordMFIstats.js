@@ -34,7 +34,7 @@ var displayPopTablem = function() {
         + index + '/></td><td title="' + newPopNames[d]
         + '">' + newPopNames[d]
         + '</td><td><span style="background-color:'
-        + color_palette[index + 1]
+        + color_palette[0][index + 1][0]
         + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
   });
 
@@ -401,7 +401,7 @@ var displayParallelPlotm = function() {
       .attr("d", path)
       .attr("stroke",function(d){
         var pop = pcAppMFI.populations.indexOf(d.Population) + 1;
-        return color_palette[pop]; })
+        return color_palette[0][pop][0]; })
     //.attr("stroke-width", 1);
       // Use this if you want to scale the lines based on
       // population percentage

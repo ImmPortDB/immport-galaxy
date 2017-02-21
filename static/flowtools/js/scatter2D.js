@@ -1,6 +1,20 @@
 // Copyright (c) 2016 Northrop Grumman.
 // All rights reserved.
 
+var updateScatter2D = function(){
+  scatterData2D['selectedPopulations'] = [];
+  scatterDataMFI['selectedPopulations'] = [];
+  $('.pop2D').each(function() {
+    if (this.checked) {
+      scatterData2D['selectedPopulations'].push(parseInt(this.value));
+      scatterDataMFI['selectedPopulations'].push(parseInt(this.value));
+    }
+  });
+  processScatterData2D();
+  processScatterDataMFI2D();
+  displayScatterPlot2D();
+};
+
 var processScatterData2D = function() {
   var xData = [],
       yData = [],
@@ -39,7 +53,7 @@ var processScatterData2D = function() {
   }
 
   scatterData2D['popColors'] = popData.map(function(value,index) {
-      return color_palette[value];
+      return color_palette[0][value][0];
   });
   scatterData2D['xData'] = xData;
   scatterData2D['yData'] = yData;
@@ -71,29 +85,24 @@ var displayScatterToolbar2D = function() {
     var m1 = $("#xAxisMarker2D").select2("val");
     scatterData2D['m1'] = m1;
     scatterDataMFI['m1'] = m1;
+    updateScatter2D();
   });
   $("#yAxisMarker2D").on("change",function(e) {
     var m2 = $("#yAxisMarker2D").select2("val");
     scatterData2D['m2'] = m2;
     scatterDataMFI['m2'] = m2;
+    updateScatter2D();
   });
   $("#view2D").on("change",function(e) {
     var view = $("#view2D").select2("val");
     scatterData2D['view'] = view;
+    updateScatter2D();
   });
 
   $("#updateDisplay2D").on("click",function() {
-    scatterData2D['selectedPopulations'] = [];
-    scatterDataMFI['selectedPopulations'] = [];
-    $('.pop2D').each(function() {
-      if (this.checked) {
-        scatterData2D['selectedPopulations'].push(parseInt(this.value));
-        scatterDataMFI['selectedPopulations'].push(parseInt(this.value));
-      }
-    });
-    processScatterData2D();
-    processScatterDataMFI2D();
-    displayScatterPlot2D();
+    $(".pop2D").prop("checked", true);
+    $("#selectall2D").prop('checked', true);
+    updateScatter2D();
   });
 };
 
@@ -106,7 +115,7 @@ var displayScatterPopulation2D = function() {
             + value + '/></td><td title="' + newNames[value]
             + '">' + newNames[value] + '</td>'
             + '<td><span style="background-color:'
-            + color_palette[value] + '">&nbsp;&nbsp;&nbsp</span></td>'
+            + color_palette[0][value][0] + '">&nbsp;&nbsp;&nbsp</span></td>'
             + '<td>' + scatterData2D['percent'][value - 1] + '</td></tr>');
   });
 
@@ -117,6 +126,7 @@ var displayScatterPopulation2D = function() {
     } else {
       $(".pop2D").prop("checked", false);
     }
+    updateScatter2D();
   });
 
   $('.pop2D').click(function() {
@@ -125,6 +135,7 @@ var displayScatterPopulation2D = function() {
     } else {
       $('#selectall2D').prop("checked",false);
     }
+    updateScatter2D();
   });
 
   $('.pop2D').each(function() {
@@ -138,7 +149,7 @@ var displayScatterPopulation2D = function() {
 };
 
 var displayScatterPlot2D = function() {
-  var h = $(window).height() - 200,
+  var h = $(window).height() - 100,
       w = $("#scatterPlotDiv2D").width(),
       xtitle = scatterData2D['columnHeadings'][scatterData2D['m1']],
       ytitle = scatterData2D['columnHeadings'][scatterData2D['m2']],
@@ -147,9 +158,6 @@ var displayScatterPlot2D = function() {
       traces = [];
 
   $("#scatterPlotDiv2D").empty();
-  //var iframe = window.parent.document.getElementById('galaxy_main')
-  //var iframeHeight = iframe.clientHeight - 200;
-  //var iframeWidth = iframe.clientWidth;
   $("#scatterPlotDiv2D").height(h);
   if ( view == 1 || view == 2) {
     var trace1 = {

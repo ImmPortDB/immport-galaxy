@@ -34,7 +34,6 @@ var displayMFI = function() {
     var mfiHdgs = [],
         pp = [],
         mfiTableData = [],
-        tableContent = [],
         mfiTableHeadings = [],
         mfiTargets = [],
         mfiTableHTML = '<table id="mfitable" class="dtable display compact" cellspacing="0" width="100%"/>',
@@ -73,6 +72,15 @@ var displayMFI = function() {
     }
 
     $('#mfiDiv').html(mfiTableHTML);
+    var editor = new $.fn.dataTable.Editor({
+        ajax: handleSubmit,
+        table: '#mfitable',
+        fields: mfiEditorData,
+        idSrc: 'Population'
+    });
+    $('#mfitable').on('click', 'tbody td:first-child', function (e) {
+      editor.bubble(this);
+    });
     var mfiTable = $('#mfitable').DataTable({
         columns: mfiTableHeadings,
         data: mfiTableData,
@@ -101,6 +109,18 @@ var displayMFI = function() {
         ],
         colReorder: {fixedColumnsLeft:1},
         select: true
+    });
+    editor.on('preSubmit', function(e, object, action){
+      var data = object.data;
+      var key = Object.keys(data)[0];
+      var count = object.data[key]['Comment'];
+      mfiTableData.forEach(function(d) {
+        if (d.Population === key) {
+          d.Comment = count;
+          newNames[parseInt(d.Population)] = count;
+        }
+      });
+      tableContent = $.extend(true, [], mfiTableData);
     });
   });
 };

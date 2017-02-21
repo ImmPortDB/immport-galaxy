@@ -32,7 +32,7 @@ var displayPopTable = function() {
             + '<td title="' + newNames[d.Population] + '">'
             + newNames[d.Population]
             + '</td><td><span style="background-color:'
-            + color_palette[index + 1]
+            + color_palette[0][index + 1][0]
             + '">&nbsp;&nbsp;&nbsp;</span></td>'
             + '<td>' + d.Percentage + '</td></tr>');
   });
@@ -126,7 +126,7 @@ var displayTableGrid = function() {
       targetCol = 0;
 
   $("#tableDiv").empty();
-  updateData = $.extend(true,[],tableContent);
+  updatedData = $.extend(true, [], tableContent);
   updatedData.forEach(function(d, idx){d.idx = idx});
   displayData = updatedData.filter(function(d, index) {
     if ($.inArray(index,pCoordApp.selectedLines) > -1) {
@@ -270,7 +270,6 @@ var displayParallelPlot = function() {
       var tf = actives.every(function(p,i) {
         return extents[i][0] <= pCoordApp.flowData[line][p] &&
                           pCoordApp.flowData[line][p] <= extents[i][1];
-                          .attr("class", "background")
       });
       if (tf) {
         return line.toString();
@@ -290,7 +289,8 @@ var displayParallelPlot = function() {
 
   // Display paths in light gray color, to use as reference
   pCoordApp.background = svg.append("g")
-      .selectAll("path")
+      .attr("class", "background")
+    .selectAll("path")
       .data(pCoordApp.flowData)
     .enter().append("path")
       .attr("d", path);
@@ -304,7 +304,7 @@ var displayParallelPlot = function() {
       .attr("d", path)
       .attr("stroke",function(d){
         var pop = pCoordApp.populations.indexOf(d.Population) + 1;
-        return color_palette[pop];
+        return color_palette[0][pop][0];
       })
       //.attr("stroke-width", 2);
       // Use this if you want to scale the lines based on
@@ -396,7 +396,7 @@ var updateParallelForeground = function() {
  * Retrieve the data, then call display functions
 */
 var displayParallelCoordinates = function() {
-  pCoordApp.origData = $.extend(true,[],tableContent);
+  pCoordApp.origData = $.extend(true,[], tableContent);
   pCoordApp.headers = Object.keys(pCoordApp.origData[0]);
   pCoordApp.origData.forEach(function(d,idx) {
     d.idx = idx;

@@ -46,8 +46,7 @@ var displayProp = function() {
         popTableHeadings = [],
         propEditorData = [],
         popEditorData = [],
-        pctablecontent = [],
-        smpcol = 2;,
+        smpcol = 2,
         propHTML = '<table id="proptable" class="dtable display compact nowrap" cellspacing="0" width="100%"/>',
         popHTML = '<table id="popnamestable" class="popt dtable display nowrap compact" cellspacing="0" width="100%"/>';
 
@@ -93,6 +92,16 @@ var displayProp = function() {
 
     $('#propDiv').empty();
     $('#propDiv').html(propHTML);
+    var smpEditor = new $.fn.dataTable.Editor({
+        ajax: propHandle,
+        table: '#proptable',
+        fields: propEditorData,
+        idSrc: 'SampleName'
+    });
+
+    $('#proptable').on( 'click', 'tbody td:first-child', function (e) {
+      smpEditor.bubble( this );
+    });
     var propTable = $('#proptable').DataTable({
         columns: propTableHeadings,
         data: propTableData,
@@ -137,7 +146,16 @@ var displayProp = function() {
     // Add a table below to rename pops
     // Might want to change that some other time?
     $('#popnamesDiv').html(popHTML);
+    var popEditor = new $.fn.dataTable.Editor({
+        ajax: popHandle,
+        table: '#popnamestable',
+        fields: popEditorData,
+        idSrc: '1'
+    });
 
+    $('#popnamestable').on( 'click', 'tbody td', function (e) {
+      popEditor.bubble(this);
+    });
     var popTable = $('#popnamestable').DataTable({
         columns: popTableHeadings,
         dom: 't',
@@ -145,6 +163,26 @@ var displayProp = function() {
         data: popTableData
     });
 
+    smpEditor.on( 'preSubmit', function(e, object, action){
+      var data = object.data;
+      var key = Object.keys(data)[0];
+      var count = object.data[key]['Comment'];
+
+      propTableData.forEach(function(d){
+        if (d.SampleName === key) {
+          d.Comment = count;
+          newSmpNames[d.SampleName] = count;
+        }
+      });
+      pctablecontent = $.extend(true, [], propTableData);
+    });
+    popEditor.on( 'preSubmit', function(e, object, action){
+      var data = object.data;
+      var key = Object.keys(data['1'])[0];
+      var count = object.data['1'][key];
+      popTableData[0][key] = count;
+      newPopNames[key] = count;
+    });
   });
 };
 
@@ -174,31 +212,6 @@ var displayStackedAreaPlot = function() {
   });
 };
 
-/*
-var displayStackedBarplot = function() {
-  $.ajax({
-    url: url,
-    dataType: "text",
-    success: function(text) {
-      configBarplot = {
-        displaybutton : '#updateDisplayB',
-        popSelectj : '.popSelectB',
-        plotdivj : '#plotDivB',
-        csdata : preprocess(text),
-        plotdiv : 'plotDivB',
-        type : 'barplot',
-        table : '#popTableB tbody',
-        popSelect : 'popSelectB',
-        allPopulations : [],
-        selectedPopulations : [],
-        popSelectAll : '#popSelectAllB',
-        popSelectCheck: '.popSelectB:checked'
-      };
-      displayToolbar(configBarplot);
-    }
-  });
-};
-*/
 var displayBoxplot = function() {
   $.ajax({
     url: boxplotUrl,

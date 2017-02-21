@@ -1,6 +1,20 @@
 // Copyright (c) 2016 Northrop Grumman.
 // All rights reserved.
 
+var updateScatter3D = function(){
+  scatterData3D['selectedPopulations'] = [];
+  scatterData3DMFI['selectedPopulations'] = [];
+  $('.pop3D').each(function() {
+    if (this.checked) {
+      scatterData3D['selectedPopulations'].push(parseInt(this.value));
+      scatterData3DMFI['selectedPopulations'].push(parseInt(this.value));
+    }
+  });
+  processScatterData3D();
+  processScatterData3DMFI();
+  displayScatterPlot3D();
+};
+
 var processScatterData3D = function() {
   var xData = [],
       yData = [],
@@ -45,7 +59,7 @@ var processScatterData3D = function() {
   }
 
   scatterData3D['popColors'] = popData.map(function(value,index) {
-    return color_palette[value];
+    return color_palette[0][value][0];
   });
   scatterData3D['xData'] = xData;
   scatterData3D['yData'] = yData;
@@ -85,35 +99,31 @@ var displayScatterToolbar3D = function() {
     var m1 = $("#xAxisMarker3D").select2("val");
     scatterData3D['m1'] = m1;
     scatterData3DMFI['m1'] = m1;
+    updateScatter3D();
   });
   $("#yAxisMarker3D").on("change",function(e) {
     var m2 = $("#yAxisMarker3D").select2("val");
     scatterData3D['m2'] = m2;
     scatterData3DMFI['m2'] = m2;
+    updateScatter3D();
   });
   $("#zAxisMarker3D").on("change",function(e) {
     var m3 = $("#zAxisMarker3D").select2("val");
     scatterData3D['m3'] = m3;
     scatterData3DMFI['m3'] = m3;
+    updateScatter3D();
   });
 
   $("#view3D").on("change",function(e) {
     var view = $("#view3D").select2("val");
     scatterData3D['view'] = view;
+    updateScatter3D();
   });
 
   $("#updateDisplay3D").on("click",function() {
-    scatterData3D['selectedPopulations'] = [];
-    scatterData3DMFI['selectedPopulations'] = [];
-    $('.pop3D').each(function() {
-      if (this.checked) {
-        scatterData3D['selectedPopulations'].push(parseInt(this.value));
-        scatterData3DMFI['selectedPopulations'].push(parseInt(this.value));
-      }
-    });
-    processScatterData3D();
-    processScatterData3DMFI();
-    displayScatterPlot3D();
+    $(".pop3D").prop("checked", true);
+    $("#selectall3D").prop('checked', true);
+    updateScatter3D();
   });
 };
 
@@ -126,7 +136,7 @@ var displayScatterPopulation3D = function() {
                 + value + '/></td><td title="'+ newNames[value]
                 + '">'+ newNames[value] + '</td>'
                 + '<td><span style="background-color:'
-                + color_palette[value] + '">&nbsp;&nbsp;&nbsp</span></td>'
+                + color_palette[0][value][0] + '">&nbsp;&nbsp;&nbsp</span></td>'
                 + '<td>' + scatterData3D['percent'][value - 1] + '</td></tr>');
   });
 
@@ -137,6 +147,7 @@ var displayScatterPopulation3D = function() {
     } else {
       $(".pop3D").prop("checked", false);
     }
+    updateScatter3D();
   });
   $('.pop3D').click(function() {
     if ($('.pop3D').length == $(".pop3D:checked").length) {
@@ -144,6 +155,7 @@ var displayScatterPopulation3D = function() {
     } else {
       $('#selectall3D').prop("checked",false);
     }
+    updateScatter3D();
   });
 
   $('.pop3D').each(function() {

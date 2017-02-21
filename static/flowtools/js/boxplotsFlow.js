@@ -1,5 +1,22 @@
 // Copyright (c) 2016 Northrop Grumman.
 // All rights reserved.
+var updateBPmfi = function(plotconfig){
+  plotconfig.selectedPopulations = [];
+  $(plotconfig.popSelectj).each(function() {
+    if (this.checked) {
+      plotconfig.selectedPopulations.push(parseInt(this.value));
+    }
+  });
+  // Update selected markers?
+  plotconfig.selectedMarkers = [];
+  $(plotconfig.mrkrSelectj).each(function() {
+    if (this.checked) {
+      plotconfig.selectedMarkers.push(parseInt(this.value));
+    }
+  });
+  // update plot
+  updateBoxplotMFI(plotconfig);
+};
 
 var displayPopulationLegend = function(plotconfig) {
   $(plotconfig.table).empty();
@@ -8,7 +25,7 @@ var displayPopulationLegend = function(plotconfig) {
         + '<input type="checkbox" checked class=' + plotconfig.popSelect
         + ' value=' + value + '/></td><td title="' + newNames[value] + '">'
         + newNames[value] + '</td><td><span style="background-color:'
-        + color_palette[value] + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
+        + color_palette[0][value][0] + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
   });
 
   $(plotconfig.popSelectAll).click(function() {
@@ -18,6 +35,7 @@ var displayPopulationLegend = function(plotconfig) {
     } else {
       $(plotconfig.popSelectj).prop("checked", false);
     }
+    updateBPmfi(plotconfig);
   });
 
   $(plotconfig.popSelectj).click(function() {
@@ -26,6 +44,7 @@ var displayPopulationLegend = function(plotconfig) {
     } else {
       $(plotconfig.popSelectAll).prop("checked",false);
     }
+    updateBPmfi(plotconfig);
   });
 
   $(plotconfig.popSelectj).each(function() {
@@ -40,40 +59,30 @@ var displayPopulationLegend = function(plotconfig) {
 
 var displayToolbar = function(plotconfig){
   $(plotconfig.displaybutton).on("click",function() {
-    plotconfig.selectedPopulations = [];
-    $(plotconfig.popSelectj).each(function() {
-      if (this.checked) {
-        plotconfig.selectedPopulations.push(parseInt(this.value));
-      }
-    });
-    // Update selected markers?
-    plotconfig.selectedMarkers = [];
-    $(plotconfig.mrkrSelectj).each(function() {
-      if (this.checked) {
-        plotconfig.selectedMarkers.push(parseInt(this.value));
-      }
-    });
-    // update plot
-    updateBoxplotMFI(plotconfig);
+    $(plotconfig.popSelectAll).prop("checked",true);
+    $(plotconfig.popSelectj).prop("checked", true);
+    $(plotconfig.mrkrSelectj).prop("checked", true);
+    $(plotconfig.mrkrSelectAll).prop("checked",true);
+    $(plotconfig.displayMFI).prop("checked", false);
+    $(plotconfig.displayvalues).prop("checked", false);
+    updateBPmfi(plotconfig);
   });
+
   $(plotconfig.toggledisplayj).on("click",function() {
-    plotconfig.selectedPopulations = [];
-    $(plotconfig.popSelectj).each(function() {
-      if (this.checked) {
-        plotconfig.selectedPopulations.push(parseInt(this.value));
-      }
-    });
-    plotconfig.selectedMarkers = [];
-    $(plotconfig.mrkrSelectj).each(function() {
-      if (this.checked) {
-        plotconfig.selectedMarkers.push(parseInt(this.value));
-      }
-    });
     var text = document.getElementById(plotconfig.toggledisplay).firstChild;
     text.data = text.data == "View per marker" ? "View per population" : "View per marker";
     plotconfig.view = plotconfig.view == "p" ? "m" : "p";
-    updateBoxplotMFI(plotconfig);
+    updateBPmfi(plotconfig);
   });
+
+  $(plotconfig.displayMFI).on("click", function(){
+    updateBPmfi(plotconfig);
+  });
+
+  $(plotconfig.displayvalues).on("click", function(){
+    updateBPmfi(plotconfig);
+  });
+
   displayPlot(plotconfig);
 };
 
@@ -125,6 +134,7 @@ var displayMarkerTable = function(plotconfig){
     } else {
       $(plotconfig.mrkrSelectj).prop("checked", false);
     }
+    updateBPmfi(plotconfig);
   });
 
   $(plotconfig.mrkrSelectj).click(function() {
@@ -133,6 +143,7 @@ var displayMarkerTable = function(plotconfig){
     } else {
       $(plotconfig.mrkrSelectAll).prop("checked",false);
     }
+    updateBPmfi(plotconfig);
   });
 
   $(plotconfig.mrkrSelectj).each(function() {
@@ -142,15 +153,16 @@ var displayMarkerTable = function(plotconfig){
     } else {
       this.checked = false;
     }
+    updateBPmfi(plotconfig);
   });
 };
 
 var updateBoxplotMFI = function(plotconfig){
   var margin = {top: 30, right: 10, bottom: 50, left: 60},
-      h = $(window).height() - 200,
-      w = $(plotconfig.plotdivj).width(),
-      width = w - margin.left - margin.right,
-      height = h - margin.top - margin.bottom,
+      h = 0,
+      w = 0,
+      width = 0,
+      height = 0,
       labels = false, // show the text labels beside individual boxplots?
       mfi_option = false,
       checkLabels = $(plotconfig.displayvalues).prop("checked"),
@@ -158,15 +170,19 @@ var updateBoxplotMFI = function(plotconfig){
       dataToPlot = [],
       tmp = [],
       nbm = plotconfig.mrkrNames.length + 1,
-      maxRange = max + 30,
-      minRange = min - 30,
+      maxRange = 0,
+      minRange = 0,
       domainx = [],
       domainx1 = [],
       min = Infinity,
       max = -Infinity;
 
   $(plotconfig.plotdivj).empty();
+  h = $(window).height() - 200;
   $(plotconfig.plotdivj).height(h);
+  w = $(plotconfig.plotdivj).width();
+  width = w - margin.left - margin.right;
+  height = h - margin.top - margin.bottom;
 
   var svg = d3.select(plotconfig.plotdivj).append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -267,6 +283,9 @@ var updateBoxplotMFI = function(plotconfig){
       dataToPlot.push({marker: markernm, popdata: tmpPlot});
     });
   };
+  maxRange = max + 30;
+  minRange = min - 30;
+
   if (plotconfig.view == 'p') {
     domainx = plotconfig.selectedPopulations;
     domainx1 = plotconfig.selectedMarkers.map(function(d){
@@ -423,6 +442,7 @@ var updateBoxplotMFI = function(plotconfig){
             .attr("x2", width / 2)
             .attr("y2", function(d) { return x0(d[1]); })
             .style("opacity", 1e-6)
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
           .transition()
             .duration(duration)
             .style("opacity", 1)
@@ -452,8 +472,9 @@ var updateBoxplotMFI = function(plotconfig){
                 var nbm = data.config[2],
                     pop = data.config[1],
                     mrkr = data.config[0];
-                var color = rgb_palette[pop] + (mrkr + 1 )/ nbm + ')';
+                var color = color_palette[0][pop][1] + (mrkr + 1 )/ nbm + ')';
                 return color })
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
             .attr("x", 0)
             .attr("y", function(d) { return x0(d[2]); })
             .attr("width", width)
@@ -478,6 +499,7 @@ var updateBoxplotMFI = function(plotconfig){
             .attr("y1", x0)
             .attr("x2", width)
             .attr("y2", x0)
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
           .transition()
             .duration(duration)
             .attr("y1", x1)
@@ -494,7 +516,7 @@ var updateBoxplotMFI = function(plotconfig){
         if (showMFI == true) {
           MFILine.enter().append("line")
               .attr("class", "mfi")
-              .style("stroke", function(d){ return so_palette[data.config[1]] + '255)'; })
+              .style("stroke", function(d){ return color_palette[0][data.config[1]][2]; })
               .attr("x1", 0)
               .attr("y1", x0)
               .attr("x2", width)
@@ -521,6 +543,7 @@ var updateBoxplotMFI = function(plotconfig){
             .attr("x2", 0 + width)
             .attr("y2", x0)
             .style("opacity", 1e-6)
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
           .transition()
             .duration(duration)
             .attr("y1", x1)
@@ -547,9 +570,18 @@ var updateBoxplotMFI = function(plotconfig){
         outlier.enter().insert("circle", "text")
             .attr("class", "outlier")
             .attr("r", 3)
-            .attr("cx", width / 2)
+            .attr("cx", function(d){
+                  return Math.floor(Math.random() * width);
+                })
             .attr("cy", function(i) { return x0(d[i]); })
             .style("opacity", 1e-6)
+            .style("fill", function(d) {
+                    var nbm = data.config[2],
+                        pop = data.config[1],
+                        mrkr = data.config[0];
+                    var color = color_palette[0][pop][1] + (mrkr + 1 )/ nbm + ')';
+                    return color; })
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
           .transition()
             .duration(duration)
             .attr("cy", function(i) { return x1(d[i]); })
@@ -605,6 +637,7 @@ var updateBoxplotMFI = function(plotconfig){
               .attr("y", x0)
               .text(format)
               .style("opacity", 1e-6)
+              .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
             .transition()
               .duration(duration)
               .attr("y", x1)

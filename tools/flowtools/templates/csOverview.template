@@ -68,13 +68,13 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                         <div id="popDivA" class="col-md-2" style="height:100%;">
                           <div class="row">
                               <div class="col-sm-6 optionButtons">
-                                <button id="updateDisplayA">Update Display</button>
+                                <button id="updateDisplayA" class="igbtn">Reset Display</button>
                               </div>
                               <div class="col-sm-6 optionButtons">
-                                <button id="togglePlot"><img id="toggleButtonImg" src="static/images/flowtools/stackedsm.png"></button>
+                                <button id="togglePlot" class="igbtn"><img id="toggleButtonImg" src="/static/images/flowtools/stackedsm.png"></button>
                               </div>
                             </div>
-                            <table id="popTableA" class="table table-condensed table-bordered">
+                            <table id="popTableA" class="table table-condensed table-bordered igtable">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" checked id="popSelectAllA"/></th>
@@ -102,8 +102,8 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
 	                                  </input>
                                       Opacity: <span id="pc_opacity">80%</span>
 	                            </div>
-                                <button id="resetPCDisplay">Reset Display</button>
-                                <table id="popTablePC" class="table table-condensed table-bordered">
+                                <button id="resetPCDisplay" class="igbtn">Reset Display</button>
+                                <table id="popTablePC" class="table table-condensed table-bordered igtable">
                                     <thead>
                                         <tr>
                                           <th><input type="checkbox" checked id="popSelectAllPC"/></th>
@@ -123,7 +123,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     <div id="chartDivPCm" class="col-md-12 chartDiv">
                         <div class="row">
                             <div id="smpDivPCm" class="col-md-1" style="height:100%;min-width:5%;">
-                                 <table id="smpTablePCm" class="table table-condensed table-bordered">
+                                 <table id="smpTablePCm" class="table table-condensed table-bordered igtable">
                                     <thead>
                                         <tr>
                                           <th>Sample Name</th>
@@ -145,8 +145,8 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
 	                                  </input>
                                       Opacity: <span id="pcm_opacity">80%</span>
 	                            </div>
-                                <button id="resetDisplayMFIpop">Reset Display</button>
-                                <table id="popTablePCm" class="table table-condensed table-bordered">
+                                <button id="resetDisplayMFIpop" class="igbtn">Reset Display</button>
+                                <table id="popTablePCm" class="table table-condensed table-bordered igtable">
                                     <thead>
                                         <tr>
                                           <th><input type="checkbox" checked id="popSelectAllPCm"/></th>
@@ -165,7 +165,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <div class="tab-pane" id="boxplot" style="min-height:500px;">
                     <div class="col-md-12 chartDiv">
                         <div id="mrkrDivC" class="col-md-2" style="height:100%;min-width:5%;">
-                          <table id="mrkrTableC" class="table table-condensed table-bordered">
+                          <table id="mrkrTableC" class="table table-condensed table-bordered igtable">
                             <thead>
                               <tr>
                                 <th>Shade</th>
@@ -177,16 +177,16 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                             </tbody>
                           </table>
                           <input type="checkbox" unchecked id="displayLabelsC"/>&nbsp;Display values<br>
-                          <input type="checkbox" unchecked id="displayMFIC"/>&nbsp;Display MFI<br>
-                          &nbsp;&nbsp;<button id="changeDisplayC">View per marker</button>
+                          <input type="checkbox" unchecked id="displayMFIC"/>&nbsp;Display MFI<br><br>
+                          <button id="changeDisplayC" class="igbtn">View per marker</button>
 
                         </div>
 
                         <div id="plotDivC" class="col-md-8" style="height:100%;"></div>
 
                         <div id="popDivC" class="col-md-2" style="height:100%;">
-                            <button id="updateDisplayC">Update Display</button>
-                            <table id="popTableC" class="table table-condensed table-bordered">
+                            <button id="updateDisplayC" class="igbtn">Reset Display</button>
+                            <table id="popTableC" class="table table-condensed table-bordered igtable">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" checked id="popSelectAllC"/></th>

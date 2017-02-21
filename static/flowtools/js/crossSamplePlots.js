@@ -1,5 +1,26 @@
 // Copyright (c) 2016 Northrop Grumman.
 // All rights reserved.
+var updateCSplots = function(plotconfig){
+  plotconfig.selectedPopulations = [];
+  $(plotconfig.popSelectj).each(function() {
+    if (this.checked) {
+      plotconfig.selectedPopulations.push(parseInt(this.value));
+    }
+  });
+  if (plotconfig.hasOwnProperty("mtable")) {
+    // Update selected markers?
+    plotconfig.selectedMarkers = [];
+    $(plotconfig.mrkrSelectj).each(function() {
+      if (this.checked) {
+        plotconfig.selectedMarkers.push(parseInt(this.value));
+      }
+    });
+    // update plot
+    updateBoxplot(plotconfig);
+  } else {
+    updatePlot(plotconfig);
+  }
+};
 
 var displayPopulationLegend = function(plotconfig) {
   $(plotconfig.table).empty();
@@ -8,7 +29,7 @@ var displayPopulationLegend = function(plotconfig) {
         + '<input type="checkbox" checked class=' + plotconfig.popSelect
         + ' value=' + value + '/></td><td title="' + newPopNames[value] + '">'
         + newPopNames[value] + '</td><td><span style="background-color:'
-        + color_palette[value] + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
+        + color_palette[0][value][0] + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
   });
 
   $(plotconfig.popSelectAll).click(function() {
@@ -18,6 +39,7 @@ var displayPopulationLegend = function(plotconfig) {
     } else {
       $(plotconfig.popSelectj).prop("checked", false);
     }
+    updateCSplots(plotconfig);
   });
 
   $(plotconfig.popSelectj).click(function() {
@@ -26,6 +48,7 @@ var displayPopulationLegend = function(plotconfig) {
     } else {
       $(plotconfig.popSelectAll).prop("checked",false);
     }
+    updateCSplots(plotconfig);
   });
 
   $(plotconfig.popSelectj).each(function() {
@@ -40,27 +63,25 @@ var displayPopulationLegend = function(plotconfig) {
 
 var displayToolbar = function(plotconfig){
   $(plotconfig.displaybutton).on("click",function() {
-    plotconfig.selectedPopulations = [];
-    $(plotconfig.popSelectj).each(function() {
-      if (this.checked) {
-        plotconfig.selectedPopulations.push(parseInt(this.value));
-      }
-    });
-    if (plotconfig.hasOwnProperty("mtable")) {
-      // Update selected markers?
-      plotconfig.selectedMarkers = [];
-      $(plotconfig.mrkrSelectj).each(function() {
-        if (this.checked) {
-          plotconfig.selectedMarkers.push(parseInt(this.value));
-        }
-      });
-      // update plot
-      updateBoxplot(plotconfig);
-    } else {
-      updatePlot(plotconfig);
+    $(plotconfig.popSelectj).prop("checked", true);
+    $(plotconfig.popSelectAll).prop("checked", true);
+    if (plotconfig.hasOwnProperty("mtable")){
+      $(plotconfig.displayMFI).prop("checked", false);
+      $(plotconfig.displayvalues).prop("checked", false);
+      $(plotconfig.mrkrSelectj).prop("checked", true);
+      $(plotconfig.mrkrSelectAll).prop("checked",true);
     }
+    updateCSplots(plotconfig);
   });
 
+  if (plotconfig.hasOwnProperty("mtable")){
+    $(plotconfig.displayMFI).on("click", function(){
+      updateCSplots(plotconfig);
+    });
+    $(plotconfig.displayvalues).on("click", function(){
+      updateCSplots(plotconfig);
+    });
+  }
   $(plotconfig.toggledisplayj).on("click",function() {
     plotconfig.selectedPopulations = [];
     $(plotconfig.popSelectj).each(function() {
@@ -172,7 +193,7 @@ var updatePlot = function(plotconfig) {
           name: popName,
           type: 'area',
           fill: 'tonexty',
-          marker: {color: color_palette[pop]}
+          marker: {color: color_palette[0][pop][0]}
       };
     }
     if (plotconfig.type === "barplot") {
@@ -182,7 +203,7 @@ var updatePlot = function(plotconfig) {
           hoverinfo: "x",
           name: popName,
           type: 'bar',
-          marker: {color: color_palette[pop]}
+          marker: {color: color_palette[0][pop][0]}
       };
     }
     tmptraces.push(obj)

@@ -15,8 +15,6 @@ var processScatterDataMFI2D = function() {
   col2 = scatterDataMFI['data'].map(function(value,index) {
     return value[scatterDataMFI['m2']];
   });
-  //var pop = scatterDataMFI['data'].map(function(value,index) {
-  //           return value[scatterDataMFI['popCol']];});
   for (var i = 0, j=col1.length; i < j; i++) {
     if (scatterDataMFI['selectedPopulations'].indexOf(pop[i]) >= 0) {
       xData.push(col1[i]);
@@ -25,7 +23,7 @@ var processScatterDataMFI2D = function() {
     }
   }
   scatterDataMFI['popColors'] = popData.map(function(value,index) {
-    return color_palette[value];
+    return color_palette[0][value][0];
   });
   scatterDataMFI['xData'] = xData;
   scatterDataMFI['yData'] = yData;
@@ -75,7 +73,7 @@ var processScatterData3DMFI = function() {
   }
 
   scatterData3DMFI['popColors'] = popData.map(function(value,index) {
-    return color_palette[value];
+    return color_palette[0][value][0];
   });
   scatterData3DMFI['xData'] = xData;
   scatterData3DMFI['yData'] = yData;

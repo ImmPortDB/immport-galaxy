@@ -71,12 +71,12 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                             <option value="2">Points</option>
                             <option value="3">Centroids</option>
                             </select>
-                    <button id="updateDisplay2D">Update Display</button>
                     </div>
                     <div class="col-md-12 chartDiv">
                     <div id="scatterPlotDiv2D" class="col-md-10" style="height:100%;"></div>
                     <div id="populationDiv2D" class="col-md-2" style="height:100%;">
-                    <table id="populationTable2D" class="table table-condensed table-bordered" border="0" width="100%">
+                    <button id="updateDisplay2D" class="igbtn">Reset Display</button>
+                    <table id="populationTable2D" class="table table-condensed table-bordered igtable" border="0" width="100%">
                         <thead>
                             <tr>
                               <th align="center"><input type="checkbox" checked id="selectall2D"/></th>
@@ -105,13 +105,13 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                             <option value="2">Points</option>
                             <option value="3">Centroids</option>
                             </select>
-                    <button id="updateDisplay3D">Update Display</button>
                     </div>
 
                     <div class="col-md-12 chartDiv">
                     <div id="scatterPlotDiv3D" class="col-md-10" style="height:100%;"></div>
                     <div id="populationDiv3D" class="col-md-2" style="height:100%;">
-                    <table id="populationTable3D" class="table table-condensed table-bordered" border="0" width="100%">
+                    <button id="updateDisplay3D" class="igbtn">Reset Display</button>
+                    <table id="populationTable3D" class="table table-condensed table-bordered igtable" border="0" width="100%">
                         <thead>
                             <tr>
                               <th align="center"><input type="checkbox" checked id="selectall3D"/></th>
@@ -139,8 +139,8 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                                   </input>
                                   Opacity: <span id="pcopacity">80%</span>
                             </div>
-                            <button id="resetPCoordDisplay">Reset Display</button>
-                            <table id="popTable" class="table table-condensed table-bordered">
+                            <button id="resetPCoordDisplay" class="igbtn">Reset Display</button>
+                            <table id="popTable" class="table table-condensed table-bordered igtable">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" checked id="popSelectAll"/></th>
@@ -160,7 +160,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <div class="tab-pane" id="boxplots" style="min-height:500px;">
                     <div class="col-md-12 chartDiv">
                         <div id="mrkrDiv" class="col-md-2" style="height:100%;min-width:5%;">
-                          <table id="mrkrTable" class="table table-condensed table-bordered">
+                          <table id="mrkrTable" class="table table-condensed table-bordered igtable">
                             <thead>
                               <tr>
                                 <th>Shade</th>
@@ -172,16 +172,16 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                             </tbody>
                           </table>
                           <input type="checkbox" unchecked id="displayLabels"/>&nbsp;Display values<br>
-                          <input type="checkbox" unchecked id="displayMFI"/>&nbsp;Display MFI<br>
-                          &nbsp;&nbsp;<button id="changeDisplay">View per marker</button>
+                          <input type="checkbox" unchecked id="displayMFI"/>&nbsp;Display MFI<br><br>
+                          <button id="changeDisplay" class="igbtn">View per marker</button>
 
                         </div>
 
                         <div id="plotDivbp" class="col-md-8" style="height:100%;"></div>
 
                         <div id="popDivbp" class="col-md-2" style="height:100%;">
-                            &nbsp;&nbsp;<button id="updateDisplaybp">Update Display</button>
-                            <table id="popTablebp" class="table table-condensed table-bordered">
+                            &nbsp;&nbsp;<button id="updateDisplaybp" class="igbtn">Reset Display</button>
+                            <table id="popTablebp" class="table table-condensed table-bordered igtable">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" checked id="popSelectAllbp"/></th>

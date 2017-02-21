@@ -21,6 +21,7 @@ var displayMarkerTable = function(plotconfig){
     } else {
       $(plotconfig.mrkrSelectj).prop("checked", false);
     }
+    updateCSplots(plotconfig);
   });
 
   $(plotconfig.mrkrSelectj).click(function() {
@@ -29,6 +30,7 @@ var displayMarkerTable = function(plotconfig){
     } else {
       $(plotconfig.mrkrSelectAll).prop("checked",false);
     }
+    updateCSplots(plotconfig);
   });
 
   $(plotconfig.mrkrSelectj).each(function() {
@@ -43,10 +45,10 @@ var displayMarkerTable = function(plotconfig){
 
 var updateBoxplot = function(plotconfig){
   var margin = {top: 30, right: 10, bottom: 50, left: 60},
-      h = $(window).height() - 200,
-      w = $(plotconfig.plotdivj).width(),
-      width = w - margin.left - margin.right,
-      height = h - margin.top - margin.bottom,
+      h = 0,
+      w = 0,
+      width = 0,
+      height = 0,
       labels = false, // show the text labels beside individual boxplots?
       mfi_option = false,
       min = Infinity,
@@ -56,13 +58,17 @@ var updateBoxplot = function(plotconfig){
       dataToPlot = [],
       tmp = [],
       nbm = plotconfig.mrkrNames.length + 1,
-      maxRange = max + 30,
-      minRange = min - 30,
+      maxRange = 0,
+      minRange = 0,
       domainx = [],
       domainx1 = [];
 
   $(plotconfig.plotdivj).empty();
+  h = $(window).height() - 200;
   $(plotconfig.plotdivj).height(h);
+  w = $(plotconfig.plotdivj).width();
+  width = w - margin.left - margin.right;
+  height = h - margin.top - margin.bottom;
 
   var svg = d3.select(plotconfig.plotdivj).append("svg")
       .attr("width", w)
@@ -162,6 +168,8 @@ var updateBoxplot = function(plotconfig){
       dataToPlot.push({marker: markernm, popdata: tmpPlot});
     });
   };
+  maxRange = max + 30;
+  minRange = min - 30;
 
   if (plotconfig.view == 'p') {
     domainx = plotconfig.selectedPopulations;
@@ -233,7 +241,7 @@ var updateBoxplot = function(plotconfig){
     group.selectAll(".box")
         .data(function(d) { return d.popdata; })
       .enter().append("g")
-        .attr("transform", function(d) { console.log(d); return "translate(" + x1Scale(d.marker) + ",0)"; })
+        .attr("transform", function(d) {return "translate(" + x1Scale(d.marker) + ",0)"; })
         .call(boxplot);
   } else {
     var group = svg.selectAll(".groups")
@@ -319,6 +327,7 @@ var updateBoxplot = function(plotconfig){
             .attr("x2", width / 2)
             .attr("y2", function(d) { return x0(d[1]); })
             .style("opacity", 1e-6)
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
           .transition()
             .duration(duration)
             .style("opacity", 1)
@@ -348,8 +357,9 @@ var updateBoxplot = function(plotconfig){
                 var nbm = data.config[2],
                     pop = data.config[1],
                     mrkr = data.config[0];
-                var color = rgb_palette[pop] + (mrkr + 1 )/ nbm + ')';
+                var color = color_palette[0][pop][1] + (mrkr + 1 )/ nbm + ')';
                 return color; })
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
             .attr("x", 0)
             .attr("y", function(d) { return x0(d[2]); })
             .attr("width", width)
@@ -374,6 +384,7 @@ var updateBoxplot = function(plotconfig){
             .attr("y1", x0)
             .attr("x2", width)
             .attr("y2", x0)
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
           .transition()
             .duration(duration)
             .attr("y1", x1)
@@ -390,7 +401,7 @@ var updateBoxplot = function(plotconfig){
         if (showMFI == true) {
             MFILine.enter().append("line")
                 .attr("class", "mfi")
-                .style("stroke", function(d){ return so_palette[data.config[1]] + '255)'; })
+                .style("stroke", function(d){ return color_palette[0][data.config[1]][2]; })
                 .attr("x1", 0)
                 .attr("y1", x0)
                 .attr("x2", width)
@@ -417,6 +428,7 @@ var updateBoxplot = function(plotconfig){
             .attr("x2", 0 + width)
             .attr("y2", x0)
             .style("opacity", 1e-6)
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
           .transition()
             .duration(duration)
             .attr("y1", x1)
@@ -443,9 +455,18 @@ var updateBoxplot = function(plotconfig){
         outlier.enter().insert("circle", "text")
             .attr("class", "outlier")
             .attr("r", 3)
-            .attr("cx", width / 2)
+            .attr("cx", function(d){
+                  return Math.floor(Math.random() * width);
+                })
             .attr("cy", function(i) { return x0(d[i]); })
             .style("opacity", 1e-6)
+            .style("fill", function(d) {
+                    var nbm = data.config[2],
+                        pop = data.config[1],
+                        mrkr = data.config[0];
+                    var color = color_palette[0][pop][1] + (mrkr + 1 )/ nbm + ')';
+                    return color; })
+            .style("stroke", function(d) { return color_palette[0][data.config[1]][3]; })
           .transition()
             .duration(duration)
             .attr("cy", function(i) { return x1(d[i]); })

@@ -30,7 +30,7 @@ var displaySmpTable = function() {
         + d.SampleNumber + '/></td><td title="' + newSmpNames[d.SampleName]
         + '">' + newSmpNames[d.SampleName]
         + '</td><td><span style="background-color:'
-        + color_palette[d.SampleNumber + 1]
+        + color_palette[0][d.SampleNumber + 1][0]
         + '">&nbsp;&nbsp;&nbsp;</span></td></tr>');
   });
 
@@ -185,7 +185,7 @@ var displayTableGrid = function() {
 */
 var displayParallelPlot = function() {
   var margin = {top: 30, right: 10, bottom: 10, left: 10},
-      h = $("#chartDivPC").height() * 0.6,
+      h = 300,
       w = $("#plotDivPC").width(),
       width = w - margin.left - margin.right,
       height = h - margin.top - margin.bottom,
@@ -286,7 +286,7 @@ var displayParallelPlot = function() {
         return path(pcApp.flowData[smp]); })
       .attr("stroke",function(d){
         var smp = d.SampleNumber + 1;
-        return color_palette[smp];})
+        return color_palette[0][smp][0];})
       .attr("stroke-width", 1);
 
   // Add a group element for each dimension.
@@ -366,7 +366,7 @@ var displayParallelCoordinates = function() {
             return;
         }
   */
-  pcApp.origData = $.extend(true,[],pctablecontent);
+  pcApp.origData = $.extend(true,[], pctablecontent);
   pcApp.headers = Object.keys(pcApp.origData[0]);
   pcApp.headers.splice(pcApp.headers.indexOf("FileID"), 1);
   pcApp.origData.forEach(function(d,idx){
