@@ -63,7 +63,7 @@
       </output>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool uses flowCL to find the most likely match to a given set a markers.
 
 -----

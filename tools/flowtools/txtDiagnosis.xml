@@ -34,7 +34,7 @@
       </output>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool looks for potential errors in txt-converted FCS files.
 
 -----
@@ -70,6 +70,6 @@ The output is a report with the errors and corresponding line numbers.
    WARNING: line 2 in example_file.txt contains non-numeric results
    WARNING: line 4 in example_file.txt contains non-numeric results
    WARNING: line 8 in example_file.txt contains non-numeric results
- ]]>
- </help>
+  ]]>
+  </help>
 </tool>

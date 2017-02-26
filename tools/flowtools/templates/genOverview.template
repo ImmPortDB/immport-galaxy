@@ -170,8 +170,21 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                           </table>
                           <input type="checkbox" unchecked id="displayLabels"/>&nbsp;Display values<br>
                           <input type="checkbox" unchecked id="displayMFI"/>&nbsp;Display MFI<br><br>
-                          <button id="changeDisplay" class="igbtn">View per marker</button>
-
+                          <button id="changeDisplay" class="igbtn">View per marker</button><br><br>
+                          <div id="markerWarning" style="display:none;">
+                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                  Only 5 markers can be displayed at most.
+                            </div>
+                          </div>
+                          <div id="outlierWarning" style="display:none;">
+                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                  The number of outliers is too large to display. Representation shows randomly downsampled outliers.
+                            </div>
+                          </div>
                         </div>
 
                         <div id="plotDivbp" class="col-md-8" style="height:100%;"></div>

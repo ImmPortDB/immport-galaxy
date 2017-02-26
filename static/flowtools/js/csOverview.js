@@ -171,7 +171,7 @@ var displayProp = function() {
       propTableData.forEach(function(d){
         if (d.SampleName === key) {
           d.Comment = count;
-          newSmpNames[d.SampleName] = count;
+          newSmpNames[key] = count;
         }
       });
       pctablecontent = $.extend(true, [], propTableData);

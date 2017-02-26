@@ -127,6 +127,21 @@ var displayMarkerTable = function(plotconfig){
         + plotconfig.mrkrSelect + ' value=' + v + '/></td></tr>');
   });
 
+  if (nbm > 5) {
+    $(plotconfig.mrkrSelectAll).prop('checked', false);
+    $(plotconfig.mrkrSelectAll).prop('disabled', true);
+    $('#markerWarning').show();
+    $(plotconfig.mrkrSelectj).each(function() {
+      var selectedMrkr = parseInt(this.value);
+      if (selectedMrkr > 4){
+        this.checked = false;
+        this.disabled = true;
+      } else {
+        this.checked = true;
+      }
+    });
+  }
+
   $(plotconfig.mrkrSelectAll).click(function() {
     var checkAll = $(plotconfig.mrkrSelectAll).prop('checked');
     if (checkAll) {
@@ -138,20 +153,26 @@ var displayMarkerTable = function(plotconfig){
   });
 
   $(plotconfig.mrkrSelectj).click(function() {
-    if ($(plotconfig.mrkrSelectj).length == $(plotconfig.mrkrSelectCheck).length) {
-      $(plotconfig.mrkrSelectAll).prop("checked",true);
+    if (nbm < 6){
+      if ($(plotconfig.mrkrSelectj).length == $(plotconfig.mrkrSelectCheck).length) {
+        $(plotconfig.mrkrSelectAll).prop("checked",true);
+      } else {
+        $(plotconfig.mrkrSelectAll).prop("checked",false);
+      }
     } else {
-      $(plotconfig.mrkrSelectAll).prop("checked",false);
-    }
-    updateBPmfi(plotconfig);
-  });
-
-  $(plotconfig.mrkrSelectj).each(function() {
-    var selectedMrkr = parseInt(this.value);
-    if ($.inArray(selectedMrkr,plotconfig.selectedMarkers) > -1) {
-      this.checked = true;
-    } else {
-      this.checked = false;
+      var nbSelected = 0;
+      $(plotconfig.mrkrSelectj).each(function() {
+        if (this.checked) {nbSelected++}
+      });
+      if (nbSelected < 5) {
+        $(plotconfig.mrkrSelectj).prop('disabled', false);
+      } else {
+        $(plotconfig.mrkrSelectj).each(function() {
+          if (!this.checked) {
+            this.disabled = true;
+          }
+        });
+      }
     }
     updateBPmfi(plotconfig);
   });

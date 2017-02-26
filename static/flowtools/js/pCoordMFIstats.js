@@ -83,7 +83,7 @@ var displayPopTablem = function() {
     pcAppMFI.lines = [];
     pcAppMFI.origData.forEach(function(d,idx){
       if ($.inArray(pcAppMFI.populations.indexOf(d.Population), pcAppMFI.selectedPopulations) > -1) {
-        if ($.inArray(pcAppMFI.samples.indexOf(d.SampleName), pcAppMFI.selectedSamples) > -1){
+        if ($.inArray(pcAppMFI.samples.indexOf(d.SmpName), pcAppMFI.selectedSamples) > -1){
           pcAppMFI.selectedLines.push(idx);
           pcAppMFI.lines.push(idx);
         }
@@ -167,7 +167,7 @@ var displaySmpTablem = function(){
     pcAppMFI.lines = [];
     pcAppMFI.origData.forEach(function(d,idx) {
       if ($.inArray(pcAppMFI.populations.indexOf(d.Population), pcAppMFI.selectedPopulations) > -1) {
-        if ($.inArray(pcAppMFI.samples.indexOf(d.SampleName), pcAppMFI.selectedSamples) > -1){
+        if ($.inArray(pcAppMFI.samples.indexOf(d.SmpName), pcAppMFI.selectedSamples) > -1){
           pcAppMFI.selectedLines.push(idx);
           pcAppMFI.lines.push(idx);
         }
@@ -183,7 +183,7 @@ var updateSmpTableidx = function() {
     var smp = parseInt(this.value),
         selectedSamples = pcAppMFI.origData.map(function(d){
       if ($.inArray(d.idx, pcAppMFI.selectedLines) > -1){
-        return pcAppMFI.samples.indexOf(d.SampleName);
+        return pcAppMFI.samples.indexOf(d.SmpName);
       }
     });
     if ($.inArray(smp,selectedSamples) > -1) {
@@ -215,9 +215,8 @@ var displayTableGridm = function() {
   });
   displayDatamfi.forEach(function(d){
     d.EditedPopName = newPopNames[d.Population];
-    d.SampleName = newSmpNames[d.SampleName];
+    d.SampleName = newSmpNames[d.SmpName];
   });
-
   pcAppMFI.headers.forEach(function(d,i){
     colTablem.push("<th>" + d + "</th>");
     colNamesm.push({"data":d});
@@ -486,13 +485,14 @@ var displayParallelCoordinatesMFI = function() {
     pcAppMFI.origData.forEach(function(d,idx) {
       d.idx = idx;
       d.EditedPopName = d.Population;
+      d.SmpName = d.SampleName;
       pcAppMFI.selectedLines.push(idx);
       pcAppMFI.lines.push(idx);
       if (!pcAppMFI.populations.includes(d.Population)){
         pcAppMFI.populations.push(d.Population);
       }
-      if (!pcAppMFI.samples.includes(d.SampleName)){
-        pcAppMFI.samples.push(d.SampleName);
+      if (!pcAppMFI.samples.includes(d.SmpName)){
+        pcAppMFI.samples.push(d.SmpName);
       }
     });
     pcAppMFI.populations = pcAppMFI.populations.sort(function(a, b){return a-b});

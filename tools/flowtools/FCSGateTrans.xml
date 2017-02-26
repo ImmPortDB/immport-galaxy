@@ -19,15 +19,15 @@
     <param format="fcs" name="input" type="data" label="FCS file"/>
     <param name="comp" type="boolean" checked="false" truevalue="TRUE" falsevalue="FALSE" label="Compensate?"/>
     <conditional name="transform">
-        <param name="trans_method" type="select" label="Transformation using:" help="by default, FCSTrans">
-            <option value="logicle">FCSTrans</option>
-            <option value="arcsinh">arcsinh</option>
-            <option value="None">no transformation please.</option>
+      <param name="trans_method" type="select" label="Transformation using:" help="by default, FCSTrans">
+        <option value="logicle">FCSTrans</option>
+        <option value="arcsinh">arcsinh</option>
+        <option value="None">no transformation please.</option>
+      </param>
+      <when value="arcsinh">
+        <param name="scaling_factor" type="integer" min="1" max="200" value="150" label="Scaling factor b for arcsinh transform:" help="The default value is 150 for standard FCM data. The recommended value for cyTOF data is 5.">
         </param>
-        <when value="arcsinh">
-            <param name="scaling_factor" type="integer" min="1" max="200" value="150" label="Scaling factor b for arcsinh transform:" help="The default value is 150 for standard FCM data. The recommended value for cyTOF data is 5.">
-            </param>
-        </when>
+      </when>
     </conditional>
     <param name="gate" type="select" label="Automatically gate debris?">
       <option value="FALSE">No, thank you</option>
@@ -106,7 +106,7 @@
       <output name="report" file="report.txt"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool allows automated gating of debris using flowDensity and conversion of FCS files to text using the FCSTrans transformation.
 
 -----

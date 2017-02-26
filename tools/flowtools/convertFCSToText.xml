@@ -8,7 +8,7 @@
        <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-        Rscript --slave --vanilla $__tool_directory__/FCSConvert.R --args "${input}" "${output_file}" $compensate 
+        Rscript --slave --vanilla $__tool_directory__/FCSConvert.R --args "${input}" "${output_file}" $compensate
   ]]>
   </command>
   <inputs>
@@ -31,9 +31,9 @@
       <output name="output_file" file="withcomp.flowtext"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool converts FCS files to text format with no tranformation.
-   
+
 -----
 
 **Input files**

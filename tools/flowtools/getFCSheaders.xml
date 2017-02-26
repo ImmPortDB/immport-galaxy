@@ -8,7 +8,7 @@
     <exit_code range="2:" level="fatal" description="See stderr for more details." />
   </stdio>
   <command><![CDATA[
-	  python $__tool_directory__/getFCSheaders.py -o "${output_file}" -t $__tool_directory__
+      python $__tool_directory__/getFCSheaders.py -o "${output_file}" -t $__tool_directory__
  #for $f in $input#
     -i "${f}"
     -n "${f.name}"

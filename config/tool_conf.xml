@@ -21,6 +21,7 @@
     <tool file="flowtools/txtDiagnosis.xml" />
     <tool file="flowtools/extractpop.xml" />
     <tool file="flowtools/collapse_pops.xml" />
+    <tool file="flowtools/auto_collapse_pops.xml" />
     <tool file="flowtools/flowclrstats.xml" />
   </section>
   <section id="flowanalysistools" name="Flow Analysis Tools">

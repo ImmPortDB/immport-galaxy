@@ -14,10 +14,10 @@
   <inputs>
     <param format="flowclr" name="input" type="data" label="Source file"/>
     <param name="population" type="text" label="Populations:" value="i.e.:2,3,11,25"/>
-	<param name="method" type="select" label="What would you like to do?">
-		<option value="selected">Keep only these populations.</option>
-		<option value="removed">Remove these populations.</option>
-	</param>
+    <param name="method" type="select" label="What would you like to do?">
+        <option value="selected">Keep only these populations.</option>
+        <option value="removed">Remove these populations.</option>
+    </param>
   </inputs>
   <outputs>
     <data format="flowtext" name="output" label="Populations ${population} ${method} from ${input.name}"/>
@@ -26,7 +26,7 @@
     <test>
       <param name="input" value="input.txt"/>
       <param name="population" value="2,4"/>
-	  <param name="method" value="selected"/>
+      <param name="method" value="selected"/>
       <output name="output" file="output.flowtext"/>
     </test>
   </tests>

@@ -4,7 +4,7 @@
        <exit_code range="1:" />
    </stdio>
   <command><![CDATA[
-	  python $__tool_directory__/getHeaders.py -o "${output_file}"
+      python $__tool_directory__/getHeaders.py -o "${output_file}"
  #for $f in $input#
     -i "${f}"
     -n "${f.name}"

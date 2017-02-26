@@ -23,9 +23,9 @@
       <output name="output" file="summary.txt"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool generates a summary of a FCS file and list of markers.
-   
+
 -----
 
 **Input file**
@@ -42,10 +42,10 @@ FCS file summary includes number of events, list of markers and parameters, and 
 
 *Output*::
 
-       events parameters 
-        20000          6 
-   
-   
+       events parameters
+        20000          6
+
+
    =========================
    ==     FCS SUMMARY     ==
    =========================
@@ -56,8 +56,8 @@ FCS file summary includes number of events, list of markers and parameters, and 
    Mean      512   476 284.8 236.7  433.2  372.3
    3rd Qu.   657  1023 499.0 297.0  628.0  510.0
    Max.     1023  1023 729.0 925.0 1023.0 1023.0
-   
-   
+
+
    =========================
    ==    MARKERS IN FCS   ==
    =========================

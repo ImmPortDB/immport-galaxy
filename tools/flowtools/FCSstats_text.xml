@@ -22,7 +22,7 @@
       <output name="output" file="output.tabular"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool generates a summary of a txt-converted FCS file and list of markers.
 
 -----

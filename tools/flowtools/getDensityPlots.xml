@@ -42,7 +42,7 @@
       <output name="outpng" file="graph2.png" compare="sim_size"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool allows generation of density scatter plots using flowDensity.
 
 -----
@@ -64,8 +64,8 @@ This tool generates a scatter plot for each marker combination in a single png f
 .. image:: ../../static/images/flowtools/densityplots.png
   ]]>
   </help>
- <citations>
-   <citation type="doi">10.1093/bioinformatics/btu677</citation>
-   <citation type="doi">10.1186/1471-2105-10-106</citation>
- </citations>
+  <citations>
+    <citation type="doi">10.1093/bioinformatics/btu677</citation>
+    <citation type="doi">10.1186/1471-2105-10-106</citation>
+  </citations>
 </tool>

@@ -149,7 +149,7 @@ var displayScatterPopulation2D = function() {
 };
 
 var displayScatterPlot2D = function() {
-  var h = $(window).height() - 100,
+  var h = $(window).height() - 200,
       w = $("#scatterPlotDiv2D").width(),
       xtitle = scatterData2D['columnHeadings'][scatterData2D['m1']],
       ytitle = scatterData2D['columnHeadings'][scatterData2D['m2']],

@@ -24,48 +24,16 @@
     <test>
       <param name="input" value="input.flowscore"/>
       <output name="html_file" file="out.html">
-          <extra_files type="file" name="CLprofiles.txt" value="CLprofiles.txt"/>
-          <extra_files type="file" name="flowCL_pop01.pdf" value="flowCL_pop01.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop01.txt" value="flowCL_pop01.txt"/>
-          <extra_files type="file" name="flowCL_pop03.pdf" value="flowCL_pop03.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop03.txt" value="flowCL_pop03.txt"/>
-          <extra_files type="file" name="flowCL_pop04.pdf" value="flowCL_pop04.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop04.txt" value="flowCL_pop04.txt"/>
-          <extra_files type="file" name="flowCL_pop05.pdf" value="flowCL_pop05.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop05.txt" value="flowCL_pop05.txt"/>
-          <extra_files type="file" name="flowCL_pop06.pdf" value="flowCL_pop06.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop06.txt" value="flowCL_pop06.txt"/>
-          <extra_files type="file" name="flowCL_pop07.pdf" value="flowCL_pop07.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop07.txt" value="flowCL_pop07.txt"/>
-          <extra_files type="file" name="flowCL_pop09.pdf" value="flowCL_pop09.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop09.txt" value="flowCL_pop09.txt"/>
-          <extra_files type="file" name="flowCL_pop11.pdf" value="flowCL_pop11.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop11.txt" value="flowCL_pop11.txt"/>
-          <extra_files type="file" name="flowCL_pop13.pdf" value="flowCL_pop13.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop13.txt" value="flowCL_pop13.txt"/>
-          <extra_files type="file" name="flowCL_pop14.pdf" value="flowCL_pop14.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop14.txt" value="flowCL_pop14.txt"/>
-          <extra_files type="file" name="flowCL_pop15.pdf" value="flowCL_pop15.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop15.txt" value="flowCL_pop15.txt"/>
-          <extra_files type="file" name="flowCL_pop16.pdf" value="flowCL_pop16.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop16.txt" value="flowCL_pop16.txt"/>
-          <extra_files type="file" name="flowCL_pop17.pdf" value="flowCL_pop17.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop17.txt" value="flowCL_pop17.txt"/>
-          <extra_files type="file" name="flowCL_pop19.pdf" value="flowCL_pop19.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop19.txt" value="flowCL_pop19.txt"/>
-          <extra_files type="file" name="flowCL_pop20.pdf" value="flowCL_pop20.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop20.txt" value="flowCL_pop20.txt"/>
-          <extra_files type="file" name="flowCL_pop22.pdf" value="flowCL_pop22.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop22.txt" value="flowCL_pop22.txt"/>
-          <extra_files type="file" name="flowCL_pop23.pdf" value="flowCL_pop23.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop23.txt" value="flowCL_pop23.txt"/>
-          <extra_files type="file" name="flowCL_pop25.pdf" value="flowCL_pop25.pdf" compare="contains"/>
-          <extra_files type="file" name="flowCL_pop25.txt" value="flowCL_pop25.txt"/>
-          <extra_files type="file" name="scores.txt" value="scores.txt"/>
+        <extra_files type="file" name="CLprofiles.txt" value="CLprofiles.txt"/>
+        <extra_files type="file" name="flowCL_pop01.pdf" value="flowCL_pop01.pdf" compare="contains"/>
+        <extra_files type="file" name="flowCL_pop01.txt" value="flowCL_pop01.txt"/>
+        <extra_files type="file" name="flowCL_pop03.pdf" value="flowCL_pop03.pdf" compare="contains"/>
+        <extra_files type="file" name="flowCL_pop03.txt" value="flowCL_pop03.txt"/>
+        <extra_files type="file" name="scores.txt" value="scores.txt"/>
       </output>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool uses flowCL to find a match for each of the populations defined by FLOCK.
 
 .. class:: warningmark

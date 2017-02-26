@@ -8,6 +8,7 @@ import sys
 import os
 import pandas as pd
 import logging
+import fileinput
 
 from argparse import ArgumentParser
 from jinja2 import Environment, FileSystemLoader
@@ -166,13 +167,18 @@ def get_boxplot_stats(all_data, mfi_file, output_json):
     iqr = q3 - q1
     upper = q3 + 1.5*iqr
     lower = q1 - 1.5*iqr
+    resampled = False
     # get outliers
     out = pops.apply(get_outliers, upper, lower).dropna()
     outliers = defaultdict(dict)
     for population in set(df.Population):
         for marker in df.columns:
             if marker != 'Population':
-                outliers[population][marker] = list(out[population][marker])
+                tmp_outliers = list(out[population][marker])
+                if (len(list(out[population][marker]))> 100):
+                    tmp_outliers = list(out[population][marker].sample(n=100))
+                    resampled = True
+                outliers[population][marker] = tmp_outliers
     outdf = pd.DataFrame(outliers)
     # Get initial MFI values
     mfi = pd.read_table(mfi_file)
@@ -190,6 +196,7 @@ def get_boxplot_stats(all_data, mfi_file, output_json):
     with open(output_json, "w") as js_all:
         js_all.write(panel_to_json_string(wp))
 
+    return resampled
 
 # html generation
 def gen_flow_overview(args):
@@ -225,7 +232,7 @@ def gen_flow_overview(args):
 
     # box plot data
     boxplot_data = args.output_directory + "/boxplotData.json"
-    get_boxplot_stats(args.input_file, flow_mfi_file_name, boxplot_data)
+    resampled = get_boxplot_stats(args.input_file, flow_mfi_file_name, boxplot_data)
 
     # Generate the Images  -- eventually we should change that over to D3
     fcm = flow_stats['sample_data'].values
@@ -266,6 +273,15 @@ def gen_flow_overview(args):
             flow_overview_file.write("</tr>\n")
 
         flow_overview_file.write("</table>\n</body>\n<html>\n")
+
+    if resampled:
+        to_find = '<div id="outlierWarning" style="display:none;">'
+        to_replace = '<div id="outlierWarning">'
+        ## yay python 2.7
+        ro = fileinput.input(args.output_file, inplace=True, backup=".bak")
+        for roline in ro:
+            print(roline.replace(to_find, to_replace), end='')
+        ro.close()
 
 
 if __name__ == "__main__":

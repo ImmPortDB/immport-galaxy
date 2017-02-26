@@ -9,7 +9,7 @@
        <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-	  python $__tool_directory__/generateMFI.py -i "${input}" -o "${output}" -M "${mfi}"
+      python $__tool_directory__/generateMFI.py -i "${input}" -o "${output}" -M "${mfi}"
   ]]>
   </command>
   <inputs>
@@ -40,9 +40,9 @@
       <output name="output" file="gmfi.flowmfi"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool generates the Mean, Median or Geometric Mean Fluorescence Intensity of a FLOCK output file.
-   
+
 -----
 
 **Input file**
@@ -73,5 +73,5 @@ The output is a table containing the mean, median or geometric mean fluorescent 
    3          31      52      45
    4          11      78      25
   ]]>
- </help>
+  </help>
 </tool>

@@ -3,13 +3,13 @@
   <requirements>
       <requirement type="package" version="0.17.1">pandas</requirement>
   </requirements>
- <stdio>
-   <exit_code range="2" level="warning" description="The color code only allows populations between 1 and 40." />
-   <exit_code range="3" level="warning" description="The same population to collapse into is being used several times." />
-   <exit_code range="4" level="fatal" description="Please provide a comma separated list of populations to collapse." />
-   <exit_code range="5" level="warning" description="The color code only allows populations between 1 and 40, and the same population to collapse into is being used several times." />
-   <exit_code range="6" level="fatal" description="The populations must be integers (i.e,: 1,2,4.)" />
-   <exit_code range="7" level="fatal" description="The same population is being collapsed into 2 different populations." />
+  <stdio>
+    <exit_code range="2" level="warning" description="The color code only allows populations between 1 and 40." />
+    <exit_code range="3" level="warning" description="The same population to collapse into is being used several times." />
+    <exit_code range="4" level="fatal" description="Please provide a comma separated list of populations to collapse." />
+    <exit_code range="5" level="warning" description="The color code only allows populations between 1 and 40, and the same population to collapse into is being used several times." />
+    <exit_code range="6" level="fatal" description="The populations must be integers (i.e,: 1,2,4.)" />
+    <exit_code range="7" level="fatal" description="The same population is being collapsed into 2 different populations." />
   </stdio>
   <command><![CDATA[
       python $__tool_directory__/collapse_pops.py -o "${output}" -i "${input}" -p "${population}" -c "${collapse}"

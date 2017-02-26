@@ -104,7 +104,7 @@ svg {
 }
 .background path {
   fill: none;
-  stroke: #ddd;
+  stroke: #F0F0F0;
   shape-rendering: crispEdges;
 }
 .foreground path {

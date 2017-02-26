@@ -102,7 +102,7 @@ var displayToolbar = function(plotconfig){
       updateBoxplot(plotconfig);
     } else {
       var imgSrc = document.getElementById(plotconfig.toggledisplay);
-      imgSrc.src = imgSrc.src.endsWith("stackedsm.png") ? "./barssm.png" : "./stackedsm.png";
+      imgSrc.src = imgSrc.src.endsWith("stackedsm.png") ? "/static/images/flowtools/barssm.png" : "/static/images/flowtools/stackedsm.png";
       plotconfig.type = plotconfig.type == "barplot" ? "areaplot" : "barplot";
       updatePlot(plotconfig);
     }

@@ -5,7 +5,7 @@
     <requirement type="package" version="1.38.2">bioconductor-flowcore</requirement>
   </requirements>
   <stdio>
-       <exit_code range="1:" />
+    <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
     Rscript --slave --vanilla $__tool_directory__/FCSKeyword.R --args "${input}" "${keyword_file}"
@@ -23,7 +23,7 @@
       <output name="keyword_file" file="out.tabular" lines_diff="2"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool extracts the Keywords from a FCS file.
 
 -----
