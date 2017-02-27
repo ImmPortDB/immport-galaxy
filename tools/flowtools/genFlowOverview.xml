@@ -24,18 +24,18 @@
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Result File"/>
     <param name="mfi" type="select" label="Calculate centroids using:">
-        <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
-        <option value="mdfi">Median Fluorescence Intensity</option>
-        <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
+      <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
+      <option value="mdfi">Median Fluorescence Intensity</option>
+      <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
     </param>
     <conditional name="ontology">
-        <param name="runcl" type="select" label="Associate FLOCK population score profiles with Cell Ontology?" help="using FlowCL">
-            <option value="no">No, thank you</option>
-            <option value="yes">Yes, pretty please, even though it will take 10 more minutes to run</option>
-        </param>
-        <when value="yes">
-            <param format="flowscore" name="scores" type="data" label="Population score profiles from FLOCK"/>
-        </when>
+      <param name="runcl" type="select" label="Associate FLOCK population score profiles with Cell Ontology?" help="using FlowCL">
+        <option value="no">No, thank you</option>
+        <option value="yes">Yes, pretty please, even though it will take 10 more minutes to run</option>
+      </param>
+      <when value="yes">
+        <param format="flowscore" name="scores" type="data" label="Population score profiles from FLOCK"/>
+      </when>
     </conditional>
   </inputs>
   <outputs>

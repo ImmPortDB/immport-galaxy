@@ -5,10 +5,10 @@
     <requirement type="package" version="1.38.2">bioconductor-flowcore</requirement>
   </requirements>
   <stdio>
-       <exit_code range="1:" />
+    <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-        Rscript --slave --vanilla $__tool_directory__/FCSConvert.R --args "${input}" "${output_file}" $compensate
+    Rscript --slave --vanilla $__tool_directory__/FCSConvert.R --args "${input}" "${output_file}" $compensate
   ]]>
   </command>
   <inputs>
@@ -54,5 +54,5 @@ The output is tab-separated text, containing the fluorescence intensity values f
    262             73           437     69      0       146
    340             115          509     268     0       74
   ]]>
- </help>
+  </help>
 </tool>

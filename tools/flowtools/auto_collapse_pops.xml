@@ -1,7 +1,7 @@
 <tool id="auto_collapse_populations" name="Collapse populations automatically" version="1.0">
   <description>based on quartile binning from FLOCK results.</description>
   <requirements>
-      <requirement type="package" version="0.17.1">pandas</requirement>
+    <requirement type="package" version="0.17.1">pandas</requirement>
   </requirements>
   <stdio>
     <exit_code range="1:" />
@@ -26,7 +26,7 @@
       <output name="output" file="output.flowclr"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool automatically collapses populations together based on FLOCK score profiles.
 
 -----

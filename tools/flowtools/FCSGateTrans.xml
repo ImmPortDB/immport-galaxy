@@ -182,10 +182,10 @@ Users should verify whether data benefit from being gated. We recommend evaluati
 
 .. image:: ../../static/images/flowtools/flowdensity.png
   ]]>
- </help>
- <citations>
-   <citation type="doi">10.1002/cyto.a.22037</citation>
-   <citation type="doi">10.1093/bioinformatics/btu677</citation>
-   <citation type="doi">10.1186/1471-2105-10-106</citation>
- </citations>
+  </help>
+  <citations>
+    <citation type="doi">10.1002/cyto.a.22037</citation>
+    <citation type="doi">10.1093/bioinformatics/btu677</citation>
+    <citation type="doi">10.1186/1471-2105-10-106</citation>
+  </citations>
 </tool>

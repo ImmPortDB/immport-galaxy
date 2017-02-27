@@ -1,7 +1,7 @@
 <tool id="collapse_populations" name="Collapse populations" version="1.0">
   <description>from FLOCK or Cross Sample analysis.</description>
   <requirements>
-      <requirement type="package" version="0.17.1">pandas</requirement>
+    <requirement type="package" version="0.17.1">pandas</requirement>
   </requirements>
   <stdio>
     <exit_code range="2" level="warning" description="The color code only allows populations between 1 and 40." />
@@ -13,17 +13,16 @@
   </stdio>
   <command><![CDATA[
       python $__tool_directory__/collapse_pops.py -o "${output}" -i "${input}" -p "${population}" -c "${collapse}"
-      #for $repeats in $repeat_option
+    #for $repeats in $repeat_option
         -p "${repeats.population}"
         -c "${repeats.collapse}"
-      #end for
+    #end for
   ]]>
   </command>
   <inputs>
     <param format="flowclr" name="input" type="data" label="Source file"/>
     <param name="population" type="text" label="Collapse the following populations:" value="i.e.:2,3,11,25"/>
     <param name="collapse" type="text" label="Into population:" value="i.e.:4"/>
-
     <repeat name="repeat_option" title="more populations to manipulate:">
       <param name="population" type="text" label="Collapse the following populations:" value="i.e.:2,3,11,25"/>
       <param name="collapse" type="text" label="Into population:" value="i.e.:4"/>
@@ -40,7 +39,7 @@
       <output name="output" file="output.flowclr"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool collapses several populations into one.
 
 -----

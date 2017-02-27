@@ -15,8 +15,8 @@
     <param format="flowclr" name="input" type="data" label="Source file"/>
     <param name="population" type="text" label="Populations:" value="i.e.:2,3,11,25"/>
     <param name="method" type="select" label="What would you like to do?">
-        <option value="selected">Keep only these populations.</option>
-        <option value="removed">Remove these populations.</option>
+      <option value="selected">Keep only these populations.</option>
+      <option value="removed">Remove these populations.</option>
     </param>
   </inputs>
   <outputs>
@@ -30,7 +30,7 @@
       <output name="output" file="output.flowtext"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool extracts events from given populations from FLOCK or Cross Sample outputs.
 
 -----
@@ -85,6 +85,6 @@ The input file filtered for selected populations.
     33      65      10      5
     12      36      58      1
 
- ]]>
- </help>
+  ]]>
+  </help>
 </tool>

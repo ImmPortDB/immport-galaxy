@@ -42,7 +42,7 @@
       </output>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool generates an overview of the flow analysis results.
 
 -----
@@ -131,6 +131,6 @@ Summary Statistics Boxplots:
 The user can choose whether to group the boxplots per marker or per population. By default, the values displayed are the 25th, median and 75th percentiles. The whiskers represent 1.5 times the interquartile range. The MFI or the values can be displayed by checking the corresponding checkboxes. The number of markers that can be plotted simultaneously is limited to 5. The number of outliers per data point is limited to 100. If there are more than 100 outliers, they are downsampled randomly to a 100 and a warning message is displayed.
 
 .. image:: ../../static/images/flowtools/cs_bpt.png
- ]]>
- </help>
+  ]]>
+  </help>
 </tool>

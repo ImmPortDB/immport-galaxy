@@ -4,8 +4,8 @@
     <requirement type="package" version="0.17.1">pandas</requirement>
   </requirements>
   <stdio>
-       <exit_code range="1:" />
-   </stdio>
+    <exit_code range="1:" />
+  </stdio>
   <command><![CDATA[
     python $__tool_directory__/txtdiagnosis.py -i "${input}" -o "${output}" -n "${input.name}"
   ]]>

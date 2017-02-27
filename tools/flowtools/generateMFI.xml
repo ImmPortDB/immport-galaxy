@@ -6,7 +6,7 @@
     <requirement type="package" version="0.16.0">scipy</requirement>
   </requirements>
   <stdio>
-       <exit_code range="1:" />
+    <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
       python $__tool_directory__/generateMFI.py -i "${input}" -o "${output}" -M "${mfi}"
@@ -15,9 +15,9 @@
   <inputs>
     <param format="flowclr" name="input" type="data" label="Flow Text file"/>
     <param name="mfi" type="select" label="Calculate centroids using:">
-        <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
-        <option value="mdfi">Median Fluorescence Intensity</option>
-        <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
+      <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
+      <option value="mdfi">Median Fluorescence Intensity</option>
+      <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
     </param>
   </inputs>
   <outputs>

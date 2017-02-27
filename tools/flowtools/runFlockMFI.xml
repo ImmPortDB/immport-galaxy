@@ -21,15 +21,15 @@
   <inputs>
     <param format="flowtext" name="input" type="data" label="Source file"/>
     <param name="method" type="select" label="Method">
-        <option value="flock1" selected="true">Flock Version 1</option>
-        <option value="flock2">Flock Version 2</option>
+      <option value="flock1" selected="true">Flock Version 1</option>
+      <option value="flock2">Flock Version 2</option>
     </param>
     <param name="bins" type="integer" min="6" max="30" optional="true" value="" label="bins (6-30)"/>
     <param name="density" type="integer" min="2" max="100" optional="true" value="" label="density (2-100)"/>
     <param name="mfi" type="select" label="Calculate centroids using:">
-        <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
-        <option value="mdfi">Median Fluorescence Intensity</option>
-        <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
+      <option value="mfi" selected="true">Mean Fluorescence Intensity</option>
+      <option value="mdfi">Median Fluorescence Intensity</option>
+      <option value="gmfi">Geometric Mean Fluorescence Intensity</option>
     </param>
   </inputs>
   <outputs>
