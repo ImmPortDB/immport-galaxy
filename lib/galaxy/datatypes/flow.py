@@ -8,21 +8,12 @@
 Flow analysis datatypes.
 """
 
-import gzip
-import json
 import logging
-import os
 import re
 import subprocess
-import tempfile
-import rpy2.interactive as r
-import rpy2.interactive.packages
 
 from galaxy.datatypes.binary import Binary
 from galaxy.datatypes.tabular import Tabular
-from galaxy.datatypes.data import get_file_peek, Text
-from galaxy.datatypes.metadata import MetadataElement
-from galaxy.util import nice_size, string_as_bool
 from . import data
 
 log = logging.getLogger(__name__)
@@ -58,19 +49,26 @@ class FCS(Binary):
         """
         Checking if the file is in FCS format. Should read FCS2.0, FCS3.0
         and FCS3.1
-        """
-        r.packages.importr("flowCore")
-        rlib = r.packages.packages
-        try:
-            fcsobject = rlib.flowCore.isFCSfile(filename)
-            return list(fcsobject)[0]
-        except:
-            return False
 
+        For this to work, need to have install checkFCS via bioconda
+        conda install ig-checkFCS
+        """
+        try:
+            rscript = 'checkFCS.R'
+            fcs_check = subprocess.check_output([rscript, filename])
+            if re.search('TRUE', str(fcs_check)):
+                return True
+            else:
+                return False
+        except:
+            False
     def get_mime(self):
         """Returns the mime type of the datatype"""
         return 'application/octet-stream'
-Binary.register_sniffable_binary_format("fcs","fcs",FCS)
+
+
+Binary.register_sniffable_binary_format("fcs", "fcs", FCS)
+
 
 class FlowText(Tabular):
     """Class describing an Flow Text file"""
