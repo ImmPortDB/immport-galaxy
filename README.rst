@@ -73,6 +73,7 @@ To run the tools for ImmPort Galaxy smoothly, the following dependencies are req
     $ apt-get install libreadline-dev libX11-dev xorg-dev python-dev
     $ apt-get install libcurl4-openssl-dev libxml2-dev libbz2-dev
     $ apt-get install liblzma-dev libpcre3-dev
+    $ apt-get install libhdf5-serial-dev libhdf5-dev mesa-common-dev libglu1-mesa-dev
 
 Install R:
 
@@ -98,6 +99,14 @@ Within R, install the following packages:
     >biocLite("flowAI")
     >install.packages("plyr",repos="http://cran.r-project.org")
     >install.packages("ggplot2",repos="http://cran.r-project.org")
+    >biocLite("flowViz")
+    >biocLite("ncdfFlow")
+    >biocLite("rgl")
+    >biocLite("ks")
+    >biocLite("flowWorkspace")
+    >biocLite("flowStats")
+    >biocLite("flowVS")
+    >biocLite("ggcyto")
 
 Install required python packages in the galaxy virtual environment:
 
@@ -111,6 +120,7 @@ Install required python packages in the galaxy virtual environment:
     $ pip install jinja2
     $ pip install rpy2
     $ pip install scipy==0.17.0
+    $ pip install plotly==1.12.9
 
 Compile FLOCK. The binaries are included in $GALAXY_HOME/tools/flowtools/src.
 
@@ -120,5 +130,15 @@ Compile FLOCK. The binaries are included in $GALAXY_HOME/tools/flowtools/src.
     $ cc -o flock1 ../src/flock1.c ../src/find_connected.c -lm
     $ cc -o flock2 ../src/flock2.c -lm
     $ cc -o cent_adjust ../src/cent_adjust.c -lm
+
+ImmPort Galaxy supports auto-detection of FCS files, with the following dependency
+
+.. code:: console
+
+    $ conda config --add channels conda-forge
+    $ conda config --add channels defaults
+    $ conda config --add channels r
+    $ conda config --add channels bioconda
+    $ conda install ig-checkFCS
 
 Feel free to contact the ImmPort Galaxy team if you have any questions: immport-galaxy@immport.org
