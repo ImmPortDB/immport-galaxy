@@ -1,9 +1,13 @@
 #!/usr/bin/env python
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
 from __future__ import print_function
 import sys
-import os
 
 from argparse import ArgumentParser
+
 
 def print_headers(files, filenames, outfile):
     with open(outfile, "w") as outf:

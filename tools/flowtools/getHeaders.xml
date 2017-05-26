@@ -1,18 +1,18 @@
-<tool id="get_headers" name="Check headers" version="1.0">
-  <description>of any set of text files.</description>
+<tool id="get_headers" name="Check headers" version="1.1">
+  <description>of any set of flowtext files</description>
   <stdio>
-       <exit_code range="1:" />
-   </stdio>
+    <exit_code range="1:" />
+  </stdio>
   <command><![CDATA[
-	  python $__tool_directory__/getHeaders.py -o "${output_file}"
- #for $f in $input#
-    -i "${f}"
-    -n "${f.name}"
- #end for#
+      python '$__tool_directory__/getHeaders.py' -o '${output_file}'
+ #for $f in $input
+    -i '${f}'
+    -n '${f.name}'
+ #end for
   ]]>
   </command>
   <inputs>
-    <param format="txt,flowtext,tabular" name="input" type="data_collection" collection_type="list" label="Text files Collection"/>
+    <param format="flowtext" name="input" type="data_collection" collection_type="list" label="Text files Collection"/>
   </inputs>
   <outputs>
     <data format="tabular" name="output_file" label="Headers of files in ${input.name}"/>
@@ -51,7 +51,7 @@ The output file is a table listing the headers for each file.
    Marker1 Marker2 Marker3
    34      45      12
    33      65      10
-   
+
 *File2*::
 
    Marker4 Marker5 Marker3

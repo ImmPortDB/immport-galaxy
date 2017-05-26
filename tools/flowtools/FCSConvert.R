@@ -1,5 +1,8 @@
-#
 # ImmPort FCSConvert
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
 #
 # Converts the FCS file to text without transformaton
 # To run in R
@@ -9,7 +12,7 @@
 #
 # Version 1.4.1
 # March 2016 -- added lines to run directly from command line
-# 
+#
 
 library(flowCore)
 

@@ -1,10 +1,16 @@
 #!/usr/bin/env python
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
+
 from __future__ import print_function
 import sys
-import os
 import pandas as pd
 
 from argparse import ArgumentParser
+
+
 def is_int(s):
     try:
         int(s)
@@ -12,19 +18,21 @@ def is_int(s):
     except ValueError:
         return False
 
+
 def collapse_populations(in_file, out_file, populations, collapse_in, exit_code):
     df = pd.read_table(in_file, dtype={'Population': object})
     df['new_population'] = df.Population
 
     for i, sets_pop in enumerate(populations):
-        df.loc[df['Population'].isin(sets_pop),['new_population']] = collapse_in[i]
+        df.loc[df['Population'].isin(sets_pop), ['new_population']] = collapse_in[i]
 
     df.Population = df.new_population
-    df.drop(['new_population'],inplace=True, axis=1)
+    df.drop(['new_population'], inplace=True, axis=1)
 
-    df.to_csv(out_file, sep="\t", index = False)
+    df.to_csv(out_file, sep="\t", index=False)
 
     sys.exit(exit_code)
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -59,17 +67,17 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    ## check populations
+    # check populations
     default_values_pop = ["i.e.:2,3,11,25", "default", "Default"]
     default_values_col = ["i.e.:4", "default", "Default"]
     pops = [p for p in args.pops]
     popc = [pc.strip() for pc in args.collapse_pop]
     exit_code = 0
-    ## Check sets of pops to collapse
+    # Check sets of pops to collapse
     populations = []
     total_pops = []
     for pop_set in pops:
-        if not pop_set in default_values_pop:
+        if pop_set not in default_values_pop:
             tmp_pops = pop_set.split(",")
             for popn in tmp_pops:
                 if not is_int(popn):
@@ -82,10 +90,10 @@ if __name__ == "__main__":
             sys.exit(4)
     if len(total_pops) != len(set(total_pops)):
         sys.exit(7)
-    ## Check pops to collapse in
+    # Check pops to collapse in
     collapse_in = []
     for col_pop in popc:
-        if not col_pop in default_values_col:
+        if col_pop not in default_values_col:
             if not is_int(col_pop):
                 sys.exit(6)
             else:

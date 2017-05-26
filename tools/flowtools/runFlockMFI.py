@@ -1,27 +1,21 @@
 #!/usr/bin/env python
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
+# version 2
 from __future__ import print_function
 
-import sys 
+import sys
 import os
 from argparse import ArgumentParser
 import pandas as pd
 from scipy.stats import gmean
 
-def generate_MFI(input_file_name, output_file_name, mfi_calc):
-    flockdf = pd.read_table(input_file_name)
-    if mfi_calc == "mfi":
-        MFIs = flockdf.groupby('Population').mean().round(decimals=2)
-    elif mfi_calc == "gmfi":
-        MFIs = flockdf.groupby('Population').agg(lambda x: gmean(list(x))).round(decimals = 2)
-    else:
-        MFIs = flockdf.groupby('Population').median().round(decimals=2)
 
-    with open(output_file_name,"w") as outf:
-		MFIs.to_csv(outf, sep="\t", float_format='%.0f')
-    return
-
-def run_FLOCK(input_file, method, bins, density, output_file, profile, tool_directory):
-    run_command = tool_directory + "/bin/"  + method + " " + input_file
+def run_FLOCK(input_file, method, bins, density, output_file, mfi_file,
+              mfi_calc, profile, tool_directory):
+    run_command = tool_directory + "/bin/" + method + " " + input_file
     if bins:
         run_command += " " + bins
     if density:
@@ -32,9 +26,37 @@ def run_FLOCK(input_file, method, bins, density, output_file, profile, tool_dire
     move_command = "mv flock_results.txt " + output_file
     os.system(move_command)
 
-    get_profile = "mv profile.txt " + profile
-    os.system(get_profile)
+    # Here add some way to calculate the count and tack it on to profile file.
+    flockdf = pd.read_table(output_file)
+    if mfi_calc == "mfi":
+        MFIs = flockdf.groupby('Population').mean().round(decimals=2)
+    elif mfi_calc == "gmfi":
+        MFIs = flockdf.groupby('Population').agg(lambda x: gmean(list(x))).round(decimals=2)
+    else:
+        MFIs = flockdf.groupby('Population').median().round(decimals=2)
+
+    with open(mfi_file, "w") as outf:
+        MFIs.to_csv(outf, sep="\t", float_format='%.0f')
+
+    (events, columns) = flockdf.shape
+    fstats = {}
+    fstats['population'] = flockdf.iloc[:, -1:].iloc[:, 0]
+    fstats['population_freq'] = fstats['population'].value_counts()
+    fstats['population_freq_sort'] = fstats['population_freq'].sort_index()
+    fstats['population_per'] = (fstats['population'].value_counts(normalize=True) * 100).round(decimals=2)
+    fstats['population_per_sort'] = fstats['population_per'].sort_index()
+    fstats['population_all'] = pd.concat([fstats['population_freq_sort'], fstats['population_per_sort']], axis=1)
+    fstats['population_all'].columns = ['Count', 'Percentage']
+    fstats['population_all']['Population_ID'] = fstats['population_all'].index
+
+    flock_profile = pd.read_table('profile.txt')
+    profile_pop = flock_profile.merge(fstats['population_all'], on='Population_ID')
+    profile_pop.to_csv(profile, sep="\t", float_format='%.2f', index=False)
+
+#    get_profile = "mv profile.txt " + profile
+#    os.system(get_profile)
     return
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -96,9 +118,8 @@ if __name__ == "__main__":
             help="File location for the output profile file.")
 
     args = parser.parse_args()
-    run_FLOCK(args.input_file,args.method,args.bins,
-             args.density, args.output_file, args.profile, args.tool_directory)
-
-    generate_MFI(args.output_file, args.centroids, args.mfi_calc)
+    run_FLOCK(args.input_file, args.method, args.bins,
+              args.density, args.output_file, args.centroids, args.mfi_calc,
+              args.profile, args.tool_directory)
 
     sys.exit(0)

@@ -7,7 +7,7 @@
     self.message_box_visible = app.config.message_box_visible
     self.show_inactivity_warning = False
     if trans.webapp.name == 'galaxy' and trans.user:
-        self.show_inactivity_warning = ( ( trans.user.active is False ) and ( app.config.user_activation_on ) and ( app.config.inactivity_box_content is not None ) )
+        self.show_inactivity_warning = ( ( trans.user.active is False ) and ( app.config.user_activation_on ) )
     self.overlay_visible=False
     self.active_view=None
     self.body_class=""
@@ -39,9 +39,9 @@
 
 ## Default javascripts
 <%def name="javascripts()">
-    ## Send errors to Sntry server if configured
+    ## Send errors to Sentry server if configured
     %if app.config.sentry_dsn:
-        ${h.js( "libs/tracekit", "libs/raven" )}
+        ${h.js( "libs/raven" )}
         <script>
             Raven.config('${app.config.sentry_dsn_public}').install();
             %if trans.user:
@@ -60,6 +60,8 @@
         // configure require
         // due to our using both script tags and require, we need to access the same jq in both for plugin retention
         // source http://www.manuel-strehl.de/dev/load_jquery_before_requirejs.en.html
+        window.Galaxy = window.Galaxy || {};
+        window.Galaxy.root = '${h.url_for( "/" )}';
         define( 'jquery', [], function(){ return jQuery; })
         // TODO: use one system
 
@@ -158,16 +160,17 @@
     <!--base_panels.mako-->
     ${self.init()}
     <head>
-        %if app.config.brand:
-            <title>${self.title()} / ${app.config.brand}</title>
-        %else:
-            <title>${self.title()}</title>
-        %endif
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         ## For mobile browsers, don't scale up
         <meta name = "viewport" content = "maximum-scale=1.0">
         ## Force IE to standards mode, and prefer Google Chrome Frame if the user has already installed it
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+        %if app.config.brand:
+            <title>${self.title()} / ${app.config.brand}</title>
+        %else:
+            <title>${self.title()}</title>
+        %endif
         ## relative href for site root
         <link rel="index" href="${ h.url_for( '/' ) }"/>
         ${self.stylesheets()}
@@ -201,9 +204,11 @@
             <div id="masthead" class="navbar navbar-fixed-top navbar-inverse">
                 ${self.masthead()}
             </div>
-            <div id="messagebox" class="panel-${app.config.message_box_class}-message">
-                ${app.config.message_box_content}
-            </div>
+            %if self.message_box_visible:
+                <div id="messagebox" class="panel-${app.config.message_box_class}-message" style="display:block">
+                    ${app.config.message_box_content}
+                </div>
+            %endif
             %if self.show_inactivity_warning:
                 <div id="inactivebox" class="panel-warning-message">
                     ${app.config.inactivity_box_content} <a href="${h.url_for( controller='user', action='resend_verification' )}">Resend verification.</a>

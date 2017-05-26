@@ -5,20 +5,20 @@
     <!-- Flow Cytometry Datatypes -->
     <datatype extension="fcs" type="galaxy.datatypes.flow:FCS" mimetype="application/octet-stream" display_in_upload="true" description="A FCS binary sequence file with a '.fcs' file extension.  You must manually select this 'File Format' when uploading the file."/>
 
-    <datatype extension="flowtext" type="galaxy.datatypes.flow:FlowText" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow text file with a '.flowtext' file extension.  You must manually select this 'File Format' when uploading the file."/>
+    <datatype extension="flowtext" type="galaxy.datatypes.flow:FlowText" mimetype="text/tab-separated-values" display_in_upload="true" description="A Flow text file with a '.flowtext' file extension.  You must manually select this 'File Format' when uploading the file."/>
 
-    <datatype extension="flowclr" type="galaxy.datatypes.flow:FlowClustered" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow text file containing population information with a '.flowclr' file extension.  You must manually select this 'File Format' when uploading the file."/>
+    <datatype extension="flowclr" type="galaxy.datatypes.flow:FlowClustered" mimetype="text/tab-separated-values" display_in_upload="true" description="A Flow text file containing population information with a '.flowclr' file extension.  You must manually select this 'File Format' when uploading the file."/>
 
-    <datatype extension="flowmfi" type="galaxy.datatypes.flow:FlowMFI" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow MFI file with a '.flowmfi' file extension.  You must manually select this 'File Format' when uploading the file."/>
+    <datatype extension="flowmfi" type="galaxy.datatypes.flow:FlowMFI" mimetype="text/tab-separated-values" display_in_upload="true" description="A Flow MFI file with a '.flowmfi' file extension.  You must manually select this 'File Format' when uploading the file."/>
 
-    <datatype extension="flowstat1" type="galaxy.datatypes.flow:FlowStats1" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat1' file extension. You must manually select this 'File Format' when uploading the file."/>
+    <datatype extension="flowstat1" type="galaxy.datatypes.flow:FlowStats1" mimetype="text/tab-separated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat1' file extension. You must manually select this 'File Format' when uploading the file."/>
 
-    <datatype extension="flowstat2" type="galaxy.datatypes.flow:FlowStats2" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat2' file extension. You must manually select this 'File Format' when uploading the file."/>
+    <datatype extension="flowstat2" type="galaxy.datatypes.flow:FlowStats2" mimetype="text/tab-separated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat2' file extension. You must manually select this 'File Format' when uploading the file."/>
 
-    <datatype extension="flowstat3" type="galaxy.datatypes.flow:FlowStats3" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat3' file extension. You must manually select this 'File Format' when uploading the file."/>
-    
-    <datatype extension="flowscore" type="galaxy.datatypes.flow:FlowScore" mimetype="text/tab-seperated-values" display_in_upload="true" description="A Flow Score file with a '.flowscore' file extension. You must manually select this 'File Format' when uploading the file."/>
+    <datatype extension="flowstat3" type="galaxy.datatypes.flow:FlowStats3" mimetype="text/tab-separated-values" display_in_upload="true" description="A Flow Stats file with a '.flowstat3' file extension. You must manually select this 'File Format' when uploading the file."/>
 
+    <datatype extension="flowscore" type="galaxy.datatypes.flow:FlowScore" mimetype="text/tab-separated-values" display_in_upload="true" description="A Flow Score file with a '.flowscore' file extension. You must manually select this 'File Format' when uploading the file."/>
+    <!-- End Flow Cytometry Datatypes -->
 
    <!-- MSI added Datatypes -->
     <datatype extension="csv" type="galaxy.datatypes.tabular:CSV" display_in_upload="true" />
@@ -35,6 +35,13 @@
     <datatype extension="xml" type="galaxy.datatypes.xml:GenericXml" mimetype="application/xml" display_in_upload="true"/>
 
     <datatype extension="ipynb" type="galaxy.datatypes.text:Ipynb" display_in_upload="True" />
+    <datatype extension="json" type="galaxy.datatypes.text:Json" display_in_upload="True" />
+    <datatype extension="eps" type="galaxy.datatypes.images:Eps" mimetype="image/eps"/>
+    <datatype extension="svg" type="galaxy.datatypes.images:Image" mimetype="image/svg+xml"/>
+    <datatype extension="sqlite" type="galaxy.datatypes.binary:SQlite" mimetype="application/octet-stream" display_in_upload="true"/>
+    <datatype extension="xls" type="galaxy.datatypes.tabular:Tabular"/>
+    <datatype extension="xlsx" type="galaxy.datatypes.binary:Xlsx" display_in_upload="true" />
+    <datatype extension="RData" type="galaxy.datatypes.binary:RData" display_in_upload="true" description="Stored data from an R session"/>
 
   </registration>
 
@@ -46,12 +53,25 @@
     defined format first, followed by next-most rigidly defined,
     and so on.
     -->
+    <sniffer type="galaxy.datatypes.binary:SQlite"/>
     <sniffer type="galaxy.datatypes.images:Html"/>
     <sniffer type="galaxy.datatypes.images:Pdf"/>
+    <sniffer type="galaxy.datatypes.text:Ipynb"/>
+    <sniffer type="galaxy.datatypes.text:Json"/>
     <sniffer type="galaxy.datatypes.tabular:CSV"/>
+    <sniffer type="galaxy.datatypes.binary:RData" />
     <sniffer type="galaxy.datatypes.images:Jpg"/>
     <sniffer type="galaxy.datatypes.images:Png"/>
-  </sniffers>
+    <sniffer type="galaxy.datatypes.images:Eps"/>
+    <sniffer type="galaxy.datatypes.flow:FCS"/>
+    <sniffer type="galaxy.datatypes.flow:FlowClustered"/>
+    <sniffer type="galaxy.datatypes.flow:FlowScore"/>
+    <sniffer type="galaxy.datatypes.flow:FlowStats1"/>
+    <sniffer type="galaxy.datatypes.flow:FlowStats2"/>
+    <sniffer type="galaxy.datatypes.flow:FlowStats3"/>
+    <sniffer type="galaxy.datatypes.flow:FlowMFI"/>
+    <sniffer type="galaxy.datatypes.flow:FlowText"/>
+ </sniffers>
   <build_sites>
       <!--
       Build sites define the builds (dbkeys) available at sites used by display

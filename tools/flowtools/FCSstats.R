@@ -1,6 +1,9 @@
-#
 # FCS Summary Statistic Module for Galaxy
 # FlowCore
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
 # 
 # Version 1
 # Cristel Thomas
@@ -11,7 +14,7 @@ library(flowCore)
 
 getMarkerNames <- function(input, output) {
   fcs <- read.FCS(input, transformation=F)
-  
+
   ## marker names
   channels <- colnames(fcs)
   markers <- as.vector(pData(parameters(fcs))$desc)
@@ -19,7 +22,7 @@ getMarkerNames <- function(input, output) {
   fcs_summary <- capture.output(summary(fcs))
   fcs_dim <- capture.output(dim(fcs))
   fcs_markers <- capture.output(df)
-  
+
 
   sink(output)
   cat(fcs_dim, sep="\n")

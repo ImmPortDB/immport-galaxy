@@ -195,7 +195,6 @@ class GenomeDataProvider( BaseDataProvider ):
         except AttributeError:
             # FIXME: some data providers do not have a close function implemented.
             # Providers without a close function include:
-            #  pysam Tabixfile
             #  bx IntervalIndex
             pass
 
@@ -342,17 +341,20 @@ class TabixDataProvider( FilterableMixin, GenomeDataProvider ):
     Tabix index data provider for the Galaxy track browser.
     """
 
-    col_name_data_attr_mapping = { 4 : { 'index': 4 , 'name' : 'Score' } }
+    col_name_data_attr_mapping = { 4: { 'index': 4, 'name': 'Score' } }
 
     def open_data_file( self ):
         return ctabix.Tabixfile(self.dependencies['bgzip'].file_name,
-                                index_filename=self.converted_dataset.file_name)
+                                index=self.converted_dataset.file_name)
 
     def get_iterator( self, data_file, chrom, start, end, **kwargs ):
-        start, end = int(start), int(end)
+        # chrom must be a string, start/end integers.
+        # in previous versions of pysam, unicode was accepted for chrom, but not in 8.4
+        chrom = str(chrom)
+        start = int(start)
+        end = int(end)
         if end >= (2 << 29):
             end = (2 << 29 - 1)  # Tabix-enforced maximum
-
         # Get iterator using either naming scheme.
         iterator = iter( [] )
         if chrom in data_file.contigs:
@@ -625,7 +627,7 @@ class VcfDataProvider( GenomeDataProvider ):
         8-end: allele counts for each alternative
     """
 
-    col_name_data_attr_mapping = { 'Qual' : { 'index': 6 , 'name' : 'Qual' } }
+    col_name_data_attr_mapping = { 'Qual': { 'index': 6, 'name': 'Qual' } }
 
     dataset_type = 'variant'
 
@@ -879,7 +881,7 @@ class BamDataProvider( GenomeDataProvider, FilterableMixin ):
     def open_data_file( self ):
         # Attempt to open the BAM file with index
         return pysam.AlignmentFile( self.original_dataset.file_name, mode='rb',
-                                  index_filename=self.converted_dataset.file_name )
+                                    index_filename=self.converted_dataset.file_name )
 
     def get_iterator( self, data_file, chrom, start, end, **kwargs ):
         """
@@ -887,6 +889,9 @@ class BamDataProvider( GenomeDataProvider, FilterableMixin ):
         """
 
         # Fetch and return data.
+        chrom = str(chrom)
+        start = int(start)
+        end = int(end)
         try:
             data = data_file.fetch( start=start, end=end, reference=chrom )
         except ValueError:
@@ -1152,7 +1157,7 @@ class BBIDataProvider( GenomeDataProvider ):
         # naming convention.
         def _summarize_bbi( bbi, chrom, start, end, num_points ):
             return bbi.summarize( chrom, start, end, num_points ) or \
-                bbi.summarize( _convert_between_ucsc_and_ensemble_naming( chrom ) , start, end, num_points )
+                bbi.summarize( _convert_between_ucsc_and_ensemble_naming( chrom ), start, end, num_points )
 
         # Bigwig can be a standalone bigwig file, in which case we use
         # original_dataset, or coming from wig->bigwig conversion in
@@ -1280,7 +1285,7 @@ class IntervalIndexDataProvider( FilterableMixin, GenomeDataProvider ):
     """
     Interval index files used for GFF, Pileup files.
     """
-    col_name_data_attr_mapping = { 4 : { 'index': 4 , 'name' : 'Score' } }
+    col_name_data_attr_mapping = { 4: { 'index': 4, 'name': 'Score' } }
 
     dataset_type = 'interval_index'
 
@@ -1478,7 +1483,7 @@ class ENCODEPeakDataProvider( GenomeDataProvider ):
     """
 
     def get_iterator( self, data_file, chrom, start, end, **kwargs ):
-        raise "Unimplemented Method"
+        raise Exception( "Unimplemented Method" )
 
     def process_data( self, iterator, start_val=0, max_vals=None, **kwargs ):
         """

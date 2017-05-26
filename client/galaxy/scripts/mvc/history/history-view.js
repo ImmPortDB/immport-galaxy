@@ -131,8 +131,8 @@ var HistoryView = _super.extend(
     /** In this override, clear the update timer on the model */
     freeModel : function(){
         _super.prototype.freeModel.call( this );
-//TODO: move to History.free()
         if( this.model ){
+//TODO: move to History.free()
             this.model.clearUpdateTimeout();
         }
         return this;
@@ -180,6 +180,9 @@ var HistoryView = _super.extend(
         return this.loadHistory( historyId, attributes, historyFn, contentsFn, detailIdsFn );
     },
 
+    /** @type {Number} ms to wait after history load to fetch/decorate hdcas with element_count */
+    FETCH_COLLECTION_COUNTS_DELAY : 2000,
+
     /** loads a history & contents (but does not make them the current history) */
     loadHistory : function( historyId, attributes, historyFn, contentsFn, detailIdsFn ){
         this.info( 'loadHistory:', historyId, attributes, historyFn, contentsFn, detailIdsFn );
@@ -200,6 +203,12 @@ var HistoryView = _super.extend(
                 panel.trigger( 'error', panel, xhr, attributes, _l( 'An error was encountered while ' + where ),
                     { historyId: historyId, history: history || {} });
             })
+            .done( function(){
+                // after the initial load, decorate with more time consuming fields (like HDCA element_counts)
+                _.delay( function(){
+                    panel.model.contents.fetchCollectionCounts();
+                }, panel.FETCH_COLLECTION_COUNTS_DELAY );
+            })
             .always( function(){
                 // bc _hideLoadingIndicator relies on this firing
                 panel.trigger( 'loading-done', panel );
@@ -209,21 +218,22 @@ var HistoryView = _super.extend(
     /** given an xhr that will provide both history and contents data, pass data to set model or handle xhr errors */
     _loadHistoryFromXHR : function( xhr, attributes ){
         var panel = this;
-        xhr.then( function( historyJSON, contentsJSON ){
-            panel.JSONToModel( historyJSON, contentsJSON, attributes );
-            panel.render();
-        });
-        xhr.fail( function( xhr, where ){
-            // render anyways - whether we get a model or not
-            panel.render();
-        });
+        xhr
+            .then( function( historyJSON, contentsJSON ){
+                panel.JSONToModel( historyJSON, contentsJSON, attributes );
+                panel.render();
+            })
+            .fail( function( xhr, where ){
+                // render anyways - whether we get a model or not
+                panel.render();
+            });
         return xhr;
     },
 
     /** convenience alias to the model. Updates the item list only (not the history) */
-    refreshContents : function( detailIds, options ){
+    refreshContents : function( options ){
         if( this.model ){
-            return this.model.refresh( detailIds, options );
+            return this.model.refresh( options );
         }
         // may have callbacks - so return an empty promise
         return $.when();
@@ -328,7 +338,7 @@ var HistoryView = _super.extend(
         }
         // don't bother rendering if there's one already
         var $existing = $where.find( '.controls .actions .show-selectors-btn' );
-        if( $existing.size() ){
+        if( $existing.length ){
             return $existing;
         }
 

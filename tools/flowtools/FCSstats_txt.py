@@ -1,10 +1,15 @@
 #!/usr/bin/env python
+
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
+
 from __future__ import print_function
 import sys
-import os
 import pandas as pd
-
 from argparse import ArgumentParser
+
 
 def get_txt_stats(in_file, out_file):
     df = pd.read_table(in_file)
@@ -15,6 +20,7 @@ def get_txt_stats(in_file, out_file):
     with open(out_file, "a") as ot:
         ot.write("\n\n" + str(int(x[0][0])) + " events\n")
     return
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(

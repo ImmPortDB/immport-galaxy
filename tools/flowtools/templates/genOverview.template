@@ -1,35 +1,24 @@
 <html>
 <head>
 <title>Flow Overview</title>
-<link rel="stylesheet" href="/static/flowtools/bootstrap/css/bootstrap.css"/>
-<link rel="stylesheet" href="/static/flowtools/select2/select2.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/pdfmake-0.1.18/dt-1.10.12/b-1.2.1/b-colvis-1.2.1/b-html5-1.2.1/cr-1.3.2/fc-3.2.2/fh-3.1.2/r-2.1.0/rr-1.1.2/sc-1.4.2/se-1.2.0/datatables.min.css"/>
 <link rel="stylesheet" href="/static/flowtools/css/parallelCoordinates.css"/>
-<link rel="stylesheet" href="/static/flowtools/datatables/datatables.min.css"/>
-<link rel="stylesheet" href="/static/flowtools/datatables/Buttons-1.1.2/css/buttons.dataTables.min.css"/>
-<link rel="stylesheet" href="/static/flowtools/datatables/Select-1.1.2/css/select.dataTables.min.css"/>
-<link rel="stylesheet" href="/static/flowtools/datatables/Editor-1.5.6/css/editor.dataTables.min.css"/>
-<script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-<script src="/static/flowtools/select2/select2.full.min.js" type="text/javascript"></script>
-<script src="/static/flowtools/d3/d3.min.js" type="text/javascript"></script>
-<script src="/static/flowtools/plotly-latest.min.js" type="text/javascript"></script>
-<script src="/static/flowtools/datatables/datatables.min.js" type="text/javascript"></script>
-<script src="/static/flowtools/datatables/Editor-1.5.6/js/dataTables.editor.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/pdfmake-0.1.18/dt-1.10.12/b-1.2.1/b-colvis-1.2.1/b-html5-1.2.1/cr-1.3.2/fc-3.2.2/fh-3.1.2/r-2.1.0/rr-1.1.2/sc-1.4.2/se-1.2.0/datatables.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" type="text/javascript"></script>
+<script src="https://cdn.plot.ly/plotly-1.0.0.min.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/color_palette.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/overview.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatter2D.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatter3D.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/scatterMFI.js" type="text/javascript"></script>
 <script src="/static/flowtools/js/parallelCoordinates.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-     ga('create', 'UA-79040210-1', 'auto');
-     ga('send', 'pageview');
-</script>
+<script src="/static/flowtools/js/boxplotsFlow.js" type="text/javascript"></script>
 
 <style>
 #input{font-family:Calibri,Arial}
@@ -53,6 +42,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                 <li class="homeTab" data-value="scatter2D"><a href="#scatter2D" data-toggle="tab">Scatter 2D</a></li>
                 <li class="homeTab" data-value="scatter3D"><a href="#scatter3D" data-toggle="tab">Scatter 3D</a></li>
                 <li class="homeTab" data-value="parallelCoordinates"><a href="#parallelCoordinates" data-toggle="tab">Parallel Coordinates</a></li>
+                <li class="homeTab" data-value="stats"><a href="#boxplots" data-toggle="tab">Summary Statistics Boxplots</a></li>
             </ul>
 
             <div class="tab-content">
@@ -75,12 +65,12 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                             <option value="2">Points</option>
                             <option value="3">Centroids</option>
                             </select>
-                    <button id="updateDisplay2D">Update Display</button>
                     </div>
                     <div class="col-md-12 chartDiv">
                     <div id="scatterPlotDiv2D" class="col-md-10" style="height:100%;"></div>
                     <div id="populationDiv2D" class="col-md-2" style="height:100%;">
-                    <table id="populationTable2D" class="table table-condensed table-bordered" border="0" width="100%">
+                    <button id="updateDisplay2D" class="igbtn">Reset Display</button>
+                    <table id="populationTable2D" class="table table-condensed table-bordered igtable" border="0" width="100%">
                         <thead>
                             <tr>
                               <th align="center"><input type="checkbox" checked id="selectall2D"/></th>
@@ -95,7 +85,7 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     </div>
                     </div>
                 </div>
-                
+
                 <div class="tab-pane" id="scatter3D" style="min-height:500px;">
                     <div id="toolbarDiv3D" class="col-md-12 chartDiv">
                     X Axis: <select id="xAxisMarker3D" style="width:150px;">
@@ -109,13 +99,13 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                             <option value="2">Points</option>
                             <option value="3">Centroids</option>
                             </select>
-                    <button id="updateDisplay3D">Update Display</button>
                     </div>
-                
+
                     <div class="col-md-12 chartDiv">
                     <div id="scatterPlotDiv3D" class="col-md-10" style="height:100%;"></div>
                     <div id="populationDiv3D" class="col-md-2" style="height:100%;">
-                    <table id="populationTable3D" class="table table-condensed table-bordered" border="0" width="100%">
+                    <button id="updateDisplay3D" class="igbtn">Reset Display</button>
+                    <table id="populationTable3D" class="table table-condensed table-bordered igtable" border="0" width="100%">
                         <thead>
                             <tr>
                               <th align="center"><input type="checkbox" checked id="selectall3D"/></th>
@@ -143,12 +133,11 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                                   </input>
                                   Opacity: <span id="pcopacity">80%</span>
                             </div>
-                            Select All: <input type="checkbox" checked id="popSelectAll"/>
-                            &nbsp;&nbsp;<button id="resetPCoordDisplay">Reset Display</button>
-                            <table id="popTable" class="table table-condensed table-bordered">
+                            <button id="resetPCoordDisplay" class="igbtn">Reset Display</button>
+                            <table id="popTable" class="table table-condensed table-bordered igtable">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" checked id="popSelectAll"/></th>
                                         <th>Pop. Name</th>
                                         <th>Color</th>
                                         <th>%</th>
@@ -161,30 +150,76 @@ th{background-color:#3e6db0;color:#fff;padding:5px}
                     </div>
                   </div>
                 </div>
+
+                <div class="tab-pane" id="boxplots" style="min-height:500px;">
+                    <div class="col-md-12 chartDiv">
+                        <div id="mrkrDiv" class="col-md-2" style="height:100%;min-width:5%;">
+                          <table id="mrkrTable" class="table table-condensed table-bordered igtable">
+                            <thead>
+                              <tr>
+                                <th>Shade</th>
+                                <th>Marker Names</th>
+                                <th><input type="checkbox" checked id="mrkrSelectAll"/></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                          <input type="checkbox" unchecked id="displayLabels"/>&nbsp;Display values<br>
+                          <input type="checkbox" unchecked id="displayMFI"/>&nbsp;Display MFI<br><br>
+                          <button id="changeDisplay" class="igbtn">View per marker</button><br><br>
+                          <div id="markerWarning" style="display:none;">
+                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                  Only 5 markers can be displayed at most.
+                            </div>
+                          </div>
+                          <div id="outlierWarning" style="display:none;">
+                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                  The number of outliers is too large to display. Representation shows randomly downsampled outliers.
+                            </div>
+                          </div>
+                        </div>
+
+                        <div id="plotDivbp" class="col-md-8" style="height:100%;"></div>
+
+                        <div id="popDivbp" class="col-md-2" style="height:100%;">
+                            <button id="updateDisplaybp" class="igbtn">Reset Display</button>
+                            <table id="popTablebp" class="table table-condensed table-bordered igtable">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" checked id="popSelectAllbp"/></th>
+                                        <th>Pop. Names</th>
+                                        <th>Color</th>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-var outputDirectory = "{{ outputDirectory }}";
 var mfiLoaded = false;
 var populationLoaded = false;
 var overviewPlotLoaded = false;
 var scatter2DLoaded = false;
 var scatter3DLoaded = false;
 var parallelCoordinatesLoaded = false;
+var bpLoaded = false;
 
 $().ready(function() {
-    ga('send','pageview',{
-        'title': 'GenOverview',
-        'page': 'GenOverview'
-    });
-
     $(document).on('shown.bs.tab','a[data-toggle="tab"]', function(e) {
       var tab = e.target.getAttribute("href");
       if (tab == '#mfi') {
-        ga('send', 'event', 'GenOverview', 'click', "MFI");
         if (mfiLoaded) {
             return true;
         }
@@ -192,7 +227,6 @@ $().ready(function() {
         displayMFI();
       }
       if (tab == '#overviewPlot') {
-        ga('send', 'event', 'GenOverview', 'click', "OverviewPlot");
         if (overviewPlotLoaded) {
             return true;
         }
@@ -200,7 +234,6 @@ $().ready(function() {
         displayOverviewPlot();
       }
       if (tab == '#scatter2D') {
-        ga('send', 'event', 'GenOverview', 'click', "Scatter2D");
         if (scatter2DLoaded) {
             displayScatterPopulation2D();
             return true;
@@ -209,7 +242,6 @@ $().ready(function() {
         displayScatter2D();
       }
       if (tab == '#scatter3D') {
-        ga('send', 'event', 'GenOverview', 'click', "Scatter3D");
         if (scatter3DLoaded) {
             displayScatterPopulation3D();
             return true;
@@ -218,7 +250,6 @@ $().ready(function() {
         displayScatter3D();
       }
       if (tab == '#parallelCoordinates') {
-        ga('send', 'event', 'GenOverview', 'click', "ParallelCoordinates");
         if (parallelCoordinatesLoaded) {
             displayPopTable();
             displayTableGrid();
@@ -226,6 +257,16 @@ $().ready(function() {
         }
         parallelCoordinatesLoaded = true;
         displayParallelCoordinates();
+      }
+      if (tab == '#boxplots') {
+        if (bpLoaded) {
+            displayPopulationLegend(configbp);
+            displayMarkerTable(configbp);
+            updateBoxplot(configbp);
+            return true;
+        }
+        bpLoaded = true;
+        displayMFIBoxplot();
       }
     });
 

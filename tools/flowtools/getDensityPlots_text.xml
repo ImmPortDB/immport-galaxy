@@ -1,15 +1,14 @@
 <tool id="gen_density_plots_txt" name="Generate scatter plots" version="1.0">
-  <description>for any given markers in a txt-converted FCS file.</description>
+  <description>for any given markers in a txt-converted FCS file</description>
   <requirements>
-    <requirement type="package" version="3.3.0">r</requirement>
-    <requirement type="package" version="2.1.0">r-ggplot2</requirement>
+    <requirement type="package" version="2.2.1">r-ggplot2</requirement>
   </requirements>
   <stdio>
     <exit_code range="10" level="fatal" description="Please provide a comma separated list of channels to plot" />
     <exit_code range="11" level="fatal" description="Please provide numeric values for the list of channels to plot" />
   </stdio>
   <command><![CDATA[
-      Rscript --slave --vanilla $__tool_directory__/getDensityPlots_text.R --args "${input}" "${channels}" "${outpng}" $outformat "${outpdf}"
+      Rscript --slave --vanilla '$__tool_directory__/getDensityPlots_text.R' --args '${input}' '${channels}' '${outpng}' $outformat '${outpdf}'
   ]]>
   </command>
   <inputs>
@@ -41,7 +40,7 @@
       <output name="outpng" file="graph2.png" compare="sim_size"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool allows generation of density scatter plots using ggplot2.
 
 -----
@@ -63,14 +62,14 @@ This tool generates a scatter plot for each marker combination in a single png f
 .. image:: ../../static/images/flowtools/flowtextgraph.png
   ]]>
   </help>
- <citations>
-   <citation type="bibtex">@BOOK{,
-    author = {Hadley Wickham},
-    title = {ggplot2: Elegant Graphics for Data Analysis},
-    publisher = {Springer-Verlag New York},
-    year = {2009},
-    isbn = {978-0-387-98140-6},
-    url = {http://ggplot2.org},
-  }</citation>
- </citations>
+  <citations>
+    <citation type="bibtex">@BOOK{,
+      author = {Hadley Wickham},
+      title = {ggplot2: Elegant Graphics for Data Analysis},
+      publisher = {Springer-Verlag New York},
+      year = {2009},
+      isbn = {978-0-387-98140-6},
+      url = {http://ggplot2.org},
+   }</citation>
+  </citations>
 </tool>

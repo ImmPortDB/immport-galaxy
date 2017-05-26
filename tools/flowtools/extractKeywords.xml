@@ -1,14 +1,13 @@
 <tool id="extract_fcs_keywords" name="Extract keywords" version="1.0">
-  <description>from FCS files.</description>
+  <description>from FCS files</description>
   <requirements>
-    <requirement type="package" version="3.3.0">r</requirement>
-    <requirement type="package" version="1.38.2">bioconductor-flowcore</requirement>
+    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
   </requirements>
   <stdio>
-       <exit_code range="1:" />
+    <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-    Rscript --slave --vanilla $__tool_directory__/FCSKeyword.R --args "${input}" "${keyword_file}"
+    Rscript --slave --vanilla '$__tool_directory__/FCSKeyword.R' --args '${input}' '${keyword_file}'
   ]]>
   </command>
   <inputs>
@@ -23,7 +22,7 @@
       <output name="keyword_file" file="out.tabular" lines_diff="2"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool extracts the Keywords from a FCS file.
 
 -----
@@ -65,6 +64,6 @@ $P1N=FSC-H
 ..
 
 ...
- ]]>
- </help>
+  ]]>
+  </help>
 </tool>

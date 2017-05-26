@@ -40,15 +40,15 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Applications<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="https://ai-biscdatamgtqa1.niaid.nih.gov:8443/home">
+                        <li><a href="https://immport.niaid.nih.gov" target="_blank">
                             <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-logo-image-32.png" />
                             Private Data
                         </a></li>
-                        <li><a href="http://www.immport.org/immport-open/public/home/studySearch" >
+                        <li><a href="http://www.immport.org/immport-open/public/home/studySearch" target="_blank">
                             <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-icon-blue.png" />
                             Shared Data
                         </a></li>
-                        <li><a href="https://immportgalaxy.org/">
+                        <li><a href="https://immportgalaxy.org/" target="_blank">
                             <img class="menu-dropdown-logo" src="/static/images/flowtools/home/immport-icon-green.png" />
                             Data Analysis
                         </a></li>
@@ -69,7 +69,7 @@
                         <li><a href="http://www.immport.org/immport-open/public/home/about" target="_blank">What is ImmPort?</a></li>
                     </ul>
                   </li>
-                  <li><a href="https://ai-biscusradmqa1.niaid.nih.gov:8443/registrationuser/registration"> Register </a></li>
+                  <li><a href="https://immport-user-admin.niaid.nih.gov:8443/registrationuser/registration" target="_blank"> Register </a></li>
             </ul>
         </div>
     </div>
@@ -78,12 +78,16 @@
 <div class="container" style="margin-top:10px;">
     <div class="row" style="padding-bottom:30px;">
         <div class="immport-notice" style="display:none;">
-            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+	<!--div class="immport-notice"--> 
+           <div class="alert alert-danger alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <div class="immport-notice-content"></div>
-            </div>
+                <div class="immport-notice-content">
+                <p> ImmPort Galaxy will not be accessible Tuesday December 13th, 4-8pm EST. We apologize for any inconvenience.
+                </p>
+ 		</div>
+           </div>
         </div>
-        <div class="immport-about">
+	<div class="immport-about">
             <div class="col-md-3 main-logo">
                 <img src="/static/images/flowtools/home/immportgalaxy_green_sharp.png" style="height:130px;"/>
             </div>
@@ -101,9 +105,9 @@
             </div>
         </div>
         <div class="col-md-5 text-justify">
-            <p class="immport-warning"><b><font color="red">This version of ImmPortGalaxy is an alpha-release.</b><br> Don't take anything on this page for granted and expect unexpected "features". Thank you for your understanding!<br></font>
+            <p class="immport-warning"><b>This version of ImmPortGalaxy is a beta-release.</b><br> Don't take anything on this page for granted and expect unexpected "features". Thank you for your understanding!<br>
             </p>
-            <p class="immport-banner">ImmPort Galaxy is your resource for analyzing flow cytometry data.<br>Create a login and get started! This <a href="immportgalaxyhelp.html" target="_blank">guide</a> can help you get things going. Get data from <a href="http://www.immport.org/" target="_blank">ImmPort</a>, upload your own or use one of the test datasets published in Shared Data. Explore available tools on the left panel or use one of the available published workflows in Shared Data.<br>
+            <p class="immport-banner">ImmPort Galaxy is your resource for analyzing flow cytometry data.<br>Create a login and get started!<br><br>This <a href="immportgalaxyhelp.html" target="_blank">guide</a> can help you get things going. Get data from <a href="http://www.immport.org/" target="_blank">ImmPort</a>, upload your own or use one of the test datasets published in Shared Data. Explore available tools on the left panel or use one of the available published workflows in Shared Data.<br>
             <br>If there is a tool you would like to use, or if you'd like to contribute a tool please do contact us <a href="mailto:BISC_Helpdesk@niaid.nih.gov">here</a>.
             </p>
         </div>

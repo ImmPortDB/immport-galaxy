@@ -1,17 +1,17 @@
-<tool id="txt_diagnosis" name="Check data" version="1.0">
-  <description> in txt-converted FCS files.</description>
+<tool id="txt_diagnosis" name="Check data" version="1.1">
+  <description> in txt-converted FCS files</description>
   <requirements>
     <requirement type="package" version="0.17.1">pandas</requirement>
   </requirements>
   <stdio>
-       <exit_code range="1:" />
-   </stdio>
+    <exit_code range="1:" />
+  </stdio>
   <command><![CDATA[
-    python $__tool_directory__/txtdiagnosis.py -i "${input}" -o "${output}" -n "${input.name}"
+    python '$__tool_directory__/txtdiagnosis.py' -i '${input}' -o '${output}' -n '${input.name}'
   ]]>
   </command>
   <inputs>
-    <param format="flowtext,txt,tabular" name="input" type="data" label="Text file to check"/>
+    <param format="flowtext" name="input" type="data" label="Text file to check"/>
   </inputs>
   <outputs>
     <data format="txt" name="output" label="Report on ${input.name}"/>
@@ -34,16 +34,16 @@
       </output>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool looks for potential errors in txt-converted FCS files.
-   
+
 -----
 
 **Input**
 
 This diagnosis tools reads in text files, and checks that the data is all numeric.
 
-**Output** 
+**Output**
 
 The output is a report with the errors and corresponding line numbers.
 
@@ -70,6 +70,6 @@ The output is a report with the errors and corresponding line numbers.
    WARNING: line 2 in example_file.txt contains non-numeric results
    WARNING: line 4 in example_file.txt contains non-numeric results
    WARNING: line 8 in example_file.txt contains non-numeric results
- ]]>
- </help>
+  ]]>
+  </help>
 </tool>

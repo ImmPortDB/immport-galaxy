@@ -1,10 +1,17 @@
 #!/usr/bin/env python
+
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
+
 from __future__ import print_function
 import sys
-import os
 import pandas as pd
 
 from argparse import ArgumentParser
+
+
 def is_int(s):
     try:
         int(s)
@@ -12,17 +19,20 @@ def is_int(s):
     except ValueError:
         return False
 
+
 def extract_pop(in_file, pop_list, out_file):
     df = pd.read_table(in_file, dtype={'Population': object})
     dfout = df.loc[df['Population'].isin(pop_list)]
-    dfout.to_csv(out_file, sep="\t", index = False)
+    dfout.to_csv(out_file, sep="\t", index=False)
     return
+
 
 def remove_pop(in_file, pop_list, out_file):
     df = pd.read_table(in_file, dtype={'Population': object})
     dfout = df.loc[~df['Population'].isin(pop_list)]
-    dfout.to_csv(out_file, sep="\t", index = False)
+    dfout.to_csv(out_file, sep="\t", index=False)
     return
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -55,11 +65,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    ## check populations
+    # check populations
     default_values = ["i.e.:2,3,11,25", "default", "Default"]
     populations = []
     if args.pops:
-        if not args.pops in default_values:
+        if args.pops not in default_values:
             tmp_pops = args.pops.split(",")
             for popn in tmp_pops:
                 populations.append(popn.strip())

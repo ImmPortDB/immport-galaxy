@@ -1,14 +1,13 @@
 <tool id="convert_fcs_to_text" name="Convert FCS to Text" version="1.0">
-  <description>with no transformation.</description>
+  <description>with no transformation</description>
   <requirements>
-    <requirement type="package" version="3.3.0">r</requirement>
-    <requirement type="package" version="1.38.2">bioconductor-flowcore</requirement>
+    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
   </requirements>
   <stdio>
-       <exit_code range="1:" />
+    <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-        Rscript --slave --vanilla $__tool_directory__/FCSConvert.R --args "${input}" "${output_file}" $compensate 
+    Rscript --slave --vanilla '$__tool_directory__/FCSConvert.R' --args '${input}' '${output_file}' $compensate
   ]]>
   </command>
   <inputs>
@@ -31,9 +30,9 @@
       <output name="output_file" file="withcomp.flowtext"/>
     </test>
   </tests>
- <help><![CDATA[
+  <help><![CDATA[
    This tool converts FCS files to text format with no tranformation.
-   
+
 -----
 
 **Input files**
@@ -54,5 +53,5 @@ The output is tab-separated text, containing the fluorescence intensity values f
    262             73           437     69      0       146
    340             115          509     268     0       74
   ]]>
- </help>
+  </help>
 </tool>

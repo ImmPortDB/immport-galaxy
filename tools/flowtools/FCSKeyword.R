@@ -1,5 +1,8 @@
-#
 # ImmPort FCSKeywords
+######################################################################
+#                  Copyright (c) 2016 Northrop Grumman.
+#                          All rights reserved.
+######################################################################
 #
 # Converts the FCS file to text without transformaton
 # To run in R
@@ -67,4 +70,3 @@ transformFCS <- function(input_file, keyword_file="", debug=FALSE) {
 
 args <- commandArgs(TRUE)
 transformFCS(args[2], args[3])
-

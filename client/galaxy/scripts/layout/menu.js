@@ -1,5 +1,5 @@
 /** Masthead Collection **/
-define(['mvc/tours'], function( Tours ) {
+define(['mvc/tours', 'layout/generic-nav-view'], function( Tours, GenericNav ) {
 var Collection = Backbone.Collection.extend({
     model: Backbone.Model.extend({
         defaults: {
@@ -10,6 +10,12 @@ var Collection = Backbone.Collection.extend({
     fetch: function( options ){
         options = options || {};
         this.reset();
+
+        //
+        // Chat server tab
+        //
+        var extendedNavItem = new GenericNav.GenericNavView();
+        this.add(extendedNavItem.render()); 
 
         //
         // Analyze data tab.
@@ -41,23 +47,19 @@ var Collection = Backbone.Collection.extend({
             url             : 'library/index',
             tooltip         : 'Access published resources',
             menu            : [{
-                    title   : 'Data Libraries deprecated',
-                    url     : 'library/index'
-                },{
                     title   : 'Data Libraries',
-                    url     : 'library/list',
-                    divider : true
+                    url     : 'library/list'
                 },{
-                    title   : 'Published Histories',
+                    title   : 'Histories',
                     url     : 'history/list_published'
                 },{
-                    title   : 'Published Workflows',
+                    title   : 'Workflows',
                     url     : 'workflow/list_published'
                 },{
-                    title   : 'Published Visualizations',
+                    title   : 'Visualizations',
                     url     : 'visualization/list_published'
                 },{
-                    title   : 'Published Pages',
+                    title   : 'Pages',
                     url     : 'page/list_published'
             }]
         });
@@ -97,7 +99,12 @@ var Collection = Backbone.Collection.extend({
                     title   : 'Saved Visualizations',
                     url     : 'visualization/list',
                     target  : '_frame'
-            }]
+                },{
+                    title   : 'Interactive Environments',
+                    url     : 'visualization/gie_list',
+                    target  : 'galaxy_main'
+                }
+            ]
         });
 
         //
@@ -274,7 +281,7 @@ var Tab = Backbone.View.extend({
         this.$toggle.html( this.model.get( 'title' ) || '' )
                     .removeClass().addClass( 'dropdown-toggle' )
                     .addClass( this.model.get( 'cls' ) )
-                    .addClass( this.model.get( 'icon' ) && 'fa fa-2x ' + this.model.get( 'icon' ) )
+                    .addClass( this.model.get( 'icon' ) && 'dropdown-icon fa ' + this.model.get( 'icon' ) )
                     .addClass( this.model.get( 'toggle' ) && 'toggle' )
                     .attr( 'target', this.model.get( 'target' ) )
                     .attr( 'href', this.model.get( 'url' ) )
