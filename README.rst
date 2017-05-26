@@ -79,10 +79,10 @@ Install R:
 
 .. code:: console
 
-    $ curl -O  https://cran.r-project.org/src/base/R-3/R-3.3.0.tar.gz
-    $ gzip -cd R-3.3.0.tar.gz | tar xvf -
-    $ cd R-3.3.0
-    $ ./configure --prefix=/home/galaxy/opt/R-3.3.0-Shared --with-tcltk --enable-R-shlib
+    $ curl -O  https://cran.r-project.org/src/base/R-3/R-3.4.0.tar.gz
+    $ gzip -cd R-3.4.0.tar.gz | tar xvf -
+    $ cd R-3.4.0
+    $ ./configure --prefix=/home/galaxy/opt/R-3.4.0-Shared --with-tcltk --enable-R-shlib
     $ make
     $ make install
 
@@ -93,10 +93,10 @@ Within R, install the following packages:
 
     >source("http://bioconductor.org/biocLite.R")
     >biocLite()
-    >biocLite("flowCore")
-    >biocLite("flowDensity")
-    >biocLite("flowCL")
-    >biocLite("flowAI")
+    >biocLite("flowCore") # version 1.42.0
+    >biocLite("flowDensity") # version 1.10.0
+    >biocLite("flowCL") # version 1.14.0
+    >biocLite("flowAI") # version 1.4.2
     >install.packages("plyr",repos="http://cran.r-project.org")
     >install.packages("ggplot2",repos="http://cran.r-project.org")
     >biocLite("flowViz")
@@ -106,7 +106,7 @@ Within R, install the following packages:
     >biocLite("flowWorkspace")
     >biocLite("flowStats")
     >biocLite("flowVS")
-    >biocLite("ggcyto")
+    >biocLite("ggcyto") # version 1.5.1
 
 Install required python packages in the galaxy virtual environment:
 
