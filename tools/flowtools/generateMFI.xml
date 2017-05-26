@@ -9,7 +9,7 @@
     <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-      python $__tool_directory__/generateMFI.py -i "${input}" -o "${output}" -M "${mfi}"
+      python '$__tool_directory__/generateMFI.py' -i '${input}' -o '${output}' -M '${mfi}'
   ]]>
   </command>
   <inputs>

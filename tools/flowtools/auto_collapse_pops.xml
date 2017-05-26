@@ -1,5 +1,5 @@
 <tool id="auto_collapse_populations" name="Collapse populations automatically" version="1.0">
-  <description>based on quartile binning from FLOCK results.</description>
+  <description>based on quartile binning from FLOCK results</description>
   <requirements>
     <requirement type="package" version="0.17.1">pandas</requirement>
   </requirements>
@@ -7,7 +7,7 @@
     <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-      python $__tool_directory__/auto_collapse_pops.py -o "${output}" -i "${input}" -p "${profile}" -r "${report}"
+      python '$__tool_directory__/auto_collapse_pops.py' -o '${output}' -i '${input}' -p '${profile}' -r '${report}'
   ]]>
   </command>
   <inputs>

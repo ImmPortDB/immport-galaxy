@@ -1,5 +1,5 @@
 <tool id="run_flock" name="Run FLOCK" version="1.2">
-  <description>using a FCS file that was converted/transformed to a text file.</description>
+  <description>using a FCS file that was converted/transformed to a text file</description>
   <requirements>
     <requirement type="package" version="0.16.0">scipy</requirement>
     <requirement type="package" version="0.17.1">pandas</requirement>
@@ -9,7 +9,7 @@
     <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-    python $__tool_directory__/runFlockMFI.py -i "${input}" -o "${output}" -m "${method}" -c "${centroid}" -M "${mfi}" -p "${profile}" -t $__tool_directory__
+    python '$__tool_directory__/runFlockMFI.py' -i '${input}' -o '${output}' -m '${method}' -c '${centroid}' -M '${mfi}' -p '${profile}' -t '$__tool_directory__'
     #if $bins
       -b $bins
     #end if

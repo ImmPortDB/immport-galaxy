@@ -7,10 +7,10 @@
     <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-    python $__tool_directory__/crossSampleOverview.py -i "${input}" -I "${inputmfi}" -o "${html_file}" -m "${mfi}" -d "${html_file.files_path}" -t $__tool_directory__
-    #for $f in $cs_outputs#
+    python '$__tool_directory__/crossSampleOverview.py' -i '${input}' -I '${inputmfi}' -o '${html_file}' -m '${mfi}' -d '${html_file.files_path}' -t '$__tool_directory__'
+    #for $f in $cs_outputs
        -s $f
-    #end for#
+    #end for
   ]]>
   </command>
   <inputs>

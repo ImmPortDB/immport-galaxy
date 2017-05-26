@@ -8,7 +8,7 @@
     <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-    python $__tool_directory__/flowclrstats.py -i "${input}" -p "${output}" -o "${report}"
+    python '$__tool_directory__/flowclrstats.py' -i '${input}' -p '${output}' -o '${report}'
  ]]>
   </command>
   <inputs>

@@ -1,5 +1,5 @@
 <tool id="extract_pop" name="Extract populations" version="1.0">
-  <description>of interest from FLOCK or Cross Sample output.</description>
+  <description>of interest from FLOCK or Cross Sample output</description>
   <requirements>
     <requirement type="package" version="0.17.1">pandas</requirement>
   </requirements>
@@ -8,7 +8,7 @@
     <exit_code range="3" level="fatal" description="The populations to extract must be integers (i.e,: 1,2,4.)" />
   </stdio>
   <command><![CDATA[
-    python $__tool_directory__/extractpop.py -i "${input}" -o "${output}" -p "${population}" -m "${method}"
+    python '$__tool_directory__/extractpop.py' -i '${input}' -o '${output}' -p '${population}' -m '${method}'
   ]]>
   </command>
   <inputs>

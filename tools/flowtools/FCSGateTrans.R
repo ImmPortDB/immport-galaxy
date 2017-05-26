@@ -1,3 +1,4 @@
+#!/usr/bin/Rscript --vanilla
 ######################################################################
 #                  Copyright (c) 2016 Northrop Grumman.
 #                          All rights reserved.
@@ -279,15 +280,15 @@ convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
 # Starting function for processing a FCS file
 #
 processFCSFile <- function(input_file, output_file="", compensate=FALSE,
-                           fcsformat=FALSE, fcsfile="",
-                           gate=FALSE, graph_file="", report="", method="",
-                           scaling_factor, debug=FALSE) {
+                           fcsformat=FALSE, fcsfile="", gate=FALSE,
+                           graph_file="", report="", method="",
+                           scaling_factor, logicle_w=0.5, logicle_t=262144,
+                           logicle_m=4.5, debug=FALSE) {
   #
   # Generate the file names for the output_file
   #
   pieces <- unlist(strsplit(input_file, .Platform$file.sep))
   filename <- pieces[length(pieces)]
-
   if (debug) {
     print (paste("Converting file: ",input_file))
     print (paste("Original file name: ",filename))
@@ -307,20 +308,27 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
   # Transform the data
   #
   transformed_data <- fcs
+  channels_to_exclude <- c(grep(colnames(fcs), pattern="FSC"),
+                           grep(colnames(fcs), pattern="SSC"),
+                           grep(colnames(fcs), pattern="Time"))
+  list_channels <- colnames(fcs)[-channels_to_exclude]
   if (isAccuriData(keywords)) {
     print("Accuri data is not supported")
-  } else {
-    if (method == "arcsinh"){
-      channels_to_exclude <- c(grep(colnames(fcs), pattern="FSC"),
-                               grep(colnames(fcs), pattern="SSC"),
-                               grep(colnames(fcs), pattern="Time"))
-      list_channels <- colnames(fcs)[-channels_to_exclude]
-      trans <- arcsinhTransform(transformationId="defaultArcsinhTransform",
-                                a = 0, b = scaling_factor, c = 0)
+  } else if (method != "None"){
+    if (method == "fcstrans"){
+      transformed_data <- convertFCS(fcs,compensate,debug)
+    } else if (method == "logicle_auto"){
+      lgcl <- estimateLogicle(fcs, channels = list_channels)
+      transformed_data <- transform(fcs, lgcl)
+    } else {
+      if (method == "arcsinh"){
+        trans <- arcsinhTransform(transformationId="defaultArcsinhTransform",
+                                  a = 0, b = scaling_factor, c = 0)
+      } else  if (method == "logicle"){
+        trans <- logicleTransform(w = logicle_w, t = logicle_t, m = logicle_m)
+      }
       translist <- transformList(list_channels, trans)
       transformed_data <- transform(fcs, translist)
-    } else if (method == "logicle"){
-      transformed_data <- convertFCS(fcs,compensate,debug)
     }
   }
   trans_gated_data <- transformed_data
@@ -409,7 +417,7 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
 transformFCS <- function(input_file, output_file, compensate=FALSE,
                          fcsformat=FALSE, fcsfile="", gate=FALSE, graph_file="",
                          report_file="", trans_met="", scaling_factor="",
-                         debug=FALSE) {
+                         w=0.5, t=262144, m=4.5, debug=FALSE) {
   isValid <- F
   # Check file beginning matches FCS standard
   tryCatch({
@@ -419,7 +427,8 @@ transformFCS <- function(input_file, output_file, compensate=FALSE,
   })
   if (isValid) {
     processFCSFile(input_file, output_file, compensate, fcsformat, fcsfile,
-                   gate, graph_file, report_file, trans_met, scaling_factor)
+                   gate, graph_file, report_file, trans_met, scaling_factor,
+                   w, t, m)
   } else {
     print (paste(input_file, "does not meet FCS standard"))
   }
@@ -435,6 +444,9 @@ fcsoutput <- FALSE
 gate <- FALSE
 trans_method <- "None"
 scaling_factor <- 1 / 150
+w <- 0.5
+t <- 262144
+m <- 4.5
 if (args[5]!="None") {
   fcsoutput <- TRUE
   fcsoutput_file <- args[5]
@@ -448,7 +460,11 @@ if (args[8]!="None"){
   trans_method <- args[8]
   if (args[8] == "arcsinh"){
     scaling_factor <- 1 / as.numeric(args[9])
+  } else if (args[8] == "logicle"){
+    w <- args[9]
+    t <- args[10]
+    m <- args[11]
   }
 }
 transformFCS(args[2], args[3], args[4], fcsoutput, fcsoutput_file, gate, graphs,
-             report, trans_method, scaling_factor)
+             report, trans_method, scaling_factor, w, t, m)

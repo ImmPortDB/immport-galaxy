@@ -1,5 +1,5 @@
 <tool id="collapse_populations" name="Collapse populations" version="1.0">
-  <description>from FLOCK or Cross Sample analysis.</description>
+  <description>from FLOCK or Cross Sample analysis</description>
   <requirements>
     <requirement type="package" version="0.17.1">pandas</requirement>
   </requirements>
@@ -12,10 +12,10 @@
     <exit_code range="7" level="fatal" description="The same population is being collapsed into 2 different populations." />
   </stdio>
   <command><![CDATA[
-      python $__tool_directory__/collapse_pops.py -o "${output}" -i "${input}" -p "${population}" -c "${collapse}"
+      python '$__tool_directory__/collapse_pops.py' -o '${output}' -i '${input}' -p '${population}' -c '${collapse}'
     #for $repeats in $repeat_option
-        -p "${repeats.population}"
-        -c "${repeats.collapse}"
+        -p '${repeats.population}'
+        -c '${repeats.collapse}'
     #end for
   ]]>
   </command>
