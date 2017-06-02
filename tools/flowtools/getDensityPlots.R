@@ -1,3 +1,4 @@
+#!/usr/bin/Rscript --vanilla
 # Density Plot Module for Galaxy
 # FlowDensity
 ######################################################################
@@ -28,7 +29,7 @@ generateGraph <- function(input, channels, output, plot_default, flag_pdf, pdf_o
   if (plot_default) {
     channels <- c(grep(colnames(fcs), pattern="Forward scatter", ignore.case=TRUE),
                   grep(colnames(fcs), pattern="Side scatter", ignore.case=TRUE))
-	if (length(channels) == 0){
+    if (length(channels) == 0){
       channels <- c(grep(colnames(fcs), pattern="FSC"),
                     grep(colnames(fcs), pattern="SSC"))
       if (length(channels) > 2) {
@@ -47,7 +48,7 @@ generateGraph <- function(input, channels, output, plot_default, flag_pdf, pdf_o
     }
     if (length(channels) == 0) {
       warning('No forward/side scatter channels found, no plots will be generated.')
-	  quit(save = "no", status = 10, runLast = FALSE)
+      quit(save = "no", status = 10, runLast = FALSE)
     }
   }
 
@@ -58,8 +59,12 @@ generateGraph <- function(input, channels, output, plot_default, flag_pdf, pdf_o
   	  quit(save = "no", status = 10, runLast = FALSE)
   	}
   }
-  png(output, type="cairo", height=600, width=600)
-  par(mfrow=c(2,2))
+  nb_rows <- ((nb_markers-1)*nb_markers)/4
+  h <- 400 * nb_rows
+
+
+  png(output, type="cairo", height=h, width=800)
+  par(mfrow=c(nb_rows,2))
   for (m in 1:(nb_markers - 1)) {
     for (n in (m+1):nb_markers) {
       plotDens(fcs, c(channels[m],channels[n]), xlab = print_markers[channels[m]], ylab = print_markers[channels[n]])

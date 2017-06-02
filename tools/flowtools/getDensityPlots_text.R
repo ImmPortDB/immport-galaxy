@@ -1,3 +1,4 @@
+#!/usr/bin/Rscript --vanilla
 # Density Plot Module for Galaxy
 # ggplot2
 ######################################################################
@@ -111,11 +112,15 @@ generateGraphFromText <- function(input, channels, output, plot_default, flag_pd
       plots[[i]] <- p
     }
   }
-  png(output, type="cairo", width=800, height=800)
+  nb_rows <- ((nb_markers-1)*nb_markers)/4
+  h <- 400 * nb_rows
+  hp <- 10 * (nb_rows/2)
+
+  png(output, type="cairo", width=800, height=h)
       multiplot(plotlist = plots, cols = 2)
     dev.off()
   if (flag_pdf){
-    pdf(pdf_out, useDingbats=FALSE, onefile=TRUE)
+    pdf(pdf_out, height=hp, width=10, useDingbats=FALSE, onefile=TRUE)
       multiplot(plotlist = plots, cols = 2)
     dev.off()
   }
