@@ -83,6 +83,10 @@ This tool takes valid FCS files as input.
 
 This tool generates a series of 1D density plot using ggcyto and produced a png file. A pdf file can optionally be generated.
 
+class:: warningmark
+
+PDF are larger files that may take some time to load. It might be faster to download the PDF output once generated to open it locally.
+
 -----
 
 **Transformation**

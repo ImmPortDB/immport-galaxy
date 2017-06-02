@@ -160,6 +160,10 @@ The user can choose which populations and markers to display. The Plotly toolbar
 
 The user can choose which populations and markers to display. The Plotly toolbar allows more control over the display of the graph. There is an option to save the plot as a png file.
 
+.. class:: warningmark
+
+Unfortunately Chrome stopped supporting the plugin enabling this visualization. If you get an error message stating that WebGL is not supported, try switching to Firefox.
+
 .. image:: ../../static/images/flowtools/scatter3D.png
 
 

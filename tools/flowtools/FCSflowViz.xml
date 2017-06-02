@@ -74,6 +74,10 @@ Each FCS file in the input data collection should have the SAME set of channels.
 
 This tool generates stacked 1D density plots for each channel. A pdf file can optionally be generated.
 
+class:: warningmark
+
+PDF are larger files that may take some time to load. It might be faster to download the PDF output once generated to open it locally.
+
 -----
 
 **Example**
