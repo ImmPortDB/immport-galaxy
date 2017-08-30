@@ -5,6 +5,10 @@
 #                          All rights reserved.
 ######################################################################
 
+# version 1.1 -- August 2017
+# added checks for consistency between input files
+# and upper limit on nb of cluster to look at
+
 from __future__ import print_function
 import sys
 import os
@@ -15,6 +19,18 @@ from argparse import ArgumentParser
 from jinja2 import Environment, FileSystemLoader
 from shutil import copyfile
 from collections import defaultdict
+
+
+def check_pops(mfi_file, stat1):
+    df = pd.read_table(mfi_file)
+    df1 = pd.read_table(stat1)
+    nb_pop = len(set(df.Population))
+    nb_pop1 = len(df1.columns) - 2
+    if (nb_pop > 40):
+        sys.stderr.write("There are " + str(nb_pop) + " in the input file.")
+        sys.exit(1)
+    if (nb_pop != nb_pop1):
+        sys.exit(2)
 
 
 def panel_to_json_string(panel):
@@ -44,7 +60,22 @@ def get_outliers(group, upper, lower):
 
 def get_boxplot_stats(all_data, mfi_file, output_json):
     # modified code from http://bokeh.pydata.org/en/latest/docs/gallery/boxplot.html
+    # Get initial MFI values
+    mfi = pd.read_table(mfi_file)
+    mfi = mfi.set_index('Population')
+
     df = pd.read_table(all_data)
+    # check if ever some pops not in cs_files
+    missing_pop = [x for x in mfi.index if x not in set(df.Population)]
+
+    if (missing_pop):
+        zeros = {}
+        for m in df.columns:
+            zeros[m] = [0 for x in missing_pop]
+        tmpdf = pd.DataFrame(zeros)
+        tmpdf.Population = missing_pop
+        df = df.append(tmpdf)
+
     pops = df.groupby('Population')
     q1 = pops.quantile(q=0.25)
     q2 = pops.quantile(q=0.5)
@@ -60,14 +91,11 @@ def get_boxplot_stats(all_data, mfi_file, output_json):
         for marker in df.columns:
             if marker != 'Population':
                 tmp_outliers = list(out[population][marker])
-                if (len(list(out[population][marker]))> 100):
+                if (len(list(out[population][marker])) > 100):
                     tmp_outliers = list(out[population][marker].sample(n=100))
                     resampled = True
                 outliers[population][marker] = tmp_outliers
     outdf = pd.DataFrame(outliers)
-    # Get initial MFI values
-    mfi = pd.read_table(mfi_file)
-    mfi = mfi.set_index('Population')
 
     data = {'q1': q1,
             'q2': q2,
@@ -82,6 +110,7 @@ def get_boxplot_stats(all_data, mfi_file, output_json):
         js_all.write(panel_to_json_string(wp))
 
     return resampled
+
 
 def cs_overview(input_file, input_mfi, init_mfi, output_file, output_dir, tools_dir, cs_files):
     os.mkdir(output_dir)
@@ -176,5 +205,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     cs_files = [f for f in args.cs_outputs]
+    check_pops(args.mfi, args.input_file)
     cs_overview(args.input_file, args.input_mfi, args.mfi, args.output_file, args.output_directory, args.tool_directory, cs_files)
-    sys.exit(0)

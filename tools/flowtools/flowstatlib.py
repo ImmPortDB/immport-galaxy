@@ -97,4 +97,3 @@ if __name__ == '__main__':
         outf.write("Population Per: ", flow_stats['population_per'])
         outf.write("Sample Data contains ", len(flow_stats['sample']), " events")
         outf.write("MIF_POP ", flow_stats['mfi_pop'])
-    sys.exit(0)

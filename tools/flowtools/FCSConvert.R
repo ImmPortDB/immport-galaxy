@@ -1,3 +1,4 @@
+#!/usr/bin/Rscript --vanilla
 # ImmPort FCSConvert
 ######################################################################
 #                  Copyright (c) 2016 Northrop Grumman.
@@ -147,4 +148,4 @@ transformFCS <- function(input_file, output_file="",
 }
 
 args <- commandArgs(trailingOnly = TRUE)
-transformFCS(args[2], args[3], args[4])
+transformFCS(args[1], args[2], args[3])

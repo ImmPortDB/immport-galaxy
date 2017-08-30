@@ -76,4 +76,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     auto_collapse(args.input_file, args.profile, args.output, args.report)
-    sys.exit(0)

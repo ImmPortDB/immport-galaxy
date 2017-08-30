@@ -106,5 +106,3 @@ if __name__ == "__main__":
         exit_code += 3
 
     collapse_populations(args.input_file, args.output_file, populations, collapse_in, exit_code)
-
-    sys.exit(0)

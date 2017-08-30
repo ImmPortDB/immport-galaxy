@@ -55,4 +55,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     get_FLOCK_stats(args.input_file, args.out_file, args.out_file2)
-    sys.exit(0)

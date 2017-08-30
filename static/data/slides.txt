@@ -4,3 +4,5 @@ densityplot	Density Plots using FlowDensity	FlowDensity is used to automatically
 stackeda	Compare samples	Follow the distribution of populations between samples.			plot.png
 pcplot	Behold the power of Parallel Coordinate Graphs	Compare markers and samples in one interactive look			pcplot.png
 flowai	FCS QC with flowAI	Generate a quality control report of each of your FCS files using flowAI, which checks flow rate, signal acquisition and dynamic range of the data.			qcflowai.png
+flowsom	Generate a Self-Organizing Map with FlowSOM	FlowSOM offers visualization options for cytometry data, by using Self-Organizing Map clustering and Minimal Spanning Trees.			flowsom.png
+clustergrammer	Interactive Heatmaps!	Generate a heatmap of your centroids with Clustergrammer. This heatmap is interactive and allows to zoom in and out, sort, re-order your cluster or populations profile.			clustergrammer.png

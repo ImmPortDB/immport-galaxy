@@ -1,3 +1,4 @@
+#!/usr/bin/Rscript --vanilla
 # ImmPort FCSKeywords
 ######################################################################
 #                  Copyright (c) 2016 Northrop Grumman.
@@ -56,7 +57,7 @@ transformFCS <- function(input_file, keyword_file="", debug=FALSE) {
   isValid <- F
   # Check file beginning matches FCS standard
   tryCatch({
-    isValid = isFCSfile(input_file)
+    isValid <- isFCSfile(input_file)
   }, error = function(ex) {
     print (paste("    ! Error in isFCSfile", ex))
   })
@@ -69,4 +70,4 @@ transformFCS <- function(input_file, keyword_file="", debug=FALSE) {
 }
 
 args <- commandArgs(TRUE)
-transformFCS(args[2], args[3])
+transformFCS(args[1], args[2])

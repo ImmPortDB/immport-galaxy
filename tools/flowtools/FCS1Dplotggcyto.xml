@@ -1,4 +1,4 @@
-<tool id="gen_1d_density_plots" name="Generate 1D density plots" version="1.0">
+<tool id="ggcyto_1d_density_plots" name="Generate 1D density plots" version="1.0">
   <description>for FCS file</description>
   <requirements>
     <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
@@ -8,7 +8,7 @@
     <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-      Rscript --slave --vanilla '$__tool_directory__/FCS1Dplotggcyto.R' --args '${input}' '${outpng}' $outformat '${outpdf}' '${transform.trans_method}'
+      Rscript --slave --vanilla '$__tool_directory__/FCS1Dplotggcyto.R' '${input}' '${output}' $outformat  '${transform.trans_method}'
      #if $transform.trans_method == "arcsinh"
      $transform.scaling_factor
      #else if $transform.trans_method == "logicle"
@@ -18,10 +18,6 @@
   </command>
   <inputs>
     <param format="fcs" name="input" type="data" label="FCS file"/>
-    <param name="outformat" type="select" label="Output PDF?">
-      <option value="FALSE">No, thank you</option>
-      <option value="TRUE">Yes, please</option>
-    </param>
     <conditional name="transform">
       <param name="trans_method" type="select" label="Apply transformation to plot:" help="by default, no transformation">
         <option value="None">no transformation please.</option>
@@ -41,30 +37,37 @@
         </param>
       </when>
     </conditional>
+    <param name="outformat" type="select" label="Output Format" help="PDF will be larger files that may take some time to load.">
+      <option value="PNG">PNG</option>
+      <option value="PDF">PDF</option>
+    </param>
   </inputs>
   <outputs>
-      <data format="pdf" name="outpdf" label="1D Density Plots for ${input.name} with ${transform.trans_method}">
-        <filter>outformat=="TRUE"</filter>
-      </data>
-      <data format="png" name="outpng" label="1D Density Plots for ${input.name} with ${transform.trans_method}"/>
+    <data format="png" name="output" label="1D Density Plots for ${input.name} with ${transform.trans_method} in ${outformat}">
+      <change_format>
+        <when input="outformat" value="PDF" format="pdf" />
+      </change_format>
+    </data>
   </outputs>
   <tests>
     <test>
       <param name="input" value="testfcs1.fcs"/>
-      <param name="outformat" value="TRUE"/>
+      <param name="outformat" value="PDF"/>
       <param name="trans_method" value="None"/>
       <output name="outpdf" file="graph.pdf" compare="sim_size"/>
-      <output name="outpng" file="graph.png" compare="sim_size"/>
     </test>
     <test>
       <param name="input" value="testfcs1.fcs"/>
-      <param name="outformat" value="FALSE"/>
+      <param name="outformat" value="PNG"/>
       <param name="trans_method" value="logicle"/>
-      <output name="outpng" file="graph2.png" compare="sim_size"/>
+      <param name="w" value="0.4"/>
+      <param name="m" value="10000"/>
+      <param name="t" value="4.5"/>
+      <output name="outpng" file="graph1.png" compare="sim_size"/>
     </test>
     <test>
       <param name="input" value="testfcs1.fcs"/>
-      <param name="outformat" value="FALSE"/>
+      <param name="outformat" value="PNG"/>
       <param name="trans_method" value="arcsinh"/>
       <param name="scaling_factor" value="150"/>
       <output name="outpng" file="graph2.png" compare="sim_size"/>
@@ -81,9 +84,9 @@ This tool takes valid FCS files as input.
 
 **Output files**
 
-This tool generates a series of 1D density plot using ggcyto and produced a png file. A pdf file can optionally be generated.
+This tool generates a series of 1D density plot using ggcyto and produces a png file. A pdf file can optionally be generated.
 
-class:: warningmark
+.. class:: warningmark
 
 PDF are larger files that may take some time to load. It might be faster to download the PDF output once generated to open it locally.
 

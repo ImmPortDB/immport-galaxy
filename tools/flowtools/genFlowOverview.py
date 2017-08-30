@@ -3,6 +3,10 @@
 #                  Copyright (c) 2016 Northrop Grumman.
 #                          All rights reserved.
 ######################################################################
+
+# version 1.1 - August 2017
+# added upper limit to nb of clusters (40)
+#
 from __future__ import print_function
 import sys
 import os
@@ -31,8 +35,8 @@ profile_key = {
 
 # flow CL functions
 def run_flowCL(phenotype, output_txt, output_pdf, tool):
-    run_command = " ". join(["Rscript --slave --vanilla", tool, "--args",
-                             output_txt, phenotype])
+    run_command = " ". join(["Rscript --slave --vanilla", tool, output_txt,
+                             phenotype])
     os.system(run_command)
 
     get_graph = " ".join(["mv flowCL_results/*.pdf", output_pdf])
@@ -201,6 +205,11 @@ def get_boxplot_stats(all_data, mfi_file, output_json):
 # html generation
 def gen_flow_overview(args):
     flow_stats = gen_overview_stats(args.input_file)
+    if len(set(flow_stats['population'])) > 40:
+        nbpop = str(len(set(flow_stats['population'])))
+        sys.stderr.write("There are " + nbpop + " in the input file.")
+        sys.exit(3)
+
     os.mkdir(args.output_directory)
     html_template = "genOverview.template"
 
@@ -327,4 +336,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     gen_flow_overview(args)
-    sys.exit(0)

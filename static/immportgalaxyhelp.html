@@ -15,16 +15,6 @@
     <script src="/static/flowtools/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script src="/static/flowtools/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 
-    <!--Google Analytics-->
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-         ga('create', 'UA-79040210-1', 'auto', 'IG_help');
-         ga('send', 'pageview');
-         ga('IG_help.send', 'pageview');
-    </script>
 </head>
 
 <body>
@@ -162,7 +152,7 @@
                             </div>
                             <div id="collapse02" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Data will be kept for a year. This policy is subject to change. <!--font color="red">we need to decide how much data users can have each</font-->
+                                    <p>A 20Gb quota is enforced for each user. To stay within the limits of the quota, users are invited to delete and purge data they do not wish to keep. Data will be kept for a year. ImmPort is not responsible for data corruption that may occur on the ImmPort Galaxy server. If your data is important, please download the files on your local machine.<br>This policy is subject to change. <!--font color="red">we need to decide how much data users can have each</font-->
                                     </p>
                                 </div>
                             </div>
@@ -371,12 +361,26 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse24a">Delete or Purge data</a>
+                                </h4>
+                            </div>
+                            <div id="collapse24a" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>To delete files, click on the 'x' next to the name of the files to delete. To delete the file permanently (or "purge"), show deleted files in your history, and click on 'Permanently remove it from disk' in the yellow box below the name of the file to purge. Once permanently deleted, a file is NOT recoverable.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
                                     <a data-toggle="collapse" data-parent="#accordion-inner2" href="#collapse24">Deleted file recovery</a>
                                 </h4>
                             </div>
                             <div id="collapse24" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Deleted files can be recovered, within the limits of the data retention policy. To recover a deleted file in a history, click on 'deleted' at the top of your history. The link will now read 'hide deleted', and every file in your history that has been deleted will be displayed and highlighted with a yellow box. You can restore deleted files by clicking on 'undelete'. If a file has been deleted by the administrator because of the data retention policy, it will not be recoverable. More <a href="https://youtu.be/qgTqG8pKzWs" target="_blank">here</a>.
+                                    <p>Deleted files can be recovered, within the limits of the data retention policy. To recover a deleted file in a history, click on 'deleted' at the top of your history. The link will now read 'hide deleted', and every file in your history that has been deleted will be displayed and highlighted with a yellow box. You can restore deleted files by clicking on 'undelete'. If a file has been deleted by the administrator because of the data retention policy, it will not be recoverable. Purged files or histories are NOT recoverable. More <a href="https://youtu.be/qgTqG8pKzWs" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -673,7 +677,7 @@
                             </div>
                             <div id="collapse51" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>To access or import available workflows, click on 'Shared Data' on the top green bar and select 'Published Workflows'. Click on the downward arrow next to the name of the workflow to import, and select 'Import'. Workflows are immediatly available to use. Workflows created and maintained by the ImmPort team are published under 'immport-galaxy'. More <a href="https://youtu.be/izCQ6b1DRIM" target="_blank">here</a>.
+                                    <p>To access or import available workflows, click on 'Shared Data' on the top green bar and select 'Published Workflows'. Click on the downward arrow next to the name of the workflow to import, and select 'Import'. Workflows are immediately available to use. Workflows created and maintained by the ImmPort team are published under 'immport-galaxy'. More <a href="https://youtu.be/izCQ6b1DRIM" target="_blank">here</a>.
                                     </p>
                                 </div>
                             </div>
@@ -779,8 +783,8 @@
                                             <li>Merge the files together into one reference file.</li>
                                             <li>Run the reference file through FLOCK to identify the different fluorescence intensity patterns defining each cell type in the data.</li>
                                             <li>Run each file from the original dataset collection through Cross Sample using the FLOCK result to attribute each event to a FLOCK-defined population.</li>
-                                            <li>Explore the populations defined by FLOCK with the tool 'Generate overview information of FLOCK analysis' under 'Flow visualization tools'</li>
-                                            <li>Explore the results of Cross Sample with the tool 'Generate overview information of the CrossSample analysis' under 'Flow visualization tools'</li>
+                                            <li>Explore the populations defined by FLOCK with the tool 'Generate overview information of reference set of clusters or populations' under 'Flow visualization tools'</li>
+                                            <li>Explore the results of Cross Sample with the tool 'Generate overview information of a multi-sample analysis' under 'Flow visualization tools'</li>
                                         </ol>
                                     <b>Tip: </b> For a successful analysis, make sure that the merged file run through FLOCK and all individual files run subsequently through Cross Sample have the same marker names. Make sure that the markers kept for analysis are all meaningful - FLOCK clusters blindly without checking the headers of the files. Channels related to cell length, time, beads etc will be taken into account if they are not removed prior to analysis.<br>
                                     This workflow is available among the workflows published by immport-galaxy.<br> Feel free to <a href="mailto:immport-galaxy@immport.org">contact us</a> for additional information. More references are indicated <a href="http://www.immport.org/immport-open/public/home/publications" target="_blank">here</a> and at the bottom of the help section of each tool.
@@ -798,6 +802,34 @@
                             <div id="collapse62" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>CyTOF data can be analyzed with FLOCK if enough files are concatenated together to satisfy the minimum number of events required for the clustering algorithm to detect patterns. Running FLOCK on too few events is not recommended.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner6" href="#collapse63">Analyze data with FlowSOM</a>
+                                </h4>
+                            </div>
+                            <div id="collapse63" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>FlowSOM provides visualization and clustering options for Flow Data. The tools available in ImmPort Galaxy provide support for a few FlowSOM functions. If your favorite is missing, please <a href="mailto:immport-galaxy@immport.org">contact us</a>. To learn more about FlowSOM, check out BioConductor <a href="https://bioconductor.org/packages/release/bioc/html/FlowSOM.html" target="_blank">here</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner6" href="#collapse64">What is a population?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse64" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>ImmPort Galaxy currently supports two clustering algorithms, FLOCK and FlowSOM. Flock generates 'Populations' and FlowSOM 'clusters' and 'meta-clusters'. Those terms are interchangeable to refer to groups of events from FCS files with similar marker expression patterns - as deemed by the clustering algorithm.
                                     </p>
                                 </div>
                             </div>
@@ -822,12 +854,12 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse70">Understand FLOCK Overview</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse70">Understand Overview for a Reference Set</a>
                                 </h4>
                             </div>
                             <div id="collapse70" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>The FLOCK overview has several tabs. The first one is a summary of the data. The following tab displays all scatter plots for all markers. The third and fourth tabs display interactive 2D and 3D scatter plots respectively. The parallel coordinate tab shows the relationship between each marker mean fluorescence intensity and FLOCK-defined populations. The last tab is optional and only appears if the cell ontology is queried.<br>
+                                    <p>The reference set overview has several tabs. The first one is a summary of the data. The following tab displays all scatter plots for all markers. The third and fourth tabs display interactive 2D and 3D scatter plots respectively. The parallel coordinate tab shows the relationship between each marker mean fluorescence intensity and populations or clusters defined by the clustering algorithm used. The next tab displays the distribution of MFIs per population and marker as a boxplot. The last tab is optional and only appears if the cell ontology is queried.<br>
                                     Find more details in the help section of the tool.
                                     </p>
                                 </div>
@@ -836,14 +868,14 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse71">Understand Cross Sample Overview</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse71">Understand Multi-Sample Overview</a>
                                 </h4>
                             </div>
                             <div id="collapse71" class="panel-collapse collapse">
-                                <div class="panel-body inner-body">
-                                    <p>The Cross Sample overview has several tabs. The first one is a summary of the data. The following tabs display the proportion of each population in each sample/file. The first parallel coordinate tab shows the relationship between samples/files and FLOCK-defined populations, while the second one displays relationships between samples/files, markers intensities and FLOCK-defined populations. The last tab shows some basic summary statistics for markers and samples/files.<br>
-                                    Find more details in the help section of the tool.
-                                    </p>
+                              <div class="panel-body inner-body">
+                                <p>The multi-sample overview has several tabs. The first one is a summary of the data. The following tabs display the proportion of each population in each sample/file. The first parallel coordinate tab shows the relationship between samples/files and populations or cluster defined by the clustering algorithm, while the second one displays relationships between samples/files, markers intensities and populations. The last tab shows the MFI distribution per marker and population as a boxplot.<br>
+                                Find more details in the help section of the tool.
+                                </p>
                                 </div>
                             </div>
                         </div>
@@ -860,6 +892,18 @@
                             </div>
                         </div-->
 
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner7" href="#collapse74">Visualization limitation</a>
+                                </h4>
+                            </div>
+                            <div id="collapse74" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>The visualization tools currently have an upper limit of 40 populations, or clusters.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -982,12 +1026,38 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse83">flowCL issues?</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse82">flowCL issues?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse82" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>Querying the cell ontology database with flowCL will not work with user-defined marker names. The marker names need to be in a format compatible with the CL. Things like 'CELL_LENGTH' or 'Time' will not be recognized. For more help, please <a href="mailto:immport-galaxy@immport.org">contact us</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse83">Workflow issues?</a>
                                 </h4>
                             </div>
                             <div id="collapse83" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
-                                    <p>Querying the cell ontology database with flowCL will not work with user-defined marker names. The marker names need to be in a format compatible with the CL. Things like 'CELL_LENGTH' or 'Time' will not be recognized. For more help, please <a href="mailto:immport-galaxy@immport.org">contact us</a>.</p>
+                                    <p>There are a few things you can do if your workflow doesn't run. If there been a new release recently, it's possible that the workflows need to be updated with the new tools. You can try re-importing the workflow, if appropriate. Alternatively, you can edit the workflow yourself with the workflow editor, see more <a href="https://youtu.be/m2u4sG3uYqc" target="_blank">here</a>. If this doesn't solve your problem, please <a href="mailto:immport-galaxy@immport.org">contact us</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse84">Why is my PDF not displaying?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse84" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>In some cases, PDF might take some time to load. If refreshing your browser doesn't help, download the pdf and try to open it locally.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -995,10 +1065,38 @@
                         <div class="panel panel-default inner-a">
                             <div class="panel-heading heading-inner">
                                 <h4 class="panel-title title-inner">
-                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse82">Found a bug?</a>
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse85">"WebGL is not supported"</a>
                                 </h4>
                             </div>
-                            <div id="collapse82" class="panel-collapse collapse">
+                            <div id="collapse85" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>The 3D scatter plot in one of the visualization tool's output is supported by a plug-in called WebGL. Later versions of Chrome unfortunately do not support WebGL. If that is the case, try using another web browser such as Mozilla Firefox.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse86">"Why is my file/dataset collection stuck in spinning yellow?"</a>
+                                </h4>
+                            </div>
+                            <div id="collapse86" class="panel-collapse collapse">
+                                <div class="panel-body inner-body">
+                                    <p>Yellow indicates that the program used to generate the file is still running. If you believe that it has been running for too long, one of the easy explanations is that the file name is too long and cannot be accomodated by the database. Try editing the name of your file(s) by clicking on the pencil icon next to the name of your dataset, and re-running the tool. If this doesn't work, please <a href="mailto:immport-galaxy@immport.org">let us know</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default inner-a">
+                            <div class="panel-heading heading-inner">
+                                <h4 class="panel-title title-inner">
+                                    <a data-toggle="collapse" data-parent="#accordion-inner8" href="#collapse87">Found a bug?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse87" class="panel-collapse collapse">
                                 <div class="panel-body inner-body">
                                     <p>If you believe you found a bug, please <a href="mailto:immport-galaxy@immport.org">contact us</a> or create an issue on <a href="" target="_blank">GitHub</a>.
                                     </p>
@@ -1030,7 +1128,7 @@
     <div class="col-md-5">
         <div class="block-header">Sponsored by:</div>
         <ul>
-            <li><a href="http://www.niaid.nih.gov/Pages/default.aspx" target="_blank">National Institute of Allergy and Infectious Diseases (NIAID)</a></li>
+            <li><a href="https://www.niaid.nih.gov/" target="_blank">National Institute of Allergy and Infectious Diseases (NIAID)</a></li>
             <li><a href="http://www.nih.gov/" target="_blank">National Institutes of Health (NIH)</a></li>
             <li><a href="http://www.hhs.gov/" target="_blank">Health and Human Services (HHS)</a></li>
         </ul>

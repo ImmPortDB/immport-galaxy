@@ -84,6 +84,7 @@ The output flowtext file is a copy of the input file with rearranged and/or rena
    4       56      323     7623    74634
    5       83      532     6256    34763
    4       15      877     9312    21265
+   ...     ...     ...     ...     ...
 
 *Example 1*
 
@@ -99,6 +100,7 @@ The output flowtext file is a copy of the input file with rearranged and/or rena
    74634   323     56      7623
    34763   532     83      6256
    21265   877     15      9312
+   ...     ...     ...     ...
 
 *Example 2*
 
@@ -114,6 +116,7 @@ The output flowtext file is a copy of the input file with rearranged and/or rena
    74634 323     56   7623
    34763 532     83   6256
    21265 877     15   9312
+   ...   ...     ...  ...
 
 *Example 3*
 
@@ -129,6 +132,7 @@ The output flowtext file is a copy of the input file with rearranged and/or rena
    4     56      323     7623 74634
    5     83      532     6256 34763
    4     15      877     9312 21265
+   ...   ...     ...     ...  ...
   ]]>
   </help>
 </tool>

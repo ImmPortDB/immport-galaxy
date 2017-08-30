@@ -107,6 +107,7 @@ Within R, install the following packages:
     >biocLite("flowStats")
     >biocLite("flowVS")
     >biocLite("ggcyto") # version 1.5.1
+    >biocLite("FlowSOM")
 
 Install required python packages in the galaxy virtual environment:
 
@@ -121,6 +122,8 @@ Install required python packages in the galaxy virtual environment:
     $ pip install rpy2
     $ pip install scipy==0.17.0
     $ pip install plotly==1.12.9
+    $ pip install clustergrammer
+    $ pip install scikit-learn
 
 Compile FLOCK. The binaries are included in $GALAXY_HOME/tools/flowtools/src.
 

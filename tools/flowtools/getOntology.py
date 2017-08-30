@@ -31,7 +31,7 @@ def run_flowCL(phenotype, output_file, output_dir, tool_dir):
     output_txt = "".join([output_dir, "/flowCL_run_summary.txt"])
     output_table = "".join([output_dir, "/flowCL_table.txt"])
     output_pdf = "".join([output_dir, "/flowCL_res.pdf"])
-    run_command = " ". join(["Rscript --slave --vanilla", tool, "--args", output_txt, phenotype])
+    run_command = " ". join(["Rscript --slave --vanilla", tool, output_txt, phenotype])
     os.system(run_command)
 
     table = defaultdict(list)
@@ -132,4 +132,3 @@ if __name__ == "__main__":
     markers = [m.strip() for m in args.markers]
     query = generate_flowCL_query(markers, args.marker_types)
     run_flowCL(query, args.output_file, args.output_dir, args.tool_dir)
-    sys.exit(0)

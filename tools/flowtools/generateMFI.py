@@ -49,4 +49,3 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     generate_MFI(args.input_file, args.output_file, args.mfi_calc)
-    sys.exit(0)

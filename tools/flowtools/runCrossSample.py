@@ -69,8 +69,9 @@ def get_pop_prop(input_files, summary_stat, mfi_stats, marker_names, mfi_calc):
                     pop_count[files][pops] += 1
                 else:
                     pop_count[files][pops] = 1
-            if (len(pop_count[files]) > nb_pop):
-                nb_pop = len(pop_count[files])
+            max_nb_pop = max(set(cs.Population))
+            if (max_nb_pop > nb_pop):
+                nb_pop = max_nb_pop
             ctr_mfi += 1
             cs_stats = stats_MFIs(cs, ctr_mfi, mfi_calc)
             cs_stats.to_csv(mfis, sep="\t", header=False, index=False)
@@ -220,5 +221,3 @@ if __name__ == "__main__":
     compare_MFIs(input_files, input_names, args.mfi)
     run_cross_sample(input_files, input_names, args.mfi, args.out_path, args.sstat, args.mfi_stat, args.tool_dir, args.mfi_calc)
     generate_CS_stats(args.mfi_stat, args.all_stats)
-
-    sys.exit(0)

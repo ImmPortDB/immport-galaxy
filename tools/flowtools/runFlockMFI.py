@@ -121,5 +121,3 @@ if __name__ == "__main__":
     run_FLOCK(args.input_file, args.method, args.bins,
               args.density, args.output_file, args.centroids, args.mfi_calc,
               args.profile, args.tool_directory)
-
-    sys.exit(0)

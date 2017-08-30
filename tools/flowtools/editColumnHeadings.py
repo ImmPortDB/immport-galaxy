@@ -116,5 +116,3 @@ if __name__ == "__main__":
                     sys.exit(4)
 
     rearrange_file(args.input_file, col_order, col_names, args.output_file)
-
-    sys.exit(0)

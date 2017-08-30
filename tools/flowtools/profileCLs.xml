@@ -61,12 +61,12 @@ The output is a page that allows visualization of the data.
 
 *Population profile file*::
 
-   Population_ID Marker1 Marker2 Marker3 Count Percentage
-   1             1       3       2       3885  6.44
-   2             1       3       4       2774  4.62
-   3             2       2       3       2151  3.59
-   4             1       3       2       1207  2.01
-
+   Population_ID Marker1 Marker2 Marker3 ... Count Percentage
+   1             1       3       2       ... 3885  6.44
+   2             1       3       4       ... 2774  4.62
+   3             2       2       3       ... 2151  3.59
+   4             1       3       2       ... 1207  2.01
+   ...           ...     ...     ...     ... ...   ...
 
 *Output*
 

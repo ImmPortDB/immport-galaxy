@@ -82,4 +82,3 @@ if __name__ == "__main__":
         extract_pop(args.input_file, populations, args.output_file)
     else:
         remove_pop(args.input_file, populations, args.output_file)
-    sys.exit(0)

@@ -14,7 +14,8 @@
 library(flowCore)
 library(flowDensity)
 
-generateGraph <- function(input, channels, output, plot_default, flag_pdf, pdf_out) {
+generateGraph <- function(input, channels, output, plot_default=TRUE,
+                          flag_pdf=FALSE) {
   fcs <- read.FCS(input, transformation=F)
   ## marker names
   markers <- colnames(fcs)
@@ -53,27 +54,20 @@ generateGraph <- function(input, channels, output, plot_default, flag_pdf, pdf_o
   }
 
   nb_markers <- length(channels)
+  if (nb_markers == 1) {
+    warning('There is only one marker selected to plot.')
+    quit(save = "no", status = 12, runLast = FALSE)
+  }
   for (j in nb_markers) {
     if (channels[j] > length(markers)){
-  	  warning('Please indicate markers between 1 and ', length(markers))
-  	  quit(save = "no", status = 10, runLast = FALSE)
-  	}
-  }
-  nb_rows <- ((nb_markers-1)*nb_markers)/4
-  h <- 400 * nb_rows
-
-
-  png(output, type="cairo", height=h, width=800)
-  par(mfrow=c(nb_rows,2))
-  for (m in 1:(nb_markers - 1)) {
-    for (n in (m+1):nb_markers) {
-      plotDens(fcs, c(channels[m],channels[n]), xlab = print_markers[channels[m]], ylab = print_markers[channels[n]])
+      warning('Please indicate markers between 1 and ', length(markers))
+      quit(save = "no", status = 10, runLast = FALSE)
     }
   }
-  dev.off()
-
+  nb_rows <- ceiling(((nb_markers-1)*nb_markers)/4)
+  h <- 400 * nb_rows
   if (flag_pdf) {
-    pdf(pdf_out, useDingbats=FALSE, onefile=TRUE)
+    pdf(output, useDingbats=FALSE, onefile=TRUE)
     par(mfrow=c(2,2))
       for (m in 1:(nb_markers - 1)) {
         for (n in (m+1):nb_markers) {
@@ -81,53 +75,56 @@ generateGraph <- function(input, channels, output, plot_default, flag_pdf, pdf_o
         }
       }
     dev.off()
+  } else {
+    png(output, type="cairo", height=h, width=800)
+    par(mfrow=c(nb_rows,2))
+    for (m in 1:(nb_markers - 1)) {
+      for (n in (m+1):nb_markers) {
+        plotDens(fcs, c(channels[m],channels[n]), xlab = print_markers[channels[m]], ylab = print_markers[channels[n]])
+      }
+    }
+    dev.off()
   }
 }
 
-checkFCS <- function(input_file, channels, output_file, plot_default, flag_pdf, pdf_out) {
+checkFCS <- function(input_file, channels, output_file, plot_default=TRUE,
+                     flag_pdf=FALSE){
   isValid <- F
   # Check file beginning matches FCS standard
   tryCatch({
-    isValid = isFCSfile(input_file)
+    isValid <- isFCSfile(input_file)
   }, error = function(ex) {
     print (paste("    ! Error in isFCSfile", ex))
   })
 
   if (isValid) {
-    generateGraph(input_file, channels, output_file, plot_default, flag_pdf, pdf_out)
+    generateGraph(input_file, channels, output_file, plot_default, flag_pdf)
   } else {
     print (paste(input_file, "does not meet FCS standard"))
   }
 }
 
 args <- commandArgs(trailingOnly = TRUE)
-channels <- ""
+channels <- list()
 flag_default <- FALSE
 flag_pdf <- FALSE
-pdf_output <- ""
 
-if (args[3]=="None") {
+if (args[2]=="None" || args[2]== "" || args[2] == "i.e.:1,3,4") {
   flag_default <- TRUE
 } else {
-  if (args[3] == "i.e.:1,3,4"){
-  	flag_default <- TRUE
-  } else {
-    channels <- as.numeric(strsplit(args[3], ",")[[1]])
-    for (channel in channels){
-	  if (is.na(channel)){
-	    quit(save = "no", status = 11, runLast = FALSE)
-	  }
+  channels <- as.numeric(strsplit(args[2], ",")[[1]])
+  for (channel in channels){
+    if (is.na(channel)){
+      quit(save = "no", status = 11, runLast = FALSE)
     }
-	if (length(channels) == 1){
-	  warning('Please indicate more than one marker to plot.')
-	  quit(save = "no", status = 10, runLast = FALSE)
-	}
+  }
+  if (length(channels) == 1){
+    warning('Please indicate more than one marker to plot.')
+    quit(save = "no", status = 10, runLast = FALSE)
   }
 }
 
-if (args[5] == "TRUE"){
-  pdf_output <- args[6]
+if (args[4] == "PDF"){
   flag_pdf <- TRUE
 }
-
-checkFCS(args[2], channels, args[4], flag_default, flag_pdf, pdf_output)
+checkFCS(args[1], channels, args[3], flag_default, flag_pdf)

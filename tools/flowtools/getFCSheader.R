@@ -1,3 +1,4 @@
+#!/usr/bin/Rscript --vanilla
 # FCS Headers Module for Galaxy
 # FlowCore
 ######################################################################
@@ -27,7 +28,7 @@ checkFCS <- function(input_file, output_file) {
   isValid <- F
   # Check file beginning matches FCS standard
   tryCatch({
-    isValid = isFCSfile(input_file)
+    isValid <- isFCSfile(input_file)
   }, error = function(ex) {
     print (paste("    ! Error in isFCSfile", ex))
   })
@@ -40,4 +41,4 @@ checkFCS <- function(input_file, output_file) {
 }
 
 args <- commandArgs(trailingOnly = TRUE)
-checkFCS(args[2], args[3])
+checkFCS(args[1], args[2])

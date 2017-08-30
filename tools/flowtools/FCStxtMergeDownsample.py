@@ -51,6 +51,12 @@ def compare_headers(files):
         sys.exit(9)
     return(hdgs_in_common)
 
+def get_nb_lines(files):
+    tot_event = 0
+    for f in files:
+        df = pd.read_table(f)
+        tot_event += (len(df.index) - 1)
+    return(tot_event)
 
 def get_headers_index(list_headings, headings):
     idxs = []
@@ -76,6 +82,9 @@ def merge_and_DS_txt(in_files, out_file, col_names, factor_ds):
 
     # get list of headers in common to all files
     list_hdgs = compare_headers(in_files)
+    total_events = get_nb_lines(in_files)
+    total_final = total_events * ds_factor
+    nb_per_file = int(total_final / len(in_files))
 
     with open(out_file, "w") as outf:
         ff_order = []
@@ -93,6 +102,10 @@ def merge_and_DS_txt(in_files, out_file, col_names, factor_ds):
                         nb_errors += 1
                         sys.stderr.write(" ".join(["WARNING: column", str(ix), "in", in_files[0],
                                                    "does not exist in all files or has a different header.\n"]))
+                        if nb_errors == max_error:
+                            exit_code = 4
+                            sys.stderr.write("Run aborted - too many errors.")
+                            os.remove(out_file)
                 hdrs_idx = col_names
 
             # Print out to output file:
@@ -118,11 +131,14 @@ def merge_and_DS_txt(in_files, out_file, col_names, factor_ds):
                             nb_errors += 1
                             sys.stderr.write(" ".join(["WARNING: column", str(iy), "in", infile,
                                                        "does not exist in all files or has a different header.\n"]))
+                            if nb_errors == max_error:
+                                exit_code = 4
+                                sys.stderr.write("Run aborted - too many errors.")
+                                os.remove(out_file)
                     hdgs_idx = col_names
 
             df = pd.read_table(infile, usecols=hdrs_idx)
-            wc_file = len(df.index) - 1
-            df_ds = df.sample(int(wc_file * factor_ds), replace=False)
+            df_ds = df.sample(nb_per_file, replace=False)
 
             for cols in df_ds.columns.values:
                 if df_ds[cols].count() != len(df_ds[cols]):
@@ -206,20 +222,19 @@ if __name__ == "__main__":
     # Get down sampling factor if any:
     # Note: change '%' to 'X' because somehow that's what Galaxy passes?
     default_value_ds = ["i.e.:0.1 or 10X", "default", "Default"]
-    ds_factor = 1
+    ds_factor = 0.1
     if args.downsampling_factor:
         if args.downsampling_factor not in default_value_ds:
             args.downsampling_factor = args.downsampling_factor.strip()
             downsampling_factor = args.downsampling_factor.rstrip("X")
             if is_number(downsampling_factor):
                 ds_factor = float(downsampling_factor)
-                if ds_factor > 1:
+                if ds_factor > 1 and ds_factor <= 100:
                     ds_factor = float(downsampling_factor) / 100
-                if ds_factor > 100:
+                else:
                     sys.exit(8)
             else:
                 sys.exit(8)
 
     input_files = [f for f in args.input_files]
     merge_and_DS_txt(input_files, args.output_file, columns, ds_factor)
-    sys.exit(0)

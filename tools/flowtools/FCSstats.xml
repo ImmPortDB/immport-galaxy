@@ -7,7 +7,7 @@
     <exit_code range="2:" level="fatal" description="See stderr for more details." />
   </stdio>
   <command><![CDATA[
-      Rscript --slave --vanilla '$__tool_directory__/FCSstats.R' --args '${input}' '${output}'
+      Rscript --slave --vanilla '$__tool_directory__/FCSstats.R' '${input}' '${output}'
   ]]>
   </command>
   <inputs>

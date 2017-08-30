@@ -41,17 +41,21 @@
     </test>
   </tests>
   <help><![CDATA[
-   This tool generates the Mean, Median or Geometric Mean Fluorescence Intensity of a FLOCK output file.
+   This tool generates the Mean, Median or Geometric Mean Fluorescence Intensity of clustered flow files.
+
+.. class:: infomark
+
+Tip: This tool can be used to generate the centroids table required by the visualization tool multiple samples mapping result.
 
 -----
 
 **Input file**
 
-This tool reads in a FLOCK output file.
+This tool reads in a tab-separated file containing markers fluorescence intensities for each event as well as population or cluster attribution, for instance text output from a FLOCK or FlowSOM run.
 
 **Output file**
 
-The output is a table containing the mean, median or geometric mean fluorescent intensity values of each marker within each population defined by FLOCK.
+The output is a table containing the mean, median or geometric mean fluorescent intensity values of each marker within each population or cluster defined in the input file.
 
 -----
 
@@ -59,19 +63,21 @@ The output is a table containing the mean, median or geometric mean fluorescent 
 
 *Input*::
 
-   Marker1 Marker2 Marker3 Population
-   34      45      12      1
-   13      65      10      5
-   19      62      98      2
-   32      46      10      1
+   Marker1 Marker2 Marker3 ... Population
+   34      45      12      ... 1
+   13      65      10      ... 5
+   19      62      98      ... 2
+   32      46      10      ... 1
+   ...     ...     ...     ... ...
 
 *Output*::
 
-   Population Marker1 Marker2 Marker3
-   1          38      49      10
-   2          21      63      100
-   3          31      52      45
-   4          11      78      25
+   Population Marker1 Marker2 Marker3 ...
+   1          38      49      10      ...
+   2          21      63      100     ...
+   3          31      52      45      ...
+   4          11      78      25      ...
+   ...        ...     ...     ...     ...
   ]]>
   </help>
 </tool>

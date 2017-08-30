@@ -60,6 +60,7 @@ The output file is a table listing the headers for each file.
 
 *Output*::
 
+   Index 1       2       3
    File1 Marker1 Marker2 Marker3
    File2 Marker4 Marker5 Marker3
   ]]>

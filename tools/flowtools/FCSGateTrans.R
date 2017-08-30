@@ -33,6 +33,8 @@
 # March 2016 -- added lines to run directly from command line (cristel thomas)
 # May 2016 -- added automated gating (cristel thomas)
 # August 2016 -- added options for data transformation (cristel thomas)
+# April 2017 -- added logicle to transformation options (cristel thomas)
+# July 2017 -- added options for outputs (cristel thomas)
 
 library(flowCore)
 library(flowDensity)
@@ -193,7 +195,7 @@ isAccuriData <- function(keywords) {
 #
 # Convert FCS file
 #
-convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
+convertFCS <- function(fcs, debug=FALSE) {
   # Check file type and FCS version
   if (class(fcs)[1] != "flowFrame") {
     print("convertFCS requires flowFrame object as input")
@@ -214,15 +216,6 @@ convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
     datatype <- unlist(keywords['$DATATYPE'])
     if (datatype == 'F') {
       # Apply compensation if available and requested
-      spill <- keyword(fcs)$SPILL
-
-      if (is.null(spill) == FALSE && compensate == TRUE) {
-        if (debug) {
-          print("Attempting compensation")
-        }
-        tryCatch({fcs = compensate(fcs, spill)},
-                  error = function(ex) {str(ex); })
-      }
       # Process fcs expression data, using transformation
       # based on category of the marker.
       fcs_exprs <- exprs(fcs)
@@ -280,7 +273,7 @@ convertFCS <- function(fcs,compensate=FALSE,debug=FALSE) {
 # Starting function for processing a FCS file
 #
 processFCSFile <- function(input_file, output_file="", compensate=FALSE,
-                           fcsformat=FALSE, fcsfile="", gate=FALSE,
+                           outformat="flowtext", gate=FALSE,
                            graph_file="", report="", method="",
                            scaling_factor, logicle_w=0.5, logicle_t=262144,
                            logicle_m=4.5, debug=FALSE) {
@@ -301,8 +294,20 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
   # Update print_markers if the $P?S not in the FCS file
   for (i in 1:length(print_markers)) {
     if (is.na(print_markers[i])) {
-      print_markers[i] <- markers[i]
+      print_markers[[i]] <- markers[i]
     }
+  }
+  #
+  # Compensate
+  #
+  spill <- keywords$SPILL
+
+  if (is.null(spill) == FALSE && compensate == TRUE) {
+    if (debug) {
+      print("Attempting compensation")
+    }
+    tryCatch({fcs = compensate(fcs, spill)},
+              error = function(ex) {str(ex); })
   }
   #
   # Transform the data
@@ -316,7 +321,7 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
     print("Accuri data is not supported")
   } else if (method != "None"){
     if (method == "fcstrans"){
-      transformed_data <- convertFCS(fcs,compensate,debug)
+      transformed_data <- convertFCS(fcs, debug)
     } else if (method == "logicle_auto"){
       lgcl <- estimateLogicle(fcs, channels = list_channels)
       transformed_data <- transform(fcs, lgcl)
@@ -383,11 +388,14 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
       cat(postgating_dim, postgating_summary, sep="\n")
       sink()
       # plots
-      pdf(graph_file, useDingbats=FALSE, onefile=TRUE)
-      par(mfrow=c(2,2))
       time_channel <- grep(toupper(colnames(transformed_data)), pattern="TIME")
       nb_markers <- length(colnames(transformed_data)) - length(time_channel)
+      nb_rows <- ceiling(((nb_markers-1)*nb_markers)/4)
+      h <- 400 * nb_rows
       maxrange <- transformed_data@parameters@data$range[1]
+
+      png(graph_file, type="cairo", height=h, width=800)
+      par(mfrow=c(nb_rows,2))
       for (m in 1:(nb_markers - 1)) {
         for (n in (m+1):nb_markers) {
           plotDens(transformed_data, c(m,n), xlab = print_markers[m],
@@ -401,13 +409,16 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
       dev.off()
     }
   }
-  if (fcsformat) {
-    write.FCS(trans_gated_data, fcsfile)
+  if (outformat=="FCS") {
+    write.FCS(trans_gated_data, output_file)
+  } else if (outformat=="flowFrame") {
+    saveRDS(trans_gated_data, file = output_file)
+  } else {
+    output_data <- exprs(trans_gated_data)
+    colnames(output_data) <- print_markers
+    write.table(output_data, file=output_file, quote=F,
+                row.names=F,col.names=T, sep='\t', append=F)
   }
-  output_data <- exprs(trans_gated_data)
-  colnames(output_data) <- print_markers
-  write.table(output_data, file=output_file, quote=F,
-              row.names=F,col.names=T, sep='\t', append=F)
 }
 # Convert FCS file using FCSTrans logicile transformation
 # @param input_file     FCS file to be transformed
@@ -415,18 +426,18 @@ processFCSFile <- function(input_file, output_file="", compensate=FALSE,
 # @param compensate     Flag indicating whether to apply compensation
 #                       matrix if it exists.
 transformFCS <- function(input_file, output_file, compensate=FALSE,
-                         fcsformat=FALSE, fcsfile="", gate=FALSE, graph_file="",
-                         report_file="", trans_met="", scaling_factor="",
+                         outformat="flowtext", gate=FALSE, graph_file="",
+                         report_file="", trans_met="", scaling_factor=1/150,
                          w=0.5, t=262144, m=4.5, debug=FALSE) {
   isValid <- F
   # Check file beginning matches FCS standard
   tryCatch({
-    isValid = isFCSfile(input_file)
+    isValid <- isFCSfile(input_file)
   }, error = function(ex) {
     print (paste("    ! Error in isFCSfile", ex))
   })
   if (isValid) {
-    processFCSFile(input_file, output_file, compensate, fcsformat, fcsfile,
+    processFCSFile(input_file, output_file, compensate, outformat,
                    gate, graph_file, report_file, trans_met, scaling_factor,
                    w, t, m)
   } else {
@@ -439,8 +450,6 @@ transformFCS <- function(input_file, output_file, compensate=FALSE,
 args <- commandArgs(trailingOnly = TRUE)
 graphs <- ""
 report <- ""
-fcsoutput_file <- ""
-fcsoutput <- FALSE
 gate <- FALSE
 trans_method <- "None"
 scaling_factor <- 1 / 150
@@ -448,23 +457,19 @@ w <- 0.5
 t <- 262144
 m <- 4.5
 if (args[5]!="None") {
-  fcsoutput <- TRUE
-  fcsoutput_file <- args[5]
-}
-if (args[6]!="None") {
   gate <- TRUE
-  graphs <- args[6]
-  report <- args[7]
+  graphs <- args[5]
+  report <- args[6]
 }
-if (args[8]!="None"){
-  trans_method <- args[8]
-  if (args[8] == "arcsinh"){
-    scaling_factor <- 1 / as.numeric(args[9])
-  } else if (args[8] == "logicle"){
-    w <- args[9]
-    t <- args[10]
-    m <- args[11]
+if (args[7]!="None"){
+  trans_method <- args[7]
+  if (args[7] == "arcsinh"){
+    scaling_factor <- 1 / as.numeric(args[8])
+  } else if (args[7] == "logicle"){
+    w <- args[8]
+    t <- args[9]
+    m <- args[10]
   }
 }
-transformFCS(args[2], args[3], args[4], fcsoutput, fcsoutput_file, gate, graphs,
+transformFCS(args[1], args[2], args[3], args[4], gate, graphs,
              report, trans_method, scaling_factor, w, t, m)

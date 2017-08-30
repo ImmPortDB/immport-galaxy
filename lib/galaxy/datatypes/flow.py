@@ -8,12 +8,20 @@
 Flow analysis datatypes.
 """
 
+import gzip
+import json
 import logging
+import os
+import sys
 import re
 import subprocess
+import tempfile
 
 from galaxy.datatypes.binary import Binary
 from galaxy.datatypes.tabular import Tabular
+from galaxy.datatypes.data import get_file_peek, Text
+from galaxy.datatypes.metadata import MetadataElement
+from galaxy.util import nice_size, string_as_bool
 from . import data
 
 log = logging.getLogger(__name__)
@@ -49,12 +57,10 @@ class FCS(Binary):
         """
         Checking if the file is in FCS format. Should read FCS2.0, FCS3.0
         and FCS3.1
-
-        For this to work, need to have install checkFCS via bioconda
-        conda install ig-checkFCS
         """
         try:
-            rscript = 'checkFCS.R'
+            # really not ideal way of doing this....
+            rscript = '/home/galaxy/immport-galaxy/checkFCS.R'
             fcs_check = subprocess.check_output([rscript, filename])
             if re.search('TRUE', str(fcs_check)):
                 return True
@@ -62,12 +68,133 @@ class FCS(Binary):
                 return False
         except:
             False
+
     def get_mime(self):
         """Returns the mime type of the datatype"""
         return 'application/octet-stream'
 
 
 Binary.register_sniffable_binary_format("fcs", "fcs", FCS)
+
+
+class FlowFrame( Binary ):
+    """R Object containing flowFrame saved with saveRDS"""
+    file_ext = 'flowframe'
+
+    def set_peek(self, dataset, is_multi_byte=False):
+        if not dataset.dataset.purged:
+            dataset.peek = "Binary RDS flowFrame file"
+            dataset.blurb = data.nice_size(dataset.get_size())
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+
+    def display_peek(self, dataset):
+        try:
+            return dataset.peek
+        except:
+            return "Binary RDS flowFrame (%s)" % (data.nice_size(dataset.get_size()))
+
+    def sniff(self, filename):
+        """
+        Checking if the file is a flowFrame R object.
+        """
+        try:
+            rscript = '/home/galaxy/immport-galaxy/checkFlowframe.R'
+            ff_check = subprocess.check_output([rscript, filename])
+            if re.search('TRUE', str(ff_check)):
+                return True
+            else:
+                return False
+        except:
+            False
+
+    def get_mime(self):
+        """Returns the mime type of the datatype"""
+        return 'application/octet-stream'
+
+
+Binary.register_sniffable_binary_format('flowframe', 'flowframe', FlowFrame)
+
+
+class FlowSOM( Binary ):
+    """R Object containing fSOM saved with saveRDS"""
+    file_ext = 'fsom'
+
+    def set_peek(self, dataset, is_multi_byte=False):
+        if not dataset.dataset.purged:
+            dataset.peek = "Binary RDS fsom file"
+            dataset.blurb = data.nice_size(dataset.get_size())
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+
+    def display_peek(self, dataset):
+        try:
+            return dataset.peek
+        except:
+            return "Binary RDS fsom (%s)" % (data.nice_size(dataset.get_size()))
+
+    def sniff(self, filename):
+        """
+        Checking if the file is a FlowSOM R object.
+        """
+        try:
+            rscript = '/home/galaxy/immport-galaxy/checkFlowSOM.R'
+            fcs_check = subprocess.check_output([rscript, filename])
+            if re.search('TRUE', str(fcs_check)):
+                return True
+            else:
+                return False
+        except:
+            False
+
+    def get_mime(self):
+        """Returns the mime type of the datatype"""
+        return 'application/octet-stream'
+
+
+Binary.register_sniffable_binary_format('fsom', 'fsom', FlowSOM)
+
+
+class FlowSet( Binary ):
+    """R Object containing flowSet saved with saveRDS"""
+    file_ext = 'flowset'
+
+    def set_peek(self, dataset, is_multi_byte=False):
+        if not dataset.dataset.purged:
+            dataset.peek = "Binary RDS flowSet file"
+            dataset.blurb = data.nice_size(dataset.get_size())
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+
+    def display_peek(self, dataset):
+        try:
+            return dataset.peek
+        except:
+            return "Binary RDS flowSet (%s)" % (data.nice_size(dataset.get_size()))
+
+    def sniff(self, filename):
+        """
+        Checking if the file is a flowSet R object.
+        """
+        try:
+            rscript = '/home/galaxy/immport-galaxy/checkFlowSet.R'
+            fcs_check = subprocess.check_output([rscript, filename])
+            if re.search('TRUE', str(fcs_check)):
+                return True
+            else:
+                return False
+        except:
+            False
+
+    def get_mime(self):
+        """Returns the mime type of the datatype"""
+        return 'application/octet-stream'
+
+
+Binary.register_sniffable_binary_format('flowset', 'flowset', FlowSet)
 
 
 class FlowText(Tabular):

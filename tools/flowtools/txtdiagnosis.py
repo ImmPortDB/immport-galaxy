@@ -65,4 +65,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     error_report(args.input_file, args.filename, args.output_file)
-    sys.exit(0)

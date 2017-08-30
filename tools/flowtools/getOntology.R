@@ -1,10 +1,11 @@
+#!/usr/bin/Rscript --vanilla
 # Cell Ontology Module for Galaxy
 # FlowCL
 ######################################################################
 #                  Copyright (c) 2016 Northrop Grumman.
 #                          All rights reserved.
 ######################################################################
-# 
+#
 # Version 1
 # Cristel Thomas
 #
@@ -24,5 +25,5 @@ getOntology <- function(output_file, markers) {
 }
 
 args <- commandArgs(trailingOnly = TRUE)
-markers <- paste(args[3:length(args)], collapse="")
-getOntology(args[2], markers)
+markers <- paste(args[2:length(args)], collapse="")
+getOntology(args[1], markers)

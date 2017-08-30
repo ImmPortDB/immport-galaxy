@@ -5,14 +5,18 @@
   </section>
   <section id="fcsfiletools" name="FCS File Tools">
     <tool file="flowtools/extractKeywords.xml" />
-    <tool file="flowtools/getFCSheaders.xml"/>
-    <tool file="flowtools/getDensityPlots.xml" />
+    <tool file="flowtools/getFCSheaders.xml" />
     <tool file="flowtools/FCSstats.xml" />
+    <tool file="flowtools/getDensityPlots.xml" />
+    <tool file="flowtools/FCS1Dplotggcyto.xml" />
+    <tool file="flowtools/FCSflowViz.xml" />
+    <tool file="flowtools/editFCSmarkers.xml" />
+    <tool file="flowtools/FCSMergeDownsample.xml" />
     <tool file="flowtools/FCSflowAI.xml" />
-    <tool file="flowtools/FCSGateTrans.xml"/>
-    <tool file="flowtools/convertFCSToText.xml"/>
+    <tool file="flowtools/FCSGateTrans.xml" />
+    <tool file="flowtools/convertFCSToText.xml" />
   </section>
-  <section id="flowfiletools" name="Flow File Tools">
+  <section id="flowfiletools" name="Flow Text File Tools">
     <tool file="flowtools/getHeaders.xml" />
     <tool file="flowtools/FCSstats_text.xml" />
     <tool file="flowtools/getDensityPlots_text.xml" />
@@ -28,11 +32,15 @@
     <tool file="flowtools/runFlockMFI.xml" />
     <tool file="flowtools/generateMFI.xml" />
     <tool file="flowtools/runCrossSample.xml" />
+    <tool file="flowtools/FlowSOMGenerateTree.xml" />
+    <tool file="flowtools/FlowSOMMApIndividualFCS.xml" />
+    <tool file="flowtools/FlowSOMCompare.xml" /> 
     <tool file="flowtools/getOntology.xml" />
     <tool file="flowtools/profileCLs.xml" />
   </section>
   <section id="flowvisualizationtools" name="Flow Visualization Tools">
     <tool file="flowtools/genFlowOverview.xml" />
     <tool file="flowtools/crossSampleOverview.xml" />
+    <tool file="flowtools/clustergrammerIPG.xml" />
   </section>
 </toolbox>

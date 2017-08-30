@@ -156,6 +156,7 @@ body {
     padding: 15px;
     border: 1px solid #ddd;
     margin-top: 10px;
+    border-radius: 8px;
 }
 .immport-about{
 //  background: rgba(255, 255, 255, 1);; /* For browsers that do not support gradients */
@@ -177,16 +178,25 @@ body {
   font-size: 16px;
   padding: 15px;
   margin-top: 10px;
+  border-radius: 8px;
 }
 .immport-notice-content{
   text-align: justify;
   font-size: 16px;
 }
+.immport-info{
+  background-color: #D5DBF8;
+  padding: 15px;
+  border: 1px solid #041A86;
+  color: #041A86;
+  border-radius: 8px;
+}
 .immport-warning{
   background-color: #f2dede;
   padding: 15px;
   border: 1px solid #a94442;
-  color:#a94442;
+  color: #a94442;
+  border-radius: 8px;
 }
 .text-justify {
     text-align: justify;

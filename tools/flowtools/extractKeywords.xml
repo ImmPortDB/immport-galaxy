@@ -7,7 +7,7 @@
     <exit_code range="1:" />
   </stdio>
   <command><![CDATA[
-    Rscript --slave --vanilla '$__tool_directory__/FCSKeyword.R' --args '${input}' '${keyword_file}'
+    Rscript --slave --vanilla '$__tool_directory__/FCSKeyword.R' '${input}' '${keyword_file}'
   ]]>
   </command>
   <inputs>

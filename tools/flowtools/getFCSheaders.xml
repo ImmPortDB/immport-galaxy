@@ -1,5 +1,5 @@
 <tool id="get_fcs_headers" name="Get list of markers" version="1.0">
-  <description>in FCS files</description>
+  <description>and channels in FCS files</description>
   <requirements>
     <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
   </requirements>
@@ -63,10 +63,11 @@ The output file is a table listing the markers and channels for each file.
 
 *Output*::
 
-  File1 channels Channel1 Channel2 Channel3
-  File2 channels Channel4 Channel5 Channel3
-  File1 markers  Marker1  Marker2  Marker3
-  File2 markers  Marker4  Marker5  Marker3
+  Filename Index    1        2        3
+  File1    channels Channel1 Channel2 Channel3
+  File2    channels Channel4 Channel5 Channel3
+  File1    markers  Marker1  Marker2  Marker3
+  File2    markers  Marker4  Marker5  Marker3
  ]]>
   </help>
 </tool>

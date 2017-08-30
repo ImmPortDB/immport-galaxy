@@ -6,7 +6,6 @@
 ######################################################################
 
 from __future__ import print_function
-import sys
 import pandas as pd
 from argparse import ArgumentParser
 
@@ -42,4 +41,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     get_txt_stats(args.input_file, args.output_file)
-    sys.exit(0)

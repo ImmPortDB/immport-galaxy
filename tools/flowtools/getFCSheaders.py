@@ -28,14 +28,19 @@ def get_fcs_marker_list(marker_file):
 
 def print_fcs_headers(files, filenames, outfile, tool_dir):
     headers = {}
-    tool = "/".join([tool_dir, "getFCSheader.R"])
+    tool = os.path.join(tool_dir, "getFCSheader.R")
     for eachfile in files:
         tmp_output = "tmp_fcs_headers.txt"
-        run_command = " ". join(["Rscript --slave --vanilla", tool, "--args", eachfile, tmp_output])
+        run_command = " ". join(["Rscript --slave --vanilla", tool, eachfile, tmp_output])
         os.system(run_command)
         headers[eachfile] = get_fcs_marker_list(tmp_output)
 
+    h = len(headers[files[0]][0].strip().split("\t")) + 1
+    idx = [str(x) for x in range(1, h)]
+
     with open(outfile, "w") as outf:
+        outf.write("Filename\tIndex\t")
+        outf.write("\t".join(idx) + "\n")
         for i, flc in enumerate(files):
             outf.write("\t".join([filenames[i], "channels", headers[flc][0]]) + "\n")
         for j, flm in enumerate(files):
@@ -78,4 +83,3 @@ if __name__ == "__main__":
     input_files = [f for f in args.input_files]
     file_names = [fn for fn in args.file_names]
     print_fcs_headers(input_files, file_names, args.output_file, args.tool_dir)
-    sys.exit(0)

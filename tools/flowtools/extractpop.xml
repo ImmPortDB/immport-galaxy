@@ -49,11 +49,12 @@ The input file filtered for selected populations.
 
 *Input* - fluorescence intensities per marker and population ID per event::
 
-   Marker1 Marker2 Marker3 Population
-   34      45      12      1
-   33      65      10      5
-   19      62      98      2
-   12      36      58      1
+   Marker1 Marker2 Marker3 ... Population
+   34      45      12      ... 1
+   33      65      10      ... 5
+   19      62      98      ... 2
+   12      36      58      ... 1
+   ...     ...     ...     ... ...
 
 *Populations selected:* 2
 
@@ -61,18 +62,20 @@ The input file filtered for selected populations.
 
 *Output* - fluorescence intensities per marker and population ID per event::
 
-   Marker1 Marker2 Marker3 Population
-   19      62      98      2
+   Marker1 Marker2 Marker3 ... Population
+   19      62      98      ... 2
+   ...     ...     ...     ... ...
 
 **Example 2**
 
 *Input* - fluorescence intensities per marker and population ID per event::
 
-   Marker1 Marker2 Marker3 Population
-   34      45      12      1
-   33      65      10      5
-   19      62      98      2
-   12      36      58      1
+   Marker1 Marker2 Marker3 ... Population
+   34      45      12      ... 1
+   33      65      10      ... 5
+   19      62      98      ... 2
+   12      36      58      ... 1
+   ...     ...     ...     ... ...
 
  *Populations selected:* 2
 
@@ -80,10 +83,11 @@ The input file filtered for selected populations.
 
  *Output* - fluorescence intensities per marker and population ID per event::
 
-    Marker1 Marker2 Marker3 Population
-    34      45      12      1
-    33      65      10      5
-    12      36      58      1
+    Marker1 Marker2 Marker3 ... Population
+    34      45      12      ... 1
+    33      65      10      ... 5
+    12      36      58      ... 1
+    ...     ...     ...     ... ...
 
   ]]>
   </help>

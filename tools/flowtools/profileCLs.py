@@ -19,7 +19,7 @@ profile_key = {
 
 
 def run_flowCL(phenotype, output_txt, output_pdf, tool):
-    run_command = " ". join(["Rscript --slave --vanilla", tool, "--args", output_txt, phenotype])
+    run_command = " ". join(["Rscript --slave --vanilla", tool, output_txt, phenotype])
     os.system(run_command)
     get_graph = " ".join(["mv flowCL_results/*.pdf", output_pdf])
     os.system(get_graph)
@@ -160,4 +160,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     translate_profiles(args.input_file, args.tool_dir, args.output, args.html_dir)
-    sys.exit(0)
