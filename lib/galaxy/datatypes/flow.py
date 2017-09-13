@@ -57,10 +57,12 @@ class FCS(Binary):
         """
         Checking if the file is in FCS format. Should read FCS2.0, FCS3.0
         and FCS3.1
+
+        For this to work, need to have install checkFCS.R via bioconda
+        conda install ig-checkflowtypes
         """
         try:
-            # really not ideal way of doing this....
-            rscript = '/home/galaxy/immport-galaxy/checkFCS.R'
+            rscript = 'checkFCS.R'
             fcs_check = subprocess.check_output([rscript, filename])
             if re.search('TRUE', str(fcs_check)):
                 return True
@@ -98,9 +100,12 @@ class FlowFrame( Binary ):
     def sniff(self, filename):
         """
         Checking if the file is a flowFrame R object.
+
+        For this to work, need to have install checkFlowframe.R via bioconda
+        conda install ig-checkflowtypes
         """
         try:
-            rscript = '/home/galaxy/immport-galaxy/checkFlowframe.R'
+            rscript = 'checkFlowframe.R'
             ff_check = subprocess.check_output([rscript, filename])
             if re.search('TRUE', str(ff_check)):
                 return True
@@ -138,9 +143,12 @@ class FlowSOM( Binary ):
     def sniff(self, filename):
         """
         Checking if the file is a FlowSOM R object.
+
+        For this to work, need to have install checkFlowSOM.R via bioconda
+        conda install ig-checkflowtypes
         """
         try:
-            rscript = '/home/galaxy/immport-galaxy/checkFlowSOM.R'
+            rscript = 'checkFlowSOM.R'
             fcs_check = subprocess.check_output([rscript, filename])
             if re.search('TRUE', str(fcs_check)):
                 return True
@@ -178,9 +186,12 @@ class FlowSet( Binary ):
     def sniff(self, filename):
         """
         Checking if the file is a flowSet R object.
+
+        For this to work, need to have install checkFlowSet.R via bioconda
+        conda install ig-checkflowtypes
         """
         try:
-            rscript = '/home/galaxy/immport-galaxy/checkFlowSet.R'
+            rscript = 'checkFlowSet.R'
             fcs_check = subprocess.check_output([rscript, filename])
             if re.search('TRUE', str(fcs_check)):
                 return True
