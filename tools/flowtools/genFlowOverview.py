@@ -163,7 +163,22 @@ def get_outliers(group, upper, lower):
 
 def get_boxplot_stats(all_data, mfi_file, output_json):
     # modified code from http://bokeh.pydata.org/en/latest/docs/gallery/boxplot.html
+    # Get initial MFI values
+    mfi = pd.read_table(mfi_file)
+    mfi = mfi.set_index('Population')
+
     df = pd.read_table(all_data)
+    # check if ever some pops not in cs_files
+    missing_pop = [x for x in mfi.index if x not in set(df.Population)]
+
+    if (missing_pop):
+        zeros = {}
+        for m in df.columns:
+            zeros[m] = [0 for x in missing_pop]
+        tmpdf = pd.DataFrame(zeros)
+        tmpdf.Population = missing_pop
+        df = df.append(tmpdf)
+
     pops = df.groupby('Population')
     q1 = pops.quantile(q=0.25)
     q2 = pops.quantile(q=0.5)
@@ -184,9 +199,6 @@ def get_boxplot_stats(all_data, mfi_file, output_json):
                     resampled = True
                 outliers[population][marker] = tmp_outliers
     outdf = pd.DataFrame(outliers)
-    # Get initial MFI values
-    mfi = pd.read_table(mfi_file)
-    mfi = mfi.set_index('Population')
 
     data = {'q1': q1,
             'q2': q2,

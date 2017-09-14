@@ -51,12 +51,9 @@
   </outputs>
   <tests>
     <test>
-      <param name="marker1" value="CD4"/>
-      <param name="type1" value="+"/>
-      <output name="html_file" file="out.html">
-        <extra_files type="file" name="flowCL_res.pdf" value="flowCL_res.pdf" compare="contains"/>
-        <extra_files type="file" name="flowCL_run_summary.txt" value="flowCL_run_summary.txt"/>
-        <extra_files type="file" name="flowCL_table.txt" value="flowCL_table.txt"/>
+      <param name="input_matrix" value="test.flowmfi"/>
+      <output name="html_file" file="heatmap.html">
+        <extra_files type="file" name="mult_view.json" value="mult_view.json" compare="contains"/>
       </output>
     </test>
   </tests>
@@ -84,12 +81,11 @@ The output is an interactive heat-map of the matrix provided.
 
 *Input*: Centroids file::
 
-   Population Marker1 Marker2 Marker3 ...
-   1          38      49      10      ...
-   2          21      63      100     ...
-   3          31      52      45      ...
-   4          11      78      25      ...
-   ...        ...     ...     ...     ...
+   Population Marker1 Marker2 Marker3
+   1          38      49      10
+   2          21      63      100
+   3          31      52      45
+   4          11      78      25
 
 *Interactive Graphical output*
 

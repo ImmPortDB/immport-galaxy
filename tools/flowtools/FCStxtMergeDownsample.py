@@ -51,12 +51,14 @@ def compare_headers(files):
         sys.exit(9)
     return(hdgs_in_common)
 
+
 def get_nb_lines(files):
     tot_event = 0
     for f in files:
         df = pd.read_table(f)
         tot_event += (len(df.index) - 1)
     return(tot_event)
+
 
 def get_headers_index(list_headings, headings):
     idxs = []
@@ -231,7 +233,7 @@ if __name__ == "__main__":
                 ds_factor = float(downsampling_factor)
                 if ds_factor > 1 and ds_factor <= 100:
                     ds_factor = float(downsampling_factor) / 100
-                else:
+                elif ds_factor > 100 or ds_factor <= 0:
                     sys.exit(8)
             else:
                 sys.exit(8)

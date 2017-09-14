@@ -155,7 +155,7 @@ checkFCS <- function(tree, output="", plot="", thresh = 0.05, stats, groups,
   fst <- if (length(fsomtree)==2) fsomtree[[1]] else fsomtree
 
   if (tree_valid){
-    tree_markers <- as.vector(gsub(' <.*>','',fst$prettyColnames))
+    tree_markers <- as.vector(fst$prettyColnames)
     tree_channels <- as.vector(colnames(fst$data))
     if (length(tree_markers) < 1){
       quit(save = "no", status = 11, runLast = FALSE)
