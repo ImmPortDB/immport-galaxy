@@ -4,7 +4,7 @@ Example files
 
 //var hzome = ini_hzome();
 
-make_clust('./mult_view.json');
+make_clust('mult_view.json');
 
 var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
 
@@ -24,8 +24,8 @@ function make_clust(inst_network){
         //'matrix_update_callback':matrix_update_callback,
         'cat_update_callback': cat_update_callback,
         'sidebar_width':150,
-        'tile_colors':['#F908DF','#5BB696'],
-        'bar_colors':['#F908DF','#5BB696'],
+        'tile_colors':['#FFFB00','#00A2BF'],
+        'bar_colors':['#FFFB00','#00A2BF'],
         'row_label': "Population / Cluster",
         'col_label': ""
         // 'ini_view':{'N_row_var':20}

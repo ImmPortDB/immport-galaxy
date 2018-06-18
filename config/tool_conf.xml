@@ -4,43 +4,52 @@
     <tool file="data_source/upload.xml" />
   </section>
   <section id="fcsfiletools" name="FCS File Tools">
-    <tool file="flowtools/extractKeywords.xml" />
-    <tool file="flowtools/getFCSheaders.xml" />
-    <tool file="flowtools/FCSstats.xml" />
-    <tool file="flowtools/getDensityPlots.xml" />
-    <tool file="flowtools/FCS1Dplotggcyto.xml" />
-    <tool file="flowtools/FCSflowViz.xml" />
-    <tool file="flowtools/editFCSmarkers.xml" />
-    <tool file="flowtools/FCSMergeDownsample.xml" />
-    <tool file="flowtools/FCSflowAI.xml" />
-    <tool file="flowtools/FCSGateTrans.xml" />
-    <tool file="flowtools/convertFCSToText.xml" />
+    <tool file="flowtools/fcs_tools/extractKeywords.xml" />
+    <tool file="flowtools/fcs_tools/getFCSheaders.xml" />
+    <tool file="flowtools/fcs_tools/FCSstats.xml" />
+    <tool file="flowtools/fcs_tools/getDensityPlots.xml" />
+    <tool file="flowtools/fcs_tools/FCS1Dplotggcyto.xml" />
+    <tool file="flowtools/fcs_tools/FCSflowViz.xml" />
+    <tool file="flowtools/fcs_tools/editFCSmarkers.xml" />
+    <tool file="flowtools/fcs_tools/FCSMergeDownsample.xml" />
+    <tool file="flowtools/fcs_tools/metacyto_preprocess.xml" />
+    <tool file="flowtools/fcs_tools/metacyto_checkpanel.xml" />
+    <tool file="flowtools/fcs_tools/FCSflowAI.xml" />
+    <tool file="flowtools/fcs_tools/FCSGateTrans.xml" />
+    <tool file="flowtools/fcs_tools/convertFCSToText.xml" />
   </section>
   <section id="flowfiletools" name="Flow Text File Tools">
-    <tool file="flowtools/getHeaders.xml" />
-    <tool file="flowtools/FCSstats_text.xml" />
-    <tool file="flowtools/getDensityPlots_text.xml" />
-    <tool file="flowtools/editColumnHeadings.xml" />
-    <tool file="flowtools/FCStxtMergeDownsample.xml" />
-    <tool file="flowtools/txtDiagnosis.xml" />
-    <tool file="flowtools/extractpop.xml" />
-    <tool file="flowtools/collapse_pops.xml" />
-    <tool file="flowtools/auto_collapse_pops.xml" />
-    <tool file="flowtools/flowclrstats.xml" />
+    <tool file="flowtools/ftxt_tools/getHeaders.xml" />
+    <tool file="flowtools/ftxt_tools/FCSstats_text.xml" />
+    <tool file="flowtools/ftxt_tools/getDensityPlots_text.xml" />
+    <tool file="flowtools/ftxt_tools/editColumnHeadings.xml" />
+    <tool file="flowtools/ftxt_tools/FCStxtMergeDownsample.xml" />
+    <tool file="flowtools/ftxt_tools/txtDiagnosis.xml" />
+    <tool file="flowtools/ftxt_tools/extractpop.xml" />
+    <tool file="flowtools/ftxt_tools/collapse_pops.xml" />
+    <tool file="flowtools/ftxt_tools/auto_collapse_pops.xml" />
+    <tool file="flowtools/ftxt_tools/flowclrstats.xml" />
   </section>
   <section id="flowanalysistools" name="Flow Analysis Tools">
-    <tool file="flowtools/runFlockMFI.xml" />
-    <tool file="flowtools/generateMFI.xml" />
-    <tool file="flowtools/runCrossSample.xml" />
-    <tool file="flowtools/FlowSOMGenerateTree.xml" />
-    <tool file="flowtools/FlowSOMMApIndividualFCS.xml" />
-    <tool file="flowtools/FlowSOMCompare.xml" /> 
-    <tool file="flowtools/getOntology.xml" />
-    <tool file="flowtools/profileCLs.xml" />
+    <tool file="flowtools/analysis/runFlockMFI.xml" />
+    <tool file="flowtools/analysis/generateMFI.xml" />
+    <tool file="flowtools/analysis/runCrossSample.xml" />
+    <tool file="flowtools/analysis/FlowSOMGenerateTree.xml" />
+    <tool file="flowtools/analysis/FlowSOMMApIndividualFCS.xml" />
+    <tool file="flowtools/analysis/FlowSOMCompare.xml" /> 
+    <tool file="flowtools/analysis/metacyto_autocluster.xml" />
+    <tool file="flowtools/analysis/metacyto_search_clr.xml" />
+    <tool file="flowtools/analysis/getOntology.xml" />
+    <tool file="flowtools/analysis/profileCLs.xml" />
   </section>
   <section id="flowvisualizationtools" name="Flow Visualization Tools">
-    <tool file="flowtools/genFlowOverview.xml" />
-    <tool file="flowtools/crossSampleOverview.xml" />
-    <tool file="flowtools/clustergrammerIPG.xml" />
+    <tool file="flowtools/viz/genFlowOverview.xml" />
+    <tool file="flowtools/viz/crossSampleOverview.xml" />
+    <tool file="flowtools/viz/clustergrammerIPG.xml" />
+    <tool file="flowtools/viz/metacyto_histogram.xml" />
+  </section>
+  <section id="metadataanalysis" name="Phenotype Correlation Analysis" >
+    <tool file="flowtools/pheno_corr/metacyto_glm_all.xml" />
+    <tool file="flowtools/pheno_corr/metacyto_glm_clr.xml" />
   </section>
 </toolbox>

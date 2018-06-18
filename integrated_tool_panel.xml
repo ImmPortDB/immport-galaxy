@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<toolbox>
+    <!--
+    This is Galaxy's integrated tool panel and should be modified directly only for
+    reordering tools inside a section. Each time Galaxy starts up, this file is
+    synchronized with the various tool config files: tools, sections and labels
+    added to one of these files, will be added also here in the appropriate place,
+    while elements removed from the tool config files will be correspondingly
+    deleted from this file.
+    To modify locally managed tools (e.g. from tool_conf.xml) modify that file
+    directly and restart Galaxy. Whenever possible Tool Shed managed tools (e.g.
+    from shed_tool_conf.xml) should be managed from within the Galaxy interface or
+    via its API - but if changes are necessary (such as to hide a tool or re-assign
+    its section) modify that file and restart Galaxy.
+    -->
+    <section id="flowfileupload" name="Upload Files" version="">
+
+        <tool id="upload1" />
+
+    </section>
+
+    <section id="fcsfiletools" name="FCS File Tools" version="">
+
+        <tool id="extract_fcs_keywords" />
+
+        <tool id="get_fcs_headers" />
+
+        <tool id="get_fcs_stats" />
+
+        <tool id="gen_density_plots" />
+
+        <tool id="ggcyto_1d_density_plots" />
+
+        <tool id="flowviz_density_plots" />
+
+        <tool id="edit_fcs_markers" />
+
+        <tool id="fcs_merge_downsample" />
+
+        <tool id="metacyto_preprocess" />
+
+        <tool id="metacyto_checkpanel" />
+
+        <tool id="flowAI" />
+
+        <tool id="fcs_gate_trans_convert" />
+
+        <tool id="convert_fcs_to_text" />
+
+    </section>
+
+    <section id="flowfiletools" name="Flow Text File Tools" version="">
+
+        <tool id="get_headers" />
+
+        <tool id="get_txt_fcs_stats" />
+
+        <tool id="gen_density_plots_txt" />
+
+        <tool id="edit_rearrange_columns" />
+
+        <tool id="fcstxt_merge_downsample" />
+
+        <tool id="txt_diagnosis" />
+
+        <tool id="extract_pop" />
+
+        <tool id="collapse_populations" />
+
+        <tool id="auto_collapse_populations" />
+
+        <tool id="flowclr_stats" />
+
+    </section>
+
+    <section id="flowanalysistools" name="Flow Analysis Tools" version="">
+
+        <tool id="run_flock" />
+
+        <tool id="generate_mfi" />
+
+        <tool id="run_cross_sample" />
+
+        <tool id="flowsom_tree" />
+
+        <tool id="flowsom_cross_comp" />
+
+        <tool id="flowsom_compare" />
+
+        <tool id="metacyto_autocluster" />
+
+        <tool id="metacyto_search_clr" />
+
+        <tool id="get_cell_ontology" />
+
+        <tool id="get_profiles_cell_ontology" />
+
+    </section>
+
+    <section id="flowvisualizationtools" name="Flow Visualization Tools" version="">
+
+        <tool id="gen_flow_overview" />
+
+        <tool id="cross_sample_overview" />
+
+        <tool id="clustergrammer_flow" />
+
+        <tool id="metacyto_histogram" />
+
+    </section>
+
+    <section id="metadataanalysis" name="Phenotype Correlation Analysis" version="">
+
+        <tool id="metacyto_glm_all" />
+
+        <tool id="metacyto_glm_clr" />
+
+    </section>
+
+</toolbox>

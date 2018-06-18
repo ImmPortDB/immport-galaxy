@@ -1,9 +1,11 @@
 #!/usr/bin/env Rscript
-############################################
+###########################################
 #  Support for FlowSet sniffer function  #
 ############################################
 
+sink(stdout(), type = "message")
 library(flowCore)
+sink(NULL, type="message")
 
 checkFlowSet <- function(inputf) {
   isValid <- FALSE

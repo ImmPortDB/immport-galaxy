@@ -81,12 +81,8 @@
         class_plural = "Libraries"
     elif a_class == model.HistoryDatasetAssociation:
         class_plural = "Datasets"
-    elif a_class == model.SampleDataset:
-        class_plural = "Sample Datasets"
     elif a_class == model.FormDefinitionCurrent:
         class_plural = "Forms"
-    elif a_class == model.RequestType:
-        class_plural = "request types"
     elif a_class == model.UserOpenID:
         class_plural = "OpenIDs"
     else:
@@ -108,6 +104,21 @@
             return "page"
         elif isinstance( item, model.Visualization ):
             return "visualization"
+    %>
+</%def>
+
+<%def name="modern_route_for_controller( controller )">
+    <%
+        if controller == "history":
+            return "histories"
+        elif controller == "workflow":
+            return "workflows"
+        elif controller == "dataset":
+            return "datasets"
+        elif controller == "page":
+            return "pages"
+        else:
+            return controller
     %>
 </%def>
 
@@ -138,7 +149,7 @@
     %if history.slug and history.user.username:
         <% return h.url_for( controller='/history', action='display_by_username_and_slug', username=history.user.username, slug=history.slug, qualified=qualify ) %>
     %else:
-        <% return h.url_for( controller='/history', action='view', id=trans.security.encode_id( history.id ), qualified=qualify, use_panels=context.get('use_panels', True) ) %>
+        <% return h.url_for("/histories/view", id=trans.security.encode_id( history.id ), qualified=qualify) %>
     %endif
 </%def>
 

@@ -1,2 +1,1 @@
-define(["i18n!nls/locale"],function(a){if(a.hasOwnProperty("__root")){var b="undefined"==typeof navigator?"__root":(navigator.language||navigator.userLanguage||"__root").toLowerCase();a=a["__"+b]||a["__"+b.split("-")[0]]||a.__root}var c=function(b){return a[b]||b};return c.cacheNonLocalized=!1,c});
-//# sourceMappingURL=../../maps/utils/localization.js.map
+define(["i18n!nls/locale"],function(e){e.hasOwnProperty("__root")&&(locale=sessionStorage.getItem("currentLocale"),locale&&(e=e["__"+locale]||e["__"+locale.split("-")[0]]||e.__root));var o=function(o){return e[o]||o};return o.cacheNonLocalized=!1,o});

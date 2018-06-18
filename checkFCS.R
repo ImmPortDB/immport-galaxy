@@ -3,7 +3,9 @@
 #  Support for FCS sniffer function  #
 ######################################
 
+sink(stdout(), type = "message") 
 library(flowCore)
+sink(NULL, type="message")
 
 checkFCSfile <- function(inputf) {
   isValid <- FALSE

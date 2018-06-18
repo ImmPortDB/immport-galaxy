@@ -3,7 +3,7 @@
 
 <%def name="stylesheets()">
     ## Include "base.css" for styling tool menu and forms (details)
-    ${h.css( "base", "autocomplete_tagging", "tool_menu" )}
+    ${h.css( "base", "autocomplete_tagging" )}
 
     ## But make sure styles for the layout take precedence
     ${parent.stylesheets()}
@@ -41,14 +41,7 @@
     <script type="text/javascript">
         window.globalTS = new Object();
         $( function(){
-            require.config({
-                paths: {
-                    'toolshed': '../toolshed'
-            }
-            });
-            require([ '${config.get( "app" ).get( "jscript" )}' ], function( groups ){
-                app = new groups.ToolshedGroups();
-            });
+            new window.bundleEntries.ToolshedGroups.ToolshedGroups();
         });
     </script>
     <div id="groups_element" style="width: 95%; margin:auto; margin-top:2em; "></div>

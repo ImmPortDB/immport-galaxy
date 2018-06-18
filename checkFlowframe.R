@@ -3,7 +3,9 @@
 #  Support for FlowFrame sniffer function  #
 ############################################
 
+sink(stdout(), type = "message")
 library(flowCore)
+sink(NULL, type="message")
 
 checkFlowFrame <- function(inputf) {
   isValid <- FALSE
