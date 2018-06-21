@@ -66,7 +66,7 @@ gzip_magic = '\037\213'
 bz2_magic = 'BZh'
 DEFAULT_ENCODING = os.environ.get('GALAXY_DEFAULT_ENCODING', 'utf-8')
 NULL_CHAR = '\000'
-BINARY_CHARS = [NULL_CHAR]
+BINARY_CHARS = [NULL_CHAR, 'FCS2.0', 'FCS3.0', 'FCS3.1']
 FILENAME_VALID_CHARS = '.,^_-()[]0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
