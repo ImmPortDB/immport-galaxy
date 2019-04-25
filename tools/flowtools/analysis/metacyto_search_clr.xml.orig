@@ -1,7 +1,7 @@
 <tool id="metacyto_search_clr" name="Guided identification of clusters" version="1.0">
   <description>using MetaCyto</description>
   <requirements>
-    <requirement type="package" version="1.48.0">bioconductor-flowcore</requirement>
+    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
     <requirement type="package" version="1.4.0">bioconductor-metacyto</requirement>
   </requirements>
   <stdio>

@@ -1,8 +1,8 @@
 <tool id="fcs_gate_trans_convert" name="Transform FCS data" version="1.2">
   <description>with optional compensation and automated gating with flowDensity.</description>
   <requirements>
-    <requirement type="package" version="">bioconductor-flowcore</requirement>
-    <requirement type="package" version="">bioconductor-flowdensity</requirement>
+    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
+    <requirement type="package" version="1.10.0">bioconductor-flowdensity</requirement>
   </requirements>
   <stdio>
     <exit_code range="2:" level="fatal" description="See stderr for more details." />

@@ -1,7 +1,7 @@
 <tool id="metacyto_histogram" name="Generate histograms" version="1.0">
   <description>of MetaCyto's clustering results</description>
   <requirements>
-    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
+    <requirement type="package" version="1.48.0">bioconductor-flowcore</requirement>
     <requirement type="package" version="1.4.0">bioconductor-metacyto</requirement>
   </requirements>
   <stdio>
