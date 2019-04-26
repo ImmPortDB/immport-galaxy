@@ -1,7 +1,7 @@
 <tool id="flowsom_compare" name="Compare Samples" version="1.0">
   <description>using a FlowSOM tree</description>
   <requirements>
-    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
+    <requirement type="package" version="">bioconductor-flowcore</requirement>
     <requirement type="package" version="1.8.0">bioconductor-flowsom</requirement>
   </requirements>
   <stdio>

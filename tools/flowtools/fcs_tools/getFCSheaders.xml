@@ -1,7 +1,7 @@
 <tool id="get_fcs_headers" name="Get list of markers" version="2.0">
   <description>and channels in FCS files</description>
   <requirements>
-    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
+    <requirement type="package" version="">bioconductor-flowcore</requirement>
   </requirements>
   <stdio>
     <exit_code range="10" level="warning" description="Not all files are valid FCS files, see output for details." />

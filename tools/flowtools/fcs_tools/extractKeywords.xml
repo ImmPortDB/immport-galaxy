@@ -1,7 +1,7 @@
 <tool id="extract_fcs_keywords" name="Extract keywords" version="1.0">
   <description>from FCS files</description>
   <requirements>
-    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
+    <requirement type="package" version="1.48.0">bioconductor-flowcore</requirement>
   </requirements>
   <stdio>
     <exit_code range="1:" />

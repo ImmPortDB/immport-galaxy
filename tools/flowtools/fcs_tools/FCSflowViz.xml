@@ -1,8 +1,8 @@
 <tool id="flowviz_density_plots" name="Generate stacked density plots" version="1.0">
   <description>for a set of FCS files</description>
   <requirements>
-    <requirement type="package" version="1.42.0">bioconductor-flowcore</requirement>
-    <requirement type="package" version="1.40.0">bioconductor-flowviz</requirement>
+    <requirement type="package" version="">bioconductor-flowcore</requirement>
+    <requirement type="package" version="">bioconductor-flowviz</requirement>
   </requirements>
   <stdio>
     <exit_code range="10" level="fatal" description="Please provide a comma separated list of channels to plot" />
