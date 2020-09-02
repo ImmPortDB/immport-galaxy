@@ -23,6 +23,14 @@
   version "2.0.0-beta1"
   resolved "https://registry.yarnpkg.com/@handsontable/vue/-/vue-2.0.0-beta1.tgz#81bb727dbbe29a8f24181632864a21b26d22965a"
 
+"@nuxt/opencollective@^0.2.1":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@nuxt/opencollective/-/opencollective-0.2.2.tgz#17adc7d380457379cd14cbb64a435ea196cc4a6e"
+  dependencies:
+    chalk "^2.4.1"
+    consola "^2.3.0"
+    node-fetch "^2.3.0"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -160,10 +168,6 @@ ansi-align@^1.0.0:
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-1.1.0.tgz#2f0c1658829739add5ebb15e6b0c6e3423f016ba"
   dependencies:
     string-width "^1.0.1"
-
-ansi-escapes@^1.1.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-1.4.0.tgz#d3a8a83b319aa67793662b13e761c7911422306e"
 
 ansi-escapes@^3.0.0:
   version "3.1.0"
@@ -1080,14 +1084,6 @@ babel-plugin-transform-vue-template@^0.3.1:
     babylon "^6.17.4"
     vue-template-es2015-compiler "^1.5.3"
 
-babel-polyfill@6.23.0:
-  version "6.23.0"
-  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
-  dependencies:
-    babel-runtime "^6.22.0"
-    core-js "^2.4.0"
-    regenerator-runtime "^0.10.0"
-
 babel-preset-env@^1.5.2, babel-preset-env@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.6.1.tgz#a18b564cc9b9afdf4aae57ae3c1b0d99188e6f48"
@@ -1396,28 +1392,18 @@ boom@5.x.x:
     jquery "^3.0.0"
     popper.js "^1.12.3"
 
-bootstrap-vue@^2.0.0-rc.8:
-  version "2.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.0.0-rc.8.tgz#f0c515fb812b38612ee1f35f4bb2d6a1b6a5fe3e"
+bootstrap-vue@^2.0.0-rc.12:
+  version "2.0.0-rc.12"
+  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.0.0-rc.12.tgz#c795f490e3ac2fdace4285b9cb19f2b2ef2995b0"
   dependencies:
-    bootstrap "^4.0.0"
-    lodash.get "^4.4.2"
-    lodash.startcase "^4.4.0"
-    opencollective "^1.0.3"
-    popper.js "^1.12.9"
-    vue-functional-data-merge "^2.0.5"
+    "@nuxt/opencollective" "^0.2.1"
+    bootstrap "^4.3.1"
+    popper.js "^1.14.7"
+    vue-functional-data-merge "^2.0.7"
 
-bootstrap@>=4.0.0-beta:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0.tgz#ceb03842c145fcc1b9b4e15da2a05656ba68469a"
-
-bootstrap@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.0.tgz#110b05c31a236d56dbc9adcda6dd16f53738a28a"
-
-bootstrap@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.1.tgz#3aec85000fa619085da8d2e4983dfd67cf2114cb"
+bootstrap@>=4.0.0-beta, bootstrap@^4.1.1, bootstrap@^4.3.1:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.2.tgz#a85c4eda59155f0d71186b6e6ad9b875813779ab"
 
 boxen@^0.5.1:
   version "0.5.1"
@@ -1807,6 +1793,14 @@ chalk@^2.3.0:
     escape-string-regexp "^1.0.5"
     supports-color "^4.0.0"
 
+chalk@^2.4.1:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
+  dependencies:
+    ansi-styles "^3.2.1"
+    escape-string-regexp "^1.0.5"
+    supports-color "^5.3.0"
+
 character-entities-html4@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/character-entities-html4/-/character-entities-html4-1.1.1.tgz#359a2a4a0f7e29d3dc2ac99bdbe21ee39438ea50"
@@ -2192,7 +2186,7 @@ compressible@~2.0.13:
 
 compression@^1.5.2:
   version "1.7.2"
-  resolved "http://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
+  resolved "https://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
   dependencies:
     accepts "~1.3.4"
     bytes "3.0.0"
@@ -2277,6 +2271,10 @@ connect@^3.6.0:
     finalhandler "1.0.6"
     parseurl "~1.3.2"
     utils-merge "1.0.1"
+
+consola@^2.3.0:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/consola/-/consola-2.15.0.tgz#40fc4eefa4d2f8ef2e2806147f056ea207fcc0e9"
 
 console-browserify@1.1.x, console-browserify@^1.1.0:
   version "1.1.0"
@@ -3589,14 +3587,6 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
 extend@^3.0.0, extend@~3.0.0, extend@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
-
-external-editor@^2.0.1:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/external-editor/-/external-editor-2.2.0.tgz#045511cfd8d133f3846673d1047c154e214ad3d5"
-  dependencies:
-    chardet "^0.4.0"
-    iconv-lite "^0.4.17"
-    tmp "^0.0.33"
 
 external-editor@^2.0.4:
   version "2.1.0"
@@ -5050,24 +5040,6 @@ ini@^1.3.4, ini@~1.3.0:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
 
-inquirer@3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.0.6.tgz#e04aaa9d05b7a3cb9b0f407d04375f0447190347"
-  dependencies:
-    ansi-escapes "^1.1.0"
-    chalk "^1.0.0"
-    cli-cursor "^2.1.0"
-    cli-width "^2.0.0"
-    external-editor "^2.0.1"
-    figures "^2.0.0"
-    lodash "^4.3.0"
-    mute-stream "0.0.7"
-    run-async "^2.2.0"
-    rx "^4.1.0"
-    string-width "^2.0.0"
-    strip-ansi "^3.0.0"
-    through "^2.3.6"
-
 inquirer@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.3.0.tgz#9dd2f2ad765dcab1ff0443b491442a20ba227dc9"
@@ -5562,9 +5534,9 @@ jquery.cookie@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jquery.cookie/-/jquery.cookie-1.4.1.tgz#d63dce209eab691fe63316db08ca9e47e0f9385b"
 
-jquery@2:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
+jquery@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.0.0.tgz#95a2a9541291a9f819e016f85ba247116d03e4ab"
 
 jquery@^3.0.0:
   version "3.3.1"
@@ -6129,10 +6101,6 @@ lodash.mergewith@^4.6.0:
 lodash.restparam@^3.0.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/lodash.restparam/-/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
-
-lodash.startcase@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/lodash.startcase/-/lodash.startcase-4.4.0.tgz#9436e34ed26093ed7ffae1936144350915d9add8"
 
 lodash.tail@^4.1.1:
   version "4.1.1"
@@ -6803,19 +6771,16 @@ node-bitmap@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/node-bitmap/-/node-bitmap-0.0.1.tgz#180eac7003e0c707618ef31368f62f84b2a69091"
 
-node-fetch@1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"
-  dependencies:
-    encoding "^0.1.11"
-    is-stream "^1.0.1"
-
 node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
+
+node-fetch@^2.3.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
 
 node-forge@0.7.1:
   version "0.7.1"
@@ -7186,24 +7151,6 @@ onetime@^2.0.0:
   resolved "https://registry.yarnpkg.com/onetime/-/onetime-2.0.1.tgz#067428230fd67443b2794b22bba528b6867962d4"
   dependencies:
     mimic-fn "^1.0.0"
-
-opencollective@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/opencollective/-/opencollective-1.0.3.tgz#aee6372bc28144583690c3ca8daecfc120dd0ef1"
-  dependencies:
-    babel-polyfill "6.23.0"
-    chalk "1.1.3"
-    inquirer "3.0.6"
-    minimist "1.2.0"
-    node-fetch "1.6.3"
-    opn "4.0.2"
-
-opn@4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/opn/-/opn-4.0.2.tgz#7abc22e644dff63b0a96d5ab7f2790c0f01abc95"
-  dependencies:
-    object-assign "^4.0.1"
-    pinkie-promise "^2.0.0"
 
 opn@5.1.0:
   version "5.1.0"
@@ -7682,13 +7629,9 @@ pngparse@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/pngparse/-/pngparse-1.1.4.tgz#4831be035ed2ce5fd4fb5381e45101cfd60ea84e"
 
-popper.js@^1.12.3:
-  version "1.14.2"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.2.tgz#066e8e1613e65e69ba050f4b78e7bd4c8d54e443"
-
-popper.js@^1.12.9, popper.js@^1.14.3:
-  version "1.14.3"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.3.tgz#1438f98d046acf7b4d78cd502bf418ac64d4f095"
+popper.js@^1.12.3, popper.js@^1.14.3, popper.js@^1.14.7:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
 
 portfinder@^1.0.9:
   version "1.0.13"
@@ -8551,10 +8494,6 @@ regenerate@^1.2.1:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.3.3.tgz#0c336d3980553d755c39b586ae3b20aa49c82b7f"
 
-regenerator-runtime@^0.10.0:
-  version "0.10.5"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz#336c3efc1220adcedda2c9fab67b5a7955a33658"
-
 regenerator-runtime@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.0.tgz#7e54fe5b5ccd5d6624ea6255c3473be090b802e1"
@@ -8949,10 +8888,6 @@ rx-lite@*, rx-lite@^4.0.8:
 rx@2.3.24:
   version "2.3.24"
   resolved "https://registry.yarnpkg.com/rx/-/rx-2.3.24.tgz#14f950a4217d7e35daa71bbcbe58eff68ea4b2b7"
-
-rx@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
 safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
@@ -10599,9 +10534,9 @@ vue-docgen-api@^2.3.4:
     vue "^2.4.2"
     vue-template-compiler "^2.4.2"
 
-vue-functional-data-merge@^2.0.5:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-2.0.6.tgz#f08055adfb92458debcf2ad10c3aa712277f7fc2"
+vue-functional-data-merge@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-2.0.7.tgz#bdee655181eacdcb1f96ce95a4cc14e75313d1da"
 
 vue-hot-reload-api@^2.2.0:
   version "2.2.3"
