@@ -123,7 +123,7 @@ svgwrite==1.1.12
 tempita==0.5.2
 tzlocal==1.5.1
 unicodecsv==0.14.1; python_version < '3.0'
-urllib3==1.22
+urllib3==1.26.5
 uwsgi==2.0.17
 vine==1.1.4
 warlock==1.2.0
