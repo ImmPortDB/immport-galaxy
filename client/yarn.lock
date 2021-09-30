@@ -23,6 +23,12 @@
   version "2.0.0-beta1"
   resolved "https://registry.yarnpkg.com/@handsontable/vue/-/vue-2.0.0-beta1.tgz#81bb727dbbe29a8f24181632864a21b26d22965a"
 
+"@types/pikaday@1.7.4":
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/@types/pikaday/-/pikaday-1.7.4.tgz#aa41f928f0f5af31a4a656f471a78177a9260abf"
+  dependencies:
+    moment ">=2.14.0"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -1310,6 +1316,10 @@ big.js@^3.1.3:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-3.2.0.tgz#a5fc298b81b9e0dca2e458824784b65c52ba588e"
 
+bignumber.js@^8.0.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-8.1.1.tgz#4b072ae5aea9c20f6730e4e5d529df1271c4d885"
+
 bin-pack@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/bin-pack/-/bin-pack-1.0.2.tgz#c2a014edbf0bed70a3292062ed46577b96120679"
@@ -1831,6 +1841,12 @@ check-error@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
 
+chevrotain@^6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/chevrotain/-/chevrotain-6.5.0.tgz#dcbef415516b0af80fd423cc0d96b28d3f11374e"
+  dependencies:
+    regexp-to-ast "0.4.0"
+
 chokidar@1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.6.1.tgz#2f4447ab5e96e50fb3d789fd90d4c72e0e4c70c2"
@@ -2192,7 +2208,7 @@ compressible@~2.0.13:
 
 compression@^1.5.2:
   version "1.7.2"
-  resolved "http://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
+  resolved "https://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
   dependencies:
     accepts "~1.3.4"
     bytes "3.0.0"
@@ -2366,6 +2382,10 @@ core-js@^1.0.0, core-js@^1.2.6:
 core-js@^2.0.0, core-js@^2.2.0, core-js@^2.4.0, core-js@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.1.tgz#ae6874dc66937789b80754ff5428df66819ca50b"
+
+core-js@^3.0.0, core-js@^3.6.4:
+  version "3.18.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.18.1.tgz#289d4be2ce0085d40fc1244c0b1a54c00454622f"
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -2964,6 +2984,10 @@ domhandler@^2.3.0:
   resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-2.4.1.tgz#892e47000a99be55bbf3774ffea0561d8879c259"
   dependencies:
     domelementtype "1"
+
+dompurify@^2.1.1:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.3.3.tgz#c1af3eb88be47324432964d8abc75cf4b98d634c"
 
 domutils@1.1:
   version "1.1.6"
@@ -4623,13 +4647,18 @@ handlebars@~3.0.0:
   optionalDependencies:
     uglify-js "~2.3"
 
-handsontable@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/handsontable/-/handsontable-2.0.0.tgz#b22fbd61d3193eb63b9c798e73843f55856ef022"
+handsontable@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/handsontable/-/handsontable-10.0.0.tgz#f9607d23a8f532d647c433c05793863125df1af1"
   dependencies:
-    moment "2.20.1"
-    numbro "1.11.0"
-    pikaday "1.5.1"
+    "@types/pikaday" "1.7.4"
+    core-js "^3.0.0"
+    dompurify "^2.1.1"
+    moment "2.24.0"
+    numbro "2.1.2"
+    pikaday "1.8.0"
+  optionalDependencies:
+    hyperformula "^1.2.0"
 
 har-schema@^1.0.5:
   version "1.0.5"
@@ -4959,6 +4988,16 @@ http-signature@~1.2.0:
 https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
+
+hyperformula@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/hyperformula/-/hyperformula-1.2.0.tgz#e0115fe415e21fb2fa9beb287077c66f420cb3f1"
+  dependencies:
+    chevrotain "^6.5.0"
+    core-js "^3.6.4"
+    regenerator-runtime "^0.13.3"
+    tiny-emitter "^2.1.0"
+    unorm "^1.6.0"
 
 hyphenate-style-name@^1.0.2:
   version "1.0.2"
@@ -5562,9 +5601,9 @@ jquery.cookie@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jquery.cookie/-/jquery.cookie-1.4.1.tgz#d63dce209eab691fe63316db08ca9e47e0f9385b"
 
-jquery@2:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
+jquery@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.0.0.tgz#95a2a9541291a9f819e016f85ba247116d03e4ab"
 
 jquery@^3.0.0:
   version "3.3.1"
@@ -6657,9 +6696,13 @@ mocha@^5.0.5:
     mkdirp "0.5.1"
     supports-color "4.4.0"
 
-moment@2.20.1, moment@2.x:
-  version "2.20.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+moment@2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+
+moment@>=2.14.0:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -7060,9 +7103,11 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-numbro@1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/numbro/-/numbro-1.11.0.tgz#39aa17b358b4682aec8ca0d5755f35c5d9ce8f9e"
+numbro@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/numbro/-/numbro-2.1.2.tgz#2d51104f09b5d69aef7e15bb565d7795e47ecfd6"
+  dependencies:
+    bignumber.js "^8.0.1"
 
 oauth-sign@~0.8.1, oauth-sign@~0.8.2:
   version "0.8.2"
@@ -7605,11 +7650,9 @@ pify@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
 
-pikaday@1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/pikaday/-/pikaday-1.5.1.tgz#0a48549bc1a14ea1d08c44074d761bc2f2bfcfd3"
-  optionalDependencies:
-    moment "2.x"
+pikaday@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/pikaday/-/pikaday-1.8.0.tgz#ce930e257042e852e6aadee1115e01554b2d71c5"
 
 pinkie-promise@^1.0.0:
   version "1.0.0"
@@ -8559,6 +8602,10 @@ regenerator-runtime@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.0.tgz#7e54fe5b5ccd5d6624ea6255c3473be090b802e1"
 
+regenerator-runtime@^0.13.3:
+  version "0.13.9"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
+
 regenerator-transform@^0.10.0:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/regenerator-transform/-/regenerator-transform-0.10.1.tgz#1e4996837231da8b7f3cf4114d71b5691a0680dd"
@@ -8579,6 +8626,10 @@ regex-not@^1.0.0, regex-not@^1.0.2:
   dependencies:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
+
+regexp-to-ast@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/regexp-to-ast/-/regexp-to-ast-0.4.0.tgz#f3dbcb42726cd71902ba50193f63eab5325cd7cb"
 
 regexpu-core@^1.0.0:
   version "1.0.0"
@@ -9948,6 +9999,10 @@ timers-ext@^0.1.2:
     es5-ext "~0.10.14"
     next-tick "1"
 
+tiny-emitter@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
+
 tmp@0.0.31, tmp@0.0.x:
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.31.tgz#8f38ab9438e17315e5dbd8b3657e8bfb277ae4a7"
@@ -10324,6 +10379,10 @@ unist-util-visit@^1.1.0, unist-util-visit@^1.3.0:
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.3.0.tgz#41ca7c82981fd1ce6c762aac397fc24e35711444"
   dependencies:
     unist-util-is "^2.1.1"
+
+unorm@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/unorm/-/unorm-1.6.0.tgz#029b289661fba714f1a9af439eb51d9b16c205af"
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
