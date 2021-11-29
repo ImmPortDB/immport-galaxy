@@ -13,7 +13,7 @@ graphitesend
 docker
 azure-storage==0.32.0
 # PyRods not in PyPI
-python-ldap==2.4.44
+python-ldap==3.4.0
 python-pam
 cloudbridge==0.3.3
 
