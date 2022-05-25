@@ -84,7 +84,7 @@ pycparser==2.18
 pycrypto==2.6.1
 pycryptodomex==3.6.0
 pyjwkest==1.4.0
-pyjwt==1.6.1
+pyjwt==2.4.0
 pykwalify==1.6.1
 pynacl==1.2.1
 pyparsing==2.2.0
